@@ -5,7 +5,7 @@
     "scripts": {
         "dev": "next dev",
         "build": "next build",
-        "start": "next start",
+        "start": "node server.js",
         "svgr": "npx @svgr/cli -d src/components/icons --ignore-existing --icon --typescript public/icons",
         "lint": "eslint '**/*.{js,jsx,ts,tsx}'",
         "prettier": "prettier --write '**/*.{js,jsx,ts,tsx}'",
