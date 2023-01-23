@@ -1,0 +1,25 @@
+{
+  "name": "StudiomartFE",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "workspaces": [
+    "apps/*",
+    "packages/config/*",
+    "packages/shared/*"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "packageManager": "yarn@1.22.17",
+  "devDependencies": {
+    "turborepo": "^0.0.1"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "turbo run format"
+  }
+}

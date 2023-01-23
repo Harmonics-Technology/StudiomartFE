@@ -1,0 +1,78 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Codespaces
+Marketplace
+Explore
+ 
+@adelowomi 
+UjjwolKayastha
+/
+next-chakra-tailwind
+Public
+Fork your own copy of UjjwolKayastha/next-chakra-tailwind
+Code
+Issues
+2
+Pull requests
+Actions
+Projects
+Security
+Insights
+next-chakra-tailwind/.gitignore
+@UjjwolKayastha
+UjjwolKayastha Initial commit from Create Turborepo
+Latest commit 32e5d79 on Jun 30, 2022
+ History
+ 1 contributor
+33 lines (26 sloc)  381 Bytes
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+coverage
+
+# next.js
+.next/
+out/
+build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# turbo
+.turbo
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+next-chakra-tailwind/.gitignore at main · UjjwolKayastha/next-chakra-tailwind
