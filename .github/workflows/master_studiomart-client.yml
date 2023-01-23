@@ -22,7 +22,7 @@ jobs:
           node-version: '18.x'
 
       - name: npm install, build, and test
-        working-directory: app/client
+        working-directory: apps/client
         run: |
           npm install
           npm run build --if-present
@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: ./app/client
+          path: apps/client
 
   deploy:
     runs-on: ubuntu-latest
