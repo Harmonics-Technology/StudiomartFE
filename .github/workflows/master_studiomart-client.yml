@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -22,17 +22,16 @@ jobs:
           node-version: '18.x'
 
       - name: npm install, build, and test
-        working-directory: apps/client
         run: |
           npm install
           npm run build --if-present
-          # npm run test --if-present
-
+          npm run test --if-present
+      
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: apps/client
+          path: .
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,10 +47,10 @@ jobs:
           name: node-app
 
       - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
+        id: deploy-to-webapp
         with:
           app-name: 'studiomart-client'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E3632F699A95433B8A2A9C8670C5DE8F }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C9FBF6614E644F59B66D805B5CA60255 }}
           package: .
