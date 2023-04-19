@@ -103,8 +103,8 @@ const Login = () => {
                 Sign up to Studiomart
               </Heading>
               <Text w="100%" lineHeight={1.5} fontSize="28px">
-                Already have an account? You can <br />
-                <Link href="/login">Sign in here.</Link>
+                Do not have an account? You can <br />
+                <Link href="/register">Sign up here.</Link>
               </Text>
             </Box>
           </Flex>
@@ -151,11 +151,11 @@ const Login = () => {
               <Box w="100%">
                 <VStack spacing={3} w="100%" mt="20px">
                   <Heading fontWeight={600} fontSize="32px" lineHeight={1.5}>
-                    Sign Up
+                    Sign In
                   </Heading>
 
                   <Text color="#54595E" lineHeight={1.5}>
-                    Sign up to get started.
+                    Glad to have you back!.
                   </Text>
                 </VStack>
 

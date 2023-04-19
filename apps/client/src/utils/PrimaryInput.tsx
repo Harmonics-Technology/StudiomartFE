@@ -25,6 +25,7 @@ interface FormProps<TFormValues extends Record<string, unknown>> {
   focusBorderColor?: string;
   required?: boolean;
   validate?: any;
+  borderRadius?: string;
 }
 
 const PrimaryInput = <TFormValues extends Record<string, any>>({
@@ -42,6 +43,7 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
   focusBorderColor,
   required = false,
   validate = {},
+  borderRadius = "4px",
 }: FormProps<TFormValues>) => {
   return (
     <>
@@ -66,7 +68,7 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
             h="50px"
             defaultValue={defaultValue}
             fontWeight={fontWeight}
-            borderRadius="4px"
+            borderRadius={borderRadius}
             focusBorderColor={focusBorderColor ? focusBorderColor : "none"}
             borderColor="#DFDFE6"
             _placeholder={{

@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     }
   }, []);
   OpenAPI.TOKEN = token.token as string;
-  // console.log(OpenAPI.TOKEN);
+  console.log(OpenAPI.BASE);
   return (
     <ChakraProvider theme={theme}>
       <UserProvider>
