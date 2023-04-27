@@ -63,7 +63,7 @@ const Login = () => {
             expires: 10,
           });
         }
-        window.location.href = "/customer";
+        window.location.href = "/vendor/dashboard";
         return;
       }
       toast.error(result.message as string);
@@ -100,11 +100,13 @@ const Login = () => {
                 fontWeight={600}
                 mb="30px"
               >
-                Sign up to Studiomart
+                Sign in to Studiomart
               </Heading>
               <Text w="100%" lineHeight={1.5} fontSize="28px">
                 Already have an account? You can <br />
-                <Link href="/login">Sign in here.</Link>
+                <Text  color="brand.100">
+                  <Link href="/register"  >Sign up here.</Link>
+                  </Text>
               </Text>
             </Box>
           </Flex>
@@ -151,11 +153,11 @@ const Login = () => {
               <Box w="100%">
                 <VStack spacing={3} w="100%" mt="20px">
                   <Heading fontWeight={600} fontSize="32px" lineHeight={1.5}>
-                    Sign Up
+                    Sign In
                   </Heading>
 
                   <Text color="#54595E" lineHeight={1.5}>
-                    Sign up to get started.
+                    Sign in to get started.
                   </Text>
                 </VStack>
 
@@ -236,7 +238,9 @@ const Login = () => {
                     display={["block", "block", "none"]}
                   >
                     Don&apos;t have an account? You can
-                    <Link href="/register">&nbsp;sign up here.</Link>
+                    
+                      <Link href="/register" >&nbsp;sign up here.</Link>
+                    
                   </Text>
                 </Box>
               </Box>

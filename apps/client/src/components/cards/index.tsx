@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { SimpleGrid, Box, Heading, Text } from "@chakra-ui/react";
 
@@ -16,4 +17,24 @@ export const Cards: React.FC = () => {
             ))}
         </SimpleGrid>
     );
+=======
+import React from 'react';
+import { SimpleGrid, Box, Heading, Text } from '@chakra-ui/react';
+
+import data from '@public/meta.json';
+
+export const Cards: React.FC = () => {
+  return (
+    <SimpleGrid columns={4} spacing={10} px={20} py={10}>
+      {(data?.plugins ?? []).map((plugin) => (
+        <Box key={plugin.name} data-testid="container">
+          <Heading fontSize={16} fontWeight="500" py={5}>
+            {plugin.name}
+          </Heading>
+          <Text fontSize={14}>{plugin.description}</Text>
+        </Box>
+      ))}
+    </SimpleGrid>
+  );
+>>>>>>> b037c3a (worked on the ui)
 };

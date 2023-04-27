@@ -5,10 +5,10 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-} from "@chakra-ui/react";
-import React from "react";
-import { FieldError, UseFormRegister, Path } from "react-hook-form";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+} from '@chakra-ui/react';
+import React from 'react';
+import { FieldError, UseFormRegister, Path } from 'react-hook-form';
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 
 interface FormProps<TFormValues extends Record<string, unknown>> {
   name: Path<TFormValues>;
@@ -33,7 +33,7 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
   register,
   error,
   label,
-  type = "text",
+  type = 'text',
   icon = false,
   placeholder,
   fontWeight,
@@ -43,7 +43,11 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
   focusBorderColor,
   required = false,
   validate = {},
+<<<<<<< HEAD
   borderRadius = "4px",
+=======
+  borderRadius = '4px',
+>>>>>>> b037c3a (worked on the ui)
 }: FormProps<TFormValues>) => {
   return (
     <>
@@ -69,10 +73,14 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
             defaultValue={defaultValue}
             fontWeight={fontWeight}
             borderRadius={borderRadius}
+<<<<<<< HEAD
             focusBorderColor={focusBorderColor ? focusBorderColor : "none"}
+=======
+            focusBorderColor={focusBorderColor ? focusBorderColor : 'none'}
+>>>>>>> b037c3a (worked on the ui)
             borderColor="#DFDFE6"
             _placeholder={{
-              fontSize: "14px",
+              fontSize: '14px',
             }}
           />
           {icon && (
@@ -86,7 +94,7 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
           )}
         </InputGroup>
         <FormErrorMessage fontSize=".7rem" color="red">
-          {(error?.type === "required" && `${label} is required`) ||
+          {(error?.type === 'required' && `${label} is required`) ||
             error?.message}
         </FormErrorMessage>
       </FormControl>

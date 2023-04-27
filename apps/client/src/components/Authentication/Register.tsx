@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
+import React, { useState } from 'react';
+import { ChevronLeftIcon } from '@chakra-ui/icons';
 import {
   Box,
   Flex,
@@ -9,6 +9,7 @@ import {
   Checkbox,
   Button,
   Icon,
+<<<<<<< HEAD
 } from "@chakra-ui/react";
 import PrimaryInput from "src/utils/PrimaryInput";
 import SubmitButton from "src/utils/SubmitButton";
@@ -20,6 +21,19 @@ import YupPassword from "yup-password";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { BsCheckCircle } from "react-icons/bs";
+=======
+} from '@chakra-ui/react';
+import PrimaryInput from 'src/utils/PrimaryInput';
+import SubmitButton from 'src/utils/SubmitButton';
+import { RegisterModel, UserService } from 'src/services';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import YupPassword from 'yup-password';
+import toast from 'react-hot-toast';
+import Link from 'next/link';
+import { BsCheckCircle } from 'react-icons/bs';
+>>>>>>> b037c3a (worked on the ui)
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -29,7 +43,11 @@ const validation = yup.object().shape({
   password: yup.string().password(),
   confirmPassword: yup
     .string()
+<<<<<<< HEAD
     .oneOf([yup.ref("password"), null], "Passwords must match"),
+=======
+    .oneOf([yup.ref('password'), null], 'Passwords must match'),
+>>>>>>> b037c3a (worked on the ui)
 });
 
 const Register = () => {
@@ -47,12 +65,20 @@ const Register = () => {
     formState: { errors, isSubmitting },
   } = useForm<RegisterModel>({
     resolver: yupResolver(validation),
+<<<<<<< HEAD
     mode: "all",
+=======
+    mode: 'all',
+>>>>>>> b037c3a (worked on the ui)
   });
 
   const onSubmitRegister = async (data: RegisterModel) => {
     if (!terms) {
+<<<<<<< HEAD
       toast.error("You have not accepted the terms and conditions");
+=======
+      toast.error('You have not accepted the terms and conditions');
+>>>>>>> b037c3a (worked on the ui)
       return;
     }
     // console.log({ data });
@@ -96,7 +122,11 @@ const Register = () => {
         <Flex w="100%" minH="100vh" border="2px hidden blue" color="white">
           <Box
             border="2px hidden green"
+<<<<<<< HEAD
             display={["none", "none", "block"]}
+=======
+            display={['none', 'none', 'block']}
+>>>>>>> b037c3a (worked on the ui)
             w="50%"
             h="auto"
             backgroundImage="/assets/login-hero.svg"
@@ -123,9 +153,15 @@ const Register = () => {
           </Box>
           {/* info */}
           <Box
+<<<<<<< HEAD
             w={["100%", "100%", "50%"]}
             border="4px hidden red"
             h={["100%", "100%", "100vh"]}
+=======
+            w={['100%', '100%', '50%']}
+            border="4px hidden red"
+            h={['100%', '100%', '100vh']}
+>>>>>>> b037c3a (worked on the ui)
             color="black"
             overflow="hidden"
           >
@@ -137,7 +173,11 @@ const Register = () => {
               border="2px hidden green"
             >
               <Box
+<<<<<<< HEAD
                 w={["90%", "75%"]}
+=======
+                w={['90%', '75%']}
+>>>>>>> b037c3a (worked on the ui)
                 mx="auto"
                 border="2px hidden blue"
                 pos="relative"
@@ -173,7 +213,11 @@ const Register = () => {
 
                   <Box
                     w="100%"
+<<<<<<< HEAD
                     h={["100%", "100%", "100%"]}
+=======
+                    h={['100%', '100%', '100%']}
+>>>>>>> b037c3a (worked on the ui)
                     // border="2px hidden green"
                     overflow="auto"
                     py="15px"
@@ -210,7 +254,11 @@ const Register = () => {
                       <PrimaryInput<RegisterModel>
                         label="Password"
                         placeholder="Enter your password"
+<<<<<<< HEAD
                         type={passwordVisible ? "text" : "password"}
+=======
+                        type={passwordVisible ? 'text' : 'password'}
+>>>>>>> b037c3a (worked on the ui)
                         icon={true}
                         passwordVisible={passwordVisible}
                         changeVisibility={changeInputType}
@@ -222,7 +270,11 @@ const Register = () => {
                       <PrimaryInput<RegisterModel>
                         label="Re-enter password"
                         placeholder="Confirm your password"
+<<<<<<< HEAD
                         type={passwordVisible ? "text" : "password"}
+=======
+                        type={passwordVisible ? 'text' : 'password'}
+>>>>>>> b037c3a (worked on the ui)
                         icon={true}
                         passwordVisible={passwordVisible}
                         changeVisibility={changeInputType}
@@ -244,10 +296,17 @@ const Register = () => {
                           size="md"
                           onChange={(e) => setTerms(e.target.checked)}
                         >
+<<<<<<< HEAD
                           I have read, undrestood and accept the{" "}
                           <span
                             style={{
                               color: "#1570FA",
+=======
+                          I have read, undrestood and accept the{' '}
+                          <span
+                            style={{
+                              color: '#1570FA',
+>>>>>>> b037c3a (worked on the ui)
                             }}
                           >
                             Terms and Conditions
@@ -262,8 +321,13 @@ const Register = () => {
                     </form>
 
                     <Text
+<<<<<<< HEAD
                       fontSize={["14px", "16px"]}
                       display={["block", "block", "none"]}
+=======
+                      fontSize={['14px', '16px']}
+                      display={['block', 'block', 'none']}
+>>>>>>> b037c3a (worked on the ui)
                     >
                       Already have an account? You can
                       <Link href="/login">&nbsp;sign in here.</Link>

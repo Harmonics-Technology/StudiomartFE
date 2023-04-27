@@ -1,139 +1,127 @@
-import React from 'react';
-import { Box, Container, Avatar, Badge, Text, Flex, SimpleGrid , Spacer, HStack, Button } from "@chakra-ui/react";
-import NotificationTop from 'src/utils/NotificationTop';
+import React from "react";
+import {
+  Box,
+  Container,
+  Avatar,
+  Grid,
+  Text,
+  Flex,
+  SimpleGrid,
+  Spacer,
+  HStack,
+  Stack,
+  Button,
+} from "@chakra-ui/react";
+import NotificationTop from "src/utils/NotificationTop";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { IoIosArrowForward } from "react-icons/io";
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import data from "@components/Dashboard/data";
 
 const Notification = () => {
   return (
+    <Box fontFamily="DM Sans">
       <Box>
-          <Box>
-    <NotificationTop
-        page={"Notification"}
-        details={"Welcome to your dashboard"}
-            right={true}
-      />
-          </Box>
-          <Box w="90%" my="6">
-       
-     <SimpleGrid  ml="6rem" bg='white'>
-                  <Box  height='100px' borderBottom="1px solid black">
-  <Box ml='3'>
-                          <Flex fontWeight='bold' alignItems="center" >
-                              
-     <Avatar src='#' mt="3"/>
-                              <Text mt="4" ml="4">
-Folashade has created a booking and waiting for your approval. This booking need to be confirmed withing 48 hours. View
+        <NotificationTop
+          page={"Notification"}
+          details={"Welcome to your dashboard"}
+          right={true}
+        />
+      </Box>
 
-</Text>
-                              <Spacer />
-                              <Box marginRight="4" mt="6">
-                                  <BsThreeDotsVertical />
-                                    <Text fontSize="10px">14h ago</Text>
-                                  
-                                  </Box>
-                          </Flex>
-                         
-  </Box>        
-  </Box>
-   {/* <Box bg="white" my="8" mx="8" h="45rem" > */}
-  <Box height='100px' borderBottom="1px solid black">
-  <Box ml='3'>
-                          <Flex fontWeight='bold' alignItems="center" >
-                              
-     <Avatar src='#' mt="3"/>
-                              <Text mt="4" ml="4">
-Folashade has created a booking and waiting for your approval. This booking need to be confirmed withing 48 hours. View
+      <Box w="90%" my="8" h="40rem" bgColor="white" mx="auto" pt="6">
+        <SimpleGrid bg="white">
+          {data.notification.map((info) => (
+            <>
+              <Box height="100px" borderBottom="0.8px solid #D4DDDF">
+                <Box ml="3">
+                  <Flex fontWeight="bold" alignItems="center">
+                    <Box
+                      ml="4"
+                      bgColor="brand.100"
+                      h="10px"
+                      w="10px"
+                      borderRadius="full"
+                    />
+                    <Avatar src="#" mt="2" ml="4" />
 
-</Text>
-                              <Spacer />
-                              <Box marginRight="4" mt="6">
-                                  <BsThreeDotsVertical />
-                                    <Text fontSize="10px">14h ago</Text>
-                                  
-                                  </Box>
-                          </Flex>
-                         
-  </Box>        
-          </Box>
-          
-                  <Box  height='100px' borderBottom="1px solid black">
-  <Box ml='3'>
-                          <Flex fontWeight='bold' alignItems="center" >
-                              
-     <Avatar src='#' mt="3"/>
-                              <Text mt="4" ml="4">
-Folashade has created a booking and waiting for your approval. This booking need to be confirmed withing 48 hours. View
+                    <Text
+                      mt="4"
+                      ml="4"
+                      fontSize="18px"
+                      pr="4rem"
+                      fontWeight="400"
+                    >
+                      {info.message}
+                      <Text as="span" color="brand.100">
+                        {" "}
+                        View
+                      </Text>
+                    </Text>
+                    <Spacer />
+                    <Grid marginRight="4" ml="4" gap={3}>
+                      <Box ml="7">
+                        {" "}
+                        <BsThreeDotsVertical />
+                      </Box>
 
-</Text>
-                              <Spacer />
-                              <Box marginRight="4" mt="6">
-                                  <BsThreeDotsVertical />
-                                    <Text fontSize="10px">14h ago</Text>
-                                  
-                                  </Box>
-                          </Flex>
-                         
-  </Box>        
-          </Box>
-          
-                  <Box height='100px' borderBottom="1px solid black">
-  <Box ml='3'>
-                          <Flex fontWeight='bold' alignItems="center" >
-                              
-     <Avatar src='#' mt="3"/>
-                              <Text mt="4" ml="4">
-Folashade has created a booking and waiting for your approval. This booking need to be confirmed withing 48 hours. View
+                      <Box>
+                        {" "}
+                        <Text fontSize="10px" pl="1" h="18px" w="49px">
+                          {info.time}
+                        </Text>
+                      </Box>
+                    </Grid>
+                  </Flex>
+                </Box>{" "}
+              </Box>{" "}
+            </>
+          ))}
 
-</Text>
-                              <Spacer />
-                              <Box marginRight="4" mt="6">
-                                  <BsThreeDotsVertical />
-                                    <Text fontSize="10px">14h ago</Text>
-                                  
-                                  </Box>
-                          </Flex>
-                         
-  </Box>        
-          </Box>
-          <Box  height='100px' borderBottom="1px  black">
-  <Box ml='3'>
-                          <Flex fontWeight='bold' alignItems="center" >
-                              
-     <Avatar src='#' mt="3"/>
-                              <Text mt="4" ml="4">
-Folashade has created a booking and waiting for your approval. This booking need to be confirmed withing 48 hours. View
-
-</Text>
-                              <Spacer />
-                              <Box marginRight="4" mt="6">
-                                  <BsThreeDotsVertical />
-                                    <Text fontSize="10px">14h ago</Text>
-                                  
-                                  </Box>
-                          </Flex>
-                         
-  </Box>        
-          </Box>
-          
-          
-</SimpleGrid>
-          </Box>
-          <HStack justifyContent="center">
-          <SimpleGrid minChildWidth='10px' spacing='2' w="40%" fontWeight="bold" justifyContent="center" >
-  <Button  bg='white' height='30px' cursor="default" >Prev</Button>
-  <Button  bg='white' height='30px' cursor="default">1</Button>
-  <Button  bg='white' height='30px'cursor="default"> 2</Button>
-  <Button  bg='white' height='30px' cursor="default">3</Button>
-  <Button bg='white' height='30px' cursor="default">4</Button>
-  <Button  height='30px' cursor="default" colorScheme='blue'><Flex>Next <IoIosArrowForward /></Flex></Button>
-              </SimpleGrid>
-              </HStack>
+          <HStack justifyContent="center" mt="3rem">
+            <SimpleGrid
+              minChildWidth="10px"
+              spacing="2"
+              w="40%"
+              fontWeight="500"
+              fontSize="20px"
+              justifyContent="center"
+            >
+              <Button
+                bg="white"
+                height="2rem"
+                w="4rem"
+                cursor="default"
+                ml="-3"
+              >
+                <Flex>
+                  <ChevronLeftIcon mt="1px" />
+                  Prev.
+                </Flex>
+              </Button>
+              <Button bg="white" height="30px" cursor="default">
+                1
+              </Button>
+              <Button bg="white" height="30px" cursor="default">
+                {" "}
+                2
+              </Button>
+              <Button bg="white" height="30px" cursor="default">
+                3
+              </Button>
+              <Button bg="white" height="30px" cursor="default">
+                4...
+              </Button>
+              <Button height="2rem" w="4rem" cursor="default" bg="brand.100">
+                <Flex color="white">
+                  Next <ChevronRightIcon color="white" mt="1px" />
+                </Flex>
+              </Button>
+            </SimpleGrid>
+          </HStack>
+        </SimpleGrid>
+      </Box>
     </Box>
-    
-     
+  );
+};
 
-  )
-}
-
-export default Notification
+export default Notification;
