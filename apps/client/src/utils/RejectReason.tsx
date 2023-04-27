@@ -10,10 +10,11 @@ const schema = yup.object().shape({
 });
 
 interface CleaningModel {
-    numberOfBedrooms: string;
+    numberOfBedrooms?: string;
+    reject: any;
 }
 
-function RejectReason() {
+function RejectReason({reject}: CleaningModel) {
     const {
         register,
         handleSubmit,
@@ -27,7 +28,7 @@ function RejectReason() {
     };
     return (
         <Box>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            {/* <form onSubmit={handleSubmit(onSubmit)}> */}
                 <Text fontWeight="600" fontSize="24px" mb="0">
                     Reason
                 </Text>
@@ -47,10 +48,11 @@ function RejectReason() {
                     color="white"
                     disabled={!isValid}
                     mb="1rem"
+                    onClick={reject}
                 >
                     Submit
                 </Button>
-            </form>
+            {/* </form> */}
         </Box>
     );
 }
