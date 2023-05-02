@@ -14,8 +14,7 @@ import Link from "next/link";
 // import ExploreStudioCard from "./ExploreStudioCard";
 import PopularStudioCard from "./PopularStudioCard";
 import TextTransition, { presets } from "react-text-transition";
-import BookNowLink from "src/utils/BookNowLink";
-import { ExploreStudioCard } from "ui";
+import { ExploreStudioCard, BookNowLink } from "ui";
 
 const studios = [
   "music studio",

@@ -66,6 +66,24 @@ const data = {
       image: "/assets/top1.png",
       Order: "3 orders",
     },
+    {
+      id: 1,
+      heading: "Bridal Makeover",
+      image: "/assets/top1.png",
+      Order: "3 orders",
+    },
+    {
+      id: 1,
+      heading: "Bridal Makeover",
+      image: "/assets/top1.png",
+      Order: "3 orders",
+    },
+    {
+      id: 1,
+      heading: "Bridal Makeover",
+      image: "/assets/top2.png",
+      Order: "3 orders",
+    },
   ],
   Table: [
     {

@@ -10,6 +10,7 @@ import { request as __request } from '../core/request';
 export class UtilityService {
 
     /**
+     * Get a list of banks
      * @returns BanksIEnumerableStandardResponse Success
      * @throws ApiError
      */

@@ -23,6 +23,8 @@
     "format": "turbo run format"
   },
   "dependencies": {
+    "@types/react-slick": "^0.23.10",
+    "react-responsive-carousel": "^3.2.23",
     "turbo": "^1.8.3"
   }
 }

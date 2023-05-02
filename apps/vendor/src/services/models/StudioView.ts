@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 export type StudioView = {
+    id?: string;
     name?: string | null;
     description?: string | null;
     address?: string | null;

@@ -10,6 +10,7 @@ import { request as __request } from '../core/request';
 export class PaymentService {
 
     /**
+     * Verify payment using the transaction reference and transaction id
      * @returns ObjectStandardResponse Success
      * @throws ApiError
      */

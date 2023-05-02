@@ -26,6 +26,7 @@
         "@emotion/styled": "^11.0.0",
         "@hookform/resolvers": "^2.9.7",
         "@types/js-cookie": "^3.0.2",
+        "@uploadcare/react-widget": "^2.4.3",
         "axios": "^0.21.1",
         "framer-motion": "^8.4.2",
         "js-cookie": "^3.0.1",
@@ -52,6 +53,7 @@
         "styled-system": "^5.1.5",
         "ui": "*",
         "use-debounce": "^9.0.2",
+        "use-dynamic-refs": "^1.0.0",
         "yup": "^0.32.11",
         "yup-password": "^0.2.2"
     },
@@ -72,8 +74,8 @@
         "next-transpile-modules": "^10.0.0",
         "nock": "^13.0.6",
         "ts-jest": "^26.4.4",
-        "typescript": "^4.1.3",
-        "tsconfig": "*"
+        "tsconfig": "*",
+        "typescript": "^4.1.3"
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx}": [

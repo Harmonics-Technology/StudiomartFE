@@ -28,6 +28,8 @@ export type { ServiceView } from './models/ServiceView';
 export type { ServiceViewStandardResponse } from './models/ServiceViewStandardResponse';
 export type { StringStandardResponse } from './models/StringStandardResponse';
 export type { StudioView } from './models/StudioView';
+export type { StudioViewPagedCollection } from './models/StudioViewPagedCollection';
+export type { StudioViewPagedCollectionStandardResponse } from './models/StudioViewPagedCollectionStandardResponse';
 export type { TransactionView } from './models/TransactionView';
 export type { TransactionViewPagedCollection } from './models/TransactionViewPagedCollection';
 export type { TransactionViewPagedCollectionStandardResponse } from './models/TransactionViewPagedCollectionStandardResponse';

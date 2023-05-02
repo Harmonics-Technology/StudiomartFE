@@ -9,40 +9,22 @@ import Login from "@components/Authentication/Login";
 
 export const Layout: React.FC = ({ children }) => {
   const router = useRouter();
-  const vendor = router.pathname.startsWith("/vendor");
+  const noNav =
+    router.asPath.startsWith("/login") || router.asPath.startsWith("/register");
   return (
     <>
-      {vendor ? (
-        // {!admin === null || !admin === undefined ? (
-        //     <Login />
-        <>
-          <Flex pos="relative" bg="#f6f7f8">
-            <VendorSideNav />
-            <Box w={["full", "84%"]} as="main" ml="auto" minH="95vh">
-              <VendorHeader />
-              <Box as="div" w="100%" mb="3rem">
-                <Box>{children}</Box>
-              </Box>
-            </Box>
-          </Flex>
-        </>
+      {noNav ? (
+        <Box>{children}</Box>
       ) : (
-        <>
-          {router.asPath === "/login" ||
-          router.asPath === "/register" ? null : router.pathname.startsWith(
-              "/customer"
-            ) ? (
-            <CustomerHeader />
-          ) : (
-            <Header />
-          )}
-          {children}
-
-          {router.asPath === "/login" ||
-          router.asPath === "/register" ? null : (
-            <Footer />
-          )}
-        </>
+        <Flex pos="relative" bg="#f6f7f8">
+          <VendorSideNav />
+          <Box w={["full", "82%"]} as="main" ml="auto" minH="95vh">
+            <VendorHeader />
+            <Box as="div" w="100%" mb="3rem">
+              <Box>{children}</Box>
+            </Box>
+          </Box>
+        </Flex>
       )}
     </>
   );

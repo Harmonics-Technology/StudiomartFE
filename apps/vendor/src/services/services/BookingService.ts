@@ -14,6 +14,7 @@ import { request as __request } from '../core/request';
 export class BookingService {
 
     /**
+     * Lookup for a date and time to see if it is available
      * @returns BooleanStandardResponse Success
      * @throws ApiError
      */
@@ -31,7 +32,7 @@ requestBody?: LookupModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
             },
@@ -39,6 +40,7 @@ requestBody?: LookupModel,
     }
 
     /**
+     * Create a new booking
      * @returns BookingViewStandardResponse Success
      * @throws ApiError
      */
@@ -56,7 +58,7 @@ requestBody?: BookingModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
             },
@@ -64,6 +66,7 @@ requestBody?: BookingModel,
     }
 
     /**
+     * Get a booking by it's id
      * @returns BookingViewStandardResponse Success
      * @throws ApiError
      */
@@ -90,6 +93,7 @@ device?: any,
     }
 
     /**
+     * Cancel a booking by id
      * @returns BookingViewStandardResponse Success
      * @throws ApiError
      */
@@ -116,6 +120,7 @@ device?: any,
     }
 
     /**
+     * Accept a booking by id
      * @returns BookingViewStandardResponse Success
      * @throws ApiError
      */
@@ -142,6 +147,7 @@ device?: any,
     }
 
     /**
+     * Reject a booking by id
      * @returns BookingViewStandardResponse Success
      * @throws ApiError
      */
@@ -173,6 +179,7 @@ device?: any,
     }
 
     /**
+     * Check in a booking by id, this returns a payment link
      * @returns StringStandardResponse Success
      * @throws ApiError
      */

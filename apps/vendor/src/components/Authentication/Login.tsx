@@ -9,8 +9,7 @@ import {
   Checkbox,
   HStack,
 } from "@chakra-ui/react";
-import PrimaryInput from "src/utils/PrimaryInput";
-import SubmitButton from "src/utils/SubmitButton";
+import { PrimaryInput, SubmitButton } from "ui";
 import { LoginModel, UserService } from "src/services";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -63,7 +62,7 @@ const Login = () => {
             expires: 10,
           });
         }
-        window.location.href = "/vendor/dashboard";
+        window.location.href = "/customer";
         return;
       }
       toast.error(result.message as string);
@@ -100,13 +99,11 @@ const Login = () => {
                 fontWeight={600}
                 mb="30px"
               >
-                Sign in to Studiomart
+                Sign up to Studiomart
               </Heading>
               <Text w="100%" lineHeight={1.5} fontSize="28px">
-                Already have an account? You can <br />
-                <Text  color="brand.100">
-                  <Link href="/register"  >Sign up here.</Link>
-                  </Text>
+                Do not have an account? You can <br />
+                <Link href="/register">Sign up here.</Link>
               </Text>
             </Box>
           </Flex>
@@ -157,7 +154,7 @@ const Login = () => {
                   </Heading>
 
                   <Text color="#54595E" lineHeight={1.5}>
-                    Sign in to get started.
+                    Glad to have you back!.
                   </Text>
                 </VStack>
 
@@ -238,9 +235,7 @@ const Login = () => {
                     display={["block", "block", "none"]}
                   >
                     Don&apos;t have an account? You can
-                    
-                      <Link href="/register" >&nbsp;sign up here.</Link>
-                    
+                    <Link href="/register">&nbsp;sign up here.</Link>
                   </Text>
                 </Box>
               </Box>

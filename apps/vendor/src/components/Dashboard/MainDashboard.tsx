@@ -22,34 +22,123 @@ import {
   ModalFooter,
   ModalCloseButton,
   useDisclosure,
+  Tr,
+  Td,
 } from "@chakra-ui/react";
 import DashboardBanner from "./DashboardBanner";
-import TopPage from "src/utils/TopPage";
-import React from "react";
+import { CustomTable, TableData, TableStatus, TableWithSub } from "ui";
+import React, { useContext } from "react";
 import data from "./data.js";
 import { ArrowBackIcon, ArrowForwardIcon, AddIcon } from "@chakra-ui/icons";
 import ServicesCard from "./ServicesCard";
 import OrdersTop from "./OrdersTop";
-import PrimaryInput from "src/utils/PrimaryInput";
 import SubHeading from "./SubHeading";
+import { OrderCounts } from "./OrderCounts";
+import { TopServiceSlider } from "./TopServiceSlider";
+import { useRouter } from "next/router";
+import { ServiceSlider } from "./ServicesSlider";
+import { UserContext } from "@components/Context/UserContext";
+import TopPage from "../../utils/TopPage";
+import { BsFillChatRightTextFill, BsThreeDotsVertical } from "react-icons/bs";
 
-export const MainDashboard = () => {
+interface DashboardProps {
+  studios: any;
+}
+
+export const MainDashboard = ({ studios }: DashboardProps) => {
+  console.log({ studios });
   const size = ["xs"];
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const initialRef = React.useRef(null);
-  const finalRef = React.useRef(null);
+  const router = useRouter();
+  const { user } = useContext(UserContext);
+  // console.log({ user });
+
+  const thead = ["Service Name", "Date", "Client Name", "Status", "Chats", ""];
 
   return (
     <>
-      <Modal
-        size={size}
-        initialFocusRef={initialRef}
-        finalFocusRef={finalRef}
-        isOpen={isOpen}
-        onClose={onClose}
-      >
+      <Box>
+        <Box>
+          <TopPage
+            page={`${user?.lastName}!`}
+            details={"Welcome to your dashboard"}
+            right={true}
+            studios={studios}
+          />
+        </Box>
+        <DashboardBanner />
+
+        <Flex px="2rem" gap="2rem">
+          <Box w="60%">
+            <Text fontFamily="BR Firma" fontSize="20px" fontWeight="600">
+              Order Tracker
+            </Text>
+            <Grid
+              templateColumns="repeat(4, 1fr)"
+              w="full"
+              bgColor="white"
+              h="9.6rem"
+              alignItems="center"
+            >
+              <OrderCounts count="4" title="Total Orders" />
+              <OrderCounts count="2" title="Completed" />
+              <OrderCounts count="1" title="In Progress" />
+              <OrderCounts count="1" title="Cancelled" br />
+            </Grid>
+          </Box>
+          <Box w="40%">
+            <TopServiceSlider data={data.Carousel} />
+          </Box>
+        </Flex>
+        <Box px="2rem">
+          <ServiceSlider data={studios.data.value} />
+        </Box>
+        <Box px="2rem" my="2rem">
+          <Text fontFamily="BR Firma" fontSize="20px" fontWeight="600">
+            Recent Orders
+          </Text>
+          <Box bgColor="white" borderRadius="8px" boxShadow="sm" p="1rem">
+            <CustomTable tableHead={thead}>
+              <>
+                {data.Table.map((info, i) => (
+                  <Tr key={i}>
+                    <TableWithSub top={info.text} sub={info.price} />
+                    <TableWithSub top={info.date} sub={info.delivery} />
+                    <TableData name={info.name} />
+                    <TableStatus name={info.status} />
+                    <Td>
+                      <BsFillChatRightTextFill />
+                    </Td>
+                    <Td
+                      onClick={() => {
+                        // setId(3);
+                        onOpen();
+                      }}
+                      cursor="pointer"
+                    >
+                      <BsThreeDotsVertical />
+                    </Td>
+                  </Tr>
+                ))}
+              </>
+            </CustomTable>
+          </Box>
+        </Box>
+
+        {/* <OrdersTop />
+        <SubHeading /> 
+
+         <ServicesCard />  */}
+      </Box>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent fontFamily="DM Sans', sans-serif">
+        <ModalContent
+          fontFamily="DM Sans', sans-serif"
+          w="40%"
+          maxW="unset"
+          minH="77vh"
+        >
           <ModalHeader fontSize="20px" fontWeight="500">
             Add Services
           </ModalHeader>
@@ -60,7 +149,6 @@ export const MainDashboard = () => {
                 Services Name
               </FormLabel>
               <Input
-                ref={initialRef}
                 fontSize="16px"
                 fontWeight="400"
                 placeholder="Bridal Make-up"
@@ -163,23 +251,6 @@ export const MainDashboard = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-
-      <Box>
-        <Box>
-          <TopPage
-            page={"Good Day Adebayo!"}
-            details={"Welcome to your dashboard"}
-            right={true}
-            clickFunction={onOpen}
-          />
-        </Box>
-        <DashboardBanner />
-
-        <SubHeading />
-
-        <OrdersTop />
-        <ServicesCard />
-      </Box>
     </>
   );
 };

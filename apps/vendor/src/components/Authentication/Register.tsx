@@ -22,7 +22,7 @@ import Link from "next/link";
 import { BsCheckCircle } from "react-icons/bs";
 YupPassword(yup);
 
-const schema = yup.object().shape({
+const validation = yup.object().shape({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
   email: yup.string().email().required(),
@@ -33,9 +33,6 @@ const schema = yup.object().shape({
 });
 
 const Register = () => {
-  // const [RegisterUser, { loading, data, error }] =
-  // useOperationMethod('Userregister');
-
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const changeInputType = () => {
     setPasswordVisible(!passwordVisible);
@@ -43,28 +40,34 @@ const Register = () => {
   const [terms, setTerms] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   console.log({ terms });
+
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<RegisterModel>({ resolver: yupResolver(schema), mode: "all" });
+  } = useForm<RegisterModel>({
+    resolver: yupResolver(validation),
+    mode: "all",
+  });
 
-  const onSubmit = async (data: RegisterModel) => {
+  const onSubmitRegister = async (data: RegisterModel) => {
     if (!terms) {
       toast.error("You have not accepted the terms and conditions");
       return;
     }
+    // console.log({ data });
     try {
       const result = await UserService.create({ requestBody: data });
+      console.log({ result });
       if (result.status) {
-        toast.success("Successful!");
+        toast.success(result.message as string);
         setSuccess(true);
         return;
       }
       toast.error(result.message as string);
       return;
-    } catch (err: any) {
-      toast.error(err.message || err.body.message);
+    } catch (error: any) {
+      toast.error(error?.body?.message || error?.message);
     }
   };
 
@@ -113,9 +116,7 @@ const Register = () => {
                 </Heading>
                 <Text w="100%" lineHeight={1.5} fontSize="28px">
                   Already have an account? You can <br />
-                  <Text color="brand.100">
-                    <Link href="/login">Sign in here.</Link>
-                  </Text>
+                  <Link href="/login">Sign in here.</Link>
                 </Text>
               </Box>
             </Flex>
@@ -178,7 +179,7 @@ const Register = () => {
                     py="15px"
                     pr="3px"
                   >
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit(onSubmitRegister)}>
                       <PrimaryInput<RegisterModel>
                         label="First Name"
                         type="text"
@@ -199,7 +200,7 @@ const Register = () => {
 
                       <PrimaryInput<RegisterModel>
                         label="Email Address"
-                        type="text"
+                        type="email"
                         placeholder="Enter your email"
                         name="email"
                         error={errors.email}
