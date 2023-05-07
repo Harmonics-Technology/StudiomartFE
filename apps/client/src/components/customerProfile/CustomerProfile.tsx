@@ -1,9 +1,6 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import React from "react";
-import PrimaryInput from "src/utils/PrimaryInput";
-import SubmitButton from "src/utils/SubmitButton";
-import PrimarySelect from "src/utils/PrimarySelect";
-import BackToPage from "src/utils/BackToPage";
+import {PrimaryInput, SubmitButton, PrimarySelect, BackToPage} from "ui";
 import { useForm } from "react-hook-form";
 
 const CustomerProfile = () => {
@@ -72,12 +69,11 @@ const CustomerProfile = () => {
               fontWeight="medium"
               focusBorderColor="brand.100"
             />
-            <PrimarySelect
+            {/* <PrimarySelect
               label="Gender(Optional)"
-              fontWeight="medium"
               focusBorderColor="brand.100"
               options={["", "male", "female"]}
-            />
+            /> */}
             <PrimaryInput
               name="name"
               error={undefined}

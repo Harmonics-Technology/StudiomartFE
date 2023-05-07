@@ -1,10 +1,9 @@
-import { Box, VStack, Text, Grid } from "@chakra-ui/react";
+import { Box, VStack, Text, Grid, Button } from "@chakra-ui/react";
 import Card from "@components/homeandcategory/Component/Card";
 import Link from "next/link";
 import React from "react";
 import { BsFillEmojiFrownFill } from "react-icons/bs";
-import BackToPage from "src/utils/BackToPage";
-import { Button } from "..";
+import {BackToPage} from "ui";
 
 const SavedStudios = () => {
     return (

@@ -1,5 +1,4 @@
 import { Box, Flex } from "@chakra-ui/react";
-import CustomerHeader from "@components/header/CustomerHeader";
 import VendorHeader from "@components/header/VendorHeader";
 import VendorSideNav from "@components/header/VendorSideNav";
 import { useRouter } from "next/router";

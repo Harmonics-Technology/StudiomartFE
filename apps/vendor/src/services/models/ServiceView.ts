@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { AdditionalServiceView } from './AdditionalServiceView';
 import type { MediaView } from './MediaView';
 
 export type ServiceView = {
@@ -9,5 +10,7 @@ export type ServiceView = {
     name?: string | null;
     description?: string | null;
     price?: number;
+    bannerImageURL?: string | null;
     media?: Array<MediaView> | null;
+    additionalServices?: Array<AdditionalServiceView> | null;
 };

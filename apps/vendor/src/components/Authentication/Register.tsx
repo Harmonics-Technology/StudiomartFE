@@ -10,8 +10,7 @@ import {
   Button,
   Icon,
 } from "@chakra-ui/react";
-import PrimaryInput from "src/utils/PrimaryInput";
-import SubmitButton from "src/utils/SubmitButton";
+import {PrimaryInput, SubmitButton} from "ui";
 import { RegisterModel, UserService } from "src/services";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

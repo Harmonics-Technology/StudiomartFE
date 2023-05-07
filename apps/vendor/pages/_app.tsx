@@ -3,7 +3,6 @@ import { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "@definitions/chakra/theme";
 import "@styles/global.css";
-import { RootStoreProvider } from "@mobx";
 import { Layout } from "@components/layout";
 import { UserProvider } from "@components/Context/UserContext";
 import Cookies from "js-cookie";
@@ -23,11 +22,9 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <UserProvider>
         <Toaster position="top-right" reverseOrder={false} />
         <NextNProgress color="#1570FA" />
-        <RootStoreProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </RootStoreProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </UserProvider>
     </ChakraProvider>
   );

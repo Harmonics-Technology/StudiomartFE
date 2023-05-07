@@ -13,9 +13,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { BsExclamationCircleFill } from "react-icons/bs";
-import BookingText from "src/utils/BookingText";
-import ModalWrapper from "src/utils/ModalWrapper";
-import RejectBooking from "src/utils/RejectBooking";
+import {BookingText, ModalWrapper, RejectBooking} from "ui";
 
 interface DetailsProps {
   response: string;

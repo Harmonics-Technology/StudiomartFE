@@ -12,7 +12,7 @@ import {
   Stack,
   Button,
 } from "@chakra-ui/react";
-import NotificationTop from "src/utils/NotificationTop";
+// import { NotificationTop } from "src/utils/NotificationTop";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import data from "@components/Dashboard/data";
@@ -21,11 +21,11 @@ const Notification = () => {
   return (
     <Box fontFamily="DM Sans">
       <Box>
-        <NotificationTop
+        {/* <NotificationTop
           page={"Notification"}
           details={"Welcome to your dashboard"}
           right={true}
-        />
+        /> */}
       </Box>
 
       <Box w="90%" my="8" h="40rem" bgColor="white" mx="auto" pt="6">

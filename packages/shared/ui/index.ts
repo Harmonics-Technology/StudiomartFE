@@ -1,4 +1,3 @@
-import TopPage from "../../../apps/vendor/src/utils/TopPage";
 import SubmitButton from "./Components/utils/SubmitButton";
 import RejectBooking from "./Components/utils/RejectBooking";
 import Rating from "./Components/utils/Rating";
@@ -57,6 +56,5 @@ export {
   TableData,
   TableHead,
   TableWithSub,
-  TopPage,
   CustomTable,
 };

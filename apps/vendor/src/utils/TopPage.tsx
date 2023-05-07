@@ -9,14 +9,14 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
 import React from "react";
-import ModalWrapper from "ui/Components/utils/ModalWrapper";
+// import ModalWrapper from "ui/Components/utils/ModalWrapper";
 import AddingOptionsModal from "@components/Modals/AddingOptionsModal";
 
 interface TopPageProps {
   page: string;
   details: string;
   right: boolean;
-  studios: any;
+  studios?: any;
 }
 
 function TopPage({ page, details, right, studios }: TopPageProps) {

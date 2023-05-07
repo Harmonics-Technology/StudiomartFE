@@ -37,19 +37,19 @@ type Props = {
 };
 
 const AddingOptionsModal = ({ isOpen, onClose, studios }: Props) => {
-  studios = studios.data?.value;
+  studios = studios?.data?.value;
   const router = useRouter();
   const [imageBox, setImageBox] = useState<any[]>([0, 1, 2, 3]);
   const [uploadedMedia, setUploadedMedia] = useState<any[]>([]);
   const { isOpen: open, onOpen: opens, onClose: close } = useDisclosure();
   const { isOpen: opened, onOpen: opensed, onClose: closed } = useDisclosure();
-  let widgetApi = useRef<any>([]);
-  widgetApi.current = [0, 0, 0, 0].map(
-    (ref, index) => (widgetApi.current[index] = React.createRef())
-  );
-  const openFileUpload = (index: any) => {
-    widgetApi.current[index]?.current.openDialog();
-  };
+  // let widgetApi = useRef<any>([]);
+  // widgetApi.current = [0, 0, 0, 0].map(
+  //   (ref, index) => (widgetApi.current[index] = React.createRef())
+  // );
+  // const openFileUpload = (index: any) => {
+  //   widgetApi.current[index]?.current.openDialog();
+  // };
   // console.log({
   //   uploadedMedia,
   //   imageBox,
@@ -198,7 +198,7 @@ const AddingOptionsModal = ({ isOpen, onClose, studios }: Props) => {
                   justify="center"
                   align="center"
                   pos="relative"
-                  onClick={() => openFileUpload}
+                  // onClick={() => openFileUpload}
                 >
                   <Widget
                     publicKey="fda3a71102659f95625f"
@@ -208,7 +208,7 @@ const AddingOptionsModal = ({ isOpen, onClose, studios }: Props) => {
                     imagesOnly
                     onChange={(info) => onChangeImg(info, b)}
                     //@ts-ignore
-                    ref={widgetApi.current[i]}
+                    // ref={widgetApi.current[i]}
                   />
                   {/* <Box
                     pos="absolute"

@@ -6,6 +6,7 @@ import type { BookingViewStandardResponse } from '../models/BookingViewStandardR
 import type { BooleanStandardResponse } from '../models/BooleanStandardResponse';
 import type { LookupModel } from '../models/LookupModel';
 import type { StringStandardResponse } from '../models/StringStandardResponse';
+import type { TransactionViewPagedCollectionStandardResponse } from '../models/TransactionViewPagedCollectionStandardResponse';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -201,6 +202,46 @@ device?: any,
             },
             errors: {
                 400: `Bad Request`,
+            },
+        });
+    }
+
+    /**
+     * Get all service bookings
+     * @returns TransactionViewPagedCollectionStandardResponse Success
+     * @throws ApiError
+     */
+    public static getBookingsByServiceId({
+offset,
+limit,
+studioId,
+serviceId,
+search,
+device,
+}: {
+offset?: number,
+limit?: number,
+studioId?: string,
+serviceId?: string,
+search?: string,
+device?: any,
+}): CancelablePromise<TransactionViewPagedCollectionStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Booking/bookings',
+            headers: {
+                'device': device,
+            },
+            query: {
+                'Offset': offset,
+                'Limit': limit,
+                'studioId': studioId,
+                'serviceId': serviceId,
+                'search': search,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
             },
         });
     }

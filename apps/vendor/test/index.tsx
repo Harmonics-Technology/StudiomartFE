@@ -1,13 +1,13 @@
 import React, { ReactElement } from "react";
 import {
-    render as baseRender,
-    RenderOptions,
-    RenderResult,
+  render as baseRender,
+  RenderOptions,
+  RenderResult,
 } from "@testing-library/react";
 
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "@definitions/chakra/theme";
-import { RootStoreProvider } from "@mobx";
+// import { RootStoreProvider } from "@mobx";
 
 /**
  * Custom renderer example with @testing-library/react
@@ -18,17 +18,17 @@ import { RootStoreProvider } from "@mobx";
  */
 
 export const AllTheProviders = ({ children }: any) => {
-    return (
-        <>
-            <ChakraProvider theme={theme}>
-                <RootStoreProvider>{children}</RootStoreProvider>
-            </ChakraProvider>
-        </>
-    );
+  return (
+    <>
+      <ChakraProvider theme={theme}>
+        <>{children}</>
+      </ChakraProvider>
+    </>
+  );
 };
 
 const render = (ui: ReactElement, options?: Omit<RenderOptions, "queries">) =>
-    baseRender(ui, { wrapper: AllTheProviders, ...options }) as RenderResult;
+  baseRender(ui, { wrapper: AllTheProviders, ...options }) as RenderResult;
 
 // re-export everything
 export * from "@testing-library/react";
