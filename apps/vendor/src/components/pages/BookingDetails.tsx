@@ -13,9 +13,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { BsExclamationCircleFill } from "react-icons/bs";
-import BookingText from "src/utils/BookingText";
-import ModalWrapper from "src/utils/ModalWrapper";
-import RejectBooking from "src/utils/RejectBooking";
+import { BookingText, ModalWrapper, RejectBooking } from "ui";
 
 interface DetailsProps {
   response: string;
@@ -95,7 +93,7 @@ function BookingDetails({ response, id }: DetailsProps) {
                       bgColor="gray"
                       overflow="hidden"
                     >
-                      <Image width="full" h="full" objectFit="cover" alt=""/>
+                      <Image width="full" h="full" objectFit="cover" alt="" />
                     </Square>
                     <Square
                       size="4.5rem"
@@ -103,7 +101,7 @@ function BookingDetails({ response, id }: DetailsProps) {
                       bgColor="gray"
                       overflow="hidden"
                     >
-                      <Image width="full" h="full" objectFit="cover" alt=""/>
+                      <Image width="full" h="full" objectFit="cover" alt="" />
                     </Square>
                   </HStack>
                 </Box>

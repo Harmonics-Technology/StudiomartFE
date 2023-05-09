@@ -12,6 +12,7 @@ import {
 import React from "react";
 import { FaAngleDown } from "react-icons/fa";
 import { GoSettings } from "react-icons/go";
+import Link from "next/link";
 import { RiNotification3Fill, RiSearch2Fill } from "react-icons/ri";
 
 function VendorHeader() {
@@ -62,7 +63,10 @@ function VendorHeader() {
           </Flex>
           <HStack>
             <Box mr="1rem">
-              <RiNotification3Fill />
+            <Link href="/vendor/notification" passHref>
+                        <a>
+                  <RiNotification3Fill />
+                  </a></Link>
             </Box>
             <Circle bgColor="gray.300" size="3rem" overflow="hidden">
               <Image src="" objectFit="cover" w="full" h="full" alt="" />

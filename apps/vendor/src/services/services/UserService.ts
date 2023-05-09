@@ -18,6 +18,7 @@ import { request as __request } from '../core/request';
 export class UserService {
 
     /**
+     * Create a new user
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -35,11 +36,12 @@ requestBody?: RegisterModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
         });
     }
 
     /**
+     * Login a user
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -57,11 +59,12 @@ requestBody?: LoginModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
         });
     }
 
     /**
+     * Verify a user
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -85,6 +88,7 @@ device?: any,
     }
 
     /**
+     * Initiate password reset
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -107,11 +111,12 @@ requestBody?: InitiateResetModel,
                 'redirectUrl': redirectUrl,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
         });
     }
 
     /**
+     * Complete password reset
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -129,11 +134,12 @@ requestBody?: PasswordReset,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
         });
     }
 
     /**
+     * Update a user
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -151,11 +157,12 @@ requestBody?: UpdateUserModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
         });
     }
 
     /**
+     * Update   users password
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -179,6 +186,7 @@ device?: any,
     }
 
     /**
+     * Get a user profile
      * @returns UserProfileViewStandardResponse Success
      * @throws ApiError
      */
@@ -202,6 +210,7 @@ device?: any,
     }
 
     /**
+     * Validate a token
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -223,6 +232,7 @@ device?: any,
     }
 
     /**
+     * Upgrade a user from customer to vendor
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -240,11 +250,12 @@ requestBody?: VendorUpgradeModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
         });
     }
 
     /**
+     * Create a vendor user
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -262,7 +273,7 @@ requestBody?: VendorRegisterModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
         });
     }
 

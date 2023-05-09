@@ -13,14 +13,11 @@ import { Toaster } from "react-hot-toast";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   OpenAPI.BASE = process.env.NEXT_PUBLIC_API_BASEURL as string;
-  const [token, setToken] = useState<UserView>({});
-  useEffect(() => {
-    if (Cookies.get("user") !== undefined) {
-      setToken(JSON.parse(Cookies.get("user") as string));
-    }
-  }, []);
-  OpenAPI.TOKEN = token.token as string;
-  // console.log(OpenAPI.TOKEN);
+  OpenAPI.TOKEN = Cookies.get("customerToken");
+  if (Cookies.get("user") == "Vendor") {
+    OpenAPI.TOKEN = Cookies.get("vendorToken");
+  }
+  console.log(OpenAPI.TOKEN);
   return (
     <ChakraProvider theme={theme}>
       <UserProvider>

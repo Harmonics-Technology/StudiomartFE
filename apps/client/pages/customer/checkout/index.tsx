@@ -12,10 +12,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useForm } from "react-hook-form";
-import BackToPage from "src/utils/BackToPage";
-import Cvcinputgroup from "src/utils/Cvcinputgroup";
-import PrimaryInput from "src/utils/PrimaryInput";
-import PrimarySelect from "src/utils/PrimarySelect";
+import { BackToPage, Cvcinputgroup, PrimaryInput, PrimarySelect } from "ui";
 
 const CustomerCheckout = () => {
   const months = ["jan"];
@@ -86,9 +83,9 @@ const CustomerCheckout = () => {
                     </Text>
                   </Flex>
                   <HStack w="100%" spacing={3}>
-                    <PrimarySelect label="" options={months} my="5px" />
+                    {/* <PrimarySelect label="" options={months} mb="5px" />
 
-                    <PrimarySelect options={months} label="" my="5px" />
+                    <PrimarySelect options={months} label="" mb="5px" /> */}
 
                     <Cvcinputgroup />
                   </HStack>

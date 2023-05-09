@@ -9,8 +9,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import BackToPage from "src/utils/BackToPage";
-import Rating from "src/utils/Rating";
+import { BackToPage, Rating } from "ui";
 
 const booking = () => {
   return (
