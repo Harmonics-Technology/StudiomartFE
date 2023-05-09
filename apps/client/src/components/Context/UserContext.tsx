@@ -9,7 +9,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     Cookies.remove(userDetails);
     Cookies.remove("user");
   };
-  const loggedInUser = Cookies.get("client");
+  const loggedInUser = Cookies.get("vendor");
 
   useEffect(() => {
     if (loggedInUser !== undefined) {

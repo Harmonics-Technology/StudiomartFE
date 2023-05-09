@@ -21,6 +21,7 @@ import BookNowLink from "./Components/utils/BookNowLink";
 import FilterLocation from "./Components/utils/FilterLocation";
 import FilterStar from "./Components/utils/FilterStar";
 import RejectReason from "./Components/utils/RejectReason";
+import DisabledInput from "./Components/utils/DisabledInput";
 import {
   TableData,
   TableHead,
@@ -57,4 +58,5 @@ export {
   TableHead,
   TableWithSub,
   CustomTable,
+  DisabledInput,
 };
