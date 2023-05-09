@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 // import { Flex, Box, Button, HStack, Stack } from "@chakra-ui/react";
-import PrimaryInput from "src/utils/PrimaryInput";
+import { PrimaryInput, AlertBox } from "ui";
 import { UpdateUserModel } from "src/services";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import AccountSideBar from "@components/accounts/AccountSideBar";
 import {useDisclosure, Link, HStack, Stack, Modal,  Box, ModalContent,Button , ModalCloseButton ,ModalBody, ModalHeader, ModalFooter, Input, FormControl, FormLabel, ModalOverlay  } from "@chakra-ui/react";
-import AlertBox from "src/utils/AlertBox";
+
 
 
 const schema = yup.object().shape({
