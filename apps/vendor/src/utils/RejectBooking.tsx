@@ -16,7 +16,7 @@ interface RejectProps {
     reject: any;
 }
 
-function RejectBooking({ onClose, reject }: RejectProps) {
+function RejectBooking({ onClose}: RejectProps) {
     const { isOpen, onOpen } = useDisclosure();
     return (
         <>
@@ -51,7 +51,7 @@ function RejectBooking({ onClose, reject }: RejectProps) {
                 </HStack>
             </Flex>
             <ModalWrapper isOpen={isOpen} onClose={onClose}>
-                <RejectReason reject={reject}/>
+                <RejectReason/>
             </ModalWrapper>
         </>
     );

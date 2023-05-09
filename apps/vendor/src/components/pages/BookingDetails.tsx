@@ -16,6 +16,7 @@ import { BsExclamationCircleFill } from "react-icons/bs";
 import BookingText from "src/utils/BookingText";
 import ModalWrapper from "src/utils/ModalWrapper";
 import RejectBooking from "src/utils/RejectBooking";
+import { Responses } from "src/utils/Responses";
 
 interface DetailsProps {
   response: string;
@@ -144,7 +145,13 @@ function BookingDetails({
                       bgColor="gray"
                       overflow="hidden"
                     >
-                      <Image width="full" h="full" objectFit="cover" alt=""/>
+                      <Image
+                        src="/assets/Bride4.png"
+                        width="full"
+                        h="full"
+                        objectFit="cover"
+                        alt=""
+                      />
                     </Square>
                     <Square
                       size="4.5rem"
@@ -152,7 +159,41 @@ function BookingDetails({
                       bgColor="gray"
                       overflow="hidden"
                     >
-                      <Image width="full" h="full" objectFit="cover" alt=""/>
+                      <Image
+                        src="/assets/Bride1.png"
+                        width="full"
+                        h="full"
+                        objectFit="cover"
+                        alt=""
+                      />
+                    </Square>
+                    <Square
+                      size="4.5rem"
+                      borderRadius="8px"
+                      bgColor="gray"
+                      overflow="hidden"
+                    >
+                      <Image
+                        src="/assets/Bride2.png"
+                        width="full"
+                        h="full"
+                        objectFit="cover"
+                        alt=""
+                      />
+                    </Square>
+                    <Square
+                      size="4.5rem"
+                      borderRadius="8px"
+                      bgColor="gray"
+                      overflow="hidden"
+                    >
+                      <Image
+                        src="/assets/Bride3.png"
+                        width="full"
+                        h="full"
+                        objectFit="cover"
+                        alt=""
+                      />
                     </Square>
                   </HStack>
                 </Box>

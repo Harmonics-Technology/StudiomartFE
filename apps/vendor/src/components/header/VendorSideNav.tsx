@@ -11,12 +11,12 @@ import {
 import Link from "next/link";
 import React from "react";
 import { FaHome } from "react-icons/fa";
-import { FiLogOut } from "react-icons/fi";
-import { FaBook } from "react-icons/fa";
-import { BiMessageDots } from "react-icons/bi";
-import { BsPersonFill, BsWalletFill } from "react-icons/bs";
-import { MenuItem } from "ui";
-import { UserContext } from "@components/Context/UserContext";
+import { BsFillGridFill } from "react-icons/bs";
+import { BsArchiveFill } from "react-icons/bs";
+import { FaWallet } from "react-icons/fa";
+import { BsCardHeading } from "react-icons/bs";
+import { BsFillChatSquareTextFill } from "react-icons/bs";
+import { BsFillPersonFill } from "react-icons/bs";
 
 function VendorSideNav() {
   const { logout } = useContext(UserContext);
@@ -46,14 +46,14 @@ function VendorSideNav() {
                 </HStack>
             </Link>
             <VStack align="left" gap="1.5rem" pr="1.5rem">
-                <MenuItem menuTitle="dashboard" icon={<FaHome />} />
-                <MenuItem menuTitle="services" icon={<FaHome />} />
-                <MenuItem menuTitle="wallets" icon={<FaHome />} />
-                <MenuItem menuTitle="bookings" icon={<FaHome />} />
-                <MenuItem menuTitle="message" icon={<FaHome />} />
-                <MenuItem menuTitle="account" icon={<FaHome />} />
+            <MenuItem menuTitle="dashboard" icon={<BsFillGridFill />} />
+                <MenuItem menuTitle="services" icon={<BsArchiveFill />} />
+                <MenuItem menuTitle="wallets" icon={<FaWallet />} />
+                <MenuItem menuTitle="bookings" icon={<BsCardHeading />} />
+                <MenuItem menuTitle="message" icon={<BsFillChatSquareTextFill />} />
+                <MenuItem menuTitle="account" icon={<BsFillPersonFill />} />
             </VStack>
-            <Box pos="absolute" bottom="13%" color="red !important">
+            <Box pos="absolute" bottom="10%" color="red !important">
                 <MenuItem menuTitle="logout" icon={<FiLogOut />} />
             </Box>
         </Box>
