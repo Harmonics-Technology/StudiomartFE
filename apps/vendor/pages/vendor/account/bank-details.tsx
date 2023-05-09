@@ -1,7 +1,8 @@
+import BankDetails from "@components/accounts/bankDetails";
 import React from "react";
 
-const BankDetails = () => {
-    return <div>BankDetails</div>;
+const bankDetailsPage = () => {
+    return <BankDetails/>;
 };
 
-export default BankDetails;
+export default bankDetailsPage;

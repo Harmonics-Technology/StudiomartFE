@@ -1,7 +1,8 @@
 import React from "react";
+import PasswordSetting from "@components/accounts/passwordSetting";
 
-const PasswordSetting = () => {
-    return <div>PasswordSetting</div>;
+const PasswordSettingpage = () => {
+    return <PasswordSetting/>;
 };
 
-export default PasswordSetting;
+export default PasswordSettingpage;

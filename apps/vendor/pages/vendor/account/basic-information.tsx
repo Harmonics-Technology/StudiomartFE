@@ -1,7 +1,8 @@
+import BasicInformation from "@components/accounts/basicInformation";
 import React from "react";
 
-const BasicInformation = () => {
-    return <div>basic-information</div>;
+const basicInformationPage = () => {
+    return <BasicInformation/>;
 };
 
-export default BasicInformation;
+export default basicInformationPage;

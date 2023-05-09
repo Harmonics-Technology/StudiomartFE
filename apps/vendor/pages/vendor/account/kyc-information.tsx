@@ -1,7 +1,9 @@
+import KycInformation from "@components/accounts/kycInformation";
 import React from "react";
 
-const KycInformation = () => {
-    return <div>Kyc-information</div>;
+const kycInformationPage = () => {
+    return <KycInformation/>;
 };
 
-export default KycInformation;
+export default kycInformationPage;
+

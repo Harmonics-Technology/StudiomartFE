@@ -1,7 +1,8 @@
 import React from "react";
+import SecurityQuestion from "@components/accounts/securityQuestion";
 
-const SecurityQuestion = () => {
-    return <div>SecurityQuestion</div>;
+const SecurityQuestionPage = () => {
+    return <SecurityQuestion/> ;
 };
 
-export default SecurityQuestion;
+export default SecurityQuestionPage;
