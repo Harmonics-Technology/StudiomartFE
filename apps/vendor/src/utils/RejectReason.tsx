@@ -28,7 +28,7 @@ function RejectReason({reject}: CleaningModel) {
     };
     return (
         <Box>
-            {/* <form onSubmit={handleSubmit(onSubmit)}> */}
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Text fontWeight="600" fontSize="24px" mb="0">
                     Reason
                 </Text>
@@ -52,7 +52,7 @@ function RejectReason({reject}: CleaningModel) {
                 >
                     Submit
                 </Button>
-            {/* </form> */}
+            </form>
         </Box>
     );
 }

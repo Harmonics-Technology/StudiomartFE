@@ -13,9 +13,10 @@ import RejectReason from "./RejectReason";
 
 interface RejectProps {
     onClose: any;
+    reject: any;
 }
 
-function RejectBooking({ onClose}: RejectProps) {
+function RejectBooking({ onClose, reject }: RejectProps) {
     const { isOpen, onOpen } = useDisclosure();
     return (
         <>
@@ -50,7 +51,7 @@ function RejectBooking({ onClose}: RejectProps) {
                 </HStack>
             </Flex>
             <ModalWrapper isOpen={isOpen} onClose={onClose}>
-                <RejectReason/>
+                <RejectReason reject={reject}/>
             </ModalWrapper>
         </>
     );
