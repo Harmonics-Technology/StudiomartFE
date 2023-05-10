@@ -1,14 +1,8 @@
 import { GetServerSideProps } from "next";
 import React from "react";
-import BasicInformation from "@components/accounts/basicInformation";
-
-interface AccountProps {}
 
 const index = () => {
-  return 
-  <div>
-    <BasicInformation />
-  </div>;
+  return <div>index</div>;
 };
 
 export default index;
