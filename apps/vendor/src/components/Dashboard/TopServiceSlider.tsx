@@ -6,20 +6,21 @@ import {
   HStack,
   Circle,
   Icon,
-} from "@chakra-ui/react";
-import React, { useState } from "react";
-import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+} from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { TopServiceView } from 'src/services';
 
 interface SliderProps {
-  data: any[];
+  data?: TopServiceView[] | undefined | null;
 }
 
 export const TopServiceSlider = ({ data }: SliderProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [autoPlay, setAutoPlay] = useState(false);
-
+  console.log({ data });
   const next = () => {
     setCurrentSlide(currentSlide + 1);
   };
@@ -64,13 +65,13 @@ export const TopServiceSlider = ({ data }: SliderProps) => {
         centerSlidePercentage={40}
         // {...data}
       >
-        {data?.map((x: any, i: any) => (
+        {data?.map((x: TopServiceView, i: any) => (
           <Box w="9.6rem" h="9.6rem" bg="white" borderRadius="8px" key={i}>
             <Image
               h="5rem"
               w="full"
               objectFit="cover"
-              src={x.image}
+              src={x.service?.bannerImageURL as string}
               alt="image"
               overflow="hidden"
               borderRadius="8px 8px 0 0"
@@ -82,13 +83,13 @@ export const TopServiceSlider = ({ data }: SliderProps) => {
               pl=".5rem"
               fontWeight="500"
               fontSize="16px"
-              spacing={".2rem"}
+              spacing={'.2rem'}
             >
               <Text mb="0" fontWeight="600" fontFamily="BR Firma">
-                {x.heading}
+                {x.service?.name}
               </Text>
               <Text fontSize="14px" fontFamily="BR Firma">
-                {x.Order}
+                {x.orders}
               </Text>
             </VStack>
           </Box>

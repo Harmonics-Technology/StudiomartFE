@@ -6,11 +6,11 @@ import {
   Circle,
   Icon,
   useDisclosure,
-} from "@chakra-ui/react";
-import { AiOutlinePlus } from "react-icons/ai";
-import React from "react";
+} from '@chakra-ui/react';
+import { AiOutlinePlus } from 'react-icons/ai';
+import React from 'react';
 // import ModalWrapper from "ui/Components/utils/ModalWrapper";
-import AddingOptionsModal from "@components/Modals/AddingOptionsModal";
+import AddingOptionsModal from '@components/Modals/AddingOptionsModal';
 
 interface TopPageProps {
   page: string;
@@ -46,14 +46,34 @@ function TopPage({ page, details, right, studios }: TopPageProps) {
           // >
           //   Add Services
           // </Button>
-          <Circle
-            size="3.75rem"
-            bgColor="brand.100"
-            color="white"
-            onClick={onOpen}
-          >
-            <Icon as={AiOutlinePlus} fontSize="2rem" />
-          </Circle>
+          <Flex gap={3}>
+            <Button
+              bgColor="#E5E5E5"
+              color="brand.100"
+              px="2rem"
+              colorScheme="brand.100"
+              variant="outline"
+              onClick={onOpen}
+            >
+              Add Studio
+            </Button>
+            <Button
+              bgColor="brand.100"
+              color="white"
+              px="2rem"
+              onClick={onOpen}
+            >
+              Add Services
+            </Button>
+          </Flex>
+          // <Circle
+          //   size="3.75rem"
+          //   bgColor="brand.100"
+          //   color="white"
+          //   onClick={onOpen}
+          // >
+          //   <Icon as={AiOutlinePlus} fontSize="2rem" />
+          // </Circle>
         )}
         <AddingOptionsModal
           isOpen={isOpen}

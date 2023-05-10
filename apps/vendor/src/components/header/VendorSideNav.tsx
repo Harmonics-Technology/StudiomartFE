@@ -7,17 +7,17 @@ import {
   Square,
   Text,
   VStack,
-} from "@chakra-ui/react";
-import Link from "next/link";
-import React, { useContext } from "react";
-import { RxDashboard } from "react-icons/rx";
-import { MdMiscellaneousServices } from "react-icons/md";
-import { FiLogOut } from "react-icons/fi";
-import { FaBook } from "react-icons/fa";
-import { BiMessageDots } from "react-icons/bi";
-import { BsPersonFill, BsWalletFill } from "react-icons/bs";
-import { MenuItem } from "ui";
-import { UserContext } from "@components/Context/UserContext";
+} from '@chakra-ui/react';
+import Link from 'next/link';
+import React, { useContext } from 'react';
+import { RxDashboard } from 'react-icons/rx';
+import { MdMiscellaneousServices } from 'react-icons/md';
+import { FiLogOut } from 'react-icons/fi';
+import { FaBook, FaHome } from 'react-icons/fa';
+import { BiMessageDots } from 'react-icons/bi';
+import { BsPersonFill, BsWalletFill } from 'react-icons/bs';
+import { MenuItem } from 'ui';
+import { UserContext } from '@components/Context/UserContext';
 
 function VendorSideNav() {
   const { logout } = useContext(UserContext);
@@ -46,10 +46,7 @@ function VendorSideNav() {
           menuTitle="dashboard"
           icon={<RxDashboard cursor="default" />}
         />
-        <MenuItem
-          menuTitle="services"
-          icon={<MdMiscellaneousServices cursor="default" />}
-        />
+        <MenuItem menuTitle="studios" icon={<FaHome cursor="default" />} />
         <MenuItem
           menuTitle="wallets"
           icon={<BsWalletFill cursor="default" />}
@@ -72,7 +69,7 @@ function VendorSideNav() {
           w="full"
           borderRadius="4px"
           h="3rem"
-          color={"red"}
+          color={'red'}
           onClick={logout}
         >
           <HStack pl=".5rem">

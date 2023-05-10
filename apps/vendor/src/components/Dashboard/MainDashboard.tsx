@@ -24,44 +24,53 @@ import {
   useDisclosure,
   Tr,
   Td,
-} from "@chakra-ui/react";
-import DashboardBanner from "./DashboardBanner";
-import { CustomTable, TableData, TableStatus, TableWithSub } from "ui";
-import React, { useContext } from "react";
-import data from "./data.js";
-import { ArrowBackIcon, ArrowForwardIcon, AddIcon } from "@chakra-ui/icons";
-import ServicesCard from "./ServicesCard";
-import OrdersTop from "./OrdersTop";
-import SubHeading from "./SubHeading";
-import { OrderCounts } from "./OrderCounts";
-import { TopServiceSlider } from "./TopServiceSlider";
-import { useRouter } from "next/router";
-import { ServiceSlider } from "./ServicesSlider";
-import { UserContext } from "@components/Context/UserContext";
-import TopPage from "../../utils/TopPage";
-import { BsFillChatRightTextFill, BsThreeDotsVertical } from "react-icons/bs";
+} from '@chakra-ui/react';
+import DashboardBanner from './DashboardBanner';
+import { CustomTable, TableData, TableStatus, TableWithSub } from 'ui';
+import React, { useContext } from 'react';
+import data from './data.js';
+import { ArrowBackIcon, ArrowForwardIcon, AddIcon } from '@chakra-ui/icons';
+import ServicesCard from './ServicesCard';
+import OrdersTop from './OrdersTop';
+import SubHeading from './SubHeading';
+import { OrderCounts } from './OrderCounts';
+import { TopServiceSlider } from './TopServiceSlider';
+import { useRouter } from 'next/router';
+import { ServiceSlider } from './ServicesSlider';
+import { UserContext } from '@components/Context/UserContext';
+import TopPage from '../../utils/TopPage';
+import { BsFillChatRightTextFill, BsThreeDotsVertical } from 'react-icons/bs';
+import {
+  BookingView,
+  VendorDashboardView,
+  VendorDashboardViewStandardResponse,
+} from 'src/services';
 
 interface DashboardProps {
   studios: any;
+  dashboardMetrics: VendorDashboardView;
 }
 
-export const MainDashboard = ({ studios }: DashboardProps) => {
+export const MainDashboard = ({
+  studios,
+  dashboardMetrics,
+}: DashboardProps) => {
   console.log({ studios });
-  const size = ["xs"];
+  const size = ['xs'];
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const { user } = useContext(UserContext);
   // console.log({ user });
 
-  const thead = ["Service Name", "Date", "Client Name", "Status", "Chats", ""];
-
+  const thead = ['Service Name', 'Date', 'Client Name', 'Status', 'Chats', ''];
+  console.log(dashboardMetrics);
   return (
     <>
       <Box>
         <Box>
           <TopPage
             page={`${user?.lastName}!`}
-            details={"Welcome to your dashboard"}
+            details={'Welcome to your dashboard'}
             right={true}
             studios={studios}
           />
@@ -80,14 +89,27 @@ export const MainDashboard = ({ studios }: DashboardProps) => {
               h="9.6rem"
               alignItems="center"
             >
-              <OrderCounts count="4" title="Total Orders" />
-              <OrderCounts count="2" title="Completed" />
-              <OrderCounts count="1" title="In Progress" />
-              <OrderCounts count="1" title="Cancelled" br />
+              <OrderCounts
+                count={dashboardMetrics?.totalOrders}
+                title="Total Orders"
+              />
+              <OrderCounts
+                count={dashboardMetrics.activeOrders}
+                title="Completed"
+              />
+              <OrderCounts
+                count={dashboardMetrics.inProgressOrders}
+                title="In Progress"
+              />
+              <OrderCounts
+                count={dashboardMetrics?.cancelledOrders}
+                title="Cancelled"
+                br
+              />
             </Grid>
           </Box>
           <Box w="40%">
-            <TopServiceSlider data={data.Carousel} />
+            <TopServiceSlider data={dashboardMetrics.topServices} />
           </Box>
         </Flex>
         <Box px="2rem">
@@ -100,26 +122,31 @@ export const MainDashboard = ({ studios }: DashboardProps) => {
           <Box bgColor="white" borderRadius="8px" boxShadow="sm" p="1rem">
             <CustomTable tableHead={thead}>
               <>
-                {data.Table.map((info, i) => (
-                  <Tr key={i}>
-                    <TableWithSub top={info.text} sub={info.price} />
-                    <TableWithSub top={info.date} sub={info.delivery} />
-                    <TableData name={info.name} />
-                    <TableStatus name={info.status} />
-                    <Td>
-                      <BsFillChatRightTextFill />
-                    </Td>
-                    <Td
-                      onClick={() => {
-                        // setId(3);
-                        onOpen();
-                      }}
-                      cursor="pointer"
-                    >
-                      <BsThreeDotsVertical />
-                    </Td>
-                  </Tr>
-                ))}
+                {dashboardMetrics?.recentBookings?.map(
+                  (info: BookingView, i) => (
+                    <Tr key={i}>
+                      <TableWithSub
+                        top={info?.service?.name}
+                        sub={info?.totalAmount}
+                      />
+                      <TableWithSub top={info?.date} sub={info.time} />
+                      <TableData name={info?.amount} />
+                      <TableStatus name={info?.status as string} />
+                      <Td>
+                        <BsFillChatRightTextFill />
+                      </Td>
+                      <Td
+                        onClick={() => {
+                          // setId(3);
+                          onOpen();
+                        }}
+                        cursor="pointer"
+                      >
+                        <BsThreeDotsVertical />
+                      </Td>
+                    </Tr>
+                  )
+                )}
               </>
             </CustomTable>
           </Box>
