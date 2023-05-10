@@ -1,7 +1,8 @@
 import React from "react";
-
-const Notifications = () => {
-    return <div>notifications</div>;
+import Notifications from "@components/accounts/notification";
+const Notificationspage = () => {
+    return <Notifications/>;
 };
 
-export default Notifications;
+export default Notificationspage;
+

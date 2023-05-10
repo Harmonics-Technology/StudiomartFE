@@ -13,6 +13,7 @@ import RejectReason from "./RejectReason";
 
 interface RejectProps {
     onClose: any;
+    reject: any;
 }
 
 function RejectBooking({ onClose}: RejectProps) {
