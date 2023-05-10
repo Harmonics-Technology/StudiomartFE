@@ -1,12 +1,25 @@
+<<<<<<< HEAD
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 @import url('https://fonts.cdnfonts.com/css/br-firma');
+=======
+@import url('https://fonts.cdnfonts.com/css/br-firma');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Poppins:wght@300;400;500;700&display=swap');
+
+>>>>>>> ee467b06fe91bf9d77de06d7017f4d24e6821a04
 
 html,
 body {
     margin: 0;
+<<<<<<< HEAD
     padding: 0;
     font-family: 'DM Sans', sans-serif;
+=======
+    padding: 0;                                                                    font-family: 'BR Firma', sans-serif;
+    font-family: 'DM Sans', sans-serif;
+                                                
+                                                
+>>>>>>> ee467b06fe91bf9d77de06d7017f4d24e6821a04
 }
 
 ::-webkit-scrollbar{
