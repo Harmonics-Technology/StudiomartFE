@@ -14,7 +14,7 @@ import {
 import React, { useState } from "react";
 import { BsExclamationCircleFill } from "react-icons/bs";
 import BookingText from "src/utils/BookingText";
-import ModalWrapper from "src/utils/ModalWrapper";
+import { ModalWrapper } from "ui";
 import RejectBooking from "src/utils/RejectBooking";
 import { Responses } from "src/utils/Responses";
 

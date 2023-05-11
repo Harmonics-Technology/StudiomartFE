@@ -22,8 +22,8 @@ import { BsFillCalendarEventFill } from "react-icons/bs";
 import { GoSettings } from "react-icons/go";
 import TopPage from "src/utils/TopPage";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { TableStatus } from "src/utils/Tables";
 import BookingDetails from "./BookingDetails";
+import { AlertBox, DrawerWrapper, TableStatus } from "ui";
 
 function BookingsHome() {
     const [id, setId] = useState<any>();
@@ -35,7 +35,7 @@ function BookingsHome() {
                 page={"Bookings"}
                 details={"Veiw all your bookings here!"}
                 right={true}
-                clickFunction={undefined}
+                // clickFunction={undefined}
             />
             <Box w="90%" mx="auto" mt="2rem">
                 {showAlert && (
@@ -53,7 +53,7 @@ function BookingsHome() {
                         fontSize=".8rem"
                         align="center"
                     >
-                        <Text mb="0">Showing all</Text>
+                        <Text mb="0">Showing All</Text>
                         <InputGroup w="30%">
                             <InputLeftElement
                                 top=".2rem"
@@ -64,7 +64,7 @@ function BookingsHome() {
                             </InputLeftElement>
                             <Input
                                 type="search"
-                                placeholder="search studio"
+                                placeholder="Search Bookings"
                                 borderRadius="5px 0 0 5px"
                                 w="100%"
                                 _placeholder={{
@@ -78,11 +78,11 @@ function BookingsHome() {
                                 color="gray.400"
                                 fontSize=".8rem"
                             >
-                                <RiSearch2Fill />
+                                <BsFillCalendarEventFill />
                             </InputLeftElement>
                             <Input
-                                type="search"
-                                placeholder="search studio"
+                                // type="search"
+                                placeholder="Search Date"
                                 borderRadius="5px 0 0 5px"
                                 w="100%"
                                 _placeholder={{
@@ -139,10 +139,186 @@ function BookingsHome() {
                                 </Tr>
                                 <Tr fontSize=".9rem">
                                     <Td>AD0090HL30</Td>
-                                    <Td>Boluwatife Bolu</Td>
+                                    <Td>Jennifer Thompson</Td>
                                     <Td>#45,000</Td>
                                     <Td>3 Jun, 2021</Td>
                                     <TableStatus name="Successful" />
+                                    <Td
+                                        onClick={() => {
+                                            setId(2);
+                                            onOpen();
+                                        }}
+                                        cursor="pointer"
+                                    >
+                                        <BsThreeDotsVertical />
+                                    </Td>
+                                </Tr>
+                                <Tr fontSize=".9rem">
+                                    <Td>AD0090HL30</Td>
+                                    <Td>Fola Coker</Td>
+                                    <Td>#45,000</Td>
+                                    <Td>3 Jun, 2021</Td>
+                                    <TableStatus name="Cancelled" />
+                                    <Td
+                                        onClick={() => {
+                                            setId(2);
+                                            onOpen();
+                                        }}
+                                        cursor="pointer"
+                                    >
+                                        <BsThreeDotsVertical />
+                                    </Td>
+                                </Tr>
+                                <Tr fontSize=".9rem">
+                                    <Td>AD0090HL30</Td>
+                                    <Td>Promise Oseni</Td>
+                                    <Td>#45,000</Td>
+                                    <Td>3 Jun, 2021</Td>
+                                    <TableStatus name="In Progress" />
+                                    <Td
+                                        onClick={() => {
+                                            setId(2);
+                                            onOpen();
+                                        }}
+                                        cursor="pointer"
+                                    >
+                                        <BsThreeDotsVertical />
+                                    </Td>
+                                </Tr>
+                                <Tr fontSize=".9rem">
+                                    <Td>AD0090HL30</Td>
+                                    <Td>Oseni Kenny</Td>
+                                    <Td>#45,000</Td>
+                                    <Td>3 Jun, 2021</Td>
+                                    <TableStatus name="Pending Confirmation" />
+                                    <Td
+                                        onClick={() => {
+                                            setId(2);
+                                            onOpen();
+                                        }}
+                                        cursor="pointer"
+                                    >
+                                        <BsThreeDotsVertical />
+                                    </Td>
+                                </Tr>
+                                <Tr fontSize=".9rem">
+                                    <Td>AD0090HL30</Td>
+                                    <Td>Ivy Ololade</Td>
+                                    <Td>#45,000</Td>
+                                    <Td>3 Jun, 2021</Td>
+                                    <TableStatus name="Awaiting Payment" />
+                                    <Td
+                                        onClick={() => {
+                                            setId(2);
+                                            onOpen();
+                                        }}
+                                        cursor="pointer"
+                                    >
+                                        <BsThreeDotsVertical />
+                                    </Td>
+                                </Tr>
+                                <Tr fontSize=".9rem">
+                                    <Td>AD0090HL30</Td>
+                                    <Td>Rose Kaffy</Td>
+                                    <Td>#45,000</Td>
+                                    <Td>3 Jun, 2021</Td>
+                                    <TableStatus name="Successful" />
+                                    <Td
+                                        onClick={() => {
+                                            setId(2);
+                                            onOpen();
+                                        }}
+                                        cursor="pointer"
+                                    >
+                                        <BsThreeDotsVertical />
+                                    </Td>
+                                </Tr>
+                                <Tr fontSize=".9rem">
+                                    <Td>AD0090HL30</Td>
+                                    <Td>Oseni Kenny</Td>
+                                    <Td>#45,000</Td>
+                                    <Td>3 Jun, 2021</Td>
+                                    <TableStatus name="Pending Confirmation" />
+                                    <Td
+                                        onClick={() => {
+                                            setId(2);
+                                            onOpen();
+                                        }}
+                                        cursor="pointer"
+                                    >
+                                        <BsThreeDotsVertical />
+                                    </Td>
+                                </Tr>
+                                <Tr fontSize=".9rem">
+                                    <Td>AD0090HL30</Td>
+                                    <Td>Ivy Ololade</Td>
+                                    <Td>#45,000</Td>
+                                    <Td>3 Jun, 2021</Td>
+                                    <TableStatus name="Awaiting Payment" />
+                                    <Td
+                                        onClick={() => {
+                                            setId(2);
+                                            onOpen();
+                                        }}
+                                        cursor="pointer"
+                                    >
+                                        <BsThreeDotsVertical />
+                                    </Td>
+                                </Tr>
+                                <Tr fontSize=".9rem">
+                                    <Td>AD0090HL30</Td>
+                                    <Td>Rose Kaffy</Td>
+                                    <Td>#45,000</Td>
+                                    <Td>3 Jun, 2021</Td>
+                                    <TableStatus name="Successful" />
+                                    <Td
+                                        onClick={() => {
+                                            setId(2);
+                                            onOpen();
+                                        }}
+                                        cursor="pointer"
+                                    >
+                                        <BsThreeDotsVertical />
+                                    </Td>
+                                </Tr>
+                                <Tr fontSize=".9rem">
+                                    <Td>AD0090HL30</Td>
+                                    <Td>Jennifer Thompson</Td>
+                                    <Td>#45,000</Td>
+                                    <Td>3 Jun, 2021</Td>
+                                    <TableStatus name="Successful" />
+                                    <Td
+                                        onClick={() => {
+                                            setId(2);
+                                            onOpen();
+                                        }}
+                                        cursor="pointer"
+                                    >
+                                        <BsThreeDotsVertical />
+                                    </Td>
+                                </Tr>
+                                <Tr fontSize=".9rem">
+                                    <Td>AD0090HL30</Td>
+                                    <Td>Fola Coker</Td>
+                                    <Td>#45,000</Td>
+                                    <Td>3 Jun, 2021</Td>
+                                    <TableStatus name="Cancelled" />
+                                    <Td
+                                        onClick={() => {
+                                            setId(2);
+                                            onOpen();
+                                        }}
+                                        cursor="pointer"
+                                    >
+                                        <BsThreeDotsVertical />
+                                    </Td>
+                                </Tr>
+                                <Tr fontSize=".9rem">
+                                    <Td>AD0090HL30</Td>
+                                    <Td>Oseni Kenny</Td>
+                                    <Td>#45,000</Td>
+                                    <Td>3 Jun, 2021</Td>
+                                    <TableStatus name="Pending Confirmation" />
                                     <Td
                                         onClick={() => {
                                             setId(2);
@@ -158,7 +334,7 @@ function BookingsHome() {
                     </TableContainer>
                 </Box>
                 <DrawerWrapper isOpen={isOpen} onClose={onClose}>
-                    <BookingDetails response="pending" id={id} />
+                    <BookingDetails showAlert={showAlert} closed="" alertText="" response="pending" id={id} />
                 </DrawerWrapper>
             </Box>
         </Box>
