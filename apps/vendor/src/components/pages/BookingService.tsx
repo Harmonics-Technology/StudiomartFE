@@ -34,7 +34,7 @@ function BookingService() {
         page={"Services"}
         details={"Here you manage all your services"}
         right={true}
-        clickFunction={undefined}
+        // clickFunction={undefined}
       />
       <Box
         bgColor= "rgba(220, 38, 38, 0.1)"
