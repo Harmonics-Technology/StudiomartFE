@@ -1,13 +1,18 @@
 import React, { ReactNode, createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+
+
 
 export const UserContext = createContext<any>(null);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<any>();
-  const logout = ({ tokenValue, userDetails }: any) => {
+  const router = useRouter()
+  const logout = ( tokenValue:any, userDetails:any, path?:any) => {
     Cookies.remove(tokenValue);
     Cookies.remove(userDetails);
-    Cookies.remove("user");
+    router.push(path || '/login') 
+    // Cookies.remove("user");
   };
   const loggedInUser = Cookies.get("vendor");
 
