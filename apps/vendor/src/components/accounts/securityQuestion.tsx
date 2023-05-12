@@ -13,7 +13,7 @@ import { FaUser } from "react-icons/fa";
 import AccountSideBar from "@components/accounts/AccountSideBar";
 import register from "pages/register";
 import { UpdateUserModel } from "src/services";
-import PrimaryInput from "src/utils/PrimaryInput";
+import {PrimaryInput }from "ui";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
