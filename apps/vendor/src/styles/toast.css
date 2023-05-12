@@ -1,0 +1,6 @@
+.toaster {
+  box-shadow: none !important;
+  min-width: 80% !important;
+  height: 4rem !important;
+  border-radius: 0 !important;
+}
