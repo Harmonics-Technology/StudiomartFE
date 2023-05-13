@@ -3,9 +3,9 @@
 /* eslint-disable */
 
 import type { HttpStatusCode } from './HttpStatusCode';
-import type { NotificationView } from './NotificationView';
+import type { ReviewView } from './ReviewView';
 
-export type NotificationViewStandardResponse = {
+export type ReviewViewStandardResponse = {
     href?: string | null;
     relations?: Array<string> | null;
     method?: string | null;
@@ -13,7 +13,8 @@ export type NotificationViewStandardResponse = {
     routeValues?: any;
     status?: boolean;
     message?: string | null;
-    data?: NotificationView;
+    data?: ReviewView;
     statusCode?: HttpStatusCode;
     errors?: any;
 };
+

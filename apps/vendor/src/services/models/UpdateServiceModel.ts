@@ -9,3 +9,4 @@ export type UpdateServiceModel = {
     price?: number;
     bannerImageURL?: string | null;
 };
+

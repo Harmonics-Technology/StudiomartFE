@@ -11,3 +11,4 @@ export type UserView = {
     email?: string | null;
     profilePicture?: string | null;
 };
+

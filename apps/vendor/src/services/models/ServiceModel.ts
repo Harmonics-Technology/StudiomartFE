@@ -13,3 +13,4 @@ export type ServiceModel = {
     additionalServices?: Array<AdditionalServiceModel> | null;
     studioId?: string;
 };
+

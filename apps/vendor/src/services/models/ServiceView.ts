@@ -14,3 +14,4 @@ export type ServiceView = {
     media?: Array<MediaView> | null;
     additionalServices?: Array<AdditionalServiceView> | null;
 };
+

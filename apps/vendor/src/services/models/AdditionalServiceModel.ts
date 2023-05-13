@@ -8,3 +8,4 @@ export type AdditionalServiceModel = {
     name?: string | null;
     price?: number;
 };
+

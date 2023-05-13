@@ -26,7 +26,13 @@ import {
   Td,
 } from '@chakra-ui/react';
 import DashboardBanner from './DashboardBanner';
-import { CustomTable, TableData, TableStatus, TableWithSub } from 'ui';
+import {
+  AlertBox,
+  CustomTable,
+  TableData,
+  TableStatus,
+  TableWithSub,
+} from 'ui';
 import React, { useContext } from 'react';
 import data from './data.js';
 import { ArrowBackIcon, ArrowForwardIcon, AddIcon } from '@chakra-ui/icons';
@@ -45,6 +51,7 @@ import {
   VendorDashboardView,
   VendorDashboardViewStandardResponse,
 } from 'src/services';
+import toast from 'react-hot-toast';
 
 interface DashboardProps {
   studios: any;
@@ -64,10 +71,17 @@ export const MainDashboard = ({
 
   const thead = ['Service Name', 'Date', 'Client Name', 'Status', 'Chats', ''];
   console.log(dashboardMetrics);
+
+  const notify = () => toast('Here is your toast.');
   return (
     <>
       <Box>
         <Box>
+          {/* <AlertBox
+            status="success"
+            text="Your service has been listed succesfully"
+            onClose={() => void 0}
+          /> */}
           <TopPage
             page={`${user?.lastName}!`}
             details={'Welcome to your dashboard'}
@@ -76,6 +90,7 @@ export const MainDashboard = ({
           />
         </Box>
         <DashboardBanner />
+        <button onClick={notify}>Make me a toast</button>
 
         <Flex px="2rem" gap="2rem">
           <Box w="60%">
@@ -113,7 +128,7 @@ export const MainDashboard = ({
           </Box>
         </Flex>
         <Box px="2rem">
-          <ServiceSlider data={studios.data.value} />
+          <ServiceSlider data={studios?.data.value} />
         </Box>
         <Box px="2rem" my="2rem">
           <Text fontFamily="BR Firma" fontSize="20px" fontWeight="600">

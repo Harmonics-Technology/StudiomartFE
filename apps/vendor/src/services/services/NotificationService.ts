@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { BooleanStandardResponse } from '../models/BooleanStandardResponse';
-import type { NotificationViewStandardResponse } from '../models/NotificationViewStandardResponse';
+import type { NotificationViewPagedCollectionStandardResponse } from '../models/NotificationViewPagedCollectionStandardResponse';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -12,20 +12,20 @@ export class NotificationService {
 
     /**
      * Get a notifications by it's userId
-     * @returns NotificationViewStandardResponse Success
+     * @returns NotificationViewPagedCollectionStandardResponse Success
      * @throws ApiError
      */
     public static getUserNotification({
-userId,
-offset,
-limit,
-device,
-}: {
-userId: string,
-offset?: number,
-limit?: number,
-device?: any,
-}): CancelablePromise<NotificationViewStandardResponse> {
+        userId,
+        offset,
+        limit,
+        device,
+    }: {
+        userId: string,
+        offset?: number,
+        limit?: number,
+        device?: any,
+    }): CancelablePromise<NotificationViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Notification/{userId}',
@@ -51,12 +51,12 @@ device?: any,
      * @throws ApiError
      */
     public static markAsRead({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<BooleanStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Notification/read/{id}',
@@ -78,12 +78,12 @@ device?: any,
      * @throws ApiError
      */
     public static deleteNotification({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<BooleanStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Notification/delete/{id}',
