@@ -9,3 +9,4 @@ export type UpdateUserModel = {
     lastName?: string | null;
     profileURl?: string | null;
 };
+

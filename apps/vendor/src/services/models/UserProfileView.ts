@@ -8,3 +8,4 @@ export type UserProfileView = {
     gender?: string | null;
     profilePictureUrl?: string | null;
 };
+

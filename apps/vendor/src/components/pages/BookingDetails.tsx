@@ -10,13 +10,13 @@ import {
   Divider,
   Button,
   useDisclosure,
-} from "@chakra-ui/react";
-import React, { useState } from "react";
-import { BsExclamationCircleFill } from "react-icons/bs";
-import BookingText from "src/utils/BookingText";
-import { ModalWrapper } from "ui";
-import RejectBooking from "src/utils/RejectBooking";
-import { Responses } from "src/utils/Responses";
+} from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { BsExclamationCircleFill } from 'react-icons/bs';
+import BookingText from 'src/utils/BookingText';
+import RejectBooking from 'src/utils/RejectBooking';
+import { Responses } from 'src/utils/Responses';
+import { ModalWrapper } from 'ui';
 
 interface DetailsProps {
   response: string;
@@ -32,36 +32,33 @@ function BookingDetails({
   alertText,
   closed,
 }: DetailsProps) {
-
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { isOpen: open, onClose: close, onOpen: onOpens } = useDisclosure();
   console.log({ id });
   const [loading, setLoading] = useState(false);
-   
-  response = "pending";
+
+  response = 'pending';
   function acceptUserBooking(id: string) {
     setLoading(true);
     setTimeout(() => {
       closed();
       alertText(
-        "You have successfully accept booking Folashade would be notify to make payment"
+        'You have successfully accept booking Folashade would be notify to make payment'
       );
       showAlert(true);
       setLoading(false);
     }, 3000);
   }
 
-  function rejectUserBooking() {
-    setLoading(true);
-    setTimeout(() => {
-      closed();
-      alertText(
-        "You have successfully rejected booking Folashade"
-      );
-      showAlert(true);
-      setLoading(false);
-    }, 3000);
-  }
+  // function rejectUserBooking() {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     closed();
+  //     alertText('You have successfully rejected booking Folashade');
+  //     showAlert(true);
+  //     setLoading(false);
+  //   }, 3000);
+  // }
   return (
     <Box
       w="full"
@@ -81,25 +78,25 @@ function BookingDetails({
             borderRadius="8px"
             cursor="pointer"
             bgColor={
-              response == "pending"
-                ? "#FDF3CA"
-                : response == "accept"
-                ? "#D5E2F9"
-                : response == "progress"
-                ? "#FDF3CA"
-                : response == "cancel"
-                ? "#FDC1C1"
-                : "white"
+              response == 'pending'
+                ? '#FDF3CA'
+                : response == 'accept'
+                ? '#D5E2F9'
+                : response == 'progress'
+                ? '#FDF3CA'
+                : response == 'cancel'
+                ? '#FDC1C1'
+                : 'white'
             }
             fontSize="10px"
           >
-            {response == "pending"
-              ? "Pending Confirmation"
-              : response == "accept"
-              ? "Awaiting payment"
-              : response == "progress"
-              ? "In progress"
-              : "Cancelled"}
+            {response == 'pending'
+              ? 'Pending Confirmation'
+              : response == 'accept'
+              ? 'Awaiting payment'
+              : response == 'progress'
+              ? 'In progress'
+              : 'Cancelled'}
           </Box>
         </Flex>
         <VStack gap="2rem">
@@ -239,7 +236,7 @@ function BookingDetails({
             h="3rem"
             gap="2rem"
             mb="1rem !important"
-            display={response == "pending" ? "flex" : "none"}
+            display={response == 'pending' ? 'flex' : 'none'}
           >
             <Button
               variant="outline"
@@ -256,7 +253,7 @@ function BookingDetails({
               bgColor="#1570FA"
               color="white"
               h="full"
-              onClick={() => acceptUserBooking("2")}
+              onClick={() => acceptUserBooking('2')}
               isLoading={loading}
             >
               Accept Booking
@@ -265,7 +262,7 @@ function BookingDetails({
         </VStack>
       </Box>
       <ModalWrapper isOpen={isOpen} onClose={onClose}>
-        <RejectBooking onClose={onClose} reject={rejectUserBooking}/>
+        <RejectBooking id={id} onClose={onClose} />
       </ModalWrapper>
     </Box>
   );
