@@ -331,8 +331,8 @@ function BookingsHome() {
                 w="4rem" 
                 cursor="default" 
                 ml="-3">
-              <Flex>
-                <MdKeyboardArrowLeft mt="1px"/>
+              <Flex mt="1px">
+                <MdKeyboardArrowLeft />
                 Prev.
               </Flex>
             </Button>
@@ -349,8 +349,8 @@ function BookingsHome() {
                 4...
             </Button>
             <Button bg="brand.10" height="2rem" w="4rem" cursor="default">
-                <Flex color="white">
-                  Next <MdKeyboardArrowRight color="white" mt="1px"/>
+                <Flex color="white" mt="1px">
+                  Next <MdKeyboardArrowRight />
                 </Flex>
             </Button>
           </TableContainer>
