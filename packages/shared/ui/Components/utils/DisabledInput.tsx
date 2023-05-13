@@ -12,10 +12,11 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 interface FormProps<TFormValues extends Record<string, unknown>> {
   label: string;
+  icon?: boolean;
   type?: string;
   defaultValue?: any;
   fontWeight?: number | string;
-  icon?: boolean;
+  onChange?: any;
   placeholder?: string;
   passwordVisible?: boolean;
   changeVisibility?: any;
@@ -28,7 +29,7 @@ interface FormProps<TFormValues extends Record<string, unknown>> {
 const DisabledInput = <TFormValues extends Record<string, any>>({
   label,
   type = "text",
-  icon = false,
+  onChange,
   placeholder,
   fontWeight,
   passwordVisible,
@@ -36,7 +37,8 @@ const DisabledInput = <TFormValues extends Record<string, any>>({
   changeVisibility,
   focusBorderColor,
   required = false,
-  disableLabel = {},
+  icon = false,
+  disableLabel = false,
   borderRadius = "4px",
 }: FormProps<TFormValues>) => {
   return (
@@ -58,8 +60,19 @@ const DisabledInput = <TFormValues extends Record<string, any>>({
             _placeholder={{
               fontSize: "14px",
             }}
-            disabled={disableLabel}
-          />
+            disabled={disableLabel} 
+            onChange={onChange}
+            />
+            {icon && (
+              <InputRightElement
+                onClick={ changeVisibility}
+                cursor="pointer"
+                color="brand.100"
+                h="full"
+              >
+                {passwordVisible ? <FaRegEye /> : <FaRegEyeSlash />}
+              </InputRightElement>
+            )}
         </InputGroup>
       </FormControl>
     </>
