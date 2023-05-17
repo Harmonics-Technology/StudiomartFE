@@ -69,7 +69,7 @@ const MainWallet = () => {
                 </Box>
                 <VStack spacing={-5} align="start" ml="" mt="4px" w="10rem">
                   <Text
-                    pl="5"
+                    pl="4"
                     pt="4"
                     fontSize="16px"
                     fontWeight="400"
@@ -79,7 +79,7 @@ const MainWallet = () => {
                   </Text>
 
                   <Text fontSize="32px" w="700" pl="4" mt="-2.5">
-                    ₦0000
+                    ₦0.00
                   </Text>
                 </VStack>
               </Flex>
@@ -95,17 +95,17 @@ const MainWallet = () => {
                 </Box>
                 <VStack spacing={-5} align="start" ml="" mt="4px" w="10rem">
                   <Text
-                    pl="5"
+                    pl="4"
                     pt="4"
                     fontSize="16px"
                     fontWeight="400"
                     mt="-1.5"
                   >
-                    Wallet Balance
+                    Total Income
                   </Text>
 
                   <Text fontSize="32px" w="700" pl="4" mt="-2.5">
-                    ₦0000
+                    ₦0.00
                   </Text>
                 </VStack>
               </Flex>
@@ -147,7 +147,7 @@ const MainWallet = () => {
               ))}
               <Text
                 fontWeight="500"
-                fontSize="20px"
+                fontSize="12px"
                 color="brand.100"
                 textAlign="center"
                 py="2"
