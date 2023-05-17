@@ -35,7 +35,7 @@ function BookingsHome() {
     <Box>
       <TopPage
         page={"Bookings"}
-        details={"Veiw all your bookings here!"}
+        details={"View all your bookings here!"}
         right={true}
         // clickFunction={undefined}
       />
