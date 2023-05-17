@@ -6,6 +6,7 @@ import type { InitiateResetModel } from '../models/InitiateResetModel';
 import type { LoginModel } from '../models/LoginModel';
 import type { PasswordReset } from '../models/PasswordReset';
 import type { PasswordVerificationModel } from '../models/PasswordVerificationModel';
+import type { PasswordVerificationModel } from '../models/PasswordVerificationModel';
 import type { RegisterModel } from '../models/RegisterModel';
 import type { SecurityQuestionModel } from '../models/SecurityQuestionModel';
 import type { StringStandardResponse } from '../models/StringStandardResponse';

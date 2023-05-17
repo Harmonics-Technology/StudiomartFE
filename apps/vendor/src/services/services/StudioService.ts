@@ -12,6 +12,8 @@ import type { MediaViewStandardResponse } from '../models/MediaViewStandardRespo
 import type { ServiceModel } from '../models/ServiceModel';
 import type { ServiceTypeViewListStandardResponse } from '../models/ServiceTypeViewListStandardResponse';
 import type { ServiceViewPagedCollectionStandardResponse } from '../models/ServiceViewPagedCollectionStandardResponse';
+import type { ServiceTypeViewListStandardResponse } from '../models/ServiceTypeViewListStandardResponse';
+import type { ServiceViewPagedCollectionStandardResponse } from '../models/ServiceViewPagedCollectionStandardResponse';
 import type { ServiceViewStandardResponse } from '../models/ServiceViewStandardResponse';
 import type { StudioKYCModel } from '../models/StudioKYCModel';
 import type { StudioModel } from '../models/StudioModel';
