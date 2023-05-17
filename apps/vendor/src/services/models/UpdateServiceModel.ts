@@ -8,5 +8,6 @@ export type UpdateServiceModel = {
     description?: string | null;
     price?: number;
     bannerImageURL?: string | null;
+    serviceTypeId?: string;
 };
 

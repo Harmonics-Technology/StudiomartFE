@@ -17,6 +17,8 @@ export type Studio = {
     state?: string | null;
     country?: string | null;
     zipCode?: string | null;
+    longitude?: number | null;
+    latitude?: number | null;
     phone?: string | null;
     email?: string | null;
     website?: string | null;

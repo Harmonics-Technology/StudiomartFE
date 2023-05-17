@@ -12,5 +12,6 @@ export type ServiceModel = {
     mediaUrls?: Array<string> | null;
     additionalServices?: Array<AdditionalServiceModel> | null;
     studioId?: string;
+    serviceTypeId?: string;
 };
 

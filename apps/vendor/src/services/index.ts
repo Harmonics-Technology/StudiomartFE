@@ -32,6 +32,7 @@ export type { NotificationViewPagedCollection } from './models/NotificationViewP
 export type { NotificationViewPagedCollectionStandardResponse } from './models/NotificationViewPagedCollectionStandardResponse';
 export type { ObjectStandardResponse } from './models/ObjectStandardResponse';
 export type { PasswordReset } from './models/PasswordReset';
+export type { PasswordVerificationModel } from './models/PasswordVerificationModel';
 export type { ProblemDetails } from './models/ProblemDetails';
 export type { RegisterModel } from './models/RegisterModel';
 export type { ReviewModel } from './models/ReviewModel';
@@ -40,7 +41,12 @@ export type { ReviewViewStandardResponse } from './models/ReviewViewStandardResp
 export type { SecurityQuestionModel } from './models/SecurityQuestionModel';
 export type { Service } from './models/Service';
 export type { ServiceModel } from './models/ServiceModel';
+export type { ServiceType } from './models/ServiceType';
+export type { ServiceTypeView } from './models/ServiceTypeView';
+export type { ServiceTypeViewListStandardResponse } from './models/ServiceTypeViewListStandardResponse';
 export type { ServiceView } from './models/ServiceView';
+export type { ServiceViewPagedCollection } from './models/ServiceViewPagedCollection';
+export type { ServiceViewPagedCollectionStandardResponse } from './models/ServiceViewPagedCollectionStandardResponse';
 export type { ServiceViewStandardResponse } from './models/ServiceViewStandardResponse';
 export type { StringStandardResponse } from './models/StringStandardResponse';
 export type { Studio } from './models/Studio';

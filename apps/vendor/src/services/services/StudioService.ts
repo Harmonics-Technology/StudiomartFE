@@ -8,6 +8,8 @@ import type { BooleanStandardResponse } from '../models/BooleanStandardResponse'
 import type { MediaUpdateModel } from '../models/MediaUpdateModel';
 import type { MediaViewStandardResponse } from '../models/MediaViewStandardResponse';
 import type { ServiceModel } from '../models/ServiceModel';
+import type { ServiceTypeViewListStandardResponse } from '../models/ServiceTypeViewListStandardResponse';
+import type { ServiceViewPagedCollectionStandardResponse } from '../models/ServiceViewPagedCollectionStandardResponse';
 import type { ServiceViewStandardResponse } from '../models/ServiceViewStandardResponse';
 import type { StudioKYCModel } from '../models/StudioKYCModel';
 import type { StudioModel } from '../models/StudioModel';
@@ -44,6 +46,34 @@ export class StudioService {
             },
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * Get studio by id
+     * @returns StudioViewStandardResponse Success
+     * @throws ApiError
+     */
+    public static getStudioById({
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<StudioViewStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Studio/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'device': device,
+            },
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -153,6 +183,34 @@ export class StudioService {
             },
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * Get service by id
+     * @returns ServiceViewStandardResponse Success
+     * @throws ApiError
+     */
+    public static getServiceById({
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<ServiceViewStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Studio/service/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'device': device,
+            },
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -618,6 +676,75 @@ export class StudioService {
             query: {
                 'Offset': offset,
                 'Limit': limit,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * List services
+     * @returns ServiceViewPagedCollectionStandardResponse Success
+     * @throws ApiError
+     */
+    public static listServices({
+        offset,
+        limit,
+        serviceTypeId,
+        minPrice,
+        maxPrice,
+        rating,
+        studioId,
+        device,
+    }: {
+        offset?: number,
+        limit?: number,
+        serviceTypeId?: string,
+        minPrice?: number,
+        maxPrice?: number,
+        rating?: number,
+        studioId?: string,
+        device?: any,
+    }): CancelablePromise<ServiceViewPagedCollectionStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Studio/services',
+            headers: {
+                'device': device,
+            },
+            query: {
+                'Offset': offset,
+                'Limit': limit,
+                'ServiceTypeId': serviceTypeId,
+                'MinPrice': minPrice,
+                'MaxPrice': maxPrice,
+                'Rating': rating,
+                'StudioId': studioId,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * Get list of service types
+     * @returns ServiceTypeViewListStandardResponse Success
+     * @throws ApiError
+     */
+    public static getServiceTypes({
+        device,
+    }: {
+        device?: any,
+    }): CancelablePromise<ServiceTypeViewListStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Studio/service-types',
+            headers: {
+                'device': device,
             },
             errors: {
                 400: `Bad Request`,
