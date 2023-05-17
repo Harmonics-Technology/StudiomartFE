@@ -4,6 +4,7 @@
 
 import type { AdditionalService } from './AdditionalService';
 import type { Media } from './Media';
+import type { ServiceType } from './ServiceType';
 import type { Studio } from './Studio';
 import type { User } from './User';
 
@@ -21,5 +22,7 @@ export type Service = {
     user?: User;
     studioId?: string;
     studio?: Studio;
+    serviceTypeId?: string;
+    serviceType?: ServiceType;
 };
 

@@ -4,6 +4,8 @@
 
 import type { AdditionalServiceView } from './AdditionalServiceView';
 import type { MediaView } from './MediaView';
+import type { ServiceTypeView } from './ServiceTypeView';
+import type { StudioView } from './StudioView';
 
 export type ServiceView = {
     id?: string;
@@ -11,7 +13,10 @@ export type ServiceView = {
     description?: string | null;
     price?: number;
     bannerImageURL?: string | null;
+    studio?: StudioView;
     media?: Array<MediaView> | null;
     additionalServices?: Array<AdditionalServiceView> | null;
+    serviceTypeId?: string;
+    serviceType?: ServiceTypeView;
 };
 

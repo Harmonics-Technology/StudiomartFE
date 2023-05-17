@@ -5,6 +5,7 @@ import type { BooleanStandardResponse } from '../models/BooleanStandardResponse'
 import type { InitiateResetModel } from '../models/InitiateResetModel';
 import type { LoginModel } from '../models/LoginModel';
 import type { PasswordReset } from '../models/PasswordReset';
+import type { PasswordVerificationModel } from '../models/PasswordVerificationModel';
 import type { RegisterModel } from '../models/RegisterModel';
 import type { SecurityQuestionModel } from '../models/SecurityQuestionModel';
 import type { StringStandardResponse } from '../models/StringStandardResponse';
@@ -170,10 +171,12 @@ export class UserService {
      * @throws ApiError
      */
     public static updatePassword({
-        password,
+        oldPassword,
+        newPassword,
         device,
     }: {
-        password?: string,
+        oldPassword?: string,
+        newPassword?: string,
         device?: any,
     }): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
@@ -183,7 +186,8 @@ export class UserService {
                 'device': device,
             },
             query: {
-                'password': password,
+                'OldPassword': oldPassword,
+                'NewPassword': newPassword,
             },
         });
     }
@@ -214,7 +218,7 @@ export class UserService {
 
     /**
      * Get a user by id
-     * @returns UserProfileViewStandardResponse Success
+     * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
     public static getUserById({
@@ -223,7 +227,7 @@ export class UserService {
     }: {
         userId: string,
         device?: any,
-    }): CancelablePromise<UserProfileViewStandardResponse> {
+    }): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/User/{userId}',
@@ -392,6 +396,32 @@ export class UserService {
             headers: {
                 'device': device,
             },
+            errors: {
+                400: `Bad Request`,
+            },
+        });
+    }
+
+    /**
+     * Verify user password
+     * @returns BooleanStandardResponse Success
+     * @throws ApiError
+     */
+    public static verifyPassword({
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: PasswordVerificationModel,
+    }): CancelablePromise<BooleanStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/User/verify-user-password',
+            headers: {
+                'device': device,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
             },

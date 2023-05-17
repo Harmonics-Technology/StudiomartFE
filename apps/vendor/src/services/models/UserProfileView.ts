@@ -4,8 +4,12 @@
 
 export type UserProfileView = {
     id?: string;
+    firstName?: string | null;
+    lastName?: string | null;
     fullName?: string | null;
     gender?: string | null;
-    profilePictureUrl?: string | null;
+    email?: string | null;
+    profilePicture?: string | null;
+    phoneNumber?: string | null;
 };
 

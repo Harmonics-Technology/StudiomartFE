@@ -10,5 +10,6 @@ export type UserView = {
     token?: string | null;
     email?: string | null;
     profilePicture?: string | null;
+    phoneNumber?: string | null;
 };
 
