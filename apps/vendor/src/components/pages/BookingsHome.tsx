@@ -325,6 +325,7 @@ function BookingsHome() {
                 </Tr>
               </Tbody>
             </Table>
+            {/* <Box alignContent={"center"}> */}
             <Button 
                 bg="white" 
                 height="2rem" 
@@ -336,6 +337,7 @@ function BookingsHome() {
                 Prev.
               </Flex>
             </Button>
+            
             <Button bg="white" height="30px" cursor="default">
                 1
             </Button>
@@ -348,11 +350,12 @@ function BookingsHome() {
             <Button bg="white" height="30px" cursor="default">
                 4...
             </Button>
-            <Button bg="brand.10" height="2rem" w="4rem" cursor="default">
+            <Button bg="#1570FA" height="2rem" w="4rem" cursor="default">
                 <Flex color="white" mt="1px">
                   Next <MdKeyboardArrowRight />
                 </Flex>
             </Button>
+            {/* </Box> */}
           </TableContainer>
         </Box>
         <DrawerWrapper isOpen={isOpen} onClose={onClose}>

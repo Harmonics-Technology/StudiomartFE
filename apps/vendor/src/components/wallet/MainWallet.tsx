@@ -116,9 +116,9 @@ const MainWallet = () => {
                 amount={info.amount}
               /> */}
             </HStack>
-            ;{/* // })} */}
+            
             <form>
-              <Text>Withdrawal Information</Text>
+              <Text pl="1rem" mt="3rem">Withdrawal Information</Text>
               {/* <PrimaryInput
                 label="Enter amount to withdraw"
                 type="text"
