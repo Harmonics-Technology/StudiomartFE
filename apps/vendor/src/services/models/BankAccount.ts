@@ -15,4 +15,3 @@ export type BankAccount = {
     bankCode?: string | null;
     bankName?: string | null;
 };
-

@@ -16,10 +16,13 @@ export type StudioView = {
     website?: string | null;
     logo?: string | null;
     coverPhoto?: string | null;
+    officeAddress?: string | null;
+    studioCapacity?: string | null;
+    cacDocumentReference?: string | null;
+    meansOfIdentification?: string | null;
     facebook?: string | null;
     instagram?: string | null;
     twitter?: string | null;
     linkedIn?: string | null;
     youTube?: string | null;
 };
-

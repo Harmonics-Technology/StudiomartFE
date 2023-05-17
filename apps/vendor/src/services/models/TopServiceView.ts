@@ -9,4 +9,3 @@ export type TopServiceView = {
     service?: Service;
     orders?: number;
 };
-

@@ -6,4 +6,3 @@ export type MediaUpdateModel = {
     id?: string;
     mediaURL?: string | null;
 };
-

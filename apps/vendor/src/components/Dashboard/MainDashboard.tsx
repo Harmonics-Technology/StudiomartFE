@@ -24,73 +24,70 @@ import {
   useDisclosure,
   Tr,
   Td,
-} from '@chakra-ui/react';
-import DashboardBanner from './DashboardBanner';
+} from "@chakra-ui/react";
+import DashboardBanner from "./DashboardBanner";
 import {
   AlertBox,
   CustomTable,
   TableData,
   TableStatus,
   TableWithSub,
-} from 'ui';
-import React, { useContext } from 'react';
-import data from './data.js';
-import { ArrowBackIcon, ArrowForwardIcon, AddIcon } from '@chakra-ui/icons';
-import ServicesCard from './ServicesCard';
-import OrdersTop from './OrdersTop';
-import SubHeading from './SubHeading';
-import { OrderCounts } from './OrderCounts';
-import { TopServiceSlider } from './TopServiceSlider';
-import { useRouter } from 'next/router';
-import { ServiceSlider } from './ServicesSlider';
-import { UserContext } from '@components/Context/UserContext';
-import TopPage from '../../utils/TopPage';
-import { BsFillChatRightTextFill, BsThreeDotsVertical } from 'react-icons/bs';
+} from "ui";
+import React, { useContext } from "react";
+import data from "./data.js";
+import { ArrowBackIcon, ArrowForwardIcon, AddIcon } from "@chakra-ui/icons";
+import ServicesCard from "./ServicesCard";
+import OrdersTop from "./OrdersTop";
+import SubHeading from "./SubHeading";
+import { OrderCounts } from "./OrderCounts";
+import { TopServiceSlider } from "./TopServiceSlider";
+import { useRouter } from "next/router";
+import { ServiceSlider } from "./ServicesSlider";
+import { UserContext } from "@components/Context/UserContext";
+import TopPage from "../../utils/TopPage";
+import { BsFillChatRightTextFill, BsThreeDotsVertical } from "react-icons/bs";
 import {
   BookingView,
+  ServiceTypeViewListStandardResponse,
+  ServiceViewPagedCollection,
   VendorDashboardView,
   VendorDashboardViewStandardResponse,
-} from 'src/services';
-import toast from 'react-hot-toast';
+} from "src/services";
+import toast from "react-hot-toast";
 
 interface DashboardProps {
-  studios: any;
+  serviceTypes: ServiceTypeViewListStandardResponse;
   dashboardMetrics: VendorDashboardView;
+  services: ServiceViewPagedCollection;
 }
 
 export const MainDashboard = ({
-  studios,
+  serviceTypes,
   dashboardMetrics,
+  services,
 }: DashboardProps) => {
-  console.log({ studios });
-  const size = ['xs'];
+  // console.log({ serviceTypes, services });
+  const size = ["xs"];
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const { user } = useContext(UserContext);
   // console.log({ user });
 
-  const thead = ['Service Name', 'Date', 'Client Name', 'Status', 'Chats', ''];
-  console.log(dashboardMetrics);
+  const thead = ["Service Name", "Date", "Client Name", "Status", "Chats", ""];
+  // console.log({ services });
 
-  const notify = () => toast('Here is your toast.');
   return (
     <>
       <Box>
         <Box>
-          {/* <AlertBox
-            status="success"
-            text="Your service has been listed succesfully"
-            onClose={() => void 0}
-          /> */}
           <TopPage
             page={`${user?.lastName}!`}
-            details={'Welcome to your dashboard'}
+            details={"Welcome to your dashboard"}
             right={true}
-            studios={studios}
+            serviceTypes={serviceTypes}
           />
         </Box>
         <DashboardBanner />
-        <button onClick={notify}>Make me a toast</button>
 
         <Flex px="2rem" gap="2rem">
           <Box w="60%">
@@ -128,10 +125,15 @@ export const MainDashboard = ({
           </Box>
         </Flex>
         <Box px="2rem">
-          <ServiceSlider data={studios?.data.value} />
+          <ServiceSlider data={services?.value} />
         </Box>
         <Box px="2rem" my="2rem">
-          <Text fontFamily="BR Firma" fontSize="20px" fontWeight="600">
+          <Text
+            fontFamily="BR Firma"
+            fontSize="18px"
+            pl=".5rem"
+            fontWeight="600"
+          >
             Recent Orders
           </Text>
           <Box bgColor="white" borderRadius="8px" boxShadow="sm" p="1rem">

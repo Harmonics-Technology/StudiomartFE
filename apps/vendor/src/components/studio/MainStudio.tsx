@@ -13,34 +13,40 @@ import {
   TableContainer,
   Image,
   Button,
-} from '@chakra-ui/react';
+  Grid,
+} from "@chakra-ui/react";
 import {
   AlertBox,
   CustomTable,
   TableData,
   TableStatus,
   TableWithSub,
-} from 'ui';
-import React, { useContext } from 'react';
-import { useRouter } from 'next/router';
-import { UserContext } from '@components/Context/UserContext';
-import TopPage from '../../utils/TopPage';
+} from "ui";
+import React, { useContext } from "react";
+import { useRouter } from "next/router";
+import { UserContext } from "@components/Context/UserContext";
+import TopPage from "../../utils/TopPage";
 import {
+  ServiceTypeViewListStandardResponse,
+  ServiceView,
+  ServiceViewPagedCollectionStandardResponse,
   StudioView,
-  StudioViewPagedCollectionStandardResponse,
-} from 'src/services';
+} from "src/services";
+import { useDummyImage } from "react-simple-placeholder-image";
 
 interface StudioProps {
-  studios: StudioViewPagedCollectionStandardResponse;
+  studios: ServiceViewPagedCollectionStandardResponse;
+  serviceTypes: ServiceTypeViewListStandardResponse;
 }
 
-export const MainStudio = ({ studios }: StudioProps) => {
+export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
   console.log({ studios });
-  const size = ['xs'];
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const { user } = useContext(UserContext);
   // console.log({ user });
+  const image = useDummyImage({
+    /* Config */
+  });
 
   return (
     <>
@@ -48,13 +54,17 @@ export const MainStudio = ({ studios }: StudioProps) => {
         <Box>
           <TopPage
             page={`${user?.lastName}!`}
-            details={'Welcome to your dashboard'}
-            right={false}
-            studios={studios}
+            details={"Welcome to your dashboard"}
+            right={true}
+            serviceTypes={serviceTypes}
           />
         </Box>
-        <Box px="2rem" my="2rem">
-          {studios?.data?.value?.map((x: StudioView, i: any) => (
+        <Grid
+          px="2rem"
+          my="2rem"
+          templateColumns={["repeat(1,1fr)", "repeat(3,1fr)"]}
+        >
+          {studios?.data?.value?.map((x: ServiceView, i: any) => (
             <Box
               minH="14rem"
               w="23rem"
@@ -68,7 +78,7 @@ export const MainStudio = ({ studios }: StudioProps) => {
                 h="14rem "
                 w="100%"
                 objectFit="cover"
-                src={x.coverPhoto || '/assets/007.jpg'}
+                src={x.bannerImageURL || image}
                 alt="image"
                 bgColor="white"
               />
@@ -78,33 +88,29 @@ export const MainStudio = ({ studios }: StudioProps) => {
                 textAlign="left"
                 p="1rem 1rem 1.5rem"
               >
-                <Text
-                  fontWeight="600"
-                  fontSize="20px"
-                  mb=".5rem"
-                  fontFamily="BR Firma"
-                >
+                <Text fontWeight="600" fontSize="20px" mb=".5rem">
                   {x.name}
                 </Text>
-                <Text fontSize="15px" fontWeight="400" fontFamily="BR Firma">
+                <Text fontSize="15px" fontWeight="400">
                   {x.description}
                 </Text>
 
                 <Button
-                  onClick={() => router.push(`/studio/${x.id}`)}
+                  onClick={() => router.push(`/services/${x.id}`)}
                   w="100%"
-                  bgColor="#AFAFAF"
-                  cursor="default"
-                  colorScheme="blue"
+                  variant="outline"
+                  cursor="pointer"
+                  border="1px solid"
+                  borderColor="brand.100"
+                  color="brand.100"
                   // onClick={() => deactivateService(x.id)}
-                  fontFamily="BR Firma"
                 >
-                  View Studio
+                  View Service
                 </Button>
               </Box>
             </Box>
           ))}
-        </Box>
+        </Grid>
       </Box>
     </>
   );

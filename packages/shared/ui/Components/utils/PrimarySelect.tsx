@@ -29,10 +29,10 @@ export const PrimarySelect = <TFormValues extends Record<string, any>>({
   validate = {},
   error,
   label = "",
-  fontWeight = 400,
+  fontWeight = 500,
   options,
   defaultValue,
-  mb = "1rem",
+  mb = "0rem",
   focusBorderColor = "none",
 }: FormInputProps<TFormValues>) => {
   return (
@@ -40,6 +40,7 @@ export const PrimarySelect = <TFormValues extends Record<string, any>>({
       <FormControl
         w="100%"
         mb={mb}
+        fontFamily="'DM Sans', sans-serif"
         isInvalid={error?.type === "required" || error?.message !== undefined}
       >
         <FormLabel
@@ -47,7 +48,7 @@ export const PrimarySelect = <TFormValues extends Record<string, any>>({
           textTransform="capitalize"
           fontWeight={fontWeight}
           mb="5px"
-          fontSize="14px"
+          fontSize=".8rem"
         >
           {label}
         </FormLabel>
@@ -62,7 +63,7 @@ export const PrimarySelect = <TFormValues extends Record<string, any>>({
           fontWeight={fontWeight}
           borderRadius="4px"
           focusBorderColor={focusBorderColor}
-          borderColor="#DFDFE6"
+          borderColor="gray.400"
           _placeholder={{
             fontSize: "14px",
           }}

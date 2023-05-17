@@ -6,4 +6,3 @@ export type ReviewModel = {
     serviceId?: string;
     reviewNote?: string | null;
 };
-

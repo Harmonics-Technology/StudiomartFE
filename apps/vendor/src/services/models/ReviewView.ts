@@ -12,4 +12,3 @@ export type ReviewView = {
     service?: ServiceView;
     reviewNote?: string | null;
 };
-

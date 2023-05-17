@@ -17,4 +17,3 @@ export type UserViewStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
-

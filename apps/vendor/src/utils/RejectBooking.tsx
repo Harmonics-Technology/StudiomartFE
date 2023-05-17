@@ -8,15 +8,16 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { BsInfoCircleFill } from 'react-icons/bs';
+import { BookingView } from 'src/services';
 import { ModalWrapper } from 'ui';
 import RejectReason from './RejectReason';
 
 interface RejectProps {
   onClose: any;
-  id: string;
+  data: BookingView;
 }
 
-function RejectBooking({ onClose, id }: RejectProps) {
+function RejectBooking({ onClose, data }: RejectProps) {
   const { isOpen, onOpen } = useDisclosure();
   return (
     <>
@@ -51,7 +52,7 @@ function RejectBooking({ onClose, id }: RejectProps) {
         </HStack>
       </Flex>
       <ModalWrapper isOpen={isOpen} onClose={onClose}>
-        <RejectReason id={id} />
+        <RejectReason data={data} />
       </ModalWrapper>
     </>
   );

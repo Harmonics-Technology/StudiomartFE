@@ -1,128 +1,162 @@
 import React, { useState } from "react";
-import {
-  Flex,
-  Box,
-  Input,
-  Button,
-  Stack,
-  HStack,
-  Icon,
-  Text,
-} from "@chakra-ui/react";
-import { FaUser } from "react-icons/fa";
+import { Flex, Box, Button, Stack, VStack, Spinner } from "@chakra-ui/react";
 import AccountSideBar from "@components/accounts/AccountSideBar";
-import register from "pages/register";
-import { UpdateUserModel } from "src/services";
-import {PrimaryInput }from "ui";
+import { SecurityQuestionModel, UserService } from "src/services";
+import { PrimaryInput } from "ui";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import Link from "next/link";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 const schema = yup.object().shape({
-  email: yup.string().email().required(),
+  question: yup.string().required(),
+  answer: yup.string().required(),
+  otp: yup.string().required(),
+  password: yup.string().required(),
 });
 
-export default function SecurityQuestion() {
-  const [firstname, setFirstname] = useState<string>("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phonenumber, setPhonenumber] = useState("");
-  const handleSubmits = (e: any) => {
-    e.preventDefault();
-    alert(
-      `firstname: ${firstname}, lastname: ${lastname}, Email: ${email}  phonenumber: ${phonenumber}`
-    );
-  };
+interface SecurityQuestionProps {
+  userId: string;
+}
+
+export default function SecurityQuestion({ userId }: SecurityQuestionProps) {
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
-  } = useForm<UpdateUserModel>({
+    formState: { errors, isSubmitting, isValid },
+  } = useForm<SecurityQuestionModel>({
     resolver: yupResolver(schema),
     mode: "all",
+    defaultValues: {
+      userId,
+    },
   });
-  const areAllFieldsFilled = firstname != "" && lastname != "";
+  const router = useRouter();
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const onSubmit = async (data: SecurityQuestionModel) => {
+    try {
+      const result = await UserService.createSecurityQuestion({
+        requestBody: data,
+      });
+      if (result.status) {
+        toast.success(
+          "Your information has been saved successfully and will reload shortly"
+        );
+        router.reload();
+        return;
+      }
+      toast.error(result.message as string);
+      return;
+    } catch (error: any) {
+      toast.error(error?.body?.message || error?.message, {
+        className: "loginToast",
+      });
+    }
+  };
+  const getOtp = async () => {
+    setIsLoading(true);
+    try {
+      const result = await UserService.getOtp({});
+      if (result.status) {
+        setIsLoading(false);
+        toast.success("OTP sent, Check your email", {
+          className: "loginToast",
+        });
+        return;
+      }
+      setIsLoading(false);
+      toast.error(result.message as string, {
+        className: "loginToast",
+      });
+      return;
+    } catch (error: any) {
+      toast.error(error?.body?.message || error?.message, {
+        className: "loginToast",
+      });
+    }
+  };
   return (
-    <Stack
-      direction="row"
-      spacing={6}
-      width="80%"
-      my="3rem"
-      mx="3rem"
+    <Flex
       bgColor="white"
-      p="5rem"
+      align="center"
+      minH="60vh"
+      w="90%"
+      mx="auto"
+      my="3rem"
     >
-      <AccountSideBar />
-      <Box w="55%" fontFamily='"DM Sans", sans-serif'>
-        <form>
-          <Stack spacing={3}>
-            <PrimaryInput<UpdateUserModel>
-              label="Set a personal security question"
-              type="text"
-              placeholder="E.g What is your pet name?"
-              name="phoneNumber"
-              error={errors.phoneNumber}
-              register={register}
-              defaultValue={""}
-            />
-            <PrimaryInput<UpdateUserModel>
-              label="Enter the answer"
-              type="text"
-              placeholder="E.g Cat"
-              name="phoneNumber"
-              error={errors.phoneNumber}
-              register={register}
-              defaultValue={""}
-            />
-            <PrimaryInput<UpdateUserModel>
-              label="Please Enter Generated OTP"
-              type="text"
-              placeholder="Number"
-              name="phoneNumber"
-              error={errors.phoneNumber}
-              register={register}
-              defaultValue={""}
-            />
-            <PrimaryInput<UpdateUserModel>
-              label="Please enter your password"
-              type="text"
-              placeholder="........"
-              name="phoneNumber"
-              error={errors.phoneNumber}
-              register={register}
-              defaultValue={""}
-            />
+      <Stack
+        direction="row"
+        spacing={0}
+        gap="2rem"
+        width="90%"
+        ml="5rem"
+        py="5rem"
+      >
+        <AccountSideBar />
+        <Box w="45%" fontFamily='"DM Sans", sans-serif'>
+          <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+            <VStack gap="1rem">
+              <PrimaryInput<SecurityQuestionModel>
+                label="Set a personal security question."
+                type="text"
+                placeholder="what is your pet name"
+                name="question"
+                error={errors.question}
+                register={register}
+                // defaultValue={user?.firstName}
+              />
+              <PrimaryInput<SecurityQuestionModel>
+                label="Enter the answer"
+                type="text"
+                placeholder="cat"
+                name="answer"
+                error={errors.answer}
+                register={register}
+                // defaultValue={user?.lastName}
+              />
+              <PrimaryInput<SecurityQuestionModel>
+                label="Please Enter Generated OTP"
+                type="text"
+                placeholder="489752"
+                name="otp"
+                error={errors.otp}
+                register={register}
+                defaultValue={""}
+                icon={true}
+                changeVisibility={getOtp}
+                otp={isLoading ? <Spinner size="sm" /> : "Get OTP"}
+              />
+              <PrimaryInput<SecurityQuestionModel>
+                label="Please enter your password"
+                placeholder="......"
+                type={passwordVisible ? "text" : "password"}
+                icon={true}
+                passwordVisible={passwordVisible}
+                changeVisibility={() => setPasswordVisible((prev) => !prev)}
+                name="password"
+                error={errors.password}
+                register={register}
+              />
 
-            <Box marginTop={30}>
-              <HStack spacing={15} mt={20}>
-                <Link href="/vendor/account/bank-details" passHref>
-                  <Button
-                    disabled={!areAllFieldsFilled}
-                    bgColor="brand.100"
-                    color="white"
-                    width="50%"
-                    type="submit"
-                  >
-                    Back
-                  </Button>
-                </Link>
-                <Link href="/vendor/account/notifications" passHref>
-                  <Button
-                    disabled={!areAllFieldsFilled}
-                    bgColor="brand.100"
-                    color="white"
-                    width="50%"
-                    type="submit"
-                  >
-                    Save
-                  </Button>
-                </Link>
-              </HStack>
-            </Box>
-          </Stack>
-        </form>
-      </Box>
-    </Stack>
+              <Flex justifyContent="flex-end" w="full">
+                <Button
+                  disabled={!isValid}
+                  bgColor="brand.100"
+                  color="white"
+                  width="100%"
+                  type="submit"
+                  isLoading={isSubmitting}
+                  h="3rem"
+                >
+                  Save
+                </Button>
+              </Flex>
+            </VStack>
+          </form>
+        </Box>
+      </Stack>
+    </Flex>
   );
 }

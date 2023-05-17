@@ -20,12 +20,12 @@ export class BookingService {
      * @throws ApiError
      */
     public static dateTimeLookup({
-        device,
-        requestBody,
-    }: {
-        device?: any,
-        requestBody?: LookupModel,
-    }): CancelablePromise<BooleanStandardResponse> {
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: LookupModel,
+}): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Booking/lookup',
@@ -46,12 +46,12 @@ export class BookingService {
      * @throws ApiError
      */
     public static createBooking({
-        device,
-        requestBody,
-    }: {
-        device?: any,
-        requestBody?: BookingModel,
-    }): CancelablePromise<BookingViewStandardResponse> {
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: BookingModel,
+}): CancelablePromise<BookingViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Booking/create',
@@ -72,12 +72,12 @@ export class BookingService {
      * @throws ApiError
      */
     public static getBooking({
-        id,
-        device,
-    }: {
-        id: string,
-        device?: any,
-    }): CancelablePromise<BookingViewStandardResponse> {
+id,
+device,
+}: {
+id: string,
+device?: any,
+}): CancelablePromise<BookingViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Booking/{id}',
@@ -99,12 +99,12 @@ export class BookingService {
      * @throws ApiError
      */
     public static cancelBookings({
-        id,
-        device,
-    }: {
-        id: string,
-        device?: any,
-    }): CancelablePromise<BookingViewStandardResponse> {
+id,
+device,
+}: {
+id: string,
+device?: any,
+}): CancelablePromise<BookingViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/api/Booking/cancel/{id}',
@@ -126,12 +126,12 @@ export class BookingService {
      * @throws ApiError
      */
     public static acceptBooking({
-        id,
-        device,
-    }: {
-        id: string,
-        device?: any,
-    }): CancelablePromise<BookingViewStandardResponse> {
+id,
+device,
+}: {
+id: string,
+device?: any,
+}): CancelablePromise<BookingViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/api/Booking/accept/{id}',
@@ -153,14 +153,14 @@ export class BookingService {
      * @throws ApiError
      */
     public static rejectBooking({
-        id,
-        reason,
-        device,
-    }: {
-        id: string,
-        reason?: string,
-        device?: any,
-    }): CancelablePromise<BookingViewStandardResponse> {
+id,
+reason,
+device,
+}: {
+id: string,
+reason?: string,
+device?: any,
+}): CancelablePromise<BookingViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/api/Booking/reject/{id}',
@@ -185,12 +185,12 @@ export class BookingService {
      * @throws ApiError
      */
     public static checkout({
-        id,
-        device,
-    }: {
-        id: string,
-        device?: any,
-    }): CancelablePromise<StringStandardResponse> {
+id,
+device,
+}: {
+id: string,
+device?: any,
+}): CancelablePromise<StringStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Booking/checkout/{id}',
@@ -212,20 +212,20 @@ export class BookingService {
      * @throws ApiError
      */
     public static getBookingsByServiceId({
-        offset,
-        limit,
-        studioId,
-        serviceId,
-        search,
-        device,
-    }: {
-        offset?: number,
-        limit?: number,
-        studioId?: string,
-        serviceId?: string,
-        search?: string,
-        device?: any,
-    }): CancelablePromise<TransactionViewPagedCollectionStandardResponse> {
+offset,
+limit,
+studioId,
+serviceId,
+search,
+device,
+}: {
+offset?: number,
+limit?: number,
+studioId?: string,
+serviceId?: string,
+search?: string,
+device?: any,
+}): CancelablePromise<TransactionViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Booking/bookings',

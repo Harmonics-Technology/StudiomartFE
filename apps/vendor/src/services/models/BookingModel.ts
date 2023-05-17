@@ -7,4 +7,3 @@ export type BookingModel = {
     date?: string;
     time?: string;
 };
-

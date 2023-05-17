@@ -4,7 +4,9 @@ import {
   FormLabel,
   Input,
   InputGroup,
+  Icon,
   InputRightElement,
+  InputLeftElement,
 } from "@chakra-ui/react";
 import React from "react";
 import { FieldError, UseFormRegister, Path } from "react-hook-form";
@@ -26,6 +28,9 @@ interface FormProps<TFormValues extends Record<string, unknown>> {
   required?: boolean;
   validate?: any;
   borderRadius?: string;
+  otp?: any;
+  left?: boolean;
+  value?: any;
 }
 
 const PrimaryInput = <TFormValues extends Record<string, any>>({
@@ -44,12 +49,29 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
   required = false,
   validate = {},
   borderRadius = "4px",
+  otp,
+  left = false,
+  value,
 }: FormProps<TFormValues>) => {
   return (
     <>
-      <FormControl w="100%" mb="1rem" isInvalid={error as unknown as boolean}>
+      <FormControl
+        w="100%"
+        isInvalid={error as unknown as boolean}
+        fontFamily="'DM Sans', sans-serif"
+      >
         <FormLabel fontSize=".8rem">{label}</FormLabel>
         <InputGroup w="100%">
+          {left && (
+            <InputLeftElement
+              cursor="pointer"
+              h="full"
+              fontSize=".9rem"
+              fontWeight="500"
+            >
+              {<Icon as={value} />}
+            </InputLeftElement>
+          )}
           <Input
             type={type}
             // p="20px"
@@ -72,8 +94,12 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
               cursor="pointer"
               color="brand.100"
               h="full"
+              w="fit-content"
+              fontSize=".8rem"
+              right=".7rem"
+              fontWeight="500"
             >
-              {passwordVisible ? <FaRegEye /> : <FaRegEyeSlash />}
+              {otp ? otp : passwordVisible ? <FaRegEye /> : <FaRegEyeSlash />}
             </InputRightElement>
           )}
         </InputGroup>

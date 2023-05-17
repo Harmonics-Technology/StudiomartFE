@@ -1,3 +1,7 @@
+import { CurrencyField } from "./Components/utils/CurrencyField";
+import { InfoBox } from "./Components/utils/InfoBox";
+import { FilterPagingOptions } from "./Components/utils/FilterPagingOption";
+import { SideText } from "./Components/utils/SideText";
 import SubmitButton from "./Components/utils/SubmitButton";
 import RejectBooking from "./Components/utils/RejectBooking";
 import Rating from "./Components/utils/Rating";
@@ -22,6 +26,8 @@ import FilterLocation from "./Components/utils/FilterLocation";
 import FilterStar from "./Components/utils/FilterStar";
 import RejectReason from "./Components/utils/RejectReason";
 import DisabledInput from "./Components/utils/DisabledInput";
+import Pagination from "./Components/utils/Pagination";
+import Naira from "./Components/utils/Naira";
 import {
   TableData,
   TableHead,
@@ -29,6 +35,7 @@ import {
   TableWithSub,
 } from "./Components/utils/Tables";
 import CustomTable from "./Components/utils/CustomTable";
+
 export {
   ExploreStudioCard,
   BookNowLink,
@@ -59,4 +66,10 @@ export {
   TableWithSub,
   CustomTable,
   DisabledInput,
+  SideText,
+  FilterPagingOptions,
+  Pagination,
+  InfoBox,
+  CurrencyField,
+  Naira,
 };

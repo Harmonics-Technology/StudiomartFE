@@ -11,112 +11,164 @@ import {
   HStack,
   Stack,
   Button,
+  Circle,
+  VStack,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Icon,
 } from "@chakra-ui/react";
 // import { NotificationTop } from "src/utils/NotificationTop";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import {
+  BsCheckAll,
+  BsFillTrashFill,
+  BsThreeDotsVertical,
+} from "react-icons/bs";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import data from "@components/Dashboard/data";
+import {
+  NotificationService,
+  NotificationView,
+  NotificationViewPagedCollection,
+} from "src/services";
+import TopPage from "src/utils/TopPage";
+import moment from "moment";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
+import { Pagination } from "ui";
 
-const Notification = () => {
+interface notificationProps {
+  notifications: NotificationViewPagedCollection;
+}
+const Notification = ({ notifications }: notificationProps) => {
+  const router = useRouter();
+  const markAsReadFunction = async (data: string) => {
+    try {
+      const result = await NotificationService.markAsRead({ id: data });
+      if (result.status) {
+        toast.success("Successful!");
+        router.reload();
+      }
+      toast.error(result.message as string);
+    } catch (error: any) {
+      toast.error(error?.body?.message || error?.message, {
+        className: "loginToast",
+      });
+    }
+  };
+  const deleteFunction = async (data: string) => {
+    try {
+      const result = await NotificationService.deleteNotification({ id: data });
+      if (result.status) {
+        toast.success("Successful!");
+        router.reload();
+      }
+      toast.error(result.message as string);
+    } catch (error: any) {
+      toast.error(error?.body?.message || error?.message, {
+        className: "loginToast",
+      });
+    }
+  };
   return (
     <Box fontFamily="DM Sans">
       <Box>
-        {/* <NotificationTop
+        <TopPage
           page={"Notification"}
           details={"Welcome to your dashboard"}
-          right={true}
-        /> */}
+          right={false}
+        />
       </Box>
 
-      <Box w="90%" my="8" h="40rem" bgColor="white" mx="auto" pt="6">
+      <Box
+        w="95%"
+        my="8"
+        bgColor="white"
+        mx="auto"
+        px="2rem"
+        py="2rem"
+        borderRadius="20px"
+      >
         <SimpleGrid bg="white">
-          {data.notification.map((info) => (
+          {notifications?.value?.map((info: NotificationView) => (
             <>
-              <Box height="100px" borderBottom="0.8px solid #D4DDDF">
-                <Box ml="3">
-                  <Flex fontWeight="bold" alignItems="center">
-                    <Box
-                      ml="4"
-                      bgColor="brand.100"
-                      h="10px"
-                      w="10px"
-                      borderRadius="full"
-                    />
-                    <Avatar src="#" mt="2" ml="4" />
-
+              <Flex
+                w="full"
+                justify="space-between"
+                borderBottom="0.8px solid #D4DDDF"
+                key={info.id}
+                py="1rem"
+              >
+                <Flex align="center" gap="1.5rem" w="70%">
+                  <Circle bgColor="brand.100" size="10px" />
+                  <Avatar src="#" />
+                  <Text
+                    pr="4rem"
+                    fontWeight="400"
+                    mb="0"
+                    color={info.isRead ? "gray.200" : "black"}
+                  >
+                    {info.message}
                     <Text
-                      mt="4"
-                      ml="4"
-                      fontSize="18px"
-                      pr="4rem"
-                      fontWeight="400"
+                      as="a"
+                      href={info.url as string}
+                      color={info.isRead ? "gray.200" : "brand.100"}
+                      mb="0"
                     >
-                      {info.message}
-                      <Text as="span" color="brand.100">
-                        {" "}
-                        View
-                      </Text>
+                      View
                     </Text>
-                    <Spacer />
-                    <Grid marginRight="4" ml="4" gap={3}>
-                      <Box ml="7">
-                        {" "}
-                        <BsThreeDotsVertical />
-                      </Box>
-
-                      <Box>
-                        {" "}
-                        <Text fontSize="10px" pl="1" h="18px" w="49px">
-                          {info.time}
-                        </Text>
-                      </Box>
-                    </Grid>
-                  </Flex>
-                </Box>{" "}
-              </Box>{" "}
+                  </Text>
+                </Flex>
+                <VStack gap=".7rem" ml="auto">
+                  <Menu>
+                    <MenuButton
+                      as={Button}
+                      rightIcon={<BsThreeDotsVertical />}
+                      bgColor="transparent"
+                      color="gray.800"
+                      _hover={{
+                        bgColor: "transparent",
+                      }}
+                      _active={{
+                        bgColor: "transparent",
+                      }}
+                    />
+                    <MenuList borderRadius="8px" p="0">
+                      <MenuItem
+                        borderBottom="1px solid"
+                        borderColor="gray.300"
+                        as="div"
+                        display="flex"
+                        gap=".5rem"
+                        py=".6rem"
+                        onClick={() => markAsReadFunction(info.id as string)}
+                      >
+                        <Icon as={BsCheckAll} />
+                        <Text mb="0"> Mark as read</Text>
+                      </MenuItem>
+                      <MenuItem
+                        as="div"
+                        display="flex"
+                        gap=".5rem"
+                        color="red"
+                        py=".6rem"
+                        onClick={() => deleteFunction(info.id as string)}
+                      >
+                        <Icon as={BsFillTrashFill} />
+                        <Text mb="0"> Delete Notification</Text>
+                      </MenuItem>
+                    </MenuList>
+                  </Menu>
+                  <Text fontSize="10px">
+                    {moment(info.dateCreated).fromNow()}
+                  </Text>
+                </VStack>
+              </Flex>
             </>
           ))}
 
           <HStack justifyContent="center" mt="3rem">
-            <SimpleGrid
-              minChildWidth="10px"
-              spacing="2"
-              w="40%"
-              fontWeight="500"
-              fontSize="20px"
-              justifyContent="center"
-            >
-              <Button
-                bg="white"
-                height="2rem"
-                w="4rem"
-                cursor="default"
-                ml="-3"
-              >
-                <Flex>
-                  <ChevronLeftIcon mt="1px" />
-                  Prev.
-                </Flex>
-              </Button>
-              <Button bg="white" height="30px" cursor="default">
-                1
-              </Button>
-              <Button bg="white" height="30px" cursor="default">
-                {" "}
-                2
-              </Button>
-              <Button bg="white" height="30px" cursor="default">
-                3
-              </Button>
-              <Button bg="white" height="30px" cursor="default">
-                4...
-              </Button>
-              <Button height="2rem" w="4rem" cursor="default" bg="brand.100">
-                <Flex color="white">
-                  Next <ChevronRightIcon color="white" mt="1px" />
-                </Flex>
-              </Button>
-            </SimpleGrid>
+            <Pagination data={notifications} />
           </HStack>
         </SimpleGrid>
       </Box>

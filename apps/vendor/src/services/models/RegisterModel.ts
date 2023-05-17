@@ -8,5 +8,5 @@ export type RegisterModel = {
     email?: string | null;
     password?: string | null;
     confirmPassword?: string | null;
+    phoneNumber?: string | null;
 };
-

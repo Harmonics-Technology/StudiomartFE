@@ -16,4 +16,3 @@ export type StudioViewPagedCollection = {
     self?: Link;
     value?: Array<StudioView> | null;
 };
-

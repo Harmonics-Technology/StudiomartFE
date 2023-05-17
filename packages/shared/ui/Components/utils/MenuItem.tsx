@@ -31,7 +31,7 @@ function MenuItem({ menuTitle, icon }: MenuProps) {
             pl=".5rem"
             textTransform="capitalize"
           >
-            {menuTitle}
+            {menuTitle.replaceAll(/[-/]/g, " ")}
           </Text>
         </HStack>
       </Flex>

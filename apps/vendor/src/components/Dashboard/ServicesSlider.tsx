@@ -13,15 +13,21 @@ import React, { useState } from "react";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { ServiceView } from "src/services";
+import { useDummyImage } from "react-simple-placeholder-image";
 
 interface SliderProps {
-  data: any[];
+  data: ServiceView[] | null | undefined;
 }
 
 export const ServiceSlider = ({ data }: SliderProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [autoPlay, setAutoPlay] = useState(false);
   const router = useRouter();
+  // const image = useDummyImage({
+  //   /* Config */
+  // });
+  const image = "";
 
   const next = () => {
     setCurrentSlide(currentSlide + 1);
@@ -48,11 +54,12 @@ export const ServiceSlider = ({ data }: SliderProps) => {
         <HStack
           align="center"
           fontFamily="BR Firma"
-          fontSize="20px"
+          fontSize="18px"
+          pl=".5rem"
           fontWeight="600"
           my="2rem"
         >
-          <Text mb="0" fontFamily="BR Firma">
+          <Text mb="0" fontFamily="inherit">
             Services
           </Text>
           <Text
@@ -60,6 +67,7 @@ export const ServiceSlider = ({ data }: SliderProps) => {
             mb="0"
             fontSize="16px"
             cursor="pointer"
+            fontFamily="inherit"
             onClick={() => router.push("/services")}
           >
             view all
@@ -88,7 +96,7 @@ export const ServiceSlider = ({ data }: SliderProps) => {
         centerSlidePercentage={35}
         // {...data}
       >
-        {data?.map((x: any, i: any) => (
+        {data?.map((x: ServiceView, i: any) => (
           <Box
             minH="14rem"
             w="23rem"
@@ -96,13 +104,13 @@ export const ServiceSlider = ({ data }: SliderProps) => {
             borderRadius="10px"
             key={i}
             overflow="hidden"
-            // boxShadow="md"
+            boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
           >
             <Image
               h="14rem "
               w="100%"
               objectFit="cover"
-              src={x.src || "/assets/007.jpg"}
+              src={x.bannerImageURL || image}
               alt="image"
               bgColor="white"
             />
@@ -121,13 +129,17 @@ export const ServiceSlider = ({ data }: SliderProps) => {
 
               <Button
                 w="100%"
-                bgColor="#AFAFAF"
-                cursor="default"
-                colorScheme="blue"
-                onClick={() => deactivateService(x.id)}
+                // bgColor="brand.100"
+                // color="white"
+                onClick={() => router.push(`/services/${x.id}`)}
                 fontFamily="BR Firma"
+                h="2.8rem"
+                variant="outline"
+                borderColor="brand.100"
+                color="brand.100"
+                // borderWidth='2px'
               >
-                Take Studio Offline
+                View Service
               </Button>
             </Box>
           </Box>

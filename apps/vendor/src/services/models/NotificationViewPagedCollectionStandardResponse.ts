@@ -17,4 +17,3 @@ export type NotificationViewPagedCollectionStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
-

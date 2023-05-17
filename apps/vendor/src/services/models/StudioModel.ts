@@ -22,4 +22,3 @@ export type StudioModel = {
     linkedIn?: string | null;
     youTube?: string | null;
 };
-

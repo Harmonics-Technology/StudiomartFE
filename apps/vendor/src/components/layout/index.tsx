@@ -15,7 +15,7 @@ export const Layout: React.FC = ({ children }) => {
       {noNav ? (
         <Box>{children}</Box>
       ) : (
-        <Flex pos="relative" bg="#f6f7f8">
+        <Flex pos="relative" bg="#f3f2f1">
           <VendorSideNav />
           <Box w={["full", "82%"]} as="main" ml="auto" minH="95vh">
             <VendorHeader />

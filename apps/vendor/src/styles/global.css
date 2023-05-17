@@ -1,13 +1,13 @@
-@import url('https://fonts.cdnfonts.com/css/br-firma');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Poppins:wght@300;400;500;700&display=swap');
-@import url('./uploadcare.css');
-@import url('./toast.css');
-
+@import url("https://fonts.cdnfonts.com/css/br-firma");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Poppins:wght@300;400;500;700&display=swap&family=DM+Sans:wght@400;500;700&display=swap&family=Orbitron:wght@400;500;600&display=swap");
+@import url("./uploadcare.css");
+@import url("./toast.css");
+@import url("@smastrom/react-rating/style.css");
 html,
 body {
   margin: 0;
   padding: 0;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
 }
 ::-webkit-scrollbar {
   width: 4px;
@@ -22,5 +22,13 @@ body {
 }
 
 .boxContainer {
-  border: '4px solid red';
+  border: "4px solid red";
+}
+.currency {
+  border: 1px solid;
+  border-color: #a0aec0;
+  border-radius: 4px;
+  height: 2.8rem;
+  width: 100%;
+  padding: 0 1rem;
 }

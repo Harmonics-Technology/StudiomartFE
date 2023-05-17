@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ReviewModel } from '../models/ReviewModel';
+import type { ReviewViewPagedCollectionStandardResponse } from '../models/ReviewViewPagedCollectionStandardResponse';
 import type { ReviewViewStandardResponse } from '../models/ReviewViewStandardResponse';
-import type { TransactionViewPagedCollectionStandardResponse } from '../models/TransactionViewPagedCollectionStandardResponse';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -17,12 +17,12 @@ export class ReviewService {
      * @throws ApiError
      */
     public static createReview({
-        device,
-        requestBody,
-    }: {
-        device?: any,
-        requestBody?: ReviewModel,
-    }): CancelablePromise<ReviewViewStandardResponse> {
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: ReviewModel,
+}): CancelablePromise<ReviewViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Review/create',
@@ -39,22 +39,22 @@ export class ReviewService {
 
     /**
      * Get all reviews
-     * @returns TransactionViewPagedCollectionStandardResponse Success
+     * @returns ReviewViewPagedCollectionStandardResponse Success
      * @throws ApiError
      */
     public static getReviews({
-        offset,
-        limit,
-        studioId,
-        serviceId,
-        device,
-    }: {
-        offset?: number,
-        limit?: number,
-        studioId?: string,
-        serviceId?: string,
-        device?: any,
-    }): CancelablePromise<TransactionViewPagedCollectionStandardResponse> {
+offset,
+limit,
+studioId,
+serviceId,
+device,
+}: {
+offset?: number,
+limit?: number,
+studioId?: string,
+serviceId?: string,
+device?: any,
+}): CancelablePromise<ReviewViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Review/reviews',

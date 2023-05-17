@@ -8,8 +8,8 @@ export type VendorRegisterModel = {
     email?: string | null;
     password?: string | null;
     confirmPassword?: string | null;
+    phoneNumber?: string | null;
     studioName?: string | null;
     studioDescription?: string | null;
     studioAddress?: string | null;
 };
-

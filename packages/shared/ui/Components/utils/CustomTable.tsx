@@ -24,13 +24,13 @@ function CustomTable({ tableHead, children }: TablesProps) {
     <TableContainer h="auto">
       <Table>
         <Thead>
-          <Tr w="full" h="2rem" borderBottom="1px solid #f2f2f2">
+          <Tr w="full" h="4rem" borderBottom="1px solid #f2f2f2">
             {tableHead.map((x, i) => (
               <Th
-                pl="1rem"
-                fontSize="20px"
+                pl="0rem"
+                fontSize="16px"
                 color="#3D3D3D"
-                fontWeight="600"
+                fontWeight="500"
                 fontFamily="BR Firma"
                 letterSpacing="-1px"
                 textTransform="capitalize"

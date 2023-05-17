@@ -23,4 +23,3 @@ export type TransactionView = {
     studioId?: string | null;
     studio?: StudioView;
 };
-

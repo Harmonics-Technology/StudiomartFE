@@ -1,111 +1,262 @@
-import React, { useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import {
   Box,
-  Input,
   Button,
-  Icon,
-  Grid,
-  FormControl,
+  Square,
+  Flex,
   Text,
   Stack,
   HStack,
   FormLabel,
+  VStack,
 } from "@chakra-ui/react";
-// import { FaFileUpload } from 'react-icons/fa';
 import { BiCloudUpload } from "react-icons/bi";
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
-</style>
 import Link from "next/link";
 import AccountSideBar from "@components/accounts/AccountSideBar";
 import register from "pages/register";
-import { UpdateUserModel } from "src/services";
-import {PrimaryInput} from "ui";
+import { StudioKYCModel, StudioService, StudioView } from "src/services";
+import { PrimaryInput } from "ui";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { Widget } from "@uploadcare/react-widget";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
+import { UserContext } from "@components/Context/UserContext";
 
 const schema = yup.object().shape({
-  email: yup.string().email().required()
+  officeAddress: yup.string().required(),
+  studioCapacity: yup.string().required(),
 });
-export default function KycInformation() {
-  const [officeaddress, setOfficeAddress] = useState<string>("");
-  const [studiocapacity, setStudioCapacity] = useState("");
-  const [cacdocument, setCACDocument] = useState("");
-  const [phonenumber, setPhonenumber] = useState("");
-  const handleSubmits = (e: any) => {
-    e.preventDefault();
-    alert(
-      `officeaddress: ${officeaddress}, studiocapacity: ${studiocapacity}, cacdocument: ${cacdocument}  phonenumber: ${phonenumber}`
-    );
-  };
+
+interface StudioProps {
+  singleStudio: StudioView;
+}
+
+export default function KycInformation({ singleStudio }: StudioProps) {
+  console.log({ singleStudio });
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
-  } = useForm<UpdateUserModel>({
+    formState: { errors, isSubmitting, isValid },
+  } = useForm<StudioKYCModel>({
     resolver: yupResolver(schema),
     mode: "all",
+    defaultValues: {
+      officeAddress: singleStudio.officeAddress,
+      studioCapacity: singleStudio.studioCapacity,
+      meansOfIdentification: singleStudio.meansOfIdentification,
+      cacDocumentReference: singleStudio.cacDocumentReference,
+      studioId: singleStudio.id,
+    },
   });
-  const areAllFieldsFilled = (officeaddress != "") && (officeaddress !="")
-  return (
-    <Stack direction="row" spacing={6} width='80%' my='3rem' mx='3rem' bgColor='white' p='5rem'>
-      <AccountSideBar />
-      <Box w="55%" fontFamily='"DM Sans", sans-serif'>
-        <form>
-          <Stack spacing={3}>
-            <PrimaryInput<UpdateUserModel>
-              label="Office Address"
-              type="text"
-              placeholder="Enter your office address"
-              name="phoneNumber"
-              error={errors.phoneNumber}
-              register={register}
-              defaultValue={""}
-            />
-               <PrimaryInput<UpdateUserModel>
-              label="Email Address"
-              type="text"
-              placeholder="Enter your email address"
-              name="phoneNumber"
-              error={errors.phoneNumber}
-              register={register}
-              defaultValue={""}
-            />
-                 <FormLabel color='#636363' fontWeight='100' fontFamily='DM Sans'>CAC Document</FormLabel>
-            <Button fontWeight='400' fontSize='16px' height='3.5rem' color='#AFAFAF' bgColor='white' border='1px dotted #afafaf82' justifyContent='center' borderRadius='8px' >
-                <Grid>
-                    <Box>
-                        <Text>image_scanner_photo.jpg</Text>
-                    </Box>
-                </Grid>
-            </Button> 
-            <FormLabel color='#636363' fontWeight='100'>Upload a valid means of identification</FormLabel>
-            <Button fontWeight='400' fontSize='16px' height='3.5rem' color='#AFAFAF' bgColor='white' border='1px dotted #afafaf82' justifyContent='center' borderRadius='8px' >
-                <Grid>
-                    <Box marginLeft={130}>
-                        <BiCloudUpload/>
-                    </Box>
-                
-                    <Box>
-                        <Text>Click here to upload your identification</Text>
-                    </Box>
-                </Grid>
-            </Button>
-             <HStack spacing='24px'>
+  const router = useRouter();
+  const { currentStudioId } = useContext(UserContext);
+  //CAC upload
+  const [cacDocument, setCacDocument] = useState({ url: "", name: "" });
+  const [logoLoading, setLogoLoading] = useState<any>({
+    status: false,
+    total: "",
+  });
+  const widgetLogoApi = useRef<any>(null);
+  const onChangeLogoImage = (file: any) => {
+    if (file) {
+      file.progress((info: any) => {
+        setLogoLoading({ status: true, total: info.progress });
+      });
+      file.done((info: any) => {
+        setLogoLoading({ status: false, total: "" }),
+          setCacDocument({ url: info.originalUrl, name: info.name });
+      });
+    }
+  };
+  //Id url upload
+  const [idUrl, setIdUrl] = useState({ url: "", name: "" });
+  const [imageLoading, setImageLoading] = useState<any>({
+    status: false,
+    total: "",
+  });
+  const widgetApi = useRef<any>(null);
+  const onChangeImg = (file: any) => {
+    if (file) {
+      file.progress((info: any) => {
+        setImageLoading({ status: true, total: info.progress });
+      });
+      file.done((info: any) => {
+        setImageLoading({ status: false, total: "" }),
+          setIdUrl({ url: info.originalUrl, name: info.name });
+      });
+    }
+  };
+  const onSubmit = async (data: StudioKYCModel) => {
+    data.cacDocumentReference = cacDocument.url;
+    data.meansOfIdentification = idUrl.url;
+    data.studioId = currentStudioId;
+    try {
+      const result = await StudioService.addOrUpdateKyc({ requestBody: data });
+      if (result.status) {
+        toast.success(
+          "Your information has been saved successfully and will reload shortly"
+        );
+        router.reload();
+        return;
+      }
+      toast.error(result.message as string);
+      return;
+    } catch (error: any) {
+      toast.error(error?.body?.message || error?.message, {
+        className: "loginToast",
+      });
+    }
+  };
 
-            <Link href='/vendor/account/basic-information' passHref>
-            <Button disabled={!
-                areAllFieldsFilled}color='white' bgColor='brand.100' width='50%' >Back </Button>
-            </Link>
-            <Link href='/vendor/account/bank-details' passHref>
-            <Button disabled={!
-                areAllFieldsFilled}color='white' bgColor='brand.100' width='50%' >Next </Button>
-            </Link>
-            </HStack>
-          </Stack>
-        </form>
-      </Box>
-    </Stack>
+  return (
+    <Flex
+      bgColor="white"
+      align="center"
+      minH="60vh"
+      w="90%"
+      mx="auto"
+      my="3rem"
+    >
+      <Stack
+        direction="row"
+        spacing={0}
+        gap="2rem"
+        width="90%"
+        ml="5rem"
+        py="5rem"
+      >
+        <AccountSideBar />
+        <Box w="55%" fontFamily='"DM Sans", sans-serif'>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Stack gap="1rem">
+              <PrimaryInput<StudioKYCModel>
+                label="Office Address"
+                type="text"
+                placeholder="Enter your office address"
+                name="officeAddress"
+                error={errors.officeAddress}
+                register={register}
+                defaultValue={""}
+              />
+              <PrimaryInput<StudioKYCModel>
+                label="Studio Capacity"
+                type="text"
+                placeholder="What is your studio capacity"
+                name="studioCapacity"
+                error={errors.studioCapacity}
+                register={register}
+                defaultValue={""}
+              />
+              <FormLabel fontWeight="500" fontSize=".8rem">
+                CAC Document
+              </FormLabel>
+              <Box display="none">
+                <Widget
+                  publicKey="fda3a71102659f95625f"
+                  systemDialog
+                  imagesOnly
+                  onFileSelect={onChangeLogoImage}
+                  ref={widgetLogoApi}
+                  inputAcceptTypes={".jpeg,.jpg, .png"}
+                />
+              </Box>
+              <Button
+                fontWeight="400"
+                fontSize="16px"
+                height="3.5rem"
+                color="#AFAFAF"
+                bgColor="white"
+                border="1px dotted #afafaf82"
+                justifyContent="center"
+                borderRadius="8px"
+                onClick={() => widgetLogoApi.current.openDialog()}
+              >
+                {logoLoading.status ? (
+                  <Square size="3rem">
+                    <CircularProgressbar
+                      value={logoLoading.total}
+                      maxValue={1}
+                      text={`${logoLoading.total * 100}%`}
+                    />
+                  </Square>
+                ) : (
+                  <>
+                    <Text mb="0">
+                      {singleStudio.cacDocumentReference
+                        ? "File 001"
+                        : cacDocument.name || "CAC Document"}
+                    </Text>
+                  </>
+                )}
+              </Button>
+              <FormLabel fontWeight="500" fontSize=".8rem">
+                Upload a valid means of identification
+              </FormLabel>
+              <Box display="none">
+                <Widget
+                  publicKey="fda3a71102659f95625f"
+                  systemDialog
+                  imagesOnly
+                  onFileSelect={onChangeImg}
+                  ref={widgetApi}
+                  inputAcceptTypes={".jpeg,.jpg, .png"}
+                />
+              </Box>
+              <Button
+                fontWeight="400"
+                fontSize="16px"
+                height="4rem"
+                color="#AFAFAF"
+                bgColor="white"
+                border="1px dotted #afafaf82"
+                justifyContent="center"
+                borderRadius="8px"
+                onClick={() => widgetApi.current.openDialog()}
+              >
+                {imageLoading.status ? (
+                  <Square size="3rem">
+                    <CircularProgressbar
+                      value={logoLoading.total}
+                      maxValue={1}
+                      text={`${logoLoading.total * 100}%`}
+                    />
+                  </Square>
+                ) : (
+                  <>
+                    {singleStudio.cacDocumentReference
+                      ? "File 002"
+                      : idUrl.name || (
+                          <VStack>
+                            <BiCloudUpload />
+                            <Text mb="0">
+                              Click here to upload your identification
+                            </Text>
+                          </VStack>
+                        )}
+                  </>
+                )}
+              </Button>
+              <HStack justifyContent="flex-end" w="full">
+                <Button
+                  isDisabled={!isValid}
+                  bgColor="brand.100"
+                  color="white"
+                  width="100%"
+                  type="submit"
+                  isLoading={isSubmitting}
+                  h="3rem"
+                >
+                  Save
+                </Button>
+              </HStack>
+            </Stack>
+          </form>
+        </Box>
+      </Stack>
+    </Flex>
   );
 }

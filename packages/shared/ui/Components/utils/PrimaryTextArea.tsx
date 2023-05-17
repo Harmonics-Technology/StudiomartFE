@@ -56,7 +56,11 @@ export const PrimaryTextarea = <TFormValues extends Record<string, any>>({
   padding,
 }: FormInputProps<TFormValues>) => {
   return (
-    <FormControl isInvalid={error as unknown as boolean} mb="1rem">
+    <FormControl
+      isInvalid={error as unknown as boolean}
+      mb="1rem"
+      fontFamily="'DM Sans', sans-serif"
+    >
       <FormLabel fontSize=".8rem">{label}</FormLabel>
       <Textarea
         placeholder={placeholder}

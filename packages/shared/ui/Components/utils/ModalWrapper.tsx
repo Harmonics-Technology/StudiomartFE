@@ -33,6 +33,7 @@ const ModalWrapper = ({
       onClose={onClose}
       motionPreset="slideInBottom"
       isCentered
+      trapFocus={false}
     >
       <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px) " />
 

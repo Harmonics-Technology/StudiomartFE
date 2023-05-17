@@ -16,4 +16,3 @@ export type ObjectStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
-

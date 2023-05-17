@@ -27,4 +27,3 @@ export type User = {
     token?: string | null;
     profilePicture?: string | null;
 };
-

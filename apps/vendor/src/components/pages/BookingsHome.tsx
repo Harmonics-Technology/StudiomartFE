@@ -6,54 +6,58 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
-  Button,
-  TableContainer,
-  Table,
-  Thead,
   Tr,
-  Th,
-  Tbody,
   Td,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import { RiSearch2Fill } from "react-icons/ri";
-import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from "react-icons/md";
 import { BsFillCalendarEventFill } from "react-icons/bs";
 import { GoSettings } from "react-icons/go";
 import TopPage from "src/utils/TopPage";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import BookingDetails from "./BookingDetails";
-import { AlertBox, DrawerWrapper, TableStatus } from "ui";
+import {
+  CustomTable,
+  DrawerWrapper,
+  Naira,
+  Pagination,
+  TableData,
+  TableStatus,
+} from "ui";
+import { BookingView, BookingViewStandardResponse } from "src/services";
+import moment from "moment";
 
-function BookingsHome() {
-  const [id, setId] = useState<any>();
+interface BookingProps {
+  allBookings: BookingViewStandardResponse;
+}
+
+function BookingsHome({ allBookings }: BookingProps) {
+  console.log({ allBookings });
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [showAlert, setShowAlert] = useState<boolean>(true);
+  const thead = ["Booking ID", "Clients", "Amount", "Date", "Status", ""];
+  const [data, setData] = useState<BookingView>();
+  const openDrawer = (value: any) => {
+    setData(value);
+    onOpen();
+  };
   return (
     <Box>
       <TopPage
         page={"Bookings"}
         details={"Veiw all your bookings here!"}
-        right={true}
-        // clickFunction={undefined}
+        right={false}
       />
-      <Box w="90%" mx="auto" mt="2rem">
-        {showAlert && (
-          <AlertBox
-            status="success"
-            text="Done loading"
-            onClose={() => setShowAlert(false)}
-          />
-        )}
-
-        <Box bgColor="white" borderRadius="8px" p="2rem .5rem 1rem">
+      <Box w="95%" mx="auto" mt="2rem" my="8" bgColor="white">
+        <Box borderBottom="1px solid" borderColor="gray.300">
           <HStack
             justify="space-between"
-            px="2rem"
+            p="2rem 0rem 1rem"
             fontSize=".8rem"
             align="center"
+            w="90%"
+            mx="auto"
           >
             <Text mb="0">Showing All</Text>
             <InputGroup w="30%">
@@ -102,267 +106,35 @@ function BookingsHome() {
               </Box>
             </HStack>
           </HStack>
-          <TableContainer mt="1.5rem">
-            <Table>
-              <Thead>
-                <Tr fontWeight="600">
-                  <Th>Booking ID</Th>
-                  <Th>Clients</Th>
-                  <Th>Amount</Th>
-                  <Th>Date</Th>
-                  <Th>Status</Th>
-                  <Th></Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                <Tr fontSize=".9rem">
-                  <Td>AD0090HL30</Td>
-                  <Td>Boluwatife Bolu</Td>
-                  <Td>#45,000</Td>
-                  <Td>3 Jun, 2021</Td>
-                  <TableStatus name="Successful" />
+        </Box>
+        <Box w="90%" mx="auto" pb="2rem" borderRadius="20px">
+          <CustomTable tableHead={thead}>
+            <>
+              {allBookings?.data?.map((info: BookingView) => (
+                <Tr key={info.id}>
+                  <TableData name={info.id} />
+                  <TableData name={info.user?.fullName} />
+                  <TableData name={Naira(info.amount as number)} />
+                  <TableData name={moment(info.date).format("DD MMM, YYYY")} />
+                  <TableStatus name={info?.status as string} />
                   <Td
                     onClick={() => {
-                      setId(3);
-                      onOpen();
+                      openDrawer(info);
                     }}
                     cursor="pointer"
                   >
                     <BsThreeDotsVertical />
                   </Td>
                 </Tr>
-                <Tr fontSize=".9rem">
-                  <Td>AD0090HL30</Td>
-                  <Td>Jennifer Thompson</Td>
-                  <Td>#45,000</Td>
-                  <Td>3 Jun, 2021</Td>
-                  <TableStatus name="Successful" />
-                  <Td
-                    onClick={() => {
-                      setId(2);
-                      onOpen();
-                    }}
-                    cursor="pointer"
-                  >
-                    <BsThreeDotsVertical />
-                  </Td>
-                </Tr>
-                <Tr fontSize=".9rem">
-                  <Td>AD0090HL30</Td>
-                  <Td>Fola Coker</Td>
-                  <Td>#45,000</Td>
-                  <Td>3 Jun, 2021</Td>
-                  <TableStatus name="Cancelled" />
-                  <Td
-                    onClick={() => {
-                      setId(2);
-                      onOpen();
-                    }}
-                    cursor="pointer"
-                  >
-                    <BsThreeDotsVertical />
-                  </Td>
-                </Tr>
-                <Tr fontSize=".9rem">
-                  <Td>AD0090HL30</Td>
-                  <Td>Promise Oseni</Td>
-                  <Td>#45,000</Td>
-                  <Td>3 Jun, 2021</Td>
-                  <TableStatus name="In Progress" />
-                  <Td
-                    onClick={() => {
-                      setId(2);
-                      onOpen();
-                    }}
-                    cursor="pointer"
-                  >
-                    <BsThreeDotsVertical />
-                  </Td>
-                </Tr>
-                <Tr fontSize=".9rem">
-                  <Td>AD0090HL30</Td>
-                  <Td>Oseni Kenny</Td>
-                  <Td>#45,000</Td>
-                  <Td>3 Jun, 2021</Td>
-                  <TableStatus name="Pending Confirmation" />
-                  <Td
-                    onClick={() => {
-                      setId(2);
-                      onOpen();
-                    }}
-                    cursor="pointer"
-                  >
-                    <BsThreeDotsVertical />
-                  </Td>
-                </Tr>
-                <Tr fontSize=".9rem">
-                  <Td>AD0090HL30</Td>
-                  <Td>Ivy Ololade</Td>
-                  <Td>#45,000</Td>
-                  <Td>3 Jun, 2021</Td>
-                  <TableStatus name="Awaiting Payment" />
-                  <Td
-                    onClick={() => {
-                      setId(2);
-                      onOpen();
-                    }}
-                    cursor="pointer"
-                  >
-                    <BsThreeDotsVertical />
-                  </Td>
-                </Tr>
-                <Tr fontSize=".9rem">
-                  <Td>AD0090HL30</Td>
-                  <Td>Rose Kaffy</Td>
-                  <Td>#45,000</Td>
-                  <Td>3 Jun, 2021</Td>
-                  <TableStatus name="Successful" />
-                  <Td
-                    onClick={() => {
-                      setId(2);
-                      onOpen();
-                    }}
-                    cursor="pointer"
-                  >
-                    <BsThreeDotsVertical />
-                  </Td>
-                </Tr>
-                <Tr fontSize=".9rem">
-                  <Td>AD0090HL30</Td>
-                  <Td>Oseni Kenny</Td>
-                  <Td>#45,000</Td>
-                  <Td>3 Jun, 2021</Td>
-                  <TableStatus name="Pending Confirmation" />
-                  <Td
-                    onClick={() => {
-                      setId(2);
-                      onOpen();
-                    }}
-                    cursor="pointer"
-                  >
-                    <BsThreeDotsVertical />
-                  </Td>
-                </Tr>
-                <Tr fontSize=".9rem">
-                  <Td>AD0090HL30</Td>
-                  <Td>Ivy Ololade</Td>
-                  <Td>#45,000</Td>
-                  <Td>3 Jun, 2021</Td>
-                  <TableStatus name="Awaiting Payment" />
-                  <Td
-                    onClick={() => {
-                      setId(2);
-                      onOpen();
-                    }}
-                    cursor="pointer"
-                  >
-                    <BsThreeDotsVertical />
-                  </Td>
-                </Tr>
-                <Tr fontSize=".9rem">
-                  <Td>AD0090HL30</Td>
-                  <Td>Rose Kaffy</Td>
-                  <Td>#45,000</Td>
-                  <Td>3 Jun, 2021</Td>
-                  <TableStatus name="Successful" />
-                  <Td
-                    onClick={() => {
-                      setId(2);
-                      onOpen();
-                    }}
-                    cursor="pointer"
-                  >
-                    <BsThreeDotsVertical />
-                  </Td>
-                </Tr>
-                <Tr fontSize=".9rem">
-                  <Td>AD0090HL30</Td>
-                  <Td>Jennifer Thompson</Td>
-                  <Td>#45,000</Td>
-                  <Td>3 Jun, 2021</Td>
-                  <TableStatus name="Successful" />
-                  <Td
-                    onClick={() => {
-                      setId(2);
-                      onOpen();
-                    }}
-                    cursor="pointer"
-                  >
-                    <BsThreeDotsVertical />
-                  </Td>
-                </Tr>
-                <Tr fontSize=".9rem">
-                  <Td>AD0090HL30</Td>
-                  <Td>Fola Coker</Td>
-                  <Td>#45,000</Td>
-                  <Td>3 Jun, 2021</Td>
-                  <TableStatus name="Cancelled" />
-                  <Td
-                    onClick={() => {
-                      setId(2);
-                      onOpen();
-                    }}
-                    cursor="pointer"
-                  >
-                    <BsThreeDotsVertical />
-                  </Td>
-                </Tr>
-                <Tr fontSize=".9rem">
-                  <Td>AD0090HL30</Td>
-                  <Td>Oseni Kenny</Td>
-                  <Td>#45,000</Td>
-                  <Td>3 Jun, 2021</Td>
-                  <TableStatus name="Pending Confirmation" />
-                  <Td
-                    onClick={() => {
-                      setId(2);
-                      onOpen();
-                    }}
-                    cursor="pointer"
-                  >
-                    <BsThreeDotsVertical />
-                  </Td>
-                </Tr>
-              </Tbody>
-            </Table>
-            <Button 
-                bg="white" 
-                height="2rem" 
-                w="4rem" 
-                cursor="default" 
-                ml="-3">
-              <Flex mt="1px">
-                <MdKeyboardArrowLeft />
-                Prev.
-              </Flex>
-            </Button>
-            <Button bg="white" height="30px" cursor="default">
-                1
-            </Button>
-            <Button bg="white" height="30px" cursor="default">
-                2
-            </Button>
-            <Button bg="white" height="30px" cursor="default">
-                3
-            </Button>
-            <Button bg="white" height="30px" cursor="default">
-                4...
-            </Button>
-            <Button bg="brand.10" height="2rem" w="4rem" cursor="default">
-                <Flex color="white" mt="1px">
-                  Next <MdKeyboardArrowRight />
-                </Flex>
-            </Button>
-          </TableContainer>
+              ))}
+            </>
+          </CustomTable>
+          <HStack justifyContent="center" mt="3rem">
+            <Pagination data={allBookings} />
+          </HStack>
         </Box>
         <DrawerWrapper isOpen={isOpen} onClose={onClose}>
-          <BookingDetails
-            showAlert={showAlert}
-            closed=""
-            alertText=""
-            response="pending"
-            id={id}
-          />
+          <BookingDetails closed={onClose} data={data as BookingView} />
         </DrawerWrapper>
       </Box>
     </Box>
