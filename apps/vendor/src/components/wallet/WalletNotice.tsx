@@ -19,7 +19,7 @@ function WalletService() {
       <Box>
         <TopPage
           page={"Wallet"}
-          details={"Here you manage all your services"}
+          details={"Here you see all your money transactions"}
           right={true}
           // clickFunction={undefined}
         />
