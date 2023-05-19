@@ -14,18 +14,13 @@ import {
 import { UserContext } from "@components/Context/UserContext";
 import { DeleteStudioModal } from "@components/Modals/DeleteStudioModal";
 import { useRouter } from "next/router";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoChevronBackCircle } from "react-icons/io5";
 import { StudioView } from "src/services";
 import { InfoBox } from "ui";
+import NoSSR from "react-no-ssr";
 import dynamic from "next/dynamic";
-import { useDummyImage } from "react-simple-placeholder-image";
-
-// const DynamicComponent = dynamic<any>(() =>
-//   import("react-simple-placeholder-image").then((mod) => mod.useDummyImage)
-// );
-
-console.log({ useDummyImage });
+import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
 
 interface StudioProps {
   singleStudio: StudioView;
@@ -37,11 +32,8 @@ export const SingleStudioPage = ({ singleStudio }: StudioProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: open, onOpen: opens, onClose: closed } = useDisclosure();
   const router = useRouter();
-  // const image = "";
-  const image = useDummyImage({
-    width: 1440,
-    height: 300,
-  });
+  console.log({ singleStudio });
+
   return (
     <Box>
       <Box bgColor="white">
@@ -113,13 +105,20 @@ export const SingleStudioPage = ({ singleStudio }: StudioProps) => {
               borderColor="gray.400"
               pos="relative"
             >
-              <Image
-                src={(singleStudio?.coverPhoto as string) || image}
-                alt="Banner Image"
-                w="full"
-                h="full"
-                objectFit="cover"
-              />
+              <NoSSR>
+                {singleStudio?.coverPhoto ? (
+                  <Image
+                    src={singleStudio?.coverPhoto as string}
+                    alt="Banner Image"
+                    w="full"
+                    h="full"
+                    objectFit="cover"
+                  />
+                ) : (
+                  <DummyImage />
+                )}
+              </NoSSR>
+
               <Circle
                 size="8rem"
                 overflow="hidden"
@@ -131,13 +130,17 @@ export const SingleStudioPage = ({ singleStudio }: StudioProps) => {
                 bgColor="brand.100"
                 transform="translateX(-50%)"
               >
-                <Image
-                  src={singleStudio?.logo as string}
-                  alt="Banner Image"
-                  w="full"
-                  h="full"
-                  objectFit="cover"
-                />
+                {singleStudio?.logo ? (
+                  <Image
+                    src={singleStudio?.logo as string}
+                    alt="Banner Image"
+                    w="full"
+                    h="full"
+                    objectFit="cover"
+                  />
+                ) : (
+                  <DummyImage />
+                )}
               </Circle>
             </Flex>
           </Box>

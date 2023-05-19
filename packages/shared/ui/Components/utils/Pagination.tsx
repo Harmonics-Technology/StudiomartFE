@@ -58,14 +58,14 @@ function Pagination({ data }: pageOptions) {
             bgColor="brand.100"
             color="white"
             minW="unset"
-            px="2rem"
+            // px="2rem"
             isDisabled={!previous}
             onClick={() => paginate("previous")}
           >
             <FaAngleLeft /> Prev
           </Button>
           {pages
-            .filter((x) => x <= 3)
+            .filter((x) => x <= 2)
             .map((x) => (
               <Button
                 bgColor={current == x + 1 ? "brand.100" : "inherit"}
@@ -75,7 +75,7 @@ function Pagination({ data }: pageOptions) {
                 {x + 1}
               </Button>
             ))}
-          {pages.length > 3 && (
+          {pages.length > 2 && (
             <>
               <span>... </span>
               <Button bgColor="inherit">{totalPages}</Button>
@@ -85,7 +85,7 @@ function Pagination({ data }: pageOptions) {
             bgColor="brand.100"
             color="white"
             minW="unset"
-            px="2rem"
+            // px="2rem"
             isDisabled={!next}
             onClick={() => paginate("next")}
           >

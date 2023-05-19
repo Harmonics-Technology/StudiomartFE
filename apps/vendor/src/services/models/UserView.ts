@@ -11,4 +11,7 @@ export type UserView = {
     email?: string | null;
     profilePicture?: string | null;
     phoneNumber?: string | null;
+    allowSmsNotification?: boolean;
+    allowEmailNotification?: boolean;
+    allowPushNotification?: boolean;
 };

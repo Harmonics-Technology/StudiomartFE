@@ -7,7 +7,7 @@ import {
   Text,
   Flex,
   SimpleGrid,
-  Spacer,
+  Image,
   HStack,
   Stack,
   Button,
@@ -36,6 +36,7 @@ import moment from "moment";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { Pagination } from "ui";
+import Link from "next/link";
 
 interface notificationProps {
   notifications: NotificationViewPagedCollection;
@@ -48,6 +49,7 @@ const Notification = ({ notifications }: notificationProps) => {
       if (result.status) {
         toast.success("Successful!");
         router.reload();
+        return;
       }
       toast.error(result.message as string);
     } catch (error: any) {
@@ -62,6 +64,7 @@ const Notification = ({ notifications }: notificationProps) => {
       if (result.status) {
         toast.success("Successful!");
         router.reload();
+        return;
       }
       toast.error(result.message as string);
     } catch (error: any) {
@@ -70,6 +73,7 @@ const Notification = ({ notifications }: notificationProps) => {
       });
     }
   };
+  // console.log({ notifications });
   return (
     <Box fontFamily="DM Sans">
       <Box>
@@ -89,9 +93,9 @@ const Notification = ({ notifications }: notificationProps) => {
         py="2rem"
         borderRadius="20px"
       >
-        <SimpleGrid bg="white">
-          {notifications?.value?.map((info: NotificationView) => (
-            <>
+        {(notifications?.value as any)?.length > 0 ? (
+          <SimpleGrid bg="white">
+            {notifications?.value?.map((info: NotificationView) => (
               <Flex
                 w="full"
                 justify="space-between"
@@ -100,23 +104,30 @@ const Notification = ({ notifications }: notificationProps) => {
                 py="1rem"
               >
                 <Flex align="center" gap="1.5rem" w="70%">
-                  <Circle bgColor="brand.100" size="10px" />
-                  <Avatar src="#" />
+                  <Circle
+                    bgColor={info.isRead ? "gray.200" : "brand.100"}
+                    size="10px"
+                  />
+                  <Avatar src="#" name={info?.user?.fullName || ""} />
                   <Text
                     pr="4rem"
                     fontWeight="400"
                     mb="0"
-                    color={info.isRead ? "gray.200" : "black"}
+                    color={info.isRead ? "gray.300" : "black"}
                   >
                     {info.message}
-                    <Text
-                      as="a"
-                      href={info.url as string}
-                      color={info.isRead ? "gray.200" : "brand.100"}
-                      mb="0"
-                    >
-                      View
-                    </Text>
+                    <Link passHref href={(info.url as string) || ""}>
+                      <Text
+                        as="a"
+                        color={info.isRead ? "gray.200" : "brand.100"}
+                        mb="0"
+                        pl=".3rem"
+                        display="inline"
+                        cursor="pointer"
+                      >
+                        View
+                      </Text>
+                    </Link>
                   </Text>
                 </Flex>
                 <VStack gap=".7rem" ml="auto">
@@ -164,13 +175,24 @@ const Notification = ({ notifications }: notificationProps) => {
                   </Text>
                 </VStack>
               </Flex>
-            </>
-          ))}
+            ))}
 
-          <HStack justifyContent="center" mt="3rem">
+            {/* <HStack justifyContent="center" mt="3rem"> */}
             <Pagination data={notifications} />
-          </HStack>
-        </SimpleGrid>
+            {/* </HStack> */}
+          </SimpleGrid>
+        ) : (
+          <Flex
+            w="30%"
+            overflow="hidden"
+            align="center"
+            justify="center"
+            mx="auto"
+            h="28rem"
+          >
+            <Image src="/assets/empty.png" alt="image" w="full" />
+          </Flex>
+        )}
       </Box>
     </Box>
   );

@@ -49,16 +49,14 @@ function RejectReason({ data }: { data: BookingView }) {
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Text fontWeight="600" fontSize="24px" mb="0">
-          Reason
-        </Text>
         <PrimaryTextarea<RejectBookingModel>
           name="reason"
           error={errors.reason}
           placeholder=""
           defaultValue=""
           register={register}
-          h="10rem"
+          h="8rem"
+          label="Reject Reason"
         />
         <Button
           variant="solid"
@@ -66,8 +64,9 @@ function RejectReason({ data }: { data: BookingView }) {
           width="full"
           bgColor="brand.100"
           color="white"
-          disabled={!isValid}
+          isDisabled={!isValid}
           mb="1rem"
+          type="submit"
           isLoading={isSubmitting}
         >
           Submit

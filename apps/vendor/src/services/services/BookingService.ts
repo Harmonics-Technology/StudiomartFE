@@ -1,12 +1,13 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { BookingFilterOptions } from '../models/BookingFilterOptions';
 import type { BookingModel } from '../models/BookingModel';
+import type { BookingViewPagedCollectionStandardResponse } from '../models/BookingViewPagedCollectionStandardResponse';
 import type { BookingViewStandardResponse } from '../models/BookingViewStandardResponse';
 import type { BooleanStandardResponse } from '../models/BooleanStandardResponse';
 import type { LookupModel } from '../models/LookupModel';
 import type { StringStandardResponse } from '../models/StringStandardResponse';
-import type { TransactionViewPagedCollectionStandardResponse } from '../models/TransactionViewPagedCollectionStandardResponse';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -208,24 +209,20 @@ device?: any,
 
     /**
      * Get all service bookings
-     * @returns TransactionViewPagedCollectionStandardResponse Success
+     * @returns BookingViewPagedCollectionStandardResponse Success
      * @throws ApiError
      */
     public static getBookingsByServiceId({
 offset,
 limit,
-studioId,
-serviceId,
-search,
 device,
+requestBody,
 }: {
 offset?: number,
 limit?: number,
-studioId?: string,
-serviceId?: string,
-search?: string,
 device?: any,
-}): CancelablePromise<TransactionViewPagedCollectionStandardResponse> {
+requestBody?: BookingFilterOptions,
+}): CancelablePromise<BookingViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Booking/bookings',
@@ -235,10 +232,9 @@ device?: any,
             query: {
                 'Offset': offset,
                 'Limit': limit,
-                'studioId': studioId,
-                'serviceId': serviceId,
-                'search': search,
             },
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,

@@ -27,6 +27,7 @@ interface FormProps<TFormValues extends Record<string, unknown>> {
   borderRadius?: string;
   value?: any;
   currency?: boolean;
+  readonly?: boolean;
 }
 
 const DisabledInput = <TFormValues extends Record<string, any>>({
@@ -45,6 +46,7 @@ const DisabledInput = <TFormValues extends Record<string, any>>({
   borderRadius = "4px",
   value,
   currency = false,
+  readonly,
 }: FormProps<TFormValues>) => {
   return (
     <>
@@ -80,6 +82,7 @@ const DisabledInput = <TFormValues extends Record<string, any>>({
               disabled={disableLabel}
               value={value}
               onChange={onChange}
+              readOnly={readonly}
             />
             {icon && (
               <InputRightElement

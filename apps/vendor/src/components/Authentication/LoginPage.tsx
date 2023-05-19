@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -43,6 +43,7 @@ export const LoginPage = () => {
     handleSubmit,
     handleSubmit: VendorSubmit,
     register,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<LoginModel>({
     resolver: yupResolver(validation),
@@ -56,7 +57,14 @@ export const LoginPage = () => {
       // console.log({ result });
       if (result.status) {
         if (terms) {
-          Cookies.set("isVendor", JSON.stringify(data));
+          Cookies.set(
+            "isVendor",
+            JSON.stringify({
+              email: data.email,
+              pass: data.password,
+              rememberMe: terms,
+            })
+          );
         }
         toast.success("Login Successful!", {
           className: "loginToast",
@@ -94,6 +102,18 @@ export const LoginPage = () => {
       });
     }
   };
+
+  useEffect(() => {
+    const isUser = Cookies.get("isVendor");
+    if (isUser !== undefined) {
+      const userDetails = JSON.parse(isUser as unknown as string);
+      setTerms(userDetails.rememberMe);
+      reset({
+        email: userDetails.email,
+        password: userDetails.pass,
+      });
+    }
+  }, []);
 
   return (
     <Flex
@@ -191,25 +211,27 @@ export const LoginPage = () => {
           >
             {loginType == "Vendor" ? (
               <form onSubmit={VendorSubmit(onSubmitVendor)}>
-                <PrimaryInput<LoginModel>
-                  label="Email Address"
-                  type="email"
-                  placeholder="Enter your email"
-                  name="email"
-                  error={errors.email}
-                  register={register}
-                />
-                <PrimaryInput<LoginModel>
-                  label="Password"
-                  placeholder="Enter your password"
-                  type={passwordVisible ? "text" : "password"}
-                  icon={true}
-                  passwordVisible={passwordVisible}
-                  changeVisibility={changeInputType}
-                  name="password"
-                  error={errors.password}
-                  register={register}
-                />
+                <VStack mb="1rem" spacing={0} gap="1rem">
+                  <PrimaryInput<LoginModel>
+                    label="Email Address"
+                    type="email"
+                    placeholder="Enter your email"
+                    name="email"
+                    error={errors.email}
+                    register={register}
+                  />
+                  <PrimaryInput<LoginModel>
+                    label="Password"
+                    placeholder="Enter your password"
+                    type={passwordVisible ? "text" : "password"}
+                    icon={true}
+                    passwordVisible={passwordVisible}
+                    changeVisibility={changeInputType}
+                    name="password"
+                    error={errors.password}
+                    register={register}
+                  />
+                </VStack>
                 <Flex
                   w="100%"
                   alignItems="flex-end"
@@ -222,6 +244,7 @@ export const LoginPage = () => {
                     borderRadius="5px"
                     size="md"
                     onChange={() => setTerms(!terms)}
+                    isChecked={terms}
                   >
                     Remember me
                   </Checkbox>

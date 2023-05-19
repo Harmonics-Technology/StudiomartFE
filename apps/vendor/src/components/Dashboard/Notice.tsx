@@ -1,63 +1,72 @@
-import React, { useContext } from 'react';
-import NoticePage from 'src/utils/NoticePage';
-import { Box, Button, Text, Flex, Image } from '@chakra-ui/react';
-import Link from 'next/link';
-import { UserContext } from '@components/Context/UserContext';
+import React, { useContext } from "react";
+import NoticePage from "src/utils/NoticePage";
+import { Box, Button, Text, Flex, Image, VStack, Icon } from "@chakra-ui/react";
+import Link from "next/link";
+import { UserContext } from "@components/Context/UserContext";
+import TopPage from "src/utils/TopPage";
+import { BsExclamationCircleFill } from "react-icons/bs";
+import { useRouter } from "next/router";
 
 const Notice = () => {
+  const router = useRouter();
   const { user } = useContext(UserContext);
   return (
     <div>
       <Box>
-        <NoticePage
+        <TopPage
           page={`${user?.lastName}!`}
-          details={'Welcome to your dashboard'}
+          details={"Welcome to your dashboard"}
           right={false}
-          clickFunction={undefined}
         />
       </Box>
 
-      <Box w="90%" mx="auto" my="auto">
+      <Box w="93%" mx="auto" my="auto">
         <Flex
           bgColor="rgba(220, 38, 38, 0.1)"
           border="1px solid #DC2626"
-          borderRadius="18px"
-          mt="6"
+          borderRadius="15px"
+          padding="1.5rem"
+          gap="1rem"
+          my="2rem"
         >
-          <Box>
-            <Image
-              src="/assets/Vector.png"
-              alt="image"
-              h="30px"
-              mt="4"
-              ml="2"
-            />
-          </Box>
-          <Box>
-            <Text fontSize="20px" fontWeight="500" ml="2" mt="4">
+          <Icon as={BsExclamationCircleFill} fontSize="30px" color="#DC2626" />
+          <VStack align="flex-start" spacing={0} gap=".6rem">
+            <Text fontSize="20px" fontWeight="500" mb="0">
               Notice!
             </Text>
-            <Text fontSize="18px" fontWeight="400" mt="-3" ml="2">
+            <Text fontSize="18px" fontWeight="400" mb="0">
               It is Mandatory that you complete your profile and add your bank
               details before you transact on this platform
             </Text>
-            <Link href="/account/basic-information">
-              <Button bgColor="brand.100" color="white" ml="4" mb="4">
-                Complete Profile
-              </Button>
-            </Link>
+
+            <Button
+              bgColor="brand.100"
+              color="white"
+              h="2.8rem"
+              onClick={() => router.push("/account/studio-kyc-information")}
+            >
+              Complete Profile
+            </Button>
+          </VStack>
+        </Flex>
+        <Flex
+          bgColor="white"
+          borderRadius="15px"
+          overflow="hidden"
+          minH="30rem"
+          justify="center"
+          align="center"
+        >
+          <Box>
+            <Image
+              w="full"
+              objectFit="cover"
+              src="/assets/board.png"
+              alt="image"
+              bgColor="white"
+            />
           </Box>
         </Flex>
-        <Box>
-          <Image
-            mt="6"
-            w="full"
-            objectFit="cover"
-            src="/assets/empty.png"
-            alt="image"
-            bgColor="white"
-          />
-        </Box>
       </Box>
     </div>
   );

@@ -34,6 +34,7 @@ import {
   AiFillYoutube,
 } from "react-icons/ai";
 import Cookies from "js-cookie";
+import NoSSR from "react-no-ssr";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -84,7 +85,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
   });
   const allStates = NaijaStates.states();
   const selectedLga = NaijaStates.lgas(watch("state") || "lagos");
-  console.log({ selectedLga });
+  // console.log({ selectedLga });
   const router = useRouter();
   //Logo upload
   const [logoUrl, setLogoUrl] = useState();
@@ -139,11 +140,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
         studios.status &&
           Cookies.set("vendorStudios", JSON.stringify(studios.data?.value));
         toast.success("Studio successfully created, will reload shortly");
-        router.push("/dashboard", {
-          query: {
-            studio: result.data?.id,
-          },
-        });
+        router.push("/studio/profile");
         return;
       }
       toast.error(result.message as string);
@@ -173,16 +170,18 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box>
-            <Box display="none">
-              <Widget
-                publicKey="fda3a71102659f95625f"
-                systemDialog
-                imagesOnly
-                onFileSelect={onChangeLogoImage}
-                ref={widgetLogoApi}
-                inputAcceptTypes={".jpeg,.jpg, .png"}
-              />
-            </Box>
+            <NoSSR>
+              <Box display="none">
+                <Widget
+                  publicKey="fda3a71102659f95625f"
+                  systemDialog
+                  imagesOnly
+                  onFileSelect={onChangeLogoImage}
+                  ref={widgetLogoApi}
+                  inputAcceptTypes={".jpeg,.jpg, .png"}
+                />
+              </Box>
+            </NoSSR>
 
             <Circle
               role="group"
@@ -196,7 +195,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
                 <>
                   <Image
                     src={logoUrl || (singleStudio.logo as string)}
-                    alt="Banner Image"
+                    alt="Logo image"
                     w="full"
                     h="full"
                     objectFit="cover"
@@ -213,7 +212,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
                     cursor="pointer"
                     transition=".5s all ease"
                     opacity="0"
-                    onClick={() => widgetApi.current.openDialog()}
+                    onClick={() => widgetLogoApi.current.openDialog()}
                     _groupHover={{
                       opacity: "1",
                     }}
@@ -357,16 +356,18 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
           </VStack>
 
           <Box mt="1.5rem">
-            <Box display="none">
-              <Widget
-                publicKey="fda3a71102659f95625f"
-                systemDialog
-                imagesOnly
-                onFileSelect={onChangeImg}
-                ref={widgetApi}
-                inputAcceptTypes={".jpeg,.jpg, .png"}
-              />
-            </Box>
+            <NoSSR>
+              <Box display="none">
+                <Widget
+                  publicKey="fda3a71102659f95625f"
+                  systemDialog
+                  imagesOnly
+                  onFileSelect={onChangeImg}
+                  ref={widgetApi}
+                  inputAcceptTypes={".jpeg,.jpg, .png"}
+                />
+              </Box>
+            </NoSSR>
             <FormLabel fontSize=".9rem">Upload Studio Cover Image</FormLabel>
             <Flex
               justify="center"

@@ -26,4 +26,7 @@ export type User = {
     password?: string | null;
     token?: string | null;
     profilePicture?: string | null;
+    allowSmsNotification?: boolean;
+    allowEmailNotification?: boolean;
+    allowPushNotification?: boolean;
 };

@@ -19,11 +19,13 @@ export class NotificationService {
 userId,
 offset,
 limit,
+isRead,
 device,
 }: {
 userId: string,
 offset?: number,
 limit?: number,
+isRead?: boolean,
 device?: any,
 }): CancelablePromise<NotificationViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
@@ -38,6 +40,7 @@ device?: any,
             query: {
                 'Offset': offset,
                 'Limit': limit,
+                'isRead': isRead,
             },
             errors: {
                 400: `Bad Request`,

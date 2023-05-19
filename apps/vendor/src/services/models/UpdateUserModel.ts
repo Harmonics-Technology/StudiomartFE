@@ -8,4 +8,7 @@ export type UpdateUserModel = {
     firstName?: string | null;
     lastName?: string | null;
     profileURl?: string | null;
+    allowSmsNotification?: boolean;
+    allowEmailNotification?: boolean;
+    allowPushNotification?: boolean;
 };

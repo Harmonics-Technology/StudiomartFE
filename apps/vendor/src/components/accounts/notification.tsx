@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Flex,
   Box,
@@ -17,16 +17,23 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { UpdateUserModel, UserService } from "src/services";
+import { UpdateUserModel, UserService, UserView } from "src/services";
 
 const schema = yup.object().shape({
-  // email: yup.string().email().required(),
+  // allowEmailNotification: yup.string().required(),
 });
 
 export default function Notifications() {
+  const [userInfo, setUserInfo] = useState<UserView>();
+  const [sms, setSms] = useState(userInfo?.allowSmsNotification);
+  const [email, setEmail] = useState(userInfo?.allowEmailNotification);
+  const [inApp, setInApp] = useState(userInfo?.allowPushNotification);
   const {
     handleSubmit,
     register,
+    reset,
+    setValue,
+    watch,
     formState: { errors, isSubmitting, isValid },
   } = useForm<UpdateUserModel>({
     resolver: yupResolver(schema),
@@ -34,6 +41,7 @@ export default function Notifications() {
   });
   const router = useRouter();
   const onSubmit = async (data: UpdateUserModel) => {
+    console.log({ data });
     try {
       const result = await UserService.updateUser({ requestBody: data });
       if (result.status) {
@@ -52,6 +60,22 @@ export default function Notifications() {
       });
     }
   };
+  useEffect(() => {
+    const isUser = Cookies.get("vendor");
+    if (isUser !== undefined) {
+      const user = JSON.parse(isUser as unknown as string);
+      reset({
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        phoneNumber: user?.phoneNumber,
+        id: user?.id,
+        profileURl: user?.profilePicture,
+        allowEmailNotification: user?.allowEmailNotification,
+        allowPushNotification: user?.allowPushNotification,
+        allowSmsNotification: user.allowSmsNotification,
+      });
+    }
+  }, []);
 
   return (
     <Flex
@@ -88,15 +112,36 @@ export default function Notifications() {
                 worry, you can edit this later
               </Text>
               <HStack spacing="24px">
-                <Checkbox>SMS</Checkbox>
-                <Checkbox>EMAIL</Checkbox>
+                <Checkbox
+                  onChange={(e) =>
+                    setValue("allowSmsNotification", e.target.checked)
+                  }
+                  isChecked={watch("allowSmsNotification")}
+                >
+                  SMS
+                </Checkbox>
+                <Checkbox
+                  onChange={(e) =>
+                    setValue("allowEmailNotification", e.target.checked)
+                  }
+                  isChecked={watch("allowEmailNotification")}
+                >
+                  EMAIL
+                </Checkbox>
               </HStack>
               <VStack align="flex-start">
                 <Text fontWeight="600" fontSize="16px" mb="0">
                   Activate push notifications?
                 </Text>
                 <Text>For important updates and account notifications</Text>
-                <Checkbox>Yes please do</Checkbox>
+                <Checkbox
+                  onChange={(e) =>
+                    setValue("allowPushNotification", e.target.checked)
+                  }
+                  isChecked={watch("allowPushNotification")}
+                >
+                  Yes please do
+                </Checkbox>
               </VStack>
               <Flex justifyContent="flex-end" w="full">
                 <Button

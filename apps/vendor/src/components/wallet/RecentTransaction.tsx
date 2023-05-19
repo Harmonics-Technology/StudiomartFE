@@ -1,12 +1,22 @@
-import React from 'react';
-import { Box, HStack, Flex, Text, SimpleGrid, VStack } from '@chakra-ui/react';
+import React from "react";
+import {
+  Box,
+  HStack,
+  Flex,
+  Text,
+  SimpleGrid,
+  VStack,
+  Circle,
+} from "@chakra-ui/react";
+import moment from "moment";
+import { Naira } from "ui";
 
 interface recentTransactionProps {
-  mode?: boolean;
+  mode?: string;
   message: string;
-  amount: string;
-  date: string;
-  time: string;
+  amount: number;
+  date: any;
+  time: any;
 }
 const RecentTransaction = ({
   mode,
@@ -16,46 +26,28 @@ const RecentTransaction = ({
   time,
 }: recentTransactionProps) => {
   return (
-    <Box ml="2">
-      {/* // <Box ml="2"  overflowY="auto" maxHeight="15rem"> */}
-      <SimpleGrid bg="white" mt="-2">
-        <>
-          <Flex fontWeight="bold" alignItems="center">
-            <Box
-              mb="4"
-              ml="4"
-              bgColor={mode ? 'green' : 'red'}
-              h="18px"
-              w="18px"
-              borderRadius="full"
-            />
-            <Flex flexDir="column">
-              <HStack gap={mode ? '' : '6rem'} fontWeight="500">
-                <Text pt="2" ml="2" fontSize="14px" pr=".5rem">
-                  {message}
-                </Text>
-
-                <Text fontSize="16px" pb="2">
-                  ₦{amount}
-                </Text>
-              </HStack>
-              <Box mt="-2.5">
-                <HStack textColor="#AFAFAF">
-                  <Text ml="2" fontSize="10px" pr="4rem" fontWeight="400">
-                    {date}
-                  </Text>
-                  <Box>
-                    <Text ml="2" fontSize="10px" fontWeight="400">
-                      {time}
-                    </Text>
-                  </Box>
-                </HStack>
-              </Box>
-            </Flex>
-          </Flex>
-        </>
-      </SimpleGrid>
-    </Box>
+    <HStack justify="space-between" align="flex-start" w="full">
+      <HStack align="flex-start">
+        <Circle
+          bgColor={mode?.toLowerCase() == "payment" ? "#16A34A" : "#DC2626"}
+          size="18px"
+        />
+        <VStack spacing={0} w="full" align="flex-start">
+          <Text fontSize="14px" mb="0" fontWeight="500">
+            {message}
+          </Text>
+          <HStack textColor="#AFAFAF" fontSize="10px">
+            <Text mb="0">{moment(date).format("Do, DD MMM YYYY")}</Text>
+            <Box>
+              <Text mb="0">{moment(time).format("LT A")}</Text>
+            </Box>
+          </HStack>
+        </VStack>
+      </HStack>
+      <Text fontSize="16px" mb="0" fontWeight="500">
+        {Naira(amount)}
+      </Text>
+    </HStack>
   );
 };
 

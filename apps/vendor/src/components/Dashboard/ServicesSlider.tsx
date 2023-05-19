@@ -14,7 +14,8 @@ import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { ServiceView } from "src/services";
-import { useDummyImage } from "react-simple-placeholder-image";
+import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
+import NoSSR from "react-no-ssr";
 
 interface SliderProps {
   data: ServiceView[] | null | undefined;
@@ -106,14 +107,23 @@ export const ServiceSlider = ({ data }: SliderProps) => {
             overflow="hidden"
             boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
           >
-            <Image
-              h="14rem "
-              w="100%"
-              objectFit="cover"
-              src={x.bannerImageURL || image}
-              alt="image"
-              bgColor="white"
-            />
+            <NoSSR>
+              {x.bannerImageURL ? (
+                <Image
+                  src={x.bannerImageURL as string}
+                  alt="Banner Image"
+                  h="14rem "
+                  w="100%"
+                  objectFit="cover"
+                  bgColor="white"
+                />
+              ) : (
+                <Box h="14rem">
+                  <DummyImage />
+                </Box>
+              )}
+            </NoSSR>
+
             <Box h="fit-content" w="100%" textAlign="left" p="1rem 1rem 1.5rem">
               <Text
                 fontWeight="600"

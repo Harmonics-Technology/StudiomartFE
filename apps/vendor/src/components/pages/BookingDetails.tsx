@@ -40,6 +40,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
       });
       if (result.status) {
         setLoading(false);
+        closed();
         toast.success(
           `You have successfully accept booking, ${data.user?.firstName} would be notify to make payment`
         );
@@ -68,7 +69,9 @@ function BookingDetails({ data, closed }: DetailsProps) {
       <Responses response={response} />
       <Box w="85%" mx="auto">
         <Flex justify="space-between" align="center" my="2rem">
-          <Text fontSize="1.5rem">Booking Details</Text>
+          <Text fontSize="1.4rem" mb="0">
+            Booking Details
+          </Text>
           <Box
             padding=".2rem 1rem"
             width="fit-content"
@@ -78,11 +81,11 @@ function BookingDetails({ data, closed }: DetailsProps) {
             bgColor={
               response == "pending"
                 ? "#FDF3CA"
-                : response == "accept"
+                : response == "approved"
                 ? "#D5E2F9"
-                : response == "progress"
+                : response == "in-progress"
                 ? "#FDF3CA"
-                : response == "cancel"
+                : response == "cancelled" || response == "rejected"
                 ? "#FDC1C1"
                 : "white"
             }
@@ -90,23 +93,25 @@ function BookingDetails({ data, closed }: DetailsProps) {
           >
             {response == "pending"
               ? "Pending Confirmation"
-              : response == "accept"
+              : response == "approved"
               ? "Awaiting payment"
-              : response == "progress"
+              : response == "in-progress"
               ? "In progress"
+              : response == "rejected"
+              ? "Rejected"
               : "Cancelled"}
           </Box>
         </Flex>
         <VStack gap="2rem">
           <Box w="full">
-            <Text fontWeight="500" fontSize="18px" mb=".8rem">
+            <Text fontWeight="500" fontSize="16px" mb=".8rem">
               Client Details
             </Text>
             <Box
               borderRadius="12px"
               border="1px solid"
               borderColor="gray.400"
-              p="2rem"
+              p="2rem 1.5rem"
             >
               <VStack gap="1rem" align="left">
                 <BookingText top="Client ID/Email" bottom={data?.user?.email} />
@@ -118,7 +123,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
             </Box>
           </Box>
           <Box w="full">
-            <Text fontWeight="500" fontSize="18px" mb=".8rem">
+            <Text fontWeight="500" fontSize="16px" mb=".8rem">
               Service Details
             </Text>
             <Box
@@ -161,7 +166,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
             </Box>
           </Box>
           <Box w="full">
-            <Text fontWeight="500" fontSize="18px" mb=".8rem">
+            <Text fontWeight="500" fontSize="16px" mb=".8rem">
               Payment Details
             </Text>
             <Box

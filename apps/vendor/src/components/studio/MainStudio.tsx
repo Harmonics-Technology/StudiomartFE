@@ -1,27 +1,4 @@
-import {
-  Box,
-  Text,
-  useDisclosure,
-  Tr,
-  Tfoot,
-  Td,
-  Tbody,
-  Th,
-  Thead,
-  TableCaption,
-  Table,
-  TableContainer,
-  Image,
-  Button,
-  Grid,
-} from "@chakra-ui/react";
-import {
-  AlertBox,
-  CustomTable,
-  TableData,
-  TableStatus,
-  TableWithSub,
-} from "ui";
+import { Box, Text, Image, Button, Grid } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import { UserContext } from "@components/Context/UserContext";
@@ -30,9 +7,9 @@ import {
   ServiceTypeViewListStandardResponse,
   ServiceView,
   ServiceViewPagedCollectionStandardResponse,
-  StudioView,
 } from "src/services";
-import { useDummyImage } from "react-simple-placeholder-image";
+import { DummyImage } from "react-simple-placeholder-image";
+import NoSSR from "react-no-ssr";
 
 interface StudioProps {
   studios: ServiceViewPagedCollectionStandardResponse;
@@ -43,10 +20,6 @@ export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
   console.log({ studios });
   const router = useRouter();
   const { user } = useContext(UserContext);
-  // console.log({ user });
-  const image = useDummyImage({
-    /* Config */
-  });
 
   return (
     <>
@@ -74,14 +47,22 @@ export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
               overflow="hidden"
               // boxShadow="md"
             >
-              <Image
-                h="14rem "
-                w="100%"
-                objectFit="cover"
-                src={x.bannerImageURL || image}
-                alt="image"
-                bgColor="white"
-              />
+              <NoSSR>
+                {x.bannerImageURL ? (
+                  <Image
+                    src={x.bannerImageURL as string}
+                    alt="Banner Image"
+                    h="14rem "
+                    w="100%"
+                    objectFit="cover"
+                    bgColor="white"
+                  />
+                ) : (
+                  <Box h="14rem">
+                    <DummyImage />
+                  </Box>
+                )}
+              </NoSSR>
               <Box
                 h="fit-content"
                 w="100%"
@@ -91,7 +72,7 @@ export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
                 <Text fontWeight="600" fontSize="20px" mb=".5rem">
                   {x.name}
                 </Text>
-                <Text fontSize="15px" fontWeight="400">
+                <Text fontSize="15px" fontWeight="400" noOfLines={3}>
                   {x.description}
                 </Text>
 

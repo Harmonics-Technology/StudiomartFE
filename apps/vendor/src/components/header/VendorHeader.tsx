@@ -16,6 +16,7 @@ import {
   MenuItem,
   MenuList,
   Heading,
+  Avatar,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { FaAngleDown } from "react-icons/fa";
@@ -29,9 +30,10 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import Cookies from "js-cookie";
 
 function VendorHeader() {
-  const { userStudios, user, setCurrentStudioId, currentStudioId } =
+  const { userStudios, user, setCurrentStudioId, currentStudioId, notifys } =
     useContext(UserContext);
   const router = useRouter();
+  const messageCount = notifys?.size;
   const changeStudio = (value: any) => {
     router.push({
       query: {
@@ -42,7 +44,7 @@ function VendorHeader() {
     setCurrentStudioId(value);
     Cookies.set("currentStudioId", value);
   };
-  console.log({ userStudios });
+  // console.log({ notifys });
   // console.log(userStudios?.filter((x: any) => x.id == currentStudioId)[0].name);
   return (
     <Box w="full" bgColor="white">
@@ -53,8 +55,9 @@ function VendorHeader() {
           justify="space-between"
           mx="auto"
           w="95%"
+          // ml="auto"
         >
-          {/* <Flex h="3rem" w="55%">
+          {/* <Flex h="3rem" w="15%">
             <InputGroup>
               <InputLeftElement top=".4rem" color="#636363">
                 <RiSearch2Fill />
@@ -89,15 +92,25 @@ function VendorHeader() {
               </Flex>
             </Box>
           </Flex> */}
+          <Avatar
+            src={user?.profilePicture}
+            name={user?.fullName}
+            size="md"
+            border="1px solid gray"
+          />
           <Box w="fit-content">
             <Select
               borderRadius="25px"
-              border="2px"
+              // border="2px"
               height="2.8rem"
               color="brand.100"
               fontWeight="600"
               fontFamily="BR Firma"
+              border="0"
               onChange={(e) => changeStudio(e.target.value)}
+              _focusVisible={{
+                border: 0,
+              }}
             >
               <option selected hidden disabled>
                 {
@@ -113,14 +126,28 @@ function VendorHeader() {
             </Select>
           </Box>
           <HStack>
-            <Box mr="1rem">
+            <Box mr="0rem" pos="relative" cursor="pointer">
               <Link href="/notification" passHref>
-                <a>
-                  <RiNotification3Fill />
-                </a>
+                <RiNotification3Fill />
               </Link>
+              <Circle
+                bgColor={"brand.100"}
+                size=".8rem"
+                display={messageCount <= 0 ? "none" : "flex"}
+                fontSize=".5rem"
+                color="white"
+                fontWeight="bold"
+                pos="absolute"
+                justifyContent="center"
+                top="-30%"
+                right="-30%"
+                border="1px solid white"
+              >
+                {messageCount}
+                {/* <sup>+</sup> */}
+              </Circle>
             </Box>
-            <Circle bgColor="brand.100" size="3rem" overflow="hidden">
+            {/* <Circle bgColor="brand.100" size="3rem" overflow="hidden">
               {user?.profilePicture ? (
                 <Image
                   src={user.profilePicture}
@@ -134,20 +161,23 @@ function VendorHeader() {
                   0
                 )}${user?.lastName.at(0)}`}</Heading>
               )}
-            </Circle>
+            </Circle> */}
             <Menu>
               <MenuButton
                 as={Button}
                 rightIcon={<FaAngleDown />}
                 bgColor="transparent"
-                color="gray.400"
+                // color="gray.700"
                 _hover={{
                   bgColor: "transparent",
                 }}
                 _active={{
                   bgColor: "transparent",
                 }}
-              />
+              >
+                Action
+              </MenuButton>
+
               <MenuList p="1rem">
                 <MenuItem
                   mb=".5rem"

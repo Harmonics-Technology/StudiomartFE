@@ -11,4 +11,5 @@ export type ReviewView = {
     serviceId?: string;
     service?: ServiceView;
     reviewNote?: string | null;
+    reviewCount?: number;
 };

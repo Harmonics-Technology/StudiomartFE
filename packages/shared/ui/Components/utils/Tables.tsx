@@ -1,26 +1,27 @@
 import { Box, Td, Th, Tooltip, Text } from "@chakra-ui/react";
 
 export function TableStatus({ name }: { name: string }) {
+  name = name.toLowerCase();
   return (
-    <Td fontFamily="BR Firma">
+    <Td fontFamily="BR Firma" pl="0rem">
       <Box
         fontSize="10px"
         bgColor={
-          name == "Successful"
+          name == "finished"
             ? "#D2F5DF"
-            : name == "In progress" || name == "Pending Confirmation"
+            : name == "pending" || name == "in progress"
             ? "#FDF3CA"
-            : name == "Awaiting Payment"
+            : name == "approved"
             ? "#D5E2F9"
             : "#FDC1C1"
         }
         color={
-          name == "Successful"
+          name == "finished"
             ? "#16A34A"
-            : name == "In progress" || name == "Pending Confirmation"
+            : name == "in progress" || name == "pending"
             ? "#3D3D3D"
-            : name == "Awaiting Payment"
-            ? "##1570FA"
+            : name == "approved"
+            ? "#1570FA"
             : "#DC2626"
         }
         fontWeight="bold"
@@ -28,6 +29,7 @@ export function TableStatus({ name }: { name: string }) {
         width="fit-content"
         borderRadius="8px"
         cursor="pointer"
+        textTransform="capitalize"
       >
         {name}
       </Box>
@@ -79,13 +81,10 @@ export function TableData({
       borderColor={borderColor}
       borderRight={border ? value : 0}
       borderRightColor={borderColor}
-      paddingInlineStart="1rem"
+      paddingInlineStart="0rem"
       className={classes}
-      fontFamily="BR Firma"
-      // maxW="120px"
-      // textOverflow=""
-      // overflow="hidden"
-      // noOfLines={1}
+      fontFamily="DM Sans"
+      fontSize=".9rem"
       color={
         name == "OFFSHORE"
           ? "brand.700"

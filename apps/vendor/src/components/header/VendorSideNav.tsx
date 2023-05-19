@@ -33,7 +33,7 @@ function VendorSideNav() {
       align="flex-start"
       boxShadow="0 20px 27px 0 rgb(0 0 0 / 5%)"
     >
-      <Link href="/" passHref>
+      <Link href="/dashboard" passHref>
         <HStack>
           {/* <Box h="2rem">
                         <Image src="/assets/logo.png" h="full" />

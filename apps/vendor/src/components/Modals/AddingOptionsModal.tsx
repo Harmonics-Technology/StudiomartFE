@@ -93,10 +93,9 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
     };
 
     setUploadedMedia([...uploadedMedia, newMedia]);
-    console.log({ uploadedMedia });
+    // console.log({ uploadedMedia });
   };
 
-  console.log(watch("serviceTypeId"));
   const [addon, setAddon] = useState({ id: "", name: "", price: "" });
   const [populatedItem, setPopulatedItem] = useState<any[]>([]);
   const [editing, setEditing] = useState(false);

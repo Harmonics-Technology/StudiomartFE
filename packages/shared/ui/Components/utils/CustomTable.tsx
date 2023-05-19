@@ -28,9 +28,9 @@ function CustomTable({ tableHead, children }: TablesProps) {
             {tableHead.map((x, i) => (
               <Th
                 pl="0rem"
-                fontSize="16px"
+                fontSize="14px"
                 color="#3D3D3D"
-                fontWeight="500"
+                fontWeight="600"
                 fontFamily="BR Firma"
                 letterSpacing="-1px"
                 textTransform="capitalize"

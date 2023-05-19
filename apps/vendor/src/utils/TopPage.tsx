@@ -30,7 +30,7 @@ function TopPage({ page, details, right, serviceTypes }: TopPageProps) {
         w="100%"
         mx="auto"
         py=".7rem"
-        px="2rem"
+        px="2.5rem"
       >
         <Box fontFamily="BR Firma">
           <Text fontSize="1.5rem" fontWeight="600" mb=".2rem">

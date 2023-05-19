@@ -1,3 +1,4 @@
+import { SelectrixBox } from "./Components/utils/SelectrixBox";
 import { CurrencyField } from "./Components/utils/CurrencyField";
 import { InfoBox } from "./Components/utils/InfoBox";
 import { FilterPagingOptions } from "./Components/utils/FilterPagingOption";
@@ -72,4 +73,5 @@ export {
   InfoBox,
   CurrencyField,
   Naira,
+  SelectrixBox,
 };

@@ -23,6 +23,16 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   if (Cookies.get("user") == "Vendor") {
     OpenAPI.TOKEN = Cookies.get("vendorToken");
   }
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const loader = document.getElementById("globalLoader");
+      if (loader)
+        setTimeout(() => {
+          loader.remove();
+        }, 1000);
+    }
+  }, []);
   // console.log(OpenAPI.TOKEN);
   return (
     <ChakraProvider theme={theme}>

@@ -17,8 +17,12 @@ export type { BankAccountViewListStandardResponse } from './models/BankAccountVi
 export type { BankAccountViewStandardResponse } from './models/BankAccountViewStandardResponse';
 export type { Banks } from './models/Banks';
 export type { BanksIEnumerableStandardResponse } from './models/BanksIEnumerableStandardResponse';
+export type { BookingFilterOptions } from './models/BookingFilterOptions';
 export type { BookingModel } from './models/BookingModel';
+export { BookingStatus } from './models/BookingStatus';
 export type { BookingView } from './models/BookingView';
+export type { BookingViewPagedCollection } from './models/BookingViewPagedCollection';
+export type { BookingViewPagedCollectionStandardResponse } from './models/BookingViewPagedCollectionStandardResponse';
 export type { BookingViewStandardResponse } from './models/BookingViewStandardResponse';
 export type { BooleanStandardResponse } from './models/BooleanStandardResponse';
 export { HttpStatusCode } from './models/HttpStatusCode';
@@ -27,6 +31,7 @@ export type { Link } from './models/Link';
 export type { LoginModel } from './models/LoginModel';
 export type { LookupModel } from './models/LookupModel';
 export type { Media } from './models/Media';
+export type { MediaModel } from './models/MediaModel';
 export type { MediaUpdateModel } from './models/MediaUpdateModel';
 export type { MediaView } from './models/MediaView';
 export type { MediaViewStandardResponse } from './models/MediaViewStandardResponse';
@@ -79,6 +84,7 @@ export type { VendorUpgradeModel } from './models/VendorUpgradeModel';
 export type { WalletPinModel } from './models/WalletPinModel';
 export type { WalletView } from './models/WalletView';
 export type { WalletViewStandardResponse } from './models/WalletViewStandardResponse';
+export type { WithdrawalModel } from './models/WithdrawalModel';
 
 export { BookingService } from './services/BookingService';
 export { DashboardService } from './services/DashboardService';

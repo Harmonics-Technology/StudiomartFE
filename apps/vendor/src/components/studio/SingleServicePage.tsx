@@ -38,6 +38,8 @@ import { Rating, Star } from "@smastrom/react-rating";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import moment from "moment";
 import EditServiceModal from "@components/Modals/EditServiceModal";
+import NoSSR from "react-no-ssr";
+import { DummyImage } from "react-simple-placeholder-image";
 
 interface StudioProps {
   service: ServiceView;
@@ -61,10 +63,7 @@ export const SingleServicePage = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: open, onOpen: opens, onClose: closed } = useDisclosure();
   const router = useRouter();
-  console.log({ service });
-
-  const image = "";
-
+  console.log({ reviews });
   return (
     <Box>
       <Box bgColor="white">
@@ -133,13 +132,19 @@ export const SingleServicePage = ({
               borderColor="gray.400"
               pos="relative"
             >
-              <Image
-                src={(service?.bannerImageURL as string) || image}
-                alt="Banner Image"
-                w="full"
-                h="full"
-                objectFit="cover"
-              />
+              <NoSSR>
+                {service?.bannerImageURL ? (
+                  <Image
+                    src={service?.bannerImageURL as string}
+                    alt="Banner Image"
+                    w="full"
+                    h="full"
+                    objectFit="cover"
+                  />
+                ) : (
+                  <DummyImage />
+                )}
+              </NoSSR>
             </Flex>
           </Box>
 
@@ -228,7 +233,7 @@ export const SingleServicePage = ({
                       </Text>
                       <Rating
                         style={{ maxWidth: 100 }}
-                        value={3}
+                        value={review.reviewCount as number}
                         readOnly
                         itemStyles={myStyles}
                       />

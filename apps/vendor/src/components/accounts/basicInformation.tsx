@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
   Flex,
@@ -42,6 +42,7 @@ export default function BasicInformation({ user }: { user: UserView }) {
     status: false,
     total: "0",
   });
+  const [saveImagePrompt, setSaveImagePrompt] = useState(false);
   const widgetApi = useRef<any>(null);
   // console.log({ widgetApi });
 
@@ -57,6 +58,10 @@ export default function BasicInformation({ user }: { user: UserView }) {
       lastName: user?.lastName,
       phoneNumber: user?.phoneNumber,
       id: user?.id,
+      profileURl: user?.profilePicture,
+      allowEmailNotification: user?.allowEmailNotification,
+      allowPushNotification: user?.allowPushNotification,
+      allowSmsNotification: user.allowSmsNotification,
     },
   });
   const router = useRouter();
@@ -70,19 +75,15 @@ export default function BasicInformation({ user }: { user: UserView }) {
       file.done((info: any) => {
         setImageLoading({ status: false, total: "" }),
           setImageUrl(info.originalUrl);
-        const newData: UpdateUserModel = {
-          firstName: user.firstName,
-          lastName: user.lastName,
-          profileURl: info.originalUrl,
-          id: user.id,
-          phoneNumber: user.phoneNumber
-        };
-        onSubmit(newData);
+        setSaveImagePrompt(true);
       });
     }
   };
 
   const onSubmit = async (data: UpdateUserModel) => {
+    imageUrl
+      ? (data.profileURl = imageUrl)
+      : (data.profileURl = data?.profileURl);
     try {
       const result = await UserService.updateUser({ requestBody: data });
       if (result.status) {
@@ -101,6 +102,14 @@ export default function BasicInformation({ user }: { user: UserView }) {
       });
     }
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      saveImagePrompt && setSaveImagePrompt(false);
+    }, 5000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [saveImagePrompt]);
   return (
     <Flex
       bgColor="white"
@@ -211,8 +220,21 @@ export default function BasicInformation({ user }: { user: UserView }) {
                   />
                 </Square>
               )}
+              {/* {saveImagePrompt && (
+                )} */}
+              {/* <Box
+                bgColor="black"
+                color="white"
+                p=".5rem 1rem"
+                borderRadius="8px"
+                opacity={saveImagePrompt ? "1" : "0"}
+                transition=".5s ease all"
+                fontSize=".8rem"
+              >
+                Click save to save profile picture!
+              </Box> */}
             </Flex>
-            <VStack gap="1rem">
+            <VStack gap="1rem" pos="relative">
               <PrimaryInput<UpdateUserModel>
                 label="First Name"
                 type="text"
@@ -247,7 +269,21 @@ export default function BasicInformation({ user }: { user: UserView }) {
                 register={register}
                 defaultValue={""}
               />
-
+              {/* {saveImagePrompt && (
+              )} */}
+              <Box
+                bgColor="black"
+                color="white"
+                p=".5rem 1rem"
+                borderRadius="8px"
+                pos="absolute"
+                top="77%"
+                fontSize=".8rem"
+                opacity={saveImagePrompt ? "1" : "0"}
+                transition=".5s ease all"
+              >
+                Click to save profile picture!
+              </Box>
               <Flex justifyContent="flex-end" w="full">
                 <Button
                   isDisabled={!isValid}

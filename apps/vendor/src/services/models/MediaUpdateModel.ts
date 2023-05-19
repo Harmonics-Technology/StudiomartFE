@@ -3,6 +3,6 @@
 /* eslint-disable */
 
 export type MediaUpdateModel = {
-    id?: string;
+    id?: string | null;
     mediaURL?: string | null;
 };

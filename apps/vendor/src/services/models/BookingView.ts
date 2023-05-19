@@ -11,6 +11,7 @@ export type BookingView = {
     user?: UserView;
     serviceId?: string;
     service?: ServiceView;
+    bookingReference?: string | null;
     date?: string;
     time?: string;
     amount?: number;

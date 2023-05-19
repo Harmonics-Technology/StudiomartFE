@@ -7,11 +7,10 @@ import type { BankAccountModel } from '../models/BankAccountModel';
 import type { BankAccountViewListStandardResponse } from '../models/BankAccountViewListStandardResponse';
 import type { BankAccountViewStandardResponse } from '../models/BankAccountViewStandardResponse';
 import type { BooleanStandardResponse } from '../models/BooleanStandardResponse';
+import type { MediaModel } from '../models/MediaModel';
 import type { MediaUpdateModel } from '../models/MediaUpdateModel';
 import type { MediaViewStandardResponse } from '../models/MediaViewStandardResponse';
 import type { ServiceModel } from '../models/ServiceModel';
-import type { ServiceTypeViewListStandardResponse } from '../models/ServiceTypeViewListStandardResponse';
-import type { ServiceViewPagedCollectionStandardResponse } from '../models/ServiceViewPagedCollectionStandardResponse';
 import type { ServiceTypeViewListStandardResponse } from '../models/ServiceTypeViewListStandardResponse';
 import type { ServiceViewPagedCollectionStandardResponse } from '../models/ServiceViewPagedCollectionStandardResponse';
 import type { ServiceViewStandardResponse } from '../models/ServiceViewStandardResponse';
@@ -524,6 +523,34 @@ requestBody?: BankAccountModel,
     }
 
     /**
+     * delete bank account
+     * @returns BooleanStandardResponse Success
+     * @throws ApiError
+     */
+    public static deleteBankAccount({
+id,
+device,
+}: {
+id: string,
+device?: any,
+}): CancelablePromise<BooleanStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/Studio/accounts/delete/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'device': device,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
      * Get bank accounts for a studio
      * @returns BankAccountViewListStandardResponse Success
      * @throws ApiError
@@ -747,6 +774,61 @@ device?: any,
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Studio/service-types',
+            headers: {
+                'device': device,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * Add service image
+     * @returns MediaViewStandardResponse Success
+     * @throws ApiError
+     */
+    public static addMediaUrl({
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: MediaModel,
+}): CancelablePromise<MediaViewStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/Studio/service/add-image',
+            headers: {
+                'device': device,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * Add service image
+     * @returns BooleanStandardResponse Success
+     * @throws ApiError
+     */
+    public static deleteMediaUrl({
+id,
+device,
+}: {
+id: string,
+device?: any,
+}): CancelablePromise<BooleanStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/Studio/service/delete-image/{id}',
+            path: {
+                'id': id,
+            },
             headers: {
                 'device': device,
             },

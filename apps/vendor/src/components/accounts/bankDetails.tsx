@@ -1,38 +1,26 @@
-import React, { useContext, useState } from "react";
-// import { Flex, Box, Button, HStack, Stack } from "@chakra-ui/react";
-import { PrimaryInput, DisabledInput, PrimarySelect } from "ui";
-import {
-  BankAccountModel,
-  Banks,
-  StudioService,
-  UserService,
-} from "src/services";
+import React, { useContext } from "react";
+import { DisabledInput, PrimaryInput, PrimarySelect } from "ui";
+import { BankAccountModel, Banks, StudioService } from "src/services";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import AccountSideBar from "@components/accounts/AccountSideBar";
 import {
   useDisclosure,
-  Link,
   HStack,
   Stack,
-  Modal,
   Box,
-  ModalContent,
   Button,
-  ModalCloseButton,
-  ModalBody,
-  ModalHeader,
-  ModalFooter,
-  ModalOverlay,
   Flex,
-  VStack,
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { BankCard } from "src/utils/BankCard";
 import { UserContext } from "@components/Context/UserContext";
+import { VerifyPasswordModal } from "@components/Modals/VerifyPasswordModal";
+import axios from "axios";
+import useNonInitialEffect from "src/utils/useNonInitialEffect";
 
 const schema = yup.object().shape({
   accountName: yup.string().required(),
@@ -42,23 +30,22 @@ const schema = yup.object().shape({
 
 interface bankProps {
   banks: Banks[];
-  bankAccounts: any;
   userId: string;
+  bankAccounts: any;
 }
 export default function BankDetails({
   banks,
   bankAccounts,
   userId,
 }: bankProps) {
-  const [confirmPassword, setConfirmPassword] = useState("");
   const { currentStudioId } = useContext(UserContext);
-  const [password, setPassword] = useState("");
-  const [newPassword, setnewPassword] = useState<boolean>(false);
-  const [retypePassword, setretypePassword] = useState<boolean>(false);
 
   const {
     handleSubmit,
     register,
+    watch,
+    getValues,
+    setValue,
     formState: { errors, isSubmitting, isValid },
   } = useForm<BankAccountModel>({
     resolver: yupResolver(schema),
@@ -67,7 +54,35 @@ export default function BankDetails({
 
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [loading, setLoading] = useState(false);
+  const bankCode = watch("bankCode");
+  const accountNumber = watch("accountNumber");
+  console.log({ bankCode, accountNumber, accountName: watch("accountName") });
+
+  const getBankDetails = async () => {
+    try {
+      const response = await axios.get(
+        "https://maylancer.org/api/nuban/api.php",
+        {
+          params: {
+            account_number: accountNumber,
+            bank_code: bankCode,
+          },
+        }
+      );
+      // console.log(response);
+      if (response.status == 200) {
+        setValue("accountName", response.data.account_name);
+        return;
+      }
+      toast.error(response.data.message, { className: "loginToast" });
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occured", { className: "loginToast" });
+    }
+  };
+  useNonInitialEffect(() => {
+    getBankDetails();
+  }, [bankCode && accountNumber?.length == 10]);
 
   const onSubmit = async (data: BankAccountModel) => {
     data.bankName = banks.filter((x: Banks) => x.code == data.bankCode)[0].name;
@@ -89,78 +104,16 @@ export default function BankDetails({
       });
     }
   };
-  const onVerifyPassword = async () => {
-    if (confirmPassword != password) {
-      toast.error("Password and Re-type password do not match", {
-        className: "loginToast",
-      });
-      return;
-    }
-    try {
-      setLoading(true);
-      const result = await UserService.verifyPassword({
-        requestBody: { userId, password },
-      });
-      if (result.status) {
-        setLoading(false);
-        onClose();
-        handleSubmit(onSubmit)();
-        return;
-      }
-      setLoading(false);
-      onClose();
-      toast.error(result.message as string);
-      return;
-    } catch (error: any) {
-      toast.error(error?.body?.message || error?.message, {
-        className: "loginToast",
-      });
-    }
-  };
+
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Create your account</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-            <form>
-              <VStack gap="1rem">
-                <DisabledInput<any>
-                  label="New Password"
-                  type={newPassword ? "text" : "password"}
-                  icon={true}
-                  passwordVisible={newPassword}
-                  changeVisibility={() => setnewPassword((prev) => !prev)}
-                  placeholder="Enter your new password"
-                  defaultValue={""}
-                  onChange={(e: any) => setPassword(e.target.value)}
-                />
-                <DisabledInput<any>
-                  label="Confirm Password"
-                  type={retypePassword ? "text" : "password"}
-                  icon={true}
-                  passwordVisible={retypePassword}
-                  changeVisibility={() => setretypePassword((prev) => !prev)}
-                  placeholder="Enter your new password"
-                  defaultValue={""}
-                  onChange={(e: any) => setConfirmPassword(e.target.value)}
-                />
-                <Button
-                  bgColor="brand.100"
-                  color="white"
-                  width="100%"
-                  onClick={() => onVerifyPassword()}
-                  isLoading={loading}
-                >
-                  Verify
-                </Button>
-              </VStack>
-            </form>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <VerifyPasswordModal
+        isOpen={isOpen}
+        onClose={onClose}
+        handleSubmit={handleSubmit(onSubmit)}
+        userId={userId}
+        submit={true}
+      />
 
       <Flex
         bgColor="white"
@@ -183,6 +136,7 @@ export default function BankDetails({
                     bankName={x.bankName}
                     accountNumber={x.accountNumber}
                     accountName={x.accountName}
+                    id={x.id}
                   />
                 ))}
               </HStack>
@@ -205,20 +159,18 @@ export default function BankDetails({
                     name="bankCode"
                     error={errors.bankCode}
                     register={register}
-                    options={banks.map((bank: Banks) => (
-                      <option value={bank.code as string} key={bank.id}>
-                        {bank.name}
-                      </option>
-                    ))}
-                  />
-                  <PrimaryInput<BankAccountModel>
-                    label="Account Name"
-                    type="text"
-                    placeholder="Enter your account name"
-                    name="accountName"
-                    error={errors.accountName}
-                    register={register}
-                    defaultValue={""}
+                    options={
+                      <>
+                        <option hidden selected>
+                          Select a bank
+                        </option>
+                        {banks.map((bank: Banks) => (
+                          <option value={bank.code as string} key={bank.id}>
+                            {bank.name}
+                          </option>
+                        ))}
+                      </>
+                    }
                   />
                   <PrimaryInput<BankAccountModel>
                     label="Account Number"
@@ -228,6 +180,14 @@ export default function BankDetails({
                     error={errors.accountNumber}
                     register={register}
                     defaultValue={""}
+                  />
+                  <DisabledInput<BankAccountModel>
+                    label="Account Name"
+                    type="text"
+                    placeholder="Enter your account name"
+                    defaultValue={""}
+                    value={watch("accountName") || ""}
+                    readonly={true}
                   />
                   <Flex justifyContent="flex-end" w="full">
                     <Button

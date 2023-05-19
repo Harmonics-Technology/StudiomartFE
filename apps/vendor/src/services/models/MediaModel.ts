@@ -2,8 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type ReviewModel = {
+export type MediaModel = {
+    url?: string | null;
     serviceId?: string;
-    reviewNote?: string | null;
-    reviewCount?: number;
 };
