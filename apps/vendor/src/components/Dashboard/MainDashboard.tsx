@@ -29,6 +29,7 @@ import DashboardBanner from "./DashboardBanner";
 import {
   AlertBox,
   CustomTable,
+  Naira,
   TableData,
   TableStatus,
   TableWithSub,
@@ -54,6 +55,7 @@ import {
   VendorDashboardViewStandardResponse,
 } from "src/services";
 import toast from "react-hot-toast";
+import moment from "moment";
 
 interface DashboardProps {
   serviceTypes: ServiceTypeViewListStandardResponse;
@@ -73,7 +75,15 @@ export const MainDashboard = ({
   const { user } = useContext(UserContext);
   // console.log({ user });
 
-  const thead = ["Service Name", "Date", "Client Name", "Status", "Chats", ""];
+  const thead = [
+    "Service Name",
+    "Service Cost",
+    "Date",
+    "Client Name",
+    "Status",
+    "Chats",
+    "Action",
+  ];
   // console.log({ services });
 
   return (
@@ -89,83 +99,95 @@ export const MainDashboard = ({
         </Box>
         <DashboardBanner />
 
-        <Flex px="2rem" gap="2rem">
-          <Box w="60%">
-            <Text fontFamily="BR Firma" fontSize="20px" fontWeight="600">
-              Order Tracker
-            </Text>
-            <Grid
-              templateColumns="repeat(4, 1fr)"
-              w="full"
-              bgColor="white"
-              h="9.6rem"
-              alignItems="center"
+        <Box w="94%" mx="auto">
+          <Flex gap="2rem">
+            <Box w="60%">
+              <Text fontFamily="BR Firma" fontSize="20px" fontWeight="600">
+                Order Tracker
+              </Text>
+              <Grid
+                templateColumns="repeat(4, 1fr)"
+                w="full"
+                bgColor="white"
+                h="9.6rem"
+                alignItems="center"
+              >
+                <OrderCounts
+                  count={dashboardMetrics?.totalOrders}
+                  title="Total Orders"
+                />
+                <OrderCounts
+                  count={dashboardMetrics.activeOrders}
+                  title="Pending Orders"
+                />
+                <OrderCounts
+                  count={dashboardMetrics.inProgressOrders}
+                  title="In Progress"
+                />
+                <OrderCounts
+                  count={dashboardMetrics?.cancelledOrders}
+                  title="Cancelled"
+                  br
+                />
+              </Grid>
+            </Box>
+            <Box w="40%">
+              <TopServiceSlider data={dashboardMetrics.topServices} />
+            </Box>
+          </Flex>
+          <Box>
+            <ServiceSlider data={services?.value} />
+          </Box>
+          <Box my="2rem">
+            <Text
+              fontFamily="BR Firma"
+              fontSize="18px"
+              pl=".5rem"
+              fontWeight="600"
             >
-              <OrderCounts
-                count={dashboardMetrics?.totalOrders}
-                title="Total Orders"
-              />
-              <OrderCounts
-                count={dashboardMetrics.activeOrders}
-                title="Completed"
-              />
-              <OrderCounts
-                count={dashboardMetrics.inProgressOrders}
-                title="In Progress"
-              />
-              <OrderCounts
-                count={dashboardMetrics?.cancelledOrders}
-                title="Cancelled"
-                br
-              />
-            </Grid>
-          </Box>
-          <Box w="40%">
-            <TopServiceSlider data={dashboardMetrics.topServices} />
-          </Box>
-        </Flex>
-        <Box px="2rem">
-          <ServiceSlider data={services?.value} />
-        </Box>
-        <Box px="2rem" my="2rem">
-          <Text
-            fontFamily="BR Firma"
-            fontSize="18px"
-            pl=".5rem"
-            fontWeight="600"
-          >
-            Recent Orders
-          </Text>
-          <Box bgColor="white" borderRadius="8px" boxShadow="sm" p="1rem">
-            <CustomTable tableHead={thead}>
-              <>
-                {dashboardMetrics?.recentBookings?.map(
-                  (info: BookingView, i) => (
-                    <Tr key={i}>
-                      <TableWithSub
-                        top={info?.service?.name}
-                        sub={info?.totalAmount}
-                      />
-                      <TableWithSub top={info?.date} sub={info.time} />
-                      <TableData name={info?.amount} />
-                      <TableStatus name={info?.status as string} />
-                      <Td>
-                        <BsFillChatRightTextFill />
-                      </Td>
-                      <Td
-                        onClick={() => {
-                          // setId(3);
-                          onOpen();
-                        }}
-                        cursor="pointer"
-                      >
-                        <BsThreeDotsVertical />
-                      </Td>
-                    </Tr>
-                  )
-                )}
-              </>
-            </CustomTable>
+              Recent Orders
+            </Text>
+            <Box
+              bgColor="white"
+              borderRadius="8px"
+              boxShadow="sm"
+              p="1rem 2rem"
+            >
+              <CustomTable tableHead={thead}>
+                <>
+                  {dashboardMetrics?.recentBookings?.map(
+                    (info: BookingView, i) => (
+                      <Tr key={i}>
+                        <TableWithSub top={info?.service?.name} sub={""} />
+                        <TableWithSub
+                          top={Naira(info?.totalAmount as number)}
+                          sub={""}
+                        />
+                        <TableWithSub
+                          top={moment(info?.date).format("dddd, DD MMMM YYYY")}
+                          sub={""}
+                        />
+
+                        <TableWithSub top={info?.user?.fullName} sub={""} />
+                        <TableStatus name={info?.status as string} />
+                        <Td>
+                          <BsFillChatRightTextFill />
+                        </Td>
+                        <Td
+                          onClick={() => {
+                            // setId(3);
+                            onOpen();
+                          }}
+                          cursor="pointer"
+                        >
+                          <BsThreeDotsVertical />
+                        </Td>
+                      </Tr>
+                    )
+                  )}
+                </>
+              </CustomTable>
+            </Box>
           </Box>
         </Box>
 

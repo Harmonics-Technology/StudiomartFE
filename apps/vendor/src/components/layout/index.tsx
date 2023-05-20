@@ -30,16 +30,18 @@ export const Layout: React.FC = ({ children }) => {
             <VendorHeader />
             <NoSSR>
               <Box as="div" w="100%" mb="3rem" minH="100vh">
-                {notDone?.meansOfIdentification ||
+                {/* {notDone?.meansOfIdentification ||
                 notDone?.cacDocumentReference ||
                 router.pathname.startsWith("/account") ? (
                   <Box>{children}</Box>
                 ) : (
                   <Notice />
-                )}
+                )} */}
+                <Box>{children}</Box>
               </Box>
             </NoSSR>
           </Box>
+          <Footer />
         </Flex>
       )}
     </>
