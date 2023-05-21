@@ -1,5 +1,5 @@
 export const FilterPagingOptions = (ctx: any) => {
-  // console.log({ ctx: ctx.query });
+  console.log({ ctx: ctx.query });
 
   const { limit, offset, search, from, to, filters, order } = ctx.query;
   const options = {
@@ -8,8 +8,8 @@ export const FilterPagingOptions = (ctx: any) => {
     search: search ? search : "",
     from: from ? from : null,
     to: to ? to : null,
-    filters: filters ? filters : null,
-    order: order ? order : null,
+    filters: filters ? Number(filters) : null,
+    order: order ? Number(order) : 1,
   };
   //   console.log({ options });
   return options;

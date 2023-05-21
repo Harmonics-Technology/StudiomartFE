@@ -10,7 +10,7 @@ import {
   Button,
   Icon,
 } from "@chakra-ui/react";
-import {PrimaryInput, SubmitButton} from "ui";
+import { PrimaryInput, SubmitButton } from "ui";
 import { RegisterModel, UserService } from "src/services";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,6 +19,9 @@ import YupPassword from "yup-password";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { BsCheckCircle } from "react-icons/bs";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db } from "@components/firebase/firebase";
+import { doc, setDoc } from "firebase/firestore";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -49,6 +52,7 @@ const Register = () => {
     mode: "all",
   });
 
+  // const auth = getAuth();
   const onSubmitRegister = async (data: RegisterModel) => {
     if (!terms) {
       toast.error("You have not accepted the terms and conditions");
@@ -57,10 +61,11 @@ const Register = () => {
     // console.log({ data });
     try {
       const result = await UserService.create({ requestBody: data });
-      console.log({ result });
+      // console.log({ result });
       if (result.status) {
         toast.success(result.message as string);
         setSuccess(true);
+
         return;
       }
       toast.error(result.message as string);
@@ -179,85 +184,87 @@ const Register = () => {
                     pr="3px"
                   >
                     <form onSubmit={handleSubmit(onSubmitRegister)}>
-                      <PrimaryInput<RegisterModel>
-                        label="First Name"
-                        type="text"
-                        placeholder="Enter your first name"
-                        name="firstName"
-                        error={errors.firstName}
-                        register={register}
-                      />
+                      <VStack w="full" spacing={"2rem"}>
+                        <PrimaryInput<RegisterModel>
+                          label="First Name"
+                          type="text"
+                          placeholder="Enter your first name"
+                          name="firstName"
+                          error={errors.firstName}
+                          register={register}
+                        />
 
-                      <PrimaryInput<RegisterModel>
-                        label="Last Name"
-                        type="text"
-                        placeholder="Enter your last name"
-                        name="lastName"
-                        error={errors.lastName}
-                        register={register}
-                      />
+                        <PrimaryInput<RegisterModel>
+                          label="Last Name"
+                          type="text"
+                          placeholder="Enter your last name"
+                          name="lastName"
+                          error={errors.lastName}
+                          register={register}
+                        />
 
-                      <PrimaryInput<RegisterModel>
-                        label="Email Address"
-                        type="email"
-                        placeholder="Enter your email"
-                        name="email"
-                        error={errors.email}
-                        register={register}
-                      />
+                        <PrimaryInput<RegisterModel>
+                          label="Email Address"
+                          type="email"
+                          placeholder="Enter your email"
+                          name="email"
+                          error={errors.email}
+                          register={register}
+                        />
 
-                      <PrimaryInput<RegisterModel>
-                        label="Password"
-                        placeholder="Enter your password"
-                        type={passwordVisible ? "text" : "password"}
-                        icon={true}
-                        passwordVisible={passwordVisible}
-                        changeVisibility={changeInputType}
-                        name="password"
-                        error={errors.password}
-                        register={register}
-                      />
+                        <PrimaryInput<RegisterModel>
+                          label="Password"
+                          placeholder="Enter your password"
+                          type={passwordVisible ? "text" : "password"}
+                          icon={true}
+                          passwordVisible={passwordVisible}
+                          changeVisibility={changeInputType}
+                          name="password"
+                          error={errors.password}
+                          register={register}
+                        />
 
-                      <PrimaryInput<RegisterModel>
-                        label="Re-enter password"
-                        placeholder="Confirm your password"
-                        type={passwordVisible ? "text" : "password"}
-                        icon={true}
-                        passwordVisible={passwordVisible}
-                        changeVisibility={changeInputType}
-                        name="confirmPassword"
-                        error={errors.confirmPassword}
-                        register={register}
-                      />
+                        <PrimaryInput<RegisterModel>
+                          label="Re-enter password"
+                          placeholder="Confirm your password"
+                          type={passwordVisible ? "text" : "password"}
+                          icon={true}
+                          passwordVisible={passwordVisible}
+                          changeVisibility={changeInputType}
+                          name="confirmPassword"
+                          error={errors.confirmPassword}
+                          register={register}
+                        />
 
-                      <Flex
-                        w="100%"
-                        alignItems="flex-end"
-                        justifyContent="flex-start"
-                        my="10px"
-                      >
-                        <Checkbox
-                          alignItems="center"
-                          borderColor="none"
-                          borderRadius="5px"
-                          size="md"
-                          onChange={(e) => setTerms(e.target.checked)}
+                        <Flex
+                          w="100%"
+                          alignItems="flex-end"
+                          justifyContent="flex-start"
+                          my="10px"
                         >
-                          I have read, undrestood and accept the{" "}
-                          <span
-                            style={{
-                              color: "#1570FA",
-                            }}
+                          <Checkbox
+                            alignItems="center"
+                            borderColor="none"
+                            borderRadius="5px"
+                            size="md"
+                            onChange={(e) => setTerms(e.target.checked)}
                           >
-                            Terms and Conditions
-                          </span>
-                        </Checkbox>
-                      </Flex>
+                            I have read, undrestood and accept the{" "}
+                            <span
+                              style={{
+                                color: "#1570FA",
+                              }}
+                            >
+                              Terms and Conditions
+                            </span>
+                          </Checkbox>
+                        </Flex>
 
-                      <SubmitButton
-                        textContent="sign up"
-                        isLoading={isSubmitting}
-                      />
+                        <SubmitButton
+                          textContent="sign up"
+                          isLoading={isSubmitting}
+                        />
+                      </VStack>
                     </form>
 
                     <Text

@@ -23,10 +23,10 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
     const currentStudioId = ctx.req.cookies.currentStudioId;
     const userId = JSON.parse(ctx.req.cookies.vendor).id;
     try {
-      const banks = await UtilityService.getApiUtilityBanks({});
-      // const banks = await axios.get(
-      //   "https://maylancer.org/api/nuban/banklist.php"
-      // );
+      // const banks = await UtilityService.getApiUtilityBanks({});
+      const banks = await axios.get(
+        "https://maylancer.org/api/nuban/banklist.php"
+      );
       const bankAccounts = await StudioService.getBankAccounts({
         id: currentStudioId,
       });

@@ -100,8 +100,14 @@ function BookingsHome({ allBookings }: BookingProps) {
       });
       return;
     }
+    if ((order as unknown as number) == 2) {
+      router.push({
+        query: { ...router.query, order: 1 },
+      });
+      return;
+    }
     router.push({
-      query: { ...router.query, order: 1 },
+      query: { ...router.query, order: 2 },
     });
     return;
   };

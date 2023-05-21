@@ -20,6 +20,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@components/firebase/firebase";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -69,6 +71,11 @@ export const LoginPage = () => {
         toast.success("Login Successful!", {
           className: "loginToast",
         });
+        await signInWithEmailAndPassword(
+          auth,
+          data.email as string,
+          data.password as string
+        );
 
         Cookies.set("vendor", JSON.stringify(result.data));
         Cookies.set("user", "Vendor");

@@ -23,7 +23,7 @@ export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
 
   return (
     <>
-      <Box>
+      <Box minH="82vh" mb="2.8rem">
         <Box>
           <TopPage
             page={`${user?.lastName}!`}

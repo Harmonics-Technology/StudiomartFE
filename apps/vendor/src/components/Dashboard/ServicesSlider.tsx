@@ -133,7 +133,12 @@ export const ServiceSlider = ({ data }: SliderProps) => {
               >
                 {x.name}
               </Text>
-              <Text fontSize="15px" fontWeight="400" fontFamily="BR Firma">
+              <Text
+                fontSize="15px"
+                fontWeight="400"
+                fontFamily="BR Firma"
+                noOfLines={3}
+              >
                 {x.description}
               </Text>
 
