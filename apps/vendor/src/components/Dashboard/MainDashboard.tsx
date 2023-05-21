@@ -3,14 +3,9 @@ import {
   Button,
   Text,
   Flex,
-  Spacer,
-  HStack,
   Select,
-  Image,
   Grid,
-  Hide,
   Textarea,
-  Heading,
   Modal,
   ModalOverlay,
   ModalHeader,
@@ -26,20 +21,9 @@ import {
   Td,
 } from "@chakra-ui/react";
 import DashboardBanner from "./DashboardBanner";
-import {
-  AlertBox,
-  CustomTable,
-  Naira,
-  TableData,
-  TableStatus,
-  TableWithSub,
-} from "ui";
-import React, { useContext } from "react";
-import data from "./data.js";
-import { ArrowBackIcon, ArrowForwardIcon, AddIcon } from "@chakra-ui/icons";
-import ServicesCard from "./ServicesCard";
-import OrdersTop from "./OrdersTop";
-import SubHeading from "./SubHeading";
+import { CustomTable, Naira, TableStatus, TableWithSub } from "ui";
+import React, { useContext, useEffect, useState } from "react";
+import { AddIcon } from "@chakra-ui/icons";
 import { OrderCounts } from "./OrderCounts";
 import { TopServiceSlider } from "./TopServiceSlider";
 import { useRouter } from "next/router";
@@ -56,6 +40,17 @@ import {
 } from "src/services";
 import toast from "react-hot-toast";
 import moment from "moment";
+import { ChatContext } from "@components/Context/ChatContext";
+import { AuthContext } from "@components/Context/AuthContext";
+import { db } from "@components/firebase/firebase";
+import {
+  doc,
+  getDoc,
+  onSnapshot,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 
 interface DashboardProps {
   serviceTypes: ServiceTypeViewListStandardResponse;
@@ -68,8 +63,6 @@ export const MainDashboard = ({
   dashboardMetrics,
   services,
 }: DashboardProps) => {
-  // console.log({ serviceTypes, services });
-  const size = ["xs"];
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const { user } = useContext(UserContext);
@@ -85,10 +78,54 @@ export const MainDashboard = ({
     "Action",
   ];
   // console.log({ services });
+  const { dispatch } = useContext(ChatContext);
+
+  const { currentUser } = useContext(AuthContext);
+  const chatUser = {
+    uid: "Wo4Xzjqr1UaSZD5sX3El1YBL9ql1",
+    displayName: "brain",
+    photoURL: "https://ucarecdn.com/e65c36c5-1939-4430-9110-c052cd154c5a/",
+  };
+
+  const combinedId =
+    currentUser?.uid > chatUser.uid
+      ? currentUser?.uid + chatUser.uid
+      : chatUser.uid + currentUser?.uid;
+  const handleSelect = async () => {
+    try {
+      const res = await getDoc(doc(db, "chats", combinedId));
+      console.log({ res: res.exists() });
+      if (!res.exists()) {
+        await setDoc(doc(db, "chats", combinedId), {
+          messages: [],
+        });
+        await updateDoc(doc(db, "userChats", currentUser?.uid), {
+          [combinedId + ".userInfo"]: {
+            uid: chatUser.uid,
+            displayName: chatUser.displayName,
+            photoURL: chatUser.photoURL,
+          },
+          [combinedId + ".date"]: serverTimestamp(),
+        });
+        await updateDoc(doc(db, "userChats", chatUser.uid), {
+          [combinedId + ".userInfo"]: {
+            uid: currentUser?.uid,
+            displayName: currentUser?.displayName,
+            photoURL: currentUser?.photoURL,
+          },
+          [combinedId + ".date"]: serverTimestamp(),
+        });
+        router.push("/message");
+      } else {
+        dispatch({ type: "CHANGE_USER", payload: chatUser });
+        router.push("/message");
+      }
+    } catch (error) {}
+  };
 
   return (
     <>
-      <Box>
+      <Box mb="4rem">
         <Box>
           <TopPage
             page={`${user?.lastName}!`}
@@ -97,6 +134,9 @@ export const MainDashboard = ({
             serviceTypes={serviceTypes}
           />
         </Box>
+        <Button bgColor="red" color="white" onClick={handleSelect}>
+          Chat
+        </Button>
         <DashboardBanner />
 
         <Box w="94%" mx="auto">
@@ -190,11 +230,6 @@ export const MainDashboard = ({
             </Box>
           </Box>
         </Box>
-
-        {/* <OrdersTop />
-        <SubHeading /> 
-
-         <ServicesCard />  */}
       </Box>
 
       <Modal isOpen={isOpen} onClose={onClose}>

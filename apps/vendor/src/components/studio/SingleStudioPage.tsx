@@ -35,7 +35,7 @@ export const SingleStudioPage = ({ singleStudio }: StudioProps) => {
   console.log({ singleStudio });
 
   return (
-    <Box>
+    <Box mb="3rem">
       <Box bgColor="white">
         <Flex
           justify="space-between"

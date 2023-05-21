@@ -1,3 +1,4 @@
+import { MenuDropdown } from "./Components/utils/MenuDropdown";
 import { SelectrixBox } from "./Components/utils/SelectrixBox";
 import { CurrencyField } from "./Components/utils/CurrencyField";
 import { InfoBox } from "./Components/utils/InfoBox";
@@ -74,4 +75,5 @@ export {
   CurrencyField,
   Naira,
   SelectrixBox,
+  MenuDropdown,
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Container,
@@ -18,6 +18,7 @@ import {
   MenuItem,
   MenuList,
   Icon,
+  Spinner,
 } from "@chakra-ui/react";
 // import { NotificationTop } from "src/utils/NotificationTop";
 import {
@@ -35,39 +36,49 @@ import TopPage from "src/utils/TopPage";
 import moment from "moment";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
-import { Pagination } from "ui";
+import { MenuDropdown, Pagination } from "ui";
 import Link from "next/link";
 
 interface notificationProps {
   notifications: NotificationViewPagedCollection;
 }
 const Notification = ({ notifications }: notificationProps) => {
+  const [loading, setLoading] = useState<any>({ status: false, id: "" });
+  console.log({ loading });
   const router = useRouter();
   const markAsReadFunction = async (data: string) => {
+    setLoading({ status: true, id: data });
     try {
       const result = await NotificationService.markAsRead({ id: data });
       if (result.status) {
+        setLoading({ status: false, id: data });
         toast.success("Successful!");
         router.reload();
         return;
       }
+      setLoading({ status: false, id: data });
       toast.error(result.message as string);
     } catch (error: any) {
+      setLoading({ status: false, id: data });
       toast.error(error?.body?.message || error?.message, {
         className: "loginToast",
       });
     }
   };
   const deleteFunction = async (data: string) => {
+    setLoading({ status: true, id: data });
     try {
       const result = await NotificationService.deleteNotification({ id: data });
       if (result.status) {
+        setLoading({ status: false, id: data });
         toast.success("Successful!");
         router.reload();
         return;
       }
+      setLoading({ status: false, id: data });
       toast.error(result.message as string);
     } catch (error: any) {
+      setLoading({ status: false, id: data });
       toast.error(error?.body?.message || error?.message, {
         className: "loginToast",
       });
@@ -75,7 +86,7 @@ const Notification = ({ notifications }: notificationProps) => {
   };
   // console.log({ notifications });
   return (
-    <Box fontFamily="DM Sans">
+    <Box fontFamily="DM Sans" mb="2.8rem">
       <Box>
         <TopPage
           page={"Notification"}
@@ -108,7 +119,10 @@ const Notification = ({ notifications }: notificationProps) => {
                     bgColor={info.isRead ? "gray.200" : "brand.100"}
                     size="10px"
                   />
-                  <Avatar src="#" name={info?.user?.fullName || ""} />
+                  <Avatar
+                    src={info?.user?.profilePicture as string}
+                    name={info?.user?.fullName || ""}
+                  />
                   <Text
                     pr="4rem"
                     fontWeight="400"
@@ -131,45 +145,28 @@ const Notification = ({ notifications }: notificationProps) => {
                   </Text>
                 </Flex>
                 <VStack gap=".7rem" ml="auto">
-                  <Menu>
-                    <MenuButton
-                      as={Button}
-                      rightIcon={<BsThreeDotsVertical />}
-                      bgColor="transparent"
-                      color="gray.800"
-                      _hover={{
-                        bgColor: "transparent",
-                      }}
-                      _active={{
-                        bgColor: "transparent",
-                      }}
+                  {loading.status && loading.id == info.id ? (
+                    <Spinner size="md" />
+                  ) : (
+                    <MenuDropdown
+                      menus={[
+                        {
+                          label: "Mark as read",
+                          id: 1,
+                          onclick: () => markAsReadFunction(info.id as string),
+                          icon: BsCheckAll,
+                        },
+                        {
+                          label: "Delete Notification",
+                          id: 1,
+                          onclick: () => deleteFunction(info.id as string),
+                          icon: BsFillTrashFill,
+                          color: "red",
+                        },
+                      ]}
                     />
-                    <MenuList borderRadius="8px" p="0">
-                      <MenuItem
-                        borderBottom="1px solid"
-                        borderColor="gray.300"
-                        as="div"
-                        display="flex"
-                        gap=".5rem"
-                        py=".6rem"
-                        onClick={() => markAsReadFunction(info.id as string)}
-                      >
-                        <Icon as={BsCheckAll} />
-                        <Text mb="0"> Mark as read</Text>
-                      </MenuItem>
-                      <MenuItem
-                        as="div"
-                        display="flex"
-                        gap=".5rem"
-                        color="red"
-                        py=".6rem"
-                        onClick={() => deleteFunction(info.id as string)}
-                      >
-                        <Icon as={BsFillTrashFill} />
-                        <Text mb="0"> Delete Notification</Text>
-                      </MenuItem>
-                    </MenuList>
-                  </Menu>
+                  )}
+
                   <Text fontSize="10px">
                     {moment(info.dateCreated).fromNow()}
                   </Text>

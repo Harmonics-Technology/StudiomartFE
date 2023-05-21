@@ -20,7 +20,7 @@ export const Footer: React.FC = () => {
   useEffect(() => {
     const cookies = Cookies.get("consent");
     if (cookies !== undefined) {
-      setIsConsented((cookies as unknown as boolean) === true);
+      setIsConsented((cookies as any) === "true");
     }
   }, []);
   return (
