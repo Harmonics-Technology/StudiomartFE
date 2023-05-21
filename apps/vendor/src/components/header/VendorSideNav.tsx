@@ -7,18 +7,18 @@ import {
   Square,
   Text,
   VStack,
-} from "@chakra-ui/react";
-import Link from "next/link";
-import React, { useContext } from "react";
-import { RxDashboard } from "react-icons/rx";
-import { MdMiscellaneousServices } from "react-icons/md";
-import { FiLogOut } from "react-icons/fi";
-import { FaBook, FaHome } from "react-icons/fa";
-import { BiMessageDots } from "react-icons/bi";
-import { BsPersonFill, BsWalletFill } from "react-icons/bs";
-import { RiRemoteControlFill } from "react-icons/ri";
-import { MenuItem } from "ui";
-import { UserContext } from "@components/Context/UserContext";
+} from '@chakra-ui/react';
+import Link from 'next/link';
+import React, { useContext } from 'react';
+import { RxDashboard } from 'react-icons/rx';
+import { MdMiscellaneousServices } from 'react-icons/md';
+import { FiLogOut } from 'react-icons/fi';
+import { FaBook, FaHome } from 'react-icons/fa';
+import { BiMessageDots } from 'react-icons/bi';
+import { BsPersonFill, BsWalletFill } from 'react-icons/bs';
+import { RiRemoteControlFill } from 'react-icons/ri';
+import { MenuItem } from 'ui';
+import { UserContext } from '@components/Context/UserContext';
 
 function VendorSideNav() {
   const { logout } = useContext(UserContext);
@@ -79,8 +79,8 @@ function VendorSideNav() {
             w="full"
             borderRadius="4px"
             h="3rem"
-            color={"red"}
-            onClick={() => logout("vendorToken", "vendor")}
+            color={'red'}
+            onClick={() => logout('vendorToken', 'vendor')}
           >
             <HStack pl=".5rem">
               <Square bgColor="transparent" size="2rem" fontSize="1rem">
