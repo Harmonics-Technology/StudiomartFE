@@ -6,12 +6,12 @@ import {
   HStack,
   Circle,
   Icon,
-} from '@chakra-ui/react';
-import React, { useState } from 'react';
-import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { TopServiceView } from 'src/services';
+} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { TopServiceView } from "src/services";
 
 interface SliderProps {
   data?: TopServiceView[] | undefined | null;
@@ -83,13 +83,13 @@ export const TopServiceSlider = ({ data }: SliderProps) => {
               pl=".5rem"
               fontWeight="500"
               fontSize="16px"
-              spacing={'.2rem'}
+              spacing={".2rem"}
             >
               <Text mb="0" fontWeight="600" fontFamily="BR Firma">
                 {x.service?.name}
               </Text>
               <Text fontSize="14px" fontFamily="BR Firma">
-                {x.orders}
+                {x.orders} order(s)
               </Text>
             </VStack>
           </Box>

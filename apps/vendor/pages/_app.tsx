@@ -16,6 +16,8 @@ import Cookies from "js-cookie";
 import { OpenAPI, UserView } from "src/services";
 import NextNProgress from "nextjs-progressbar";
 import { toast, ToastBar, Toaster } from "react-hot-toast";
+import { AuthContextProvider } from "@components/Context/AuthContext";
+import { ChatContextProvider } from "@components/Context/ChatContext";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   OpenAPI.BASE = process.env.NEXT_PUBLIC_API_BASEURL as string;
@@ -36,43 +38,47 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   // console.log(OpenAPI.TOKEN);
   return (
     <ChakraProvider theme={theme}>
-      <UserProvider>
-        <Toaster
-          position="top-center"
-          containerClassName="toasts"
-          toastOptions={{
-            className: "toaster",
-            // duration: 3000000,
-          }}
-          reverseOrder={false}
-        >
-          {(t: any) => (
-            <ToastBar toast={t}>
-              {({ icon, message }) => (
-                <>
-                  <Alert
-                    bgColor="white"
-                    p="0"
-                    justifyContent="space-between"
-                    mx="auto"
-                  >
-                    <Flex gap="1rem" align="center" h="fit-content">
-                      {icon}
-                      {message}
-                    </Flex>
+      <AuthContextProvider>
+        <ChatContextProvider>
+          <UserProvider>
+            <Toaster
+              position="top-center"
+              containerClassName="toasts"
+              toastOptions={{
+                className: "toaster",
+                // duration: 3000000,
+              }}
+              reverseOrder={false}
+            >
+              {(t: any) => (
+                <ToastBar toast={t}>
+                  {({ icon, message }) => (
+                    <>
+                      <Alert
+                        bgColor="white"
+                        p="0"
+                        justifyContent="space-between"
+                        mx="auto"
+                      >
+                        <Flex gap="1rem" align="center" h="fit-content">
+                          {icon}
+                          {message}
+                        </Flex>
 
-                    <CloseButton onClick={() => toast.dismiss(t.id)} />
-                  </Alert>
-                </>
+                        <CloseButton onClick={() => toast.dismiss(t.id)} />
+                      </Alert>
+                    </>
+                  )}
+                </ToastBar>
               )}
-            </ToastBar>
-          )}
-        </Toaster>
-        <NextNProgress color="#1570FA" />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </UserProvider>
+            </Toaster>
+            <NextNProgress color="#1570FA" />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </UserProvider>
+        </ChatContextProvider>
+      </AuthContextProvider>
     </ChakraProvider>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Box,
   Flex,
@@ -26,6 +26,9 @@ import { FiUpload } from "react-icons/fi";
 import { Widget } from "@uploadcare/react-widget";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { updateProfile } from "firebase/auth";
+import NoSSR from "react-no-ssr";
+import { AuthContext } from "@components/Context/AuthContext";
 
 // const Widget = dynamic(
 //   () => import("@uploadcare/react-widget").then((mod) => mod.Widget),
@@ -42,6 +45,7 @@ export default function BasicInformation({ user }: { user: UserView }) {
     status: false,
     total: "0",
   });
+  const { currentUser } = useContext(AuthContext);
   const [saveImagePrompt, setSaveImagePrompt] = useState(false);
   const widgetApi = useRef<any>(null);
   // console.log({ widgetApi });
@@ -87,6 +91,10 @@ export default function BasicInformation({ user }: { user: UserView }) {
     try {
       const result = await UserService.updateUser({ requestBody: data });
       if (result.status) {
+        await updateProfile(currentUser, {
+          displayName: data.firstName,
+          photoURL: imageUrl,
+        });
         toast.success(
           "Your information has been saved successfully and will reload shortly"
         );
@@ -130,16 +138,18 @@ export default function BasicInformation({ user }: { user: UserView }) {
         <AccountSideBar />
         <Box w="45%" fontFamily='"DM Sans", sans-serif'>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Box display="none">
-              <Widget
-                publicKey="fda3a71102659f95625f"
-                systemDialog
-                imagesOnly
-                onFileSelect={onChangeImg}
-                ref={widgetApi}
-                inputAcceptTypes={".jpeg,.jpg, .png"}
-              />
-            </Box>
+            <NoSSR>
+              <Box display="none">
+                <Widget
+                  publicKey="fda3a71102659f95625f"
+                  systemDialog
+                  imagesOnly
+                  onFileSelect={onChangeImg}
+                  ref={widgetApi}
+                  inputAcceptTypes={".jpeg,.jpg, .png"}
+                />
+              </Box>
+            </NoSSR>
             <Flex align="flex-end" gap=".5rem" mb="1rem">
               <Circle
                 bgColor={"#636363"}

@@ -122,14 +122,14 @@ export function TableWithSub({
       borderColor={borderColor}
       borderRight={border ? value : 0}
       borderRightColor={borderColor}
-      paddingInlineStart="1rem"
+      paddingInlineStart="0rem"
       className={classes}
       color={"black"}
       fontFamily="BR Firma"
     >
       <Tooltip label={top} hasArrow>
         <Box>
-          <Text fontSize="18px" fontWeight="500" fontFamily="BR Firma">
+          <Text fontSize="16px" fontWeight="500" fontFamily="BR Firma">
             {full ? top : top?.toString()?.substring(0, 20) || ""}
           </Text>
           <Text fontSize="12px" fontWeight="500" mt="-2" fontFamily="BR Firma">

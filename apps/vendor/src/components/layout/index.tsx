@@ -29,17 +29,19 @@ export const Layout: React.FC = ({ children }) => {
           <Box w={["full", "82%"]} as="main" ml="auto" minH="95vh">
             <VendorHeader />
             <NoSSR>
-              <Box as="div" w="100%" mb="3rem" minH="100vh">
-                {notDone?.meansOfIdentification ||
+              <Box as="div" w="100%" mb="1rem" minH="80vh">
+                {/* {notDone?.meansOfIdentification ||
                 notDone?.cacDocumentReference ||
                 router.pathname.startsWith("/account") ? (
                   <Box>{children}</Box>
                 ) : (
                   <Notice />
-                )}
+                )} */}
+                <Box>{children}</Box>
               </Box>
             </NoSSR>
           </Box>
+          <Footer />
         </Flex>
       )}
     </>

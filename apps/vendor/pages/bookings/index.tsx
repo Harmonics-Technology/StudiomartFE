@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
   async (ctx: any) => {
     const currentStudioId = ctx.req.cookies.currentStudioId;
     const pagingOptions = FilterPagingOptions(ctx);
-    // console.log({ currentStudioId });
+    console.log({ pagingOptions });
     try {
       const allBookings = await BookingService.getBookingsByServiceId({
         offset: pagingOptions.offset,
@@ -27,13 +27,13 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
         requestBody: {
           studioId: currentStudioId,
           search: pagingOptions.search,
-          status: pagingOptions.filters,
+          status: pagingOptions.filters as number,
           filterBy: pagingOptions.order,
           startDate: pagingOptions.from,
           endDate: pagingOptions.to,
         },
       });
-      // console.log({ allBookings });
+      // console.log({ ctx });
 
       return {
         props: {

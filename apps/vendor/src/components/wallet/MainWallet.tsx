@@ -118,7 +118,7 @@ const MainWallet = ({
     });
   }, []);
   return (
-    <div>
+    <Box  mb="3rem">
       <Box>
         <Box bgColor="white">
           <Flex
@@ -353,7 +353,7 @@ const MainWallet = ({
         userId={userId}
       />
       <WithdrawalPin close={closes} open={opens} userId={userId} />
-    </div>
+    </Box>
   );
 };
 

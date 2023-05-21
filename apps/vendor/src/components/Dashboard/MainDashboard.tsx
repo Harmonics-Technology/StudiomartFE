@@ -3,14 +3,9 @@ import {
   Button,
   Text,
   Flex,
-  Spacer,
-  HStack,
   Select,
-  Image,
   Grid,
-  Hide,
   Textarea,
-  Heading,
   Modal,
   ModalOverlay,
   ModalHeader,
@@ -26,19 +21,9 @@ import {
   Td,
 } from "@chakra-ui/react";
 import DashboardBanner from "./DashboardBanner";
-import {
-  AlertBox,
-  CustomTable,
-  TableData,
-  TableStatus,
-  TableWithSub,
-} from "ui";
-import React, { useContext } from "react";
-import data from "./data.js";
-import { ArrowBackIcon, ArrowForwardIcon, AddIcon } from "@chakra-ui/icons";
-import ServicesCard from "./ServicesCard";
-import OrdersTop from "./OrdersTop";
-import SubHeading from "./SubHeading";
+import { CustomTable, Naira, TableStatus, TableWithSub } from "ui";
+import React, { useContext, useEffect, useState } from "react";
+import { AddIcon } from "@chakra-ui/icons";
 import { OrderCounts } from "./OrderCounts";
 import { TopServiceSlider } from "./TopServiceSlider";
 import { useRouter } from "next/router";
@@ -54,6 +39,18 @@ import {
   VendorDashboardViewStandardResponse,
 } from "src/services";
 import toast from "react-hot-toast";
+import moment from "moment";
+import { ChatContext } from "@components/Context/ChatContext";
+import { AuthContext } from "@components/Context/AuthContext";
+import { db } from "@components/firebase/firebase";
+import {
+  doc,
+  getDoc,
+  onSnapshot,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 
 interface DashboardProps {
   serviceTypes: ServiceTypeViewListStandardResponse;
@@ -66,19 +63,69 @@ export const MainDashboard = ({
   dashboardMetrics,
   services,
 }: DashboardProps) => {
-  // console.log({ serviceTypes, services });
-  const size = ["xs"];
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const { user } = useContext(UserContext);
   // console.log({ user });
 
-  const thead = ["Service Name", "Date", "Client Name", "Status", "Chats", ""];
+  const thead = [
+    "Service Name",
+    "Service Cost",
+    "Date",
+    "Client Name",
+    "Status",
+    "Chats",
+    "Action",
+  ];
   // console.log({ services });
+  const { dispatch } = useContext(ChatContext);
+
+  const { currentUser } = useContext(AuthContext);
+  const chatUser = {
+    uid: "Wo4Xzjqr1UaSZD5sX3El1YBL9ql1",
+    displayName: "brain",
+    photoURL: "https://ucarecdn.com/e65c36c5-1939-4430-9110-c052cd154c5a/",
+  };
+
+  const combinedId =
+    currentUser?.uid > chatUser.uid
+      ? currentUser?.uid + chatUser.uid
+      : chatUser.uid + currentUser?.uid;
+  const handleSelect = async () => {
+    try {
+      const res = await getDoc(doc(db, "chats", combinedId));
+      console.log({ res: res.exists() });
+      if (!res.exists()) {
+        await setDoc(doc(db, "chats", combinedId), {
+          messages: [],
+        });
+        await updateDoc(doc(db, "userChats", currentUser?.uid), {
+          [combinedId + ".userInfo"]: {
+            uid: chatUser.uid,
+            displayName: chatUser.displayName,
+            photoURL: chatUser.photoURL,
+          },
+          [combinedId + ".date"]: serverTimestamp(),
+        });
+        await updateDoc(doc(db, "userChats", chatUser.uid), {
+          [combinedId + ".userInfo"]: {
+            uid: currentUser?.uid,
+            displayName: currentUser?.displayName,
+            photoURL: currentUser?.photoURL,
+          },
+          [combinedId + ".date"]: serverTimestamp(),
+        });
+        router.push("/message");
+      } else {
+        dispatch({ type: "CHANGE_USER", payload: chatUser });
+        router.push("/message");
+      }
+    } catch (error) {}
+  };
 
   return (
     <>
-      <Box>
+      <Box mb="4rem">
         <Box>
           <TopPage
             page={`${user?.lastName}!`}
@@ -87,92 +134,102 @@ export const MainDashboard = ({
             serviceTypes={serviceTypes}
           />
         </Box>
+        <Button bgColor="red" color="white" onClick={handleSelect}>
+          Chat
+        </Button>
         <DashboardBanner />
 
-        <Flex px="2rem" gap="2rem">
-          <Box w="60%">
-            <Text fontFamily="BR Firma" fontSize="20px" fontWeight="600">
-              Order Tracker
-            </Text>
-            <Grid
-              templateColumns="repeat(4, 1fr)"
-              w="full"
-              bgColor="white"
-              h="9.6rem"
-              alignItems="center"
+        <Box w="94%" mx="auto">
+          <Flex gap="2rem">
+            <Box w="60%">
+              <Text fontFamily="BR Firma" fontSize="20px" fontWeight="600">
+                Order Tracker
+              </Text>
+              <Grid
+                templateColumns="repeat(4, 1fr)"
+                w="full"
+                bgColor="white"
+                h="9.6rem"
+                alignItems="center"
+              >
+                <OrderCounts
+                  count={dashboardMetrics?.totalOrders}
+                  title="Total Orders"
+                />
+                <OrderCounts
+                  count={dashboardMetrics.activeOrders}
+                  title="Pending Orders"
+                />
+                <OrderCounts
+                  count={dashboardMetrics.inProgressOrders}
+                  title="In Progress"
+                />
+                <OrderCounts
+                  count={dashboardMetrics?.cancelledOrders}
+                  title="Cancelled"
+                  br
+                />
+              </Grid>
+            </Box>
+            <Box w="40%">
+              <TopServiceSlider data={dashboardMetrics.topServices} />
+            </Box>
+          </Flex>
+          <Box>
+            <ServiceSlider data={services?.value} />
+          </Box>
+          <Box my="2rem">
+            <Text
+              fontFamily="BR Firma"
+              fontSize="18px"
+              pl=".5rem"
+              fontWeight="600"
             >
-              <OrderCounts
-                count={dashboardMetrics?.totalOrders}
-                title="Total Orders"
-              />
-              <OrderCounts
-                count={dashboardMetrics.activeOrders}
-                title="Completed"
-              />
-              <OrderCounts
-                count={dashboardMetrics.inProgressOrders}
-                title="In Progress"
-              />
-              <OrderCounts
-                count={dashboardMetrics?.cancelledOrders}
-                title="Cancelled"
-                br
-              />
-            </Grid>
-          </Box>
-          <Box w="40%">
-            <TopServiceSlider data={dashboardMetrics.topServices} />
-          </Box>
-        </Flex>
-        <Box px="2rem">
-          <ServiceSlider data={services?.value} />
-        </Box>
-        <Box px="2rem" my="2rem">
-          <Text
-            fontFamily="BR Firma"
-            fontSize="18px"
-            pl=".5rem"
-            fontWeight="600"
-          >
-            Recent Orders
-          </Text>
-          <Box bgColor="white" borderRadius="8px" boxShadow="sm" p="1rem">
-            <CustomTable tableHead={thead}>
-              <>
-                {dashboardMetrics?.recentBookings?.map(
-                  (info: BookingView, i) => (
-                    <Tr key={i}>
-                      <TableWithSub
-                        top={info?.service?.name}
-                        sub={info?.totalAmount}
-                      />
-                      <TableWithSub top={info?.date} sub={info.time} />
-                      <TableData name={info?.amount} />
-                      <TableStatus name={info?.status as string} />
-                      <Td>
-                        <BsFillChatRightTextFill />
-                      </Td>
-                      <Td
-                        onClick={() => {
-                          // setId(3);
-                          onOpen();
-                        }}
-                        cursor="pointer"
-                      >
-                        <BsThreeDotsVertical />
-                      </Td>
-                    </Tr>
-                  )
-                )}
-              </>
-            </CustomTable>
+              Recent Orders
+            </Text>
+            <Box
+              bgColor="white"
+              borderRadius="8px"
+              boxShadow="sm"
+              p="1rem 2rem"
+            >
+              <CustomTable tableHead={thead}>
+                <>
+                  {dashboardMetrics?.recentBookings?.map(
+                    (info: BookingView, i) => (
+                      <Tr key={i}>
+                        <TableWithSub top={info?.service?.name} sub={""} />
+                        <TableWithSub
+                          top={Naira(info?.totalAmount as number)}
+                          sub={""}
+                        />
+                        <TableWithSub
+                          top={moment(info?.date).format("dddd, DD MMMM YYYY")}
+                          sub={""}
+                        />
+
+                        <TableWithSub top={info?.user?.fullName} sub={""} />
+                        <TableStatus name={info?.status as string} />
+                        <Td>
+                          <BsFillChatRightTextFill />
+                        </Td>
+                        <Td
+                          onClick={() => {
+                            // setId(3);
+                            onOpen();
+                          }}
+                          cursor="pointer"
+                        >
+                          <BsThreeDotsVertical />
+                        </Td>
+                      </Tr>
+                    )
+                  )}
+                </>
+              </CustomTable>
+            </Box>
           </Box>
         </Box>
-
-        {/* <OrdersTop />
-        <SubHeading /> 
-
-         <ServicesCard />  */}
       </Box>
 
       <Modal isOpen={isOpen} onClose={onClose}>
