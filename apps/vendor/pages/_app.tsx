@@ -18,6 +18,7 @@ import NextNProgress from "nextjs-progressbar";
 import { toast, ToastBar, Toaster } from "react-hot-toast";
 import { AuthContextProvider } from "@components/Context/AuthContext";
 import { ChatContextProvider } from "@components/Context/ChatContext";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   OpenAPI.BASE = process.env.NEXT_PUBLIC_API_BASEURL as string;
@@ -38,6 +39,14 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   // console.log(OpenAPI.TOKEN);
   return (
     <ChakraProvider theme={theme}>
+      <Head>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
+        />
+        <title>Studiomart Vendor</title>
+        <link rel="icon" href="/stdd.gif" type="image/x-icon" />
+      </Head>
       <UserProvider>
         <AuthContextProvider>
           <ChatContextProvider>
