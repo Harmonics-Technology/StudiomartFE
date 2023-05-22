@@ -21,7 +21,13 @@ import {
   Td,
 } from "@chakra-ui/react";
 import DashboardBanner from "./DashboardBanner";
-import { CustomTable, Naira, TableStatus, TableWithSub } from "ui";
+import {
+  CustomTable,
+  DrawerWrapper,
+  Naira,
+  TableStatus,
+  TableWithSub,
+} from "ui";
 import React, { useContext, useEffect, useState } from "react";
 import { AddIcon } from "@chakra-ui/icons";
 import { OrderCounts } from "./OrderCounts";
@@ -36,7 +42,6 @@ import {
   ServiceTypeViewListStandardResponse,
   ServiceViewPagedCollection,
   VendorDashboardView,
-  VendorDashboardViewStandardResponse,
 } from "src/services";
 import toast from "react-hot-toast";
 import moment from "moment";
@@ -46,11 +51,12 @@ import { db } from "@components/firebase/firebase";
 import {
   doc,
   getDoc,
-  onSnapshot,
   serverTimestamp,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
+import BookingDetails from "@components/pages/BookingDetails";
+import data from "./data";
 
 interface DashboardProps {
   serviceTypes: ServiceTypeViewListStandardResponse;
@@ -66,6 +72,11 @@ export const MainDashboard = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const { user } = useContext(UserContext);
+  const [data, setData] = useState<BookingView>();
+  const openDrawer = (value: any) => {
+    setData(value);
+    onOpen();
+  };
   // console.log({ user });
 
   const thead = [
@@ -81,17 +92,12 @@ export const MainDashboard = ({
   const { dispatch } = useContext(ChatContext);
 
   const { currentUser } = useContext(AuthContext);
-  const chatUser = {
-    uid: "Wo4Xzjqr1UaSZD5sX3El1YBL9ql1",
-    displayName: "brain",
-    photoURL: "https://ucarecdn.com/e65c36c5-1939-4430-9110-c052cd154c5a/",
-  };
 
-  const combinedId =
-    currentUser?.uid > chatUser.uid
-      ? currentUser?.uid + chatUser.uid
-      : chatUser.uid + currentUser?.uid;
-  const handleSelect = async () => {
+  const handleSelect = async (chatUser: any) => {
+    const combinedId =
+      currentUser?.uid > chatUser.uid
+        ? currentUser?.uid + chatUser.uid
+        : chatUser.uid + currentUser?.uid;
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
       console.log({ res: res.exists() });
@@ -123,6 +129,8 @@ export const MainDashboard = ({
     } catch (error) {}
   };
 
+  console.log({ dashboardMetrics });
+
   return (
     <>
       <Box mb="4rem">
@@ -134,9 +142,7 @@ export const MainDashboard = ({
             serviceTypes={serviceTypes}
           />
         </Box>
-        <Button bgColor="red" color="white" onClick={handleSelect}>
-          Chat
-        </Button>
+
         <DashboardBanner />
 
         <Box w="94%" mx="auto">
@@ -210,13 +216,22 @@ export const MainDashboard = ({
 
                         <TableWithSub top={info?.user?.fullName} sub={""} />
                         <TableStatus name={info?.status as string} />
-                        <Td>
+                        <Td
+                          onClick={() =>
+                            handleSelect({
+                              uid: info.user?.id,
+                              displayName: info?.user?.firstName,
+                              photoURL: info.user?.profilePicture,
+                            })
+                          }
+                          cursor="pointer"
+                        >
                           <BsFillChatRightTextFill />
                         </Td>
                         <Td
                           onClick={() => {
                             // setId(3);
-                            onOpen();
+                            openDrawer(info);
                           }}
                           cursor="pointer"
                         >
@@ -232,126 +247,9 @@ export const MainDashboard = ({
         </Box>
       </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent
-          fontFamily="DM Sans', sans-serif"
-          w="40%"
-          maxW="unset"
-          minH="77vh"
-        >
-          <ModalHeader fontSize="20px" fontWeight="500">
-            Add Services
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-            <FormControl>
-              <FormLabel fontSize="18px" fontWeight="400">
-                Services Name
-              </FormLabel>
-              <Input
-                fontSize="16px"
-                fontWeight="400"
-                placeholder="Bridal Make-up"
-              />
-            </FormControl>
-
-            <FormControl mt={4}>
-              <FormLabel fontSize="18px" fontWeight="400">
-                Services Category
-              </FormLabel>
-              <Select placeholder="Select category">
-                <option>Makeup studio</option>
-                <option>Gele studio</option>
-              </Select>
-            </FormControl>
-
-            <FormControl mt={4}>
-              <FormLabel fontSize="18px" fontWeight="400">
-                Services Price
-              </FormLabel>
-              <Input
-                fontSize="16px"
-                fontWeight="400"
-                placeholder="Enter Price"
-              />
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel fontSize="18px" fontWeight="400">
-                Sevice Details
-              </FormLabel>
-              <Textarea h="10rem" />
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel fontSize="18px" fontWeight="400">
-                Upload images
-              </FormLabel>
-              <Grid templateColumns="repeat(4, 1fr)" gap={1}>
-                <Box
-                  w="100%"
-                  h="10"
-                  border="1px solid #AFAFAF"
-                  borderRadius="md"
-                >
-                  <AddIcon mx="6" my="3" />
-                </Box>
-                <Box
-                  w="100%"
-                  h="10"
-                  border="1px solid #AFAFAF"
-                  borderRadius="md"
-                >
-                  <AddIcon mx="6" my="3" />
-                </Box>
-                <Box
-                  w="100%"
-                  h="10"
-                  border="1px solid #AFAFAF"
-                  borderRadius="md"
-                >
-                  <AddIcon mx="6" my="3" />
-                </Box>
-                <Box
-                  w="100%"
-                  h="10"
-                  border="1px solid #AFAFAF"
-                  borderRadius="md"
-                >
-                  <AddIcon mx="6" my="3" />
-                </Box>
-              </Grid>
-            </FormControl>
-            <Flex
-              justifyContent="space-between"
-              mt="2"
-              fontSize="10px"
-              fontWeight="500"
-            >
-              <Box>
-                <Text>*First image will be set as service cover</Text>
-              </Box>
-              <Box>
-                <Text color="brand.100">Add more</Text>
-              </Box>
-            </Flex>
-          </ModalBody>
-
-          <ModalFooter justifyContent="center" gap="3" mt="-6">
-            <Button onClick={onClose} w="8rem" fontSize="14px" fontWeight="700">
-              Cancel
-            </Button>
-            <Button
-              bgColor="brand.100"
-              color="white"
-              fontSize="14px"
-              fontWeight="700"
-              w="8rem"
-            >
-              List Service
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <DrawerWrapper isOpen={isOpen} onClose={onClose}>
+        <BookingDetails closed={onClose} data={data as BookingView} />
+      </DrawerWrapper>
     </>
   );
 };

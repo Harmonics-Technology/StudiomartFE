@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -8,20 +8,20 @@ import {
   Checkbox,
   Link,
   Image,
-} from '@chakra-ui/react';
-import { PrimaryInput, SubmitButton, LoginTypeBtn } from 'ui';
-import { LoginModel, OpenAPI, StudioService, UserService } from 'src/services';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import YupPassword from 'yup-password';
-import toast from 'react-hot-toast';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/router';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@components/firebase/firebase';
+} from "@chakra-ui/react";
+import { PrimaryInput, SubmitButton, LoginTypeBtn } from "ui";
+import { LoginModel, OpenAPI, StudioService, UserService } from "src/services";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import YupPassword from "yup-password";
+import toast from "react-hot-toast";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@components/firebase/firebase";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -36,9 +36,9 @@ export const LoginPage = () => {
   };
   const router = useRouter();
   const [terms, setTerms] = useState<boolean>(false);
-  const [loginType, setLoginType] = useState('Vendor');
+  const [loginType, setLoginType] = useState("Vendor");
   const [step, setStep] = useState(0);
-  const currentStudioId = Cookies.get('currentStudioId');
+  const currentStudioId = Cookies.get("currentStudioId");
   // console.log({ terms });
 
   const {
@@ -49,7 +49,7 @@ export const LoginPage = () => {
     formState: { errors, isSubmitting },
   } = useForm<LoginModel>({
     resolver: yupResolver(validation),
-    mode: 'all',
+    mode: "all",
   });
 
   const onSubmitVendor = async (data: LoginModel) => {
@@ -60,7 +60,7 @@ export const LoginPage = () => {
       if (result.status) {
         if (terms) {
           Cookies.set(
-            'isVendor',
+            "isVendor",
             JSON.stringify({
               email: data.email,
               pass: data.password,
@@ -68,8 +68,8 @@ export const LoginPage = () => {
             })
           );
         }
-        toast.success('Login Successful!', {
-          className: 'loginToast',
+        toast.success("Login Successful!", {
+          className: "loginToast",
         });
         await signInWithEmailAndPassword(
           auth,
@@ -77,19 +77,19 @@ export const LoginPage = () => {
           data.password as string
         );
 
-        Cookies.set('vendor', JSON.stringify(result.data));
-        Cookies.set('user', 'Vendor');
+        Cookies.set("vendor", JSON.stringify(result.data));
+        Cookies.set("user", "Vendor");
         OpenAPI.TOKEN = result?.data?.token as string;
-        result.data && Cookies.set('vendorToken', result.data.token as string);
+        result.data && Cookies.set("vendorToken", result.data.token as string);
         const studios = await StudioService.listUserStudios({
           offset: 0,
           limit: 10,
         });
         studios.status &&
-          Cookies.set('vendorStudios', JSON.stringify(studios.data?.value));
+          Cookies.set("vendorStudios", JSON.stringify(studios.data?.value));
         currentStudioId == undefined &&
           Cookies.set(
-            'currentStudioId',
+            "currentStudioId",
             studios?.data?.value?.at(0)?.id as string
           );
         router.query.from
@@ -100,18 +100,18 @@ export const LoginPage = () => {
         return;
       }
       toast.error(result.message as string, {
-        className: 'loginToast',
+        className: "loginToast",
       });
       return;
     } catch (error: any) {
       toast.error(error?.body?.message || error?.message, {
-        className: 'loginToast',
+        className: "loginToast",
       });
     }
   };
 
   useEffect(() => {
-    const isUser = Cookies.get('isVendor');
+    const isUser = Cookies.get("isVendor");
     if (isUser !== undefined) {
       const userDetails = JSON.parse(isUser as unknown as string);
       setTerms(userDetails.rememberMe);
@@ -152,8 +152,8 @@ export const LoginPage = () => {
           <Image src="/assets/004.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/005.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/001.jpg" alt="any" w="full" objectFit="cover" />
+          <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
         </Carousel>
-        <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
       </Box>
       <Flex w="50%" pos="relative" h="100vh" align="center">
         <Box
@@ -183,8 +183,8 @@ export const LoginPage = () => {
               Sign up to get started.
             </Text> */}
             <Text
-              fontSize={['14px', '16px']}
-              display={['block', 'block', 'block']}
+              fontSize={["14px", "16px"]}
+              display={["block", "block", "block"]}
               textAlign="center"
               fontWeight="600"
             >
@@ -197,11 +197,11 @@ export const LoginPage = () => {
             <LoginTypeBtn
               loginOption={[
                 {
-                  text: 'Customer',
+                  text: "Customer",
                   url: `${process.env.NEXT_PUBLIC_CLIENT_URL as string}/login`,
                 },
                 {
-                  text: 'Vendor',
+                  text: "Vendor",
                   url: `${process.env.NEXT_PUBLIC_VENDOR_URL as string}/login`,
                 },
               ]}
@@ -210,13 +210,13 @@ export const LoginPage = () => {
           </VStack>
           <Box
             w="100%"
-            h={['100%', '100%', '100%']}
+            h={["100%", "100%", "100%"]}
             // border="2px hidden green"
             overflow="auto"
             py="15px"
             pr="3px"
           >
-            {loginType == 'Vendor' ? (
+            {loginType == "Vendor" ? (
               <form onSubmit={VendorSubmit(onSubmitVendor)}>
                 <VStack mb="1rem" spacing={0} gap="1rem">
                   <PrimaryInput<LoginModel>
@@ -230,7 +230,7 @@ export const LoginPage = () => {
                   <PrimaryInput<LoginModel>
                     label="Password"
                     placeholder="Enter your password"
-                    type={passwordVisible ? 'text' : 'password'}
+                    type={passwordVisible ? "text" : "password"}
                     icon={true}
                     passwordVisible={passwordVisible}
                     changeVisibility={changeInputType}
@@ -265,8 +265,8 @@ export const LoginPage = () => {
             )}
 
             <Text
-              fontSize={['14px', '14px']}
-              display={['block', 'block', 'block']}
+              fontSize={["14px", "14px"]}
+              display={["block", "block", "block"]}
               textAlign="center"
               mt="1rem"
               color="#3e3e3e"

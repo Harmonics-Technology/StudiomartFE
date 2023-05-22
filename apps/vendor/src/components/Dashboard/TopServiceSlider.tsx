@@ -9,8 +9,10 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
+import NoSSR from "react-no-ssr";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { DummyImage } from "react-simple-placeholder-image";
 import { TopServiceView } from "src/services";
 
 interface SliderProps {
@@ -67,15 +69,24 @@ export const TopServiceSlider = ({ data }: SliderProps) => {
       >
         {data?.map((x: TopServiceView, i: any) => (
           <Box w="9.6rem" h="9.6rem" bg="white" borderRadius="8px" key={i}>
-            <Image
-              h="5rem"
-              w="full"
-              objectFit="cover"
-              src={x.service?.bannerImageURL as string}
-              alt="image"
-              overflow="hidden"
-              borderRadius="8px 8px 0 0"
-            />
+            <NoSSR>
+              {x?.service?.bannerImageURL ? (
+                <Image
+                  h="5rem"
+                  w="full"
+                  objectFit="cover"
+                  src={x?.service?.bannerImageURL as string}
+                  alt="image"
+                  overflow="hidden"
+                  borderRadius="8px 8px 0 0"
+                />
+              ) : (
+                <Box h="5rem" borderRadius="8px 8px 0 0" overflow="hidden">
+                  <DummyImage />
+                </Box>
+              )}
+            </NoSSR>
+
             <VStack
               align="flex-start"
               justify="center"

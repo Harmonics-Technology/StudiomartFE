@@ -54,10 +54,10 @@ function BookingsHome({ allBookings }: BookingProps) {
   console.log({ allBookings });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const thead = ["Booking ID", "Clients", "Amount", "Date", "Status", ""];
-  const [data, setData] = useState<BookingView>();
   const [filterLabel, setFilterLabel] = useState("All");
   const [showSelect, setShowSelect] = useState(false);
   const router = useRouter();
+  const [data, setData] = useState<BookingView>();
   const openDrawer = (value: any) => {
     setData(value);
     onOpen();

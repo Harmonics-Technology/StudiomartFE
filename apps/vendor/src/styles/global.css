@@ -63,3 +63,6 @@ body {
   width: 3rem;
   height: 3rem;
 }
+.flex.flex-middle {
+  display: none !important;
+}

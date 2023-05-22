@@ -136,12 +136,12 @@ export const SignUpPage = () => {
         await updateProfile(res.user, {
           displayName: data.firstName,
         });
-        await setDoc(doc(db, "users", res.user.uid), {
-          uid: res.user.uid,
+        await setDoc(doc(db, "users", result?.data?.id as string), {
+          uid: result.data?.id,
           email: res.user.email,
           displayName: data.firstName,
         });
-        await setDoc(doc(db, "userChats", res.user.uid), {});
+        await setDoc(doc(db, "userChats", result?.data?.id as string), {});
         toast.success(result.message as string, { className: "loginToast" });
         setSuccess(true);
         return;
@@ -181,8 +181,8 @@ export const SignUpPage = () => {
           <Image src="/assets/004.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/005.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/001.jpg" alt="any" w="full" objectFit="cover" />
+          <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
         </Carousel>
-        <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
       </Box>
       <Flex w="50%" pos="relative" h="100vh" align="center">
         {success ? (

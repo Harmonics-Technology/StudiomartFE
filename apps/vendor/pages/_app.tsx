@@ -38,9 +38,9 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   // console.log(OpenAPI.TOKEN);
   return (
     <ChakraProvider theme={theme}>
-      <AuthContextProvider>
-        <ChatContextProvider>
-          <UserProvider>
+      <UserProvider>
+        <AuthContextProvider>
+          <ChatContextProvider>
             <Toaster
               position="top-center"
               containerClassName="toasts"
@@ -76,9 +76,9 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             <Layout>
               <Component {...pageProps} />
             </Layout>
-          </UserProvider>
-        </ChatContextProvider>
-      </AuthContextProvider>
+          </ChatContextProvider>
+        </AuthContextProvider>
+      </UserProvider>
     </ChakraProvider>
   );
 }

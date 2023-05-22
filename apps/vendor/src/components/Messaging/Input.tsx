@@ -62,7 +62,11 @@ export const Inputs = () => {
   };
 
   const handleSendWithEnter = (e: any) => {
-    e.code == "Enter" && handleSend();
+    if (e.code == "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+      return;
+    }
   };
   const handleSend = async () => {
     setText("");
@@ -175,7 +179,7 @@ export const Inputs = () => {
               color: "#afafaf",
             }}
             w="full"
-          ></Textarea>
+          />
         </HStack>
         <Button
           onClick={handleSend}

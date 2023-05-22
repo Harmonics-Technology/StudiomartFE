@@ -25,10 +25,6 @@ export const ServiceSlider = ({ data }: SliderProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [autoPlay, setAutoPlay] = useState(false);
   const router = useRouter();
-  // const image = useDummyImage({
-  //   /* Config */
-  // });
-  const image = "";
 
   const next = () => {
     setCurrentSlide(currentSlide + 1);
@@ -43,10 +39,6 @@ export const ServiceSlider = ({ data }: SliderProps) => {
     if (currentSlide !== index) {
       setCurrentSlide(index);
     }
-  };
-
-  const deactivateService = (id: any) => {
-    //
   };
 
   return (

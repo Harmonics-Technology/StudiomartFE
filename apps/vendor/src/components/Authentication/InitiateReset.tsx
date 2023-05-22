@@ -1,38 +1,51 @@
-import { Stack, Flex, VStack, Box, Show, Image, Text } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/router';
-import { Carousel } from 'react-responsive-carousel';
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Text,
+  VStack,
+  Link,
+  Image,
+  Button,
+  Icon,
+} from "@chakra-ui/react";
+import { PrimaryInput, SubmitButton } from "ui";
+import { InitiateResetModel, LoginModel, UserService } from "src/services";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import YupPassword from "yup-password";
+import toast from "react-hot-toast";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+import { useRouter } from "next/router";
+import { BsCheckCircle } from "react-icons/bs";
+YupPassword(yup);
 
-import { PrimaryInput, SubmitButton } from 'ui';
-import { InitiateResetModel, UserService } from 'src/services';
-
-const schema = yup.object().shape({
+const validation = yup.object().shape({
   email: yup.string().email().required(),
 });
 
-const InitiateReset = () => {
+export const InitiateReset = () => {
+  const router = useRouter();
+  const [success, setSuccess] = useState(false);
+
   const {
-    register,
     handleSubmit,
-    formState: { errors, isValid, isSubmitting },
+    register,
+    formState: { errors, isSubmitting },
   } = useForm<InitiateResetModel>({
-    resolver: yupResolver(schema),
-    mode: 'all',
+    resolver: yupResolver(validation),
+    mode: "all",
   });
 
-  const router = useRouter();
-
   const onSubmit = async (data: InitiateResetModel) => {
-    const logged = {
-      email: data.email,
-    };
     try {
       const result = await UserService.initiateReset({ requestBody: data });
       if (result.status) {
-        toast.success(result.message as string, { className: 'loginToast' });
+        // toast.success(result.message as string, { className: "loginToast" });
+        setSuccess(true);
         return;
       }
       toast.error(result.message as string);
@@ -43,97 +56,144 @@ const InitiateReset = () => {
   };
 
   return (
-    <>
-      <Flex
-        direction={['column', 'row']}
-        justify="space-between"
-        align="center"
-        minHeight="100vh"
-      >
-        <Show above="md">
-          <Box w={['100%', '55%']} h={['40vh', '100vh']} overflow="hidden">
-            <Carousel
-              showStatus={false}
-              autoPlay
-              infiniteLoop
-              animationHandler="fade"
-              useKeyboardArrows
-              showArrows={false}
-              showThumbs={false}
-              showIndicators={false}
-              stopOnHover={false}
-              interval={5000}
-            >
-              <Image
-                src="/assets/007.jpg"
-                alt="any"
-                w="full"
-                objectFit="cover"
-              />
-              <Image
-                src="/assets/003.jpg"
-                alt="any"
-                w="full"
-                objectFit="cover"
-              />
-              <Image
-                src="/assets/004.jpg"
-                alt="any"
-                w="full"
-                objectFit="cover"
-              />
-              <Image
-                src="/assets/005.jpg"
-                alt="any"
-                w="full"
-                objectFit="cover"
-              />
-              <Image
-                src="/assets/001.jpg"
-                alt="any"
-                w="full"
-                objectFit="cover"
-              />
-            </Carousel>
-            <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
-          </Box>
-        </Show>
-        <Stack
-          spacing={4}
-          my={['10rem', 'unset']}
-          mx="auto"
-          w={['80%', '30%']}
-          p={5}
+    <Flex
+      border="2px hidden red"
+      w="100%"
+      minH="100vh"
+      justify="space-between"
+      align="center"
+      // bgColor="#e0edff"
+    >
+      <Box w="55%" h="100vh" overflow="hidden" pos="relative">
+        <Box w="30%" pos="absolute" top="2rem" left="3rem">
+          <Image src="/assets/studiomart.png" w="full" alt="logo" />
+        </Box>
+        <Carousel
+          showStatus={false}
+          autoPlay
+          infiniteLoop
+          animationHandler="fade"
+          useKeyboardArrows
+          showArrows={false}
+          showThumbs={false}
+          showIndicators={false}
+          stopOnHover={false}
+          interval={5000}
         >
-          <VStack spacing={3} w="100%">
-            <Box w="50%">
-              <Image src="/assets/studiomart.png" w="full" alt="logo" />
-            </Box>
-            <Text
-              color="#54595E"
-              fontSize="30px"
-              lineHeight={1.5}
-              fontWeight={700}
-            >
-              Reset Password
+          <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
+          <Image src="/assets/003.jpg" alt="any" w="full" objectFit="cover" />
+          <Image src="/assets/004.jpg" alt="any" w="full" objectFit="cover" />
+          <Image src="/assets/005.jpg" alt="any" w="full" objectFit="cover" />
+          <Image src="/assets/001.jpg" alt="any" w="full" objectFit="cover" />
+          <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
+        </Carousel>
+      </Box>
+      <Flex w="50%" pos="relative" h="100vh" align="center">
+        {success ? (
+          <VStack w="90%" h="auto" p="3rem 3rem" boxShadow="none" mx="auto">
+            <Icon as={BsCheckCircle} color="green" fontSize="2rem" />
+            <Heading>Successful!</Heading>
+            <Text textAlign="center">
+              Check your mail for further instructions
             </Text>
+            <Link
+              href="https://gmail.com"
+              target="_blank"
+              w="full"
+              _hover={{
+                textDecor: "none",
+              }}
+            >
+              <Flex w="full">
+                <Button
+                  w="50%"
+                  mx="auto"
+                  h="3rem"
+                  bgColor="brand.100"
+                  color="white"
+                >
+                  Open Mail
+                </Button>
+              </Flex>
+            </Link>
           </VStack>
-          <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
-            <VStack gap="1rem">
-              <PrimaryInput<InitiateResetModel>
-                label="Email"
-                name="email"
-                error={errors.email}
-                defaultValue=""
-                register={register}
-              />
-              <SubmitButton textContent="Proceed" isLoading={isSubmitting} />
+        ) : (
+          <Box
+            w="full"
+            bgColor="white"
+            // borderRadius="30px"
+            px="4rem"
+            mt=".5rem"
+            py="1rem"
+            // boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
+          >
+            <VStack spacing={0} gap="1.5rem" w="100%" mb="10px">
+              <Heading
+                fontWeight={700}
+                fontSize="30px"
+                // lineHeight={"44px"}
+                color="black"
+                textTransform="capitalize"
+                textAlign="center"
+                mx="auto"
+                w="80%"
+              >
+                Reset Password!
+              </Heading>
+
+              {/* <Text color="#54595E" lineHeight={1.5}>
+              Sign up to get started.
+            </Text> */}
+              <Text
+                fontSize={["14px", "16px"]}
+                display={["block", "block", "block"]}
+                textAlign="center"
+                fontWeight="600"
+              >
+                Own an account?
+                <Link href="/login" color="brand.100">
+                  &nbsp;Sign in here.
+                </Link>
+              </Text>
             </VStack>
-          </form>
-        </Stack>
+            <Box
+              w="100%"
+              h={["100%", "100%", "100%"]}
+              // border="2px hidden green"
+              overflow="auto"
+              py="15px"
+              pr="3px"
+            >
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <VStack mb="1rem" spacing={0} gap="1rem" w="80%" mx="auto">
+                  <PrimaryInput<InitiateResetModel>
+                    label="Email"
+                    name="email"
+                    error={errors.email}
+                    defaultValue=""
+                    register={register}
+                  />
+                  <SubmitButton
+                    textContent="Proceed"
+                    isLoading={isSubmitting}
+                  />
+                </VStack>
+              </form>
+
+              <Text
+                fontSize={["14px", "14px"]}
+                display={["block", "block", "block"]}
+                textAlign="center"
+                mt="1rem"
+                color="#3e3e3e"
+                fontWeight="500"
+              >
+                &copy; StudioMart 2022. All Rights Reserved.
+              </Text>
+            </Box>
+          </Box>
+        )}
       </Flex>
-    </>
+    </Flex>
   );
 };
-
-export default InitiateReset;

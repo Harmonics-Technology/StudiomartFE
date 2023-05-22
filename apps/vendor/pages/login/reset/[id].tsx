@@ -1,6 +1,6 @@
 import React from 'react';
-import CompleteReset from '@components/Authentication/CompleteReset';
 import { GetServerSideProps } from 'next';
+import { CompleteReset } from '@components/Authentication/CompleteReset';
 
 const forgotPassword = ({ code }: { code: string }) => {
   return <CompleteReset code={code} />;

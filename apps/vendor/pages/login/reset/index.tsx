@@ -1,5 +1,5 @@
-import React from 'react';
-import InitiateReset from '@components/Authentication/InitiateReset';
+import { InitiateReset } from "@components/Authentication/InitiateReset";
+import React from "react";
 
 const index = () => {
   return <InitiateReset />;
