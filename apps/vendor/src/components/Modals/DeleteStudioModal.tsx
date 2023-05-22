@@ -42,7 +42,7 @@ export const DeleteStudioModal = ({
       if (result.status) {
         setLoading(false);
         toast.success(
-          `${text} deleted successful, you'll be redirected to login again`
+          `${text} deleted successful, you'll be redirected shortly`
         );
         isService
           ? router.push("/services")
