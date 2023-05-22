@@ -50,6 +50,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
     const currentStudioId = ctx.req.cookies.currentStudioId;
     const userId = JSON.parse(ctx.req.cookies.vendor).id;
     const pagingOption = FilterPagingOptions(ctx);
+    console.log({ currentStudioId, userId });
     try {
       // const banks = await UtilityService.getApiUtilityBanks({});
       const banks = await axios.get(

@@ -16,7 +16,7 @@ export const Layout: React.FC = ({ children }) => {
   const notDone: StudioView = userStudios?.find(
     (x: any) => x.id == currentStudioId
   );
-  // console.log({ notDone });
+  // console.log({ notDone, userStudios, currentStudioId });
   const noNav =
     router.asPath.startsWith("/login") || router.asPath.startsWith("/register");
   return (
