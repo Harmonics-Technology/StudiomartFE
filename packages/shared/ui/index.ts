@@ -37,6 +37,7 @@ import {
   TableWithSub,
 } from "./Components/utils/Tables";
 import CustomTable from "./Components/utils/CustomTable";
+import getUrlRoute from "./Components/Helper/GetUrl";
 
 export {
   ExploreStudioCard,
@@ -76,4 +77,5 @@ export {
   Naira,
   SelectrixBox,
   MenuDropdown,
+  getUrlRoute,
 };
