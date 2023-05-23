@@ -12,11 +12,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const userStudio = Cookies.get("vendorStudios");
   const [notifys, setNotifiys] = useState<any>();
   const router = useRouter();
-  const logout = (tokenValue: any, userDetails: any, path?: any) => {
-    Cookies.remove(tokenValue);
-    Cookies.remove(userDetails);
+  const logout = (tokenValue: any, path?: any) => {
+    tokenValue.map((x: any) => Cookies.remove(x));
     router.push(path || "/login");
-    // Cookies.remove("user");
   };
   const studio = Cookies.get("currentStudioId");
   const loggedInUser = Cookies.get("vendor");

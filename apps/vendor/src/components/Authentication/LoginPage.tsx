@@ -39,7 +39,6 @@ export const LoginPage = () => {
   const [loginType, setLoginType] = useState("Vendor");
   const [step, setStep] = useState(0);
   const currentStudioId = Cookies.get("currentStudioId");
-  // console.log({ terms });
 
   const {
     handleSubmit,
@@ -68,9 +67,6 @@ export const LoginPage = () => {
             })
           );
         }
-        toast.success("Login Successful!", {
-          className: "loginToast",
-        });
         await signInWithEmailAndPassword(
           auth,
           data.email as string,
@@ -84,6 +80,9 @@ export const LoginPage = () => {
         const studios = await StudioService.listUserStudios({
           offset: 0,
           limit: 10,
+        });
+        toast.success("Login Successful!", {
+          className: "loginToast",
         });
         studios.status &&
           Cookies.set("vendorStudios", JSON.stringify(studios.data?.value));

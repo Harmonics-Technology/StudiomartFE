@@ -25,6 +25,7 @@ import "react-circular-progressbar/dist/styles.css";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { UserContext } from "@components/Context/UserContext";
+import Cookies from "js-cookie";
 
 const schema = yup.object().shape({
   officeAddress: yup.string().required(),
@@ -97,9 +98,17 @@ export default function KycInformation({ singleStudio }: StudioProps) {
     try {
       const result = await StudioService.addOrUpdateKyc({ requestBody: data });
       if (result.status) {
+        const studios = await StudioService.listUserStudios({
+          offset: 0,
+          limit: 10,
+        });
+        studios.status &&
+          Cookies.set("vendorStudios", JSON.stringify(studios.data?.value));
         toast.success(
           "Your information has been saved successfully and will reload shortly"
         );
+        window.location.href = `/dashboard`;
+
         router.reload();
         return;
       }

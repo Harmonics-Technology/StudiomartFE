@@ -1,8 +1,16 @@
-import { Box, Flex, Image, VStack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Image,
+  VStack,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { AuthContext } from "@components/Context/AuthContext";
 import { ChatContext } from "@components/Context/ChatContext";
+import { ImageLightBox } from "@components/Modals/ImageLightBox";
 import moment from "moment";
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 export const Message = ({ message }: any) => {
   const { currentUser } = useContext(AuthContext);
@@ -14,10 +22,13 @@ export const Message = ({ message }: any) => {
   }, [message]);
 
   const send = message.senderId === currentUser.uid;
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex ref={ref} flexDirection={send ? "row-reverse" : "row"} mb="1.5rem">
       <VStack align={send ? "flex-end" : "flex-start"}>
-        {message?.img && <Image src={message?.img} alt="" maxW="200px" />}
+        {message?.img && (
+          <Image src={message?.img} alt="" maxW="200px" onClick={onOpen} />
+        )}
 
         {message?.text && (
           <Box
@@ -37,6 +48,7 @@ export const Message = ({ message }: any) => {
           ).calendar()}
         </Text>
       </VStack>
+      <ImageLightBox isOpen={isOpen} onClose={onClose} image={message?.img} />
     </Flex>
   );
 };

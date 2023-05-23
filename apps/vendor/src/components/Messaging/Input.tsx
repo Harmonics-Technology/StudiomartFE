@@ -29,6 +29,7 @@ import NoSSR from "react-no-ssr";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { BsFillEmojiSmileFill } from "react-icons/bs";
+import useComponentVisible from "src/utils/useComponentVisible";
 
 export const Inputs = () => {
   const { currentUser } = useContext(AuthContext);
@@ -36,7 +37,6 @@ export const Inputs = () => {
 
   const [text, setText] = useState("");
   const [file, setFile] = useState<any>(null);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [imageLoading, setImageLoading] = useState<any>({
     status: false,
     total: "0",
@@ -114,6 +114,9 @@ export const Inputs = () => {
       [data.chatId + ".isRead"]: false,
     });
   };
+
+  const { ref, isComponentVisible, setIsComponentVisible } =
+    useComponentVisible(false);
   return (
     <Flex
       bgColor="#e8e8e8"
@@ -153,12 +156,13 @@ export const Inputs = () => {
               />
             )}
           </Square>
+
           <Icon
             as={BsFillEmojiSmileFill}
             fontSize=".9rem"
             color="#292929"
-            onClick={() => setShowEmojiPicker((prev) => !prev)}
             cursor="pointer"
+            onClick={() => setIsComponentVisible(true)}
           />
 
           <Textarea
@@ -194,12 +198,12 @@ export const Inputs = () => {
         </Button>
       </Flex>
 
-      {showEmojiPicker && (
-        <Box pos="absolute" bottom="20" left="0">
+      {isComponentVisible && (
+        <Box pos="absolute" bottom="20" left="0" ref={ref}>
           <Picker
             data={emojiData}
             onEmojiSelect={handleEmojiSelect}
-            // onClickOutside={() => setShowEmojiPicker(false)}
+            previewPosition="none"
           />
         </Box>
       )}
