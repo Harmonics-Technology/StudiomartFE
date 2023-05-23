@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -29,6 +29,7 @@ import { BsCheckCircle } from "react-icons/bs";
 import { auth, db } from "@components/firebase/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { UserContext } from "@components/Context/UserContext";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -51,6 +52,7 @@ export const SignUpPage = () => {
   const [terms, setTerms] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [loginType, setLoginType] = useState("Vendor");
+  const { device } = useContext(UserContext);
   const [step, setStep] = useState(0);
   let validationSchema = {
     firstName: yup.string().required(),
@@ -125,7 +127,10 @@ export const SignUpPage = () => {
     }
     // console.log({ data });
     try {
-      const result = await UserService.createVendor({ requestBody: data });
+      const result = await UserService.createVendor({
+        requestBody: data,
+        device,
+      });
       console.log({ result });
       if (result.status) {
         const res = await createUserWithEmailAndPassword(
