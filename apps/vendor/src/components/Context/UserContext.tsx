@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { NotificationService } from "src/services";
 import toast from "react-hot-toast";
+import { getDeviceFromUserAgent } from "ui";
 
 export const UserContext = createContext<any>(null);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
@@ -11,12 +12,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [currentStudioId, setCurrentStudioId] = useState<any>();
   const userStudio = Cookies.get("vendorStudios");
   const [notifys, setNotifiys] = useState<any>();
+  const [device, setDevice] = useState("");
   const router = useRouter();
-  const logout = (tokenValue: any, userDetails: any, path?: any) => {
-    Cookies.remove(tokenValue);
-    Cookies.remove(userDetails);
+  const logout = (tokenValue: any, path?: any) => {
+    tokenValue.map((x: any) => Cookies.remove(x));
     router.push(path || "/login");
-    // Cookies.remove("user");
   };
   const studio = Cookies.get("currentStudioId");
   const loggedInUser = Cookies.get("vendor");
@@ -60,6 +60,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       //   setCurrentStudioId(JSON.parse(userStudio as string)[0].id);
       // }
     }
+    setDevice(getDeviceFromUserAgent(window.navigator.userAgent));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -71,6 +72,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     currentStudioId,
     setCurrentStudioId,
     notifys,
+    device,
   };
 
   return (

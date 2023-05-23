@@ -344,34 +344,34 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
                       //@ts-ignore
                       // ref={widgetApi.current[i]}
                     />
-                    {/* <Box
-                    pos="absolute"
-                    left="50%"
-                    top="50%"
-                    w="full"
-                    h="full"
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    transition=".5s ease all"
-                    opacity="0"
-                    cursor="pointer"
-                    transform="translate(-50%, -50%)"
-                    _groupHover={{
-                      opacity: 1,
-                      bgColor: "rgba(0,0,0,.5)",
-                    }}
-                  >
-                    <FaTrash
-                      color="white"
-                      fontSize="1rem"
-                      onClick={() => {
-                        setUploadedMedia(
-                          uploadedMedia.filter((x: any) => x.id !== x)
-                        );
+                    <Box
+                      pos="absolute"
+                      left="50%"
+                      top="50%"
+                      w="full"
+                      h="full"
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                      transition=".5s ease all"
+                      opacity="0"
+                      cursor="pointer"
+                      transform="translate(-50%, -50%)"
+                      _groupHover={{
+                        opacity: 1,
+                        bgColor: "rgba(0,0,0,.5)",
                       }}
-                    />
-                  </Box> */}
+                    >
+                      <FaTrash
+                        color="white"
+                        fontSize="1rem"
+                        onClick={() => {
+                          setUploadedMedia(
+                            uploadedMedia.filter((x: any) => x.id !== b)
+                          );
+                        }}
+                      />
+                    </Box>
                     {uploadedMedia?.find((x) => x.id == b) ? (
                       <Image
                         src={uploadedMedia.find((x) => x.id == b).url}

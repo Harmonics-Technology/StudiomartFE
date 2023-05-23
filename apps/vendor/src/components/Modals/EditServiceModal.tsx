@@ -19,6 +19,8 @@ import {
   Th,
   Td,
   Spinner,
+  IconButton,
+  VStack,
 } from "@chakra-ui/react";
 import { ServiceSlider } from "@components/Dashboard/ServicesSlider";
 import React, { useContext, useRef, useState } from "react";
@@ -55,6 +57,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { FiUpload } from "react-icons/fi";
 import { HiInformationCircle } from "react-icons/hi";
+import { BsCheck2All } from "react-icons/bs";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -82,10 +85,7 @@ const EditServiceModal = ({
   service,
 }: Props) => {
   const { currentStudioId } = useContext(UserContext);
-  // console.log({ currentStudioId });
   const router = useRouter();
-  const [imageBox, setImageBox] = useState<any[]>([0]);
-  const [uploadedMedia, setUploadedMedia] = useState<any[]>([]);
 
   const {
     handleSubmit,
@@ -107,7 +107,6 @@ const EditServiceModal = ({
   });
   const {
     handleSubmit: handleAdditionalSubmit,
-    handleSubmit: handleEditingSubmit,
     register: registers,
     control: controls,
     formState: {
@@ -120,91 +119,154 @@ const EditServiceModal = ({
     mode: "all",
   });
 
-  const onChangeImg = (info: any, id: number) => {
-    console.log({ info, id });
-    let newMedia = {
-      url: info.originalUrl,
-      id: id,
-    };
+  const [loading, setLoading] = useState<any>({
+    status: false,
+    id: "",
+    delete: false,
+  });
 
-    setUploadedMedia([...uploadedMedia, newMedia]);
-    console.log({ uploadedMedia });
+  const onChangeImg = (file: any) => {
+    if (file) {
+      file.progress((info: any) => {
+        setLoading({ status: true, id: "imageLoad" });
+      });
+      file.done((info: any) => {
+        // setUploadedMedia(info.originalUrl);
+        AddServiceImage(info.originalUrl);
+      });
+    }
   };
 
-  const [editing, setEditing] = useState({ state: false, id: "" });
+  const [populatedItem, setPopulatedItem] = useState<any>(
+    service?.additionalServices
+  );
+  const [populatedImages, setPopulatedImages] = useState<any>(service.media);
+  const [newField, setNewField] = useState<any>([]);
+  const [addon, setAddon] = useState({
+    id: "",
+    name: undefined,
+    price: undefined,
+  });
 
   const additionServicesFn = async (data: AdditionalServiceModel) => {
     data.serviceId = service.id;
+    console.log({ data });
     try {
       const result = await StudioService.createAdditionalService({
         requestBody: data,
       });
       console.log({ result });
       if (result.status) {
-        toast.success("Successful!");
-        router.reload();
+        toast.success("Successful!", { className: "loginToast" });
+        setNewField([]);
+        const services = await StudioService.getServiceById({
+          id: service.id as string,
+        });
+        setPopulatedItem(services.data?.additionalServices);
+
+        // router.reload();
         return;
       }
-      toast.error(result.message as string);
-      return;
-    } catch (error: any) {
-      toast.error(error?.body?.message || error?.message);
-    }
-  };
-  const editItem = async (data: AdditionalServiceModel) => {
-    (data.id = editing.id), (data.serviceId = service.id);
-    try {
-      const result = await StudioService.updateAAdditionalService({
-        requestBody: data,
-      });
-      console.log({ result });
-      if (result.status) {
-        toast.success("Successful!");
-        router.reload();
-        return;
-      }
-      toast.error(result.message as string);
+      toast.error(result.message as string, { className: "loginToast" });
       return;
     } catch (error: any) {
       toast.error(error?.body?.message || error?.message);
     }
   };
 
-  const [loading, setLoading] = useState(false);
+  const editItem = async (data: AdditionalServiceModel) => {
+    setLoading({ status: true, id: data.id });
+    try {
+      const result = await StudioService.updateAAdditionalService({
+        requestBody: data,
+      });
+      console.log({ result });
+      if (result.status) {
+        toast.success("Successful!", { className: "loginToast" });
+        const services = await StudioService.getServiceById({
+          id: service.id as string,
+        });
+        setLoading({ status: false });
+        setPopulatedItem(services.data?.additionalServices);
+        // router.reload();
+        return;
+      }
+      setLoading({ status: false });
+      toast.error(result.message as string, { className: "loginToast" });
+      return;
+    } catch (error: any) {
+      setLoading({ status: false });
+      toast.error(error?.body?.message || error?.message);
+    }
+  };
+
   const deleteItems = async (id: string) => {
-    setLoading(true);
+    setLoading({ status: true, id: id, delete: true });
     try {
       const result = await StudioService.deleteAdditionalService({
         id,
       });
       console.log({ result });
       if (result.status) {
-        setLoading(false);
-        toast.success("Successful!");
-        router.reload();
+        setLoading({ status: false });
+        toast.success("Successful!", { className: "loginToast" });
+        setPopulatedItem(
+          service?.additionalServices?.filter((x) => x.id !== id)
+        );
+        // router.reload();
         return;
       }
-      setLoading(false);
-      toast.error(result.message as string);
+      setLoading({ status: false });
+      toast.error(result.message as string, { className: "loginToast" });
       return;
     } catch (error: any) {
-      setLoading(false);
+      setLoading({ status: false });
       toast.error(error?.body?.message || error?.message);
     }
   };
   const deleteServiceImage = async (id: string) => {
+    setLoading({ status: false, id });
     try {
       const result = await StudioService.deleteServiceImage({
         id,
       });
       if (result.status) {
-        toast.success("Successful!");
-        router.reload();
+        setPopulatedImages(service?.media?.filter((x: any) => x.id !== id));
+        setLoading({ status: false });
+        toast.success("Successful!", { className: "loginToast" });
+        // router.reload();
         return;
       }
-      toast.error(result.message as string);
+      setLoading({ status: false });
+      toast.error(result.message as string, { className: "loginToast" });
       return;
     } catch (error: any) {
+      setLoading({ status: false });
+      toast.error(error?.body?.message || error?.message, {
+        className: "loginToast",
+      });
+    }
+  };
+  const AddServiceImage = async (url: string) => {
+    try {
+      const result = await StudioService.addMediaUrl({
+        requestBody: { url, serviceId: service.id as string },
+      });
+      if (result.status) {
+        const services = await StudioService.getServiceById({
+          id: service.id as string,
+        });
+        setPopulatedImages(services.data?.media);
+        setLoading({ status: false });
+        toast.success("Successful!", { className: "loginToast" });
+        // router.reload();
+        return;
+      }
+      setLoading({ status: false });
+      toast.error(result.message as string, { className: "loginToast" });
+      return;
+    } catch (error: any) {
+      setLoading({ status: false });
       toast.error(error?.body?.message || error?.message, {
         className: "loginToast",
       });
@@ -390,7 +452,7 @@ const EditServiceModal = ({
               <FormLabel fontSize=".8rem">Upload Images</FormLabel>
               <HStack w="full" align="flex-start" gap=".5rem">
                 <HStack gap=".5rem" overflow="auto" pb=".5rem">
-                  {service.media?.map((x: MediaView) => (
+                  {populatedImages.map((x: MediaView) => (
                     <Flex
                       key={x.id}
                       w="70px"
@@ -430,107 +492,48 @@ const EditServiceModal = ({
                           bgColor: "rgba(0,0,0,.5)",
                         }}
                       >
-                        <FaTrash
-                          color="white"
-                          fontSize="1rem"
-                          onClick={() => deleteServiceImage(x.id as string)}
-                        />
+                        {loading.status && loading.id == x.id ? (
+                          <Spinner size="sm" />
+                        ) : (
+                          <FaTrash
+                            color="white"
+                            fontSize="1rem"
+                            onClick={() => deleteServiceImage(x.id as string)}
+                          />
+                        )}
                       </Box>
                     </Flex>
                   ))}
                 </HStack>
                 <Box>
-                  <HStack
-                    w="full"
-                    gap=".5rem"
-                    overflow="auto"
-                    pb=".5rem"
-                    // flexWrap="wrap"
-                    // spacing="0"
-                  >
-                    {imageBox.map((b, i) => (
-                      <Flex
-                        key={i}
-                        w="70px"
-                        h="70px"
-                        borderRadius="5px"
-                        border="1px solid"
-                        flexShrink={0}
-                        overflow="hidden"
-                        role="group"
-                        justify="center"
-                        align="center"
-                        pos="relative"
-                        // onClick={() => openFileUpload}
-                      >
-                        <Widget
-                          publicKey="fda3a71102659f95625f"
-                          //@ts-ignore
-                          id="file"
-                          systemDialog
-                          imagesOnly
-                          onChange={(info) => onChangeImg(info, b)}
-                          //@ts-ignore
-                          // ref={widgetApi.current[i]}
-                        />
-
-                        {uploadedMedia?.find((x) => x.id == b) ? (
-                          <>
-                            <Image
-                              src={uploadedMedia.find((x) => x.id == b).url}
-                              alt="propery-image"
-                              w="100%"
-                              height="100%"
-                              objectFit="cover"
-                            />
-                            <Box
-                              pos="absolute"
-                              left="50%"
-                              top="50%"
-                              w="full"
-                              h="full"
-                              display="flex"
-                              justifyContent="center"
-                              alignItems="center"
-                              transition=".5s ease all"
-                              opacity="0"
-                              zIndex="888"
-                              cursor="pointer"
-                              transform="translate(-50%, -50%)"
-                              _groupHover={{
-                                opacity: 1,
-                                bgColor: "rgba(0,0,0,.5)",
-                              }}
-                            >
-                              <FaTrash
-                                color="white"
-                                fontSize="1rem"
-                                onClick={() => {
-                                  setUploadedMedia(
-                                    uploadedMedia.filter((x: any) => x.id !== b)
-                                  );
-                                }}
-                              />
-                            </Box>
-                          </>
-                        ) : (
-                          <Icon as={AiOutlinePlus} />
-                        )}
-                      </Flex>
-                    ))}
-                  </HStack>
-                  <HStack justify="space-between">
-                    <Text
-                      fontSize="12px"
-                      mb="0"
-                      color="brand.100"
-                      cursor="pointer"
-                      onClick={() =>
-                        setImageBox([...imageBox, imageBox.at(-1) + 1])
-                      }
+                  <HStack w="full" gap=".5rem" overflow="auto" pb=".5rem">
+                    <Flex
+                      w="70px"
+                      h="70px"
+                      borderRadius="5px"
+                      border="1px solid"
+                      flexShrink={0}
+                      overflow="hidden"
+                      role="group"
+                      justify="center"
+                      align="center"
+                      pos="relative"
                     >
-                      Add More
-                    </Text>
+                      <Widget
+                        publicKey="fda3a71102659f95625f"
+                        //@ts-ignore
+                        id="file"
+                        systemDialog
+                        imagesOnly
+                        onFileSelect={(file) => onChangeImg(file)}
+                      />
+
+                      {loading.status && loading.id == "imageLoad" ? (
+                        <Spinner size="sm" />
+                      ) : (
+                        <Icon as={AiOutlinePlus} />
+                      )}
+                    </Flex>
                   </HStack>
                 </Box>
               </HStack>
@@ -538,119 +541,140 @@ const EditServiceModal = ({
           </Grid>
         </form>
         <Box my=".5rem">
-          <HStack align="center" spacing="0">
-            <FormLabel fontSize=".9rem" mb="0">
-              Additional services
-            </FormLabel>
-            <Tooltip
-              hasArrow
-              p=".5rem"
-              label="Additional services are optional services that are rendered by a service manager upon request by a customer. This services have their own price and are compatible with the current service being added to"
-            >
-              <span>
-                <Icon as={HiInformationCircle} cursor="help" />
-              </span>
-            </Tooltip>
-          </HStack>
-          {(service?.additionalServices as AdditionalService[])?.length > 0 && (
-            <Box w="full" mt="1rem">
-              <TableContainer>
-                <Table>
-                  <Thead>
-                    <Tr bgColor={"gray.100"}>
-                      <Th minW="300px">Addon Name</Th>
-                      <Th>Price</Th>
-                      <Th></Th>
-                      <Th></Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {service?.additionalServices?.map(
-                      (x: AdditionalService, i) => (
-                        <Tr key={x.id}>
-                          <Td>
-                            <HStack>
-                              <Text mr="1rem" mb="0">
-                                {++i}
-                              </Text>
-                              <Text mb="0">{x.name}</Text>
-                            </HStack>
-                          </Td>
-                          <Td>{x.price}</Td>
-                          <Td>
-                            <Icon
-                              as={AiFillEdit}
-                              cursor="pointer"
-                              onClick={() =>
-                                setEditing({ state: true, id: x.id as string })
-                              }
-                            />
-                          </Td>
-                          <Td>
-                            {loading ? (
-                              <Spinner size="sm" />
-                            ) : (
-                              <Icon
-                                as={AiFillDelete}
-                                cursor="pointer"
-                                onClick={() => deleteItems(x.id as string)}
-                              />
-                            )}
-                          </Td>
-                        </Tr>
-                      )
-                    )}
-                  </Tbody>
-                </Table>
-              </TableContainer>
-            </Box>
-          )}
-          <form>
-            <Grid templateColumns={["repeat(2,1fr)"]} gap="1.5rem" mt="1rem">
-              <PrimaryInput<AdditionalServiceModel>
-                label="Addon Name"
-                placeholder=""
-                name="name"
-                error={isError.name}
-                register={registers}
-                defaultValue={
-                  service.additionalServices?.find((x) => x.id == editing.id)
-                    ?.name || ""
-                }
-              />
-              <CurrencyField<AdditionalServiceModel>
-                placeholder="₦0.00"
-                defaultValue={
-                  service.additionalServices?.find((x) => x.id == editing.id)
-                    ?.price || ""
-                }
-                register={registers}
-                error={isError.price}
-                name={"price"}
-                control={controls}
-                label="Service Price (NGN)"
-              />
-            </Grid>
+          <Flex justify="space-between">
+            <HStack align="center" spacing="0">
+              <FormLabel fontSize=".9rem" mb="0">
+                Additional services
+              </FormLabel>
+              <Tooltip
+                hasArrow
+                p=".5rem"
+                label="Additional services are optional services that are rendered by a service manager upon request by a customer. This services have their own price and are compatible with the current service being added to"
+              >
+                <span>
+                  <Icon as={HiInformationCircle} cursor="help" />
+                </span>
+              </Tooltip>
+            </HStack>
             <Button
-              fontSize=".8rem"
-              bgColor="gray.400"
+              bgColor="brand.100"
               color="white"
-              type="button"
-              mt="1rem"
-              isLoading={isAddSubmit}
-              isDisabled={!isAddValid}
-              onClick={
-                editing.state
-                  ? handleEditingSubmit(editItem)
-                  : handleAdditionalSubmit(additionServicesFn)
-              }
-              _hover={{
-                bgColor: "brand.100",
-              }}
+              onClick={() => setNewField([...newField, newField.at(-1) + 1])}
             >
-              {editing.state ? "- Confirm edit" : " + Add a service"}
+              + Add Service
             </Button>
-          </form>
+          </Flex>
+          {newField.map((x: any) => (
+            <form>
+              <HStack key={x.id} align="flex-end" w="full" gap="1rem">
+                <Grid
+                  templateColumns={["repeat(2,1fr)"]}
+                  gap="1.5rem"
+                  mt="1rem"
+                  w="full"
+                >
+                  <PrimaryInput<AdditionalServiceModel>
+                    label="Addon Name"
+                    placeholder="Service Name"
+                    name="name"
+                    error={isError.name}
+                    register={registers}
+                  />
+                  <CurrencyField<AdditionalServiceModel>
+                    placeholder="₦0.00"
+                    register={registers}
+                    error={isError.price}
+                    name={"price"}
+                    control={controls}
+                    label="Service Price (NGN)"
+                  />
+                </Grid>
+                <Button
+                  aria-label="Edit Addon"
+                  bgColor={"brand.100"}
+                  color="white"
+                  height="2.8rem"
+                  px="2.5rem"
+                  isLoading={isAddSubmit}
+                  isDisabled={!isAddValid}
+                  onClick={handleAdditionalSubmit(additionServicesFn)}
+                  _hover={{
+                    bgColor: "brand.100",
+                  }}
+                >
+                  Add
+                </Button>
+              </HStack>
+            </form>
+          ))}
+          {populatedItem?.length > 0 && (
+            <VStack w="full" mt="1rem" gap="1rem" align="flex-start">
+              {populatedItem?.map((x: AdditionalService) => (
+                <HStack key={x.id} align="flex-end" w="full" gap="1rem">
+                  <Grid
+                    templateColumns={["repeat(2,1fr)"]}
+                    gap="1.5rem"
+                    w="full"
+                  >
+                    <DisabledInput<any>
+                      label="Addon Name"
+                      placeholder=""
+                      value={(addon.id == x.id && addon.name) || x.name}
+                      onChange={(e: any) =>
+                        setAddon({
+                          ...addon,
+                          name: e.target.value,
+                          id: x.id as string,
+                        })
+                      }
+                    />
+                    <DisabledInput<any>
+                      label="Addon Price (NGN)"
+                      placeholder="₦0.00"
+                      currency
+                      value={(addon.id == x.id && addon.price) || x.price}
+                      onChange={(value: any) =>
+                        setAddon({ ...addon, price: value, id: x.id as string })
+                      }
+                    />
+                  </Grid>
+                  <IconButton
+                    icon={<BsCheck2All />}
+                    aria-label="Edit Addon"
+                    bgColor={addon.id == x.id ? "brand.100" : "gray.400"}
+                    color="white"
+                    height="2.8rem"
+                    w="2.8rem"
+                    isLoading={
+                      loading.status && loading.id == x.id && !loading.delete
+                    }
+                    isDisabled={addon.id !== x.id}
+                    onClick={() =>
+                      editItem({
+                        id: x.id,
+                        name: addon.name || x.name,
+                        price: addon.price || x.price,
+                        serviceId: x.serviceId,
+                      })
+                    }
+                  />
+                  <IconButton
+                    icon={<AiFillDelete />}
+                    aria-label="Edit Addon"
+                    bgColor={addon.id == x.id ? "red" : "gray.400"}
+                    color="white"
+                    height="2.8rem"
+                    w="2.8rem"
+                    isLoading={
+                      loading.status && loading.id == x.id && loading.delete
+                    }
+                    isDisabled={addon.id !== x.id}
+                    onClick={() => deleteItems(x.id as string)}
+                  />
+                </HStack>
+              ))}
+            </VStack>
+          )}
         </Box>
         <HStack mt="1.5rem" gap="2rem">
           <Button

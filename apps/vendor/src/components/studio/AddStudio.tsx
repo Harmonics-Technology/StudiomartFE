@@ -114,11 +114,7 @@ const AddStudio = () => {
         studios.status &&
           Cookies.set("vendorStudios", JSON.stringify(studios.data?.value));
         toast.success("Studio successfully created, will reload shortly");
-        router.push("/dashboard", {
-          query: {
-            studio: result.data?.id,
-          },
-        });
+        window.location.href = `/dashboard?studio=${result.data?.id}`;
         return;
       }
       toast.error(result.message as string);

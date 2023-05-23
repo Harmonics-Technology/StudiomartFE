@@ -7,10 +7,13 @@ import {
   Icon,
   InputRightElement,
   InputLeftElement,
+  HStack,
+  Tooltip,
 } from "@chakra-ui/react";
 import React from "react";
 import { FieldError, UseFormRegister, Path } from "react-hook-form";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { HiInformationCircle } from "react-icons/hi2";
 
 interface FormProps<TFormValues extends Record<string, unknown>> {
   name: Path<TFormValues>;
@@ -31,6 +34,7 @@ interface FormProps<TFormValues extends Record<string, unknown>> {
   otp?: any;
   left?: boolean;
   value?: any;
+  toolTip?: any;
 }
 
 const PrimaryInput = <TFormValues extends Record<string, any>>({
@@ -52,6 +56,7 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
   otp,
   left = false,
   value,
+  toolTip,
 }: FormProps<TFormValues>) => {
   return (
     <>
@@ -60,7 +65,18 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
         isInvalid={error as unknown as boolean}
         fontFamily="'DM Sans', sans-serif"
       >
-        <FormLabel fontSize=".8rem">{label}</FormLabel>
+        <HStack align="center" spacing="0" mb=".5rem">
+          <FormLabel fontSize=".8rem" mb="0">
+            {label}
+          </FormLabel>
+          {toolTip && (
+            <Tooltip hasArrow p=".5rem" label={toolTip} borderRadius="4px">
+              <span>
+                <Icon as={HiInformationCircle} fontSize=".8rem" cursor="help" />
+              </span>
+            </Tooltip>
+          )}
+        </HStack>
         <InputGroup w="100%">
           {left && (
             <InputLeftElement

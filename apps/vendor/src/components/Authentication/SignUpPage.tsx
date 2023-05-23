@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -29,6 +29,7 @@ import { BsCheckCircle } from "react-icons/bs";
 import { auth, db } from "@components/firebase/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { UserContext } from "@components/Context/UserContext";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -51,6 +52,7 @@ export const SignUpPage = () => {
   const [terms, setTerms] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [loginType, setLoginType] = useState("Vendor");
+  const { device } = useContext(UserContext);
   const [step, setStep] = useState(0);
   let validationSchema = {
     firstName: yup.string().required(),
@@ -125,7 +127,10 @@ export const SignUpPage = () => {
     }
     // console.log({ data });
     try {
-      const result = await UserService.createVendor({ requestBody: data });
+      const result = await UserService.createVendor({
+        requestBody: data,
+        device,
+      });
       console.log({ result });
       if (result.status) {
         const res = await createUserWithEmailAndPassword(
@@ -271,150 +276,146 @@ export const SignUpPage = () => {
               >
                 {loginType == "Vendor" ? (
                   <form onSubmit={VendorSubmit(onSubmitVendor)}>
-                    <VStack spacing="1.5rem" w="full">
-                      {step == 0 ? (
-                        <>
-                          <PrimaryInput<VendorRegisterModel>
-                            label="Email Address"
-                            type="email"
-                            placeholder="Enter your email"
-                            name="email"
-                            error={isError.email}
-                            register={registers}
-                          />
-                          <Grid
-                            templateColumns={["repeat(2,1fr)"]}
-                            gap="1.5rem 1rem"
-                            w="full"
-                          >
-                            <PrimaryInput<VendorRegisterModel>
-                              label="First Name"
-                              type="text"
-                              placeholder="Enter your first name"
-                              name="firstName"
-                              error={isError.firstName}
-                              register={registers}
-                            />
+                    <VStack
+                      spacing="1.5rem"
+                      w="full"
+                      display={step == 1 ? "none" : "flex"}
+                    >
+                      <PrimaryInput<VendorRegisterModel>
+                        label="Email Address"
+                        type="email"
+                        placeholder="Enter your email"
+                        name="email"
+                        error={isError.email}
+                        register={registers}
+                        toolTip="An active email address to reach your studio"
+                      />
+                      <Grid
+                        templateColumns={["repeat(2,1fr)"]}
+                        gap="1.5rem 1rem"
+                        w="full"
+                      >
+                        <PrimaryInput<VendorRegisterModel>
+                          label="First Name"
+                          type="text"
+                          placeholder="Enter your first name"
+                          name="firstName"
+                          error={isError.firstName}
+                          register={registers}
+                        />
 
-                            <PrimaryInput<VendorRegisterModel>
-                              label="Last Name"
-                              type="text"
-                              placeholder="Enter your last name"
-                              name="lastName"
-                              error={isError.lastName}
-                              register={registers}
-                            />
-                            <PrimaryInput<VendorRegisterModel>
-                              label="Password"
-                              placeholder="Enter your password"
-                              type={passwordVisible ? "text" : "password"}
-                              icon={true}
-                              passwordVisible={passwordVisible}
-                              changeVisibility={changeInputType}
-                              name="password"
-                              error={isError.password}
-                              register={registers}
-                            />
-                            <PrimaryInput<VendorRegisterModel>
-                              label="Re-enter password"
-                              placeholder="Confirm your password"
-                              type={passwordVisible ? "text" : "password"}
-                              icon={true}
-                              passwordVisible={passwordVisible}
-                              changeVisibility={changeInputType}
-                              name="confirmPassword"
-                              error={isError.confirmPassword}
-                              register={registers}
-                            />
-                          </Grid>
-                        </>
-                      ) : (
-                        <>
-                          <PrimaryInput<VendorRegisterModel>
-                            label="Studio Name"
-                            type="text"
-                            placeholder="Enter your studio name"
-                            name="studioName"
-                            error={isError.studioName}
-                            register={registers}
-                          />
-                          <PrimaryInput<VendorRegisterModel>
-                            label="Studio Description"
-                            type="text"
-                            placeholder="Enter a short description about your studio"
-                            name="studioDescription"
-                            error={isError.studioDescription}
-                            register={registers}
-                          />
-                          <PrimaryInput<VendorRegisterModel>
-                            label="Studio Address"
-                            type="text"
-                            placeholder="Where is your studio located"
-                            name="studioAddress"
-                            error={isError.studioAddress}
-                            register={registers}
-                          />
-                          <Flex
-                            w="100%"
-                            alignItems="flex-end"
-                            justifyContent="flex-start"
-                            my="10px"
-                          >
-                            <Checkbox
-                              alignItems="center"
-                              borderColor="none"
-                              borderRadius="5px"
-                              size="md"
-                              onChange={(e) => setTerms(e.target.checked)}
-                            >
-                              I have read, undrestood and accept the{" "}
-                              <span
-                                style={{
-                                  color: "#1570FA",
-                                }}
-                              >
-                                Terms and Conditions
-                              </span>
-                            </Checkbox>
-                          </Flex>
-                        </>
-                      )}
+                        <PrimaryInput<VendorRegisterModel>
+                          label="Last Name"
+                          type="text"
+                          placeholder="Enter your last name"
+                          name="lastName"
+                          error={isError.lastName}
+                          register={registers}
+                        />
+                        <PrimaryInput<VendorRegisterModel>
+                          label="Password"
+                          placeholder="Enter your password"
+                          type={passwordVisible ? "text" : "password"}
+                          icon={true}
+                          passwordVisible={passwordVisible}
+                          changeVisibility={changeInputType}
+                          name="password"
+                          error={isError.password}
+                          register={registers}
+                        />
+                        <PrimaryInput<VendorRegisterModel>
+                          label="Re-enter password"
+                          placeholder="Confirm your password"
+                          type={passwordVisible ? "text" : "password"}
+                          icon={true}
+                          passwordVisible={passwordVisible}
+                          changeVisibility={changeInputType}
+                          name="confirmPassword"
+                          error={isError.confirmPassword}
+                          register={registers}
+                        />
+                      </Grid>
+                      <Button
+                        w="full"
+                        bgColor="brand.100"
+                        borderRadius="0"
+                        height="3rem"
+                        color="white"
+                        mb="1rem"
+                        onClick={completeFormStep}
+                      >
+                        Next
+                      </Button>
+                    </VStack>
 
-                      {step !== 1 ? (
+                    <VStack
+                      spacing="1.5rem"
+                      w="full"
+                      display={step == 0 ? "none" : "flex"}
+                    >
+                      <PrimaryInput<VendorRegisterModel>
+                        label="Studio Name"
+                        type="text"
+                        placeholder="Enter your studio name"
+                        name="studioName"
+                        error={isError.studioName}
+                        register={registers}
+                      />
+                      <PrimaryInput<VendorRegisterModel>
+                        label="Studio Description"
+                        type="text"
+                        placeholder="Enter a short description about your studio"
+                        name="studioDescription"
+                        error={isError.studioDescription}
+                        register={registers}
+                      />
+                      <PrimaryInput<VendorRegisterModel>
+                        label="Studio Address"
+                        type="text"
+                        placeholder="Where is your studio located"
+                        name="studioAddress"
+                        error={isError.studioAddress}
+                        register={registers}
+                      />
+                      <Flex
+                        w="100%"
+                        alignItems="flex-end"
+                        justifyContent="flex-start"
+                        my="10px"
+                      >
+                        <Checkbox
+                          alignItems="center"
+                          borderColor="none"
+                          borderRadius="5px"
+                          size="md"
+                          onChange={(e) => setTerms(e.target.checked)}
+                        >
+                          I have read, undrestood and accept the{" "}
+                          <span
+                            style={{
+                              color: "#1570FA",
+                            }}
+                          >
+                            Terms and Conditions
+                          </span>
+                        </Checkbox>
+                      </Flex>
+                      <HStack align="center" h="fit-content" my="1rem" w="full">
                         <Button
                           w="full"
-                          bgColor="brand.100"
+                          bgColor="gray.400"
                           borderRadius="0"
                           height="3rem"
                           color="white"
-                          mb="1rem"
-                          onClick={completeFormStep}
+                          onClick={() => setStep(step - 1)}
                         >
-                          Next
+                          Back
                         </Button>
-                      ) : (
-                        <HStack
-                          align="center"
-                          h="fit-content"
-                          my="1rem"
-                          w="full"
-                        >
-                          <Button
-                            w="full"
-                            bgColor="gray.400"
-                            borderRadius="0"
-                            height="3rem"
-                            color="white"
-                            onClick={() => setStep(step - 1)}
-                          >
-                            Back
-                          </Button>
-                          <SubmitButton
-                            textContent="sign up"
-                            isLoading={submitting}
-                          />
-                        </HStack>
-                      )}
+                        <SubmitButton
+                          textContent="sign up"
+                          isLoading={submitting}
+                        />
+                      </HStack>
                     </VStack>
                   </form>
                 ) : (

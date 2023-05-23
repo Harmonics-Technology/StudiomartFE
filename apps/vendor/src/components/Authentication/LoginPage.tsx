@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -22,6 +22,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@components/firebase/firebase";
+import { UserContext } from "@components/Context/UserContext";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -37,9 +38,8 @@ export const LoginPage = () => {
   const router = useRouter();
   const [terms, setTerms] = useState<boolean>(false);
   const [loginType, setLoginType] = useState("Vendor");
-  const [step, setStep] = useState(0);
   const currentStudioId = Cookies.get("currentStudioId");
-  // console.log({ terms });
+  const { device } = useContext(UserContext);
 
   const {
     handleSubmit,
@@ -55,7 +55,7 @@ export const LoginPage = () => {
   const onSubmitVendor = async (data: LoginModel) => {
     // console.log({ data });
     try {
-      const result = await UserService.loginUser({ requestBody: data });
+      const result = await UserService.loginUser({ requestBody: data, device });
       // console.log({ result });
       if (result.status) {
         if (terms) {
@@ -68,9 +68,6 @@ export const LoginPage = () => {
             })
           );
         }
-        toast.success("Login Successful!", {
-          className: "loginToast",
-        });
         await signInWithEmailAndPassword(
           auth,
           data.email as string,
@@ -84,6 +81,9 @@ export const LoginPage = () => {
         const studios = await StudioService.listUserStudios({
           offset: 0,
           limit: 10,
+        });
+        toast.success("Login Successful!", {
+          className: "loginToast",
         });
         studios.status &&
           Cookies.set("vendorStudios", JSON.stringify(studios.data?.value));

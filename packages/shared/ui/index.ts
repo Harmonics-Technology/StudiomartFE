@@ -1,3 +1,4 @@
+import { getDeviceFromUserAgent } from "./Components/utils/GetDeviceFromUser";
 import { MenuDropdown } from "./Components/utils/MenuDropdown";
 import { SelectrixBox } from "./Components/utils/SelectrixBox";
 import { CurrencyField } from "./Components/utils/CurrencyField";
@@ -78,4 +79,5 @@ export {
   SelectrixBox,
   MenuDropdown,
   getUrlRoute,
+  getDeviceFromUserAgent,
 };

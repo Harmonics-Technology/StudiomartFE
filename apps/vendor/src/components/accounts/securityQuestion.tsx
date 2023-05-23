@@ -1,13 +1,22 @@
-import React, { useState } from "react";
-import { Flex, Box, Button, Stack, VStack, Spinner } from "@chakra-ui/react";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  Flex,
+  Box,
+  Button,
+  Stack,
+  VStack,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import AccountSideBar from "@components/accounts/AccountSideBar";
-import { SecurityQuestionModel, UserService } from "src/services";
-import { PrimaryInput } from "ui";
+import { SecurityQuestionModel, StudioView, UserService } from "src/services";
+import { getDeviceFromUserAgent, PrimaryInput } from "ui";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
+import { UserContext } from "@components/Context/UserContext";
 
 const schema = yup.object().shape({
   question: yup.string().required(),
@@ -18,9 +27,13 @@ const schema = yup.object().shape({
 
 interface SecurityQuestionProps {
   userId: string;
+  userQuestion: any;
 }
 
-export default function SecurityQuestion({ userId }: SecurityQuestionProps) {
+export default function SecurityQuestion({
+  userId,
+  userQuestion,
+}: SecurityQuestionProps) {
   const {
     handleSubmit,
     register,
@@ -35,6 +48,7 @@ export default function SecurityQuestion({ userId }: SecurityQuestionProps) {
   const router = useRouter();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [userQuest, setUserQuest] = useState<any>(userQuestion);
   const onSubmit = async (data: SecurityQuestionModel) => {
     try {
       const result = await UserService.createSecurityQuestion({
@@ -77,6 +91,9 @@ export default function SecurityQuestion({ userId }: SecurityQuestionProps) {
       });
     }
   };
+
+  const { device } = useContext(UserContext);
+  console.log({ device });
   return (
     <Flex
       bgColor="white"
@@ -95,7 +112,21 @@ export default function SecurityQuestion({ userId }: SecurityQuestionProps) {
         py="5rem"
       >
         <AccountSideBar />
-        <Box w="45%" fontFamily='"DM Sans", sans-serif'>
+        <Box w="45%" fontFamily='"DM Sans", sans-serif' pos="relative">
+          {userQuest?.message && (
+            <Text
+              textAlign="right"
+              color="brand.100"
+              fontSize=".8rem"
+              cursor="pointer"
+              onClick={() => setUserQuest(undefined)}
+            >
+              Change Security Question
+            </Text>
+          )}
+          {userQuest?.message && (
+            <Box w="full" h="80vh" pos="absolute" zIndex="888" />
+          )}
           <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
             <VStack gap="1rem">
               <PrimaryInput<SecurityQuestionModel>
@@ -105,7 +136,7 @@ export default function SecurityQuestion({ userId }: SecurityQuestionProps) {
                 name="question"
                 error={errors.question}
                 register={register}
-                // defaultValue={user?.firstName}
+                defaultValue={userQuest?.message}
               />
               <PrimaryInput<SecurityQuestionModel>
                 label="Enter the answer"
