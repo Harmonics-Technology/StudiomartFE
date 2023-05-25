@@ -10,7 +10,8 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { Harmburger } from "ui";
+import { Harmburger, getUrlRoute } from "ui";
+
 
 type NavProps = {
   name: string;
@@ -18,17 +19,7 @@ type NavProps = {
   display?: any;
 };
 
-function getUrlRoute() {
-  const clientUrl = process.env.NEXT_PUBLIC_CLIENT_URL;
-  const vendorUrl = process.env.NEXT_PUBLIC_VENDOR_URL;
-  if (!clientUrl || clientUrl.length === 0) {
-    throw new Error("Missing Client Url");
-  }
-  if (!vendorUrl || vendorUrl.length === 0) {
-    throw new Error("Missing Vendor Url");
-  }
-  return { clientUrl, vendorUrl };
-}
+
 // console.log(getUrlRoute().clientUrl);
 
 const NavLink = ({ name, path, display }: NavProps) => {
