@@ -1,6 +1,7 @@
 import React, { ReactNode, createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { getDeviceFromUserAgent } from "ui";
 
 export const UserContext = createContext<any>(null);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
@@ -11,6 +12,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<any>();
   const loggedInUser = Cookies.get("customer");
   const [userType, setUserType] = useState("");
+  const [device, setDevice] = useState("");
   const router = useRouter();
   const isCustomer = Cookies.get("user");
 
@@ -20,6 +22,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       isCustomer == "Customer" && setUserType(isCustomer);
     }
 
+    setDevice(getDeviceFromUserAgent(window.navigator.userAgent));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -28,6 +31,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setUser,
     logout,
     userType,
+    device,
   };
 
   return (

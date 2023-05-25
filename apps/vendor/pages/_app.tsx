@@ -23,9 +23,6 @@ import Head from "next/head";
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   OpenAPI.BASE = process.env.NEXT_PUBLIC_API_BASEURL as string;
   OpenAPI.TOKEN = Cookies.get("customerToken");
-  if (Cookies.get("user") == "Vendor") {
-    OpenAPI.TOKEN = Cookies.get("vendorToken");
-  }
 
   useEffect(() => {
     if (typeof window !== "undefined") {

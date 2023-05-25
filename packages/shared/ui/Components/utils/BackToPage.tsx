@@ -2,27 +2,27 @@ import { Flex } from "@chakra-ui/react";
 import React from "react";
 import { BsFillCaretLeftFill } from "react-icons/bs";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 type Props = {
-    name: string;
-    path: string;
+  name: string;
 };
 
-const BackToPage = ({ name, path }: Props) => {
-    return (
-        <Link href={path} passHref>
-            <Flex
-                w="fit-content"
-                align="center"
-                gap="4"
-                cursor="pointer"
-                _hover={{ color: "brand.100" }}
-            >
-                <BsFillCaretLeftFill fontSize="1.3rem" />
-                {name}
-            </Flex>
-        </Link>
-    );
+const BackToPage = ({ name }: Props) => {
+  const router = useRouter();
+  return (
+    <Flex
+      w="fit-content"
+      align="center"
+      gap="4"
+      cursor="pointer"
+      _hover={{ color: "brand.100" }}
+      onClick={() => router.back()}
+    >
+      <BsFillCaretLeftFill fontSize="1.3rem" />
+      {name}
+    </Flex>
+  );
 };
 
 export default BackToPage;

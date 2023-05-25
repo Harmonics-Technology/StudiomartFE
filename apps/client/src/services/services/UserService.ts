@@ -1,10 +1,14 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { BooleanStandardResponse } from '../models/BooleanStandardResponse';
 import type { InitiateResetModel } from '../models/InitiateResetModel';
 import type { LoginModel } from '../models/LoginModel';
 import type { PasswordReset } from '../models/PasswordReset';
+import type { PasswordVerificationModel } from '../models/PasswordVerificationModel';
 import type { RegisterModel } from '../models/RegisterModel';
+import type { SecurityQuestionModel } from '../models/SecurityQuestionModel';
+import type { StringStandardResponse } from '../models/StringStandardResponse';
 import type { UpdateUserModel } from '../models/UpdateUserModel';
 import type { UserProfileViewStandardResponse } from '../models/UserProfileViewStandardResponse';
 import type { UserViewStandardResponse } from '../models/UserViewStandardResponse';
@@ -18,6 +22,7 @@ import { request as __request } from '../core/request';
 export class UserService {
 
     /**
+     * Create a new user
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -35,11 +40,12 @@ requestBody?: RegisterModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
         });
     }
 
     /**
+     * Login a user
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -57,11 +63,12 @@ requestBody?: LoginModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
         });
     }
 
     /**
+     * Verify a user
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -85,6 +92,7 @@ device?: any,
     }
 
     /**
+     * Initiate password reset
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -107,11 +115,12 @@ requestBody?: InitiateResetModel,
                 'redirectUrl': redirectUrl,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
         });
     }
 
     /**
+     * Complete password reset
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -129,11 +138,12 @@ requestBody?: PasswordReset,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
         });
     }
 
     /**
+     * Update a user
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -151,19 +161,22 @@ requestBody?: UpdateUserModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
         });
     }
 
     /**
+     * Update   users password
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
     public static updatePassword({
-password,
+oldPassword,
+newPassword,
 device,
 }: {
-password?: string,
+oldPassword?: string,
+newPassword?: string,
 device?: any,
 }): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
@@ -173,12 +186,14 @@ device?: any,
                 'device': device,
             },
             query: {
-                'password': password,
+                'OldPassword': oldPassword,
+                'NewPassword': newPassword,
             },
         });
     }
 
     /**
+     * Get a user profile
      * @returns UserProfileViewStandardResponse Success
      * @throws ApiError
      */
@@ -202,6 +217,31 @@ device?: any,
     }
 
     /**
+     * Get a user by id
+     * @returns UserViewStandardResponse Success
+     * @throws ApiError
+     */
+    public static getUserById({
+userId,
+device,
+}: {
+userId: string,
+device?: any,
+}): CancelablePromise<UserViewStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/User/{userId}',
+            path: {
+                'userId': userId,
+            },
+            headers: {
+                'device': device,
+            },
+        });
+    }
+
+    /**
+     * Validate a token
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -223,6 +263,7 @@ device?: any,
     }
 
     /**
+     * Upgrade a user from customer to vendor
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -240,11 +281,12 @@ requestBody?: VendorUpgradeModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
         });
     }
 
     /**
+     * Create a vendor user
      * @returns UserViewStandardResponse Success
      * @throws ApiError
      */
@@ -262,7 +304,127 @@ requestBody?: VendorRegisterModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json-patch+json',
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Get otp
+     * @returns UserViewStandardResponse Success
+     * @throws ApiError
+     */
+    public static getOtp({
+device,
+}: {
+device?: any,
+}): CancelablePromise<UserViewStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/User/get-otp',
+            headers: {
+                'device': device,
+            },
+        });
+    }
+
+    /**
+     * Create or update security question
+     * @returns BooleanStandardResponse Success
+     * @throws ApiError
+     */
+    public static createSecurityQuestion({
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: SecurityQuestionModel,
+}): CancelablePromise<BooleanStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/User/security-question/create-or-update',
+            headers: {
+                'device': device,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+            },
+        });
+    }
+
+    /**
+     * verify answer
+     * @returns BooleanStandardResponse Success
+     * @throws ApiError
+     */
+    public static verifySecurityQuestionAnswer({
+answer,
+device,
+}: {
+answer?: string,
+device?: any,
+}): CancelablePromise<BooleanStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/User/security-question/verify-answer',
+            headers: {
+                'device': device,
+            },
+            query: {
+                'answer': answer,
+            },
+            errors: {
+                400: `Bad Request`,
+            },
+        });
+    }
+
+    /**
+     * Get user question
+     * @returns StringStandardResponse Success
+     * @throws ApiError
+     */
+    public static getUserSecurityQuestion({
+device,
+}: {
+device?: any,
+}): CancelablePromise<StringStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/User/security-question/question',
+            headers: {
+                'device': device,
+            },
+            errors: {
+                400: `Bad Request`,
+            },
+        });
+    }
+
+    /**
+     * Verify user password
+     * @returns BooleanStandardResponse Success
+     * @throws ApiError
+     */
+    public static verifyPassword({
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: PasswordVerificationModel,
+}): CancelablePromise<BooleanStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/User/verify-user-password',
+            headers: {
+                'device': device,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+            },
         });
     }
 

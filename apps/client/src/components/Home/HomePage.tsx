@@ -15,6 +15,8 @@ import ExploreStudioCard from "./ExploreStudioCard";
 import PopularStudioCard from "./PopularStudioCard";
 import TextTransition, { presets } from "react-text-transition";
 import { BookNowLink } from "ui";
+import { ICustomerHome } from "src/models/schema";
+import { StudioService } from "src/services";
 
 const studios = [
   "music studio",
@@ -24,7 +26,7 @@ const studios = [
   "podcast studio",
 ];
 
-const HomePage = () => {
+const HomePage = ({ popularStudios }: ICustomerHome) => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -273,11 +275,9 @@ const HomePage = () => {
           </Link>
         </HStack>
         <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
-          {Array(6)
-            .fill(null)
-            .map((x, index) => (
-              <PopularStudioCard key={index} />
-            ))}
+          {popularStudios?.value?.map((service, index) => (
+            <PopularStudioCard key={index} service={service} />
+          ))}
         </SimpleGrid>
       </Box>
       <Box w="90%" mx="auto" id="how-it-works" py="10">
