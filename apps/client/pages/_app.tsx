@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   if (Cookies.get("user") == "Vendor") {
     OpenAPI.TOKEN = Cookies.get("vendorToken");
   }
-  console.log(OpenAPI.TOKEN);
+  // console.log(OpenAPI.TOKEN);
   return (
     <ChakraProvider theme={theme}>
       <UserProvider>

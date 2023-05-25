@@ -66,34 +66,7 @@ export const LoginPage = () => {
           ? (window.location.href = decodeURIComponent(
               router.query.from as unknown as string
             ))
-          : (window.location.href = `/customer`);
-        return;
-      }
-      toast.error(result.message as string);
-      return;
-    } catch (error: any) {
-      toast.error(error?.body?.message || error?.message);
-    }
-  };
-  const onSubmitVendor = async (data: LoginModel) => {
-    // console.log({ data });
-    try {
-      const result = await UserService.loginUser({ requestBody: data });
-      console.log({ result });
-      if (result.status) {
-        if (terms) {
-          Cookies.set("isVendor", JSON.stringify(data));
-        }
-        toast.success("Login Successful!");
-        Cookies.set("vendor", JSON.stringify(result.data));
-        Cookies.set("user", "Vendor");
-        OpenAPI.TOKEN = result?.data?.token as string;
-        result.data && Cookies.set("vendorToken", result.data.token as string);
-        router.query.from
-          ? (window.location.href = decodeURIComponent(
-              router.query.from as unknown as string
-            ))
-          : (window.location.href = `/vendor`);
+          : (window.location.href = `/`);
         return;
       }
       toast.error(result.message as string);
@@ -171,7 +144,7 @@ export const LoginPage = () => {
                 &nbsp;Sign up here.
               </Link>
             </Text>
-
+{/* 
             <LoginTypeBtn
               loginOption={[
                 {
@@ -184,7 +157,7 @@ export const LoginPage = () => {
                 },
               ]}
               loginType={loginType}
-            />
+            /> */}
           </VStack>
           <Box
             w="100%"
@@ -195,66 +168,30 @@ export const LoginPage = () => {
             pr="3px"
           >
             {loginType == "Vendor" ? (
-              <form onSubmit={VendorSubmit(onSubmitVendor)}>
-                <PrimaryInput<LoginModel>
-                  label="Email Address"
-                  type="email"
-                  placeholder="Enter your email"
-                  name="email"
-                  error={errors.email}
-                  register={register}
-                />
-                <PrimaryInput<LoginModel>
-                  label="Password"
-                  placeholder="Enter your password"
-                  type={passwordVisible ? "text" : "password"}
-                  icon={true}
-                  passwordVisible={passwordVisible}
-                  changeVisibility={changeInputType}
-                  name="password"
-                  error={errors.password}
-                  register={register}
-                />
-                <Flex
-                  w="100%"
-                  alignItems="flex-end"
-                  justifyContent="flex-start"
-                  my="1rem"
-                >
-                  <Checkbox
-                    alignItems="center"
-                    borderColor="none"
-                    borderRadius="5px"
-                    size="md"
-                    onChange={() => setTerms(!terms)}
-                  >
-                    Remember me
-                  </Checkbox>
-                </Flex>
-
-                <SubmitButton textContent="sign in" isLoading={isSubmitting} />
-              </form>
+              <></>
             ) : (
               <form onSubmit={handleSubmit(onSubmitRegister)}>
-                <PrimaryInput<LoginModel>
-                  label="Email Address"
-                  type="email"
-                  placeholder="Enter your email"
-                  name="email"
-                  error={errors.email}
-                  register={register}
-                />
-                <PrimaryInput<LoginModel>
-                  label="Password"
-                  placeholder="Enter your password"
-                  type={passwordVisible ? "text" : "password"}
-                  icon={true}
-                  passwordVisible={passwordVisible}
-                  changeVisibility={changeInputType}
-                  name="password"
-                  error={errors.password}
-                  register={register}
-                />
+                <VStack gap=".5rem" w="full">
+                  <PrimaryInput<LoginModel>
+                    label="Email Address"
+                    type="email"
+                    placeholder="Enter your email"
+                    name="email"
+                    error={errors.email}
+                    register={register}
+                  />
+                  <PrimaryInput<LoginModel>
+                    label="Password"
+                    placeholder="Enter your password"
+                    type={passwordVisible ? "text" : "password"}
+                    icon={true}
+                    passwordVisible={passwordVisible}
+                    changeVisibility={changeInputType}
+                    name="password"
+                    error={errors.password}
+                    register={register}
+                  />
+                </VStack>
                 <Flex
                   w="100%"
                   alignItems="flex-end"

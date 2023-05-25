@@ -35,9 +35,6 @@ function VendorSideNav() {
     >
       <Link href="/dashboard" passHref>
         <HStack>
-          {/* <Box h="2rem">
-                        <Image src="/assets/logo.png" h="full" />
-                    </Box> */}
           <Box w="85%" pl=".5rem">
             <Image src="/assets/studiomart.png" w="full" alt="logo" />
           </Box>

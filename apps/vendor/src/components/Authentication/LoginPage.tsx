@@ -193,7 +193,7 @@ export const LoginPage = () => {
                 &nbsp;Sign up here.
               </Link>
             </Text>
-
+{/* 
             <LoginTypeBtn
               loginOption={[
                 {
@@ -206,7 +206,7 @@ export const LoginPage = () => {
                 },
               ]}
               loginType={loginType}
-            />
+            /> */}
           </VStack>
           <Box
             w="100%"
