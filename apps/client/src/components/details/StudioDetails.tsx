@@ -20,8 +20,10 @@ import { ICustomerHome } from "src/models/schema";
 import { AdditionalServiceView, MediaView, ReviewView } from "src/services";
 import { DummyImage } from "react-simple-placeholder-image";
 import NoSSR from "react-no-ssr";
+import { useRouter } from "next/router";
 
 export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
+  const router = useRouter();
   return (
     <Box pb="10" pt={["5", "10"]}>
       <Box w="90%" mx="auto" pb="7">
@@ -43,7 +45,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
             Studio brief
           </Heading>
           <Box py={["6", "8"]}>
-            <VStack align="flex-start" spacing="2">
+            <VStack align="flex-start" spacing="2" pl="4">
               <Text mb="0" fontWeight={700} fontSize={["1.1rem", "1.3rem"]}>
                 {singleService?.name} - {Naira(singleService?.price as number)}{" "}
                 NGN
@@ -65,7 +67,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
               </Text>
               <Rating />
             </VStack>
-            <Text mt="4" fontWeight={500}>
+            <Text mt="4" fontWeight={500} pl="4">
               {singleService?.description}
             </Text>
           </Box>
@@ -77,7 +79,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
           <Box py={["6", "8"]}>
             {singleService?.additionalServices?.map(
               (x: AdditionalServiceView) => (
-                <HStack key={x.id}>
+                <HStack key={x.id} pl="4">
                   <Text fontSize={[".9rem", "1rem"]} mb="0" fontWeight={400}>
                     {x.name}
                   </Text>
@@ -93,7 +95,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
           <Heading fontSize={["1.2rem", "1.7rem"]} p="4" bgColor="brand.300">
             Details to remeber
           </Heading>
-          <VStack py={["6", "8"]} align="flex-start" spacing="4">
+          <VStack py={["6", "8"]} align="flex-start" spacing="4" pl="4">
             <HStack
               w="300px"
               fontWeight={500}
@@ -130,7 +132,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
           <Heading fontSize={["1.2rem", "1.7rem"]} p="4" bgColor="brand.300">
             Amenities
           </Heading>
-          <VStack py={["6", "8"]} align="flex-start" spacing="4">
+          <VStack py={["6", "8"]} align="flex-start" spacing="4" pl="4">
             <Text fontWeight={500} fontSize={[".9rem", "1rem"]}>
               Water, Electricity, Generator, CCTV, Free Wifi
             </Text>
@@ -145,6 +147,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
             spacing="4"
             fontWeight={500}
             fontSize={[".9rem", "1rem"]}
+            pl="4"
           >
             <ListItem>Lorem ipsum dolor sit amet</ListItem>
             <ListItem>Consectetur adipiscing elit</ListItem>
@@ -153,31 +156,32 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
           </OrderedList>
         </Box>
         <Box>
-          <Link href="/customer/booking-summary">
-            <Button
-              w="full"
-              h="3.5rem"
-              mb="3"
-              fontWeight={500}
-              bgColor="brand.100"
-              fontSize={["1rem", "1.3rem"]}
-              textTransform="capitalize"
-              color="white"
-              transition="0.5s linear"
-              borderRadius="4px"
-              cursor="pointer"
-              _hover={{
-                backgroundColor: "transparent",
-                color: "brand.100",
-                border: "2px solid #1570FA",
-              }}
-              _focus={{
-                outline: "none",
-              }}
-            >
-              Proceed
-            </Button>
-          </Link>
+          <Button
+            w="full"
+            h="3.5rem"
+            mb="3"
+            fontWeight={500}
+            bgColor="brand.100"
+            fontSize={["1rem", "1.3rem"]}
+            textTransform="capitalize"
+            color="white"
+            transition="0.5s linear"
+            borderRadius="4px"
+            cursor="pointer"
+            onClick={() =>
+              router.push(`/customer/schedule-session${singleService?.id}`)
+            }
+            _hover={{
+              backgroundColor: "transparent",
+              color: "brand.100",
+              border: "2px solid #1570FA",
+            }}
+            _focus={{
+              outline: "none",
+            }}
+          >
+            Proceed
+          </Button>
           <Button
             w="full"
             h="3.5rem"
@@ -216,7 +220,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
         <VStack align="flex-start" spacing={1}>
           <Heading fontSize={["1.2rem", "1.6rem"]}>Customer reviews</Heading>
           <Text fontWeight={500} color="GrayText">
-            20 verified rating
+            {ratings?.size} verified rating
           </Text>
           <Rating />
           <Text fontWeight={900} fontSize={["1rem", "1.2rem"]}>
@@ -261,7 +265,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
           </HStack>
         </VStack>
       </SimpleGrid>
-      <VStack align="flex-start" w="full" py="5" pb={["10", "20"]}>
+      <VStack align="flex-start" py="5" pb={["10", "20"]} w="90%" mx="auto">
         {ratings?.value?.length == 0 ? (
           <Text>No Reviews yet!!!</Text>
         ) : (

@@ -1,4 +1,4 @@
-export const getDeviceFromUserAgent = (userAgent) => {
+export const getDeviceFromUserAgent = (userAgent: any) => {
   if (userAgent.match(/Mobile/i)) {
     return "Mobile device";
   } else if (userAgent.match(/iPad/i)) {
