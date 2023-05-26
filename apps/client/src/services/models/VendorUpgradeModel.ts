@@ -21,3 +21,4 @@ export type VendorUpgradeModel = {
     linkedIn?: string | null;
     youTube?: string | null;
 };
+

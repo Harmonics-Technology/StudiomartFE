@@ -25,3 +25,4 @@ export type Service = {
     serviceTypeId?: string;
     serviceType?: ServiceType;
 };
+

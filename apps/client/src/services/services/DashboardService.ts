@@ -15,10 +15,10 @@ export class DashboardService {
      * @throws ApiError
      */
     public static vendoDashboardMetrics({
-device,
-}: {
-device?: any,
-}): CancelablePromise<VendorDashboardViewStandardResponse> {
+        device,
+    }: {
+        device?: any,
+    }): CancelablePromise<VendorDashboardViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Dashboard/vendor-dashboard',
@@ -33,17 +33,17 @@ device?: any,
 
     /**
      * Get a vendor studio dashboard metrics
- * <param name="studioId"></param>
+     * <param name="studioId"></param>
      * @returns VendorDashboardViewStandardResponse Success
      * @throws ApiError
      */
     public static vendorStudioDashboardMetrics({
-studioId,
-device,
-}: {
-studioId: string,
-device?: any,
-}): CancelablePromise<VendorDashboardViewStandardResponse> {
+        studioId,
+        device,
+    }: {
+        studioId: string,
+        device?: any,
+    }): CancelablePromise<VendorDashboardViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Dashboard/vendor-dashboard/{studioId}',

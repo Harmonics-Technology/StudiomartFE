@@ -6,15 +6,34 @@ import {
   Heading,
   Text,
   VStack,
-} from "@chakra-ui/react";
-import React from "react";
-import { BackToPage, PrimaryDate, SubmitButton } from "ui";
+} from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { BookingService, LookupModel } from 'src/services';
+import { BackToPage, PrimaryDate, SubmitButton } from 'ui';
 
 const ScheduleDateTime = () => {
+  const router = useRouter();
+  const [bookingStatus, setBookingStatus] = useState(null);
+
+  const onBook = async (data: LookupModel) => {
+    // try {
+    //   const result = await BookingService.dateTimeLookup ({ requestBody: data });
+    //   console.log({ result });
+    //   if (result.status)
+    //     return;
+    //   }
+    //   toast.error(result.message as string);
+    //   return;
+    // } catch (error: any) {
+    //   toast.error(error?.body?.message || error?.message);
+    // }
+  };
   return (
     <Box w=" 100%" minH="100vh" border="2px hidden red" py="30px">
-      <Box border="2px hidden blue" w={["90%", "60%"]} mx="auto">
-        <BackToPage name="Back to home page" path="/customer" />
+      <Box border="2px hidden blue" w={['90%', '60%']} mx="auto">
+        <BackToPage name="Back to home page" />
 
         <Box border="2px hidden green" w="100%" pt="40px">
           <Box w=" 100%" bg="rgba(21, 112, 250, 0.1)" py="30px">
@@ -34,8 +53,8 @@ const ScheduleDateTime = () => {
                   w="100%"
                   textAlign="center"
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                   fontSize="14px"
@@ -46,7 +65,7 @@ const ScheduleDateTime = () => {
               </VStack>
 
               <Box
-                w={["90%", "70%"]}
+                w={['90%', '70%']}
                 mx="auto"
                 // border="2px solid green"
               >
@@ -58,8 +77,8 @@ const ScheduleDateTime = () => {
                 />
 
                 <Grid
-                  templateColumns={["repeat(1,1fr)", "repeat(2,1fr)"]}
-                  columnGap={[0, "20px"]}
+                  templateColumns={['repeat(1,1fr)', 'repeat(2,1fr)']}
+                  columnGap={[0, '20px']}
                 >
                   <PrimaryDate
                     label="start time"
@@ -75,8 +94,8 @@ const ScheduleDateTime = () => {
                     fontWeight={600}
                     fontSize="18px"
                     sx={{
-                      "::first-letter": {
-                        textTransform: "uppercase",
+                      '::first-letter': {
+                        textTransform: 'uppercase',
                       },
                     }}
                   >
@@ -84,12 +103,12 @@ const ScheduleDateTime = () => {
                   </Text>
 
                   <Checkbox textTransform="capitalize">
-                    studio engineer -{" "}
+                    studio engineer -{' '}
                     <span style={{ fontWeight: 600 }}>1000 NGN</span>
                   </Checkbox>
 
                   <Checkbox textTransform="capitalize">
-                    sound mixer -{" "}
+                    sound mixer -{' '}
                     <span style={{ fontWeight: 600 }}>1000 NGN</span>
                   </Checkbox>
                 </VStack>
@@ -100,15 +119,15 @@ const ScheduleDateTime = () => {
                 w="160px"
                 h="50px"
                 mx="auto"
-                mt={["30px", "50px"]}
+                mt={['30px', '50px']}
                 backgroundColor="rgba(21, 112, 250, 1)"
                 borderRadius="4px"
                 transition="0.5s linear"
                 _hover={{
-                  backgroundColor: "transparent",
+                  backgroundColor: 'transparent',
                 }}
               >
-                <Button
+                {/* <Button
                   type="submit"
                   w="100%"
                   h="100%"
@@ -116,12 +135,13 @@ const ScheduleDateTime = () => {
                   backgroundColor="transparent"
                   transition="0.5s linear"
                   _hover={{
-                    color: "rgba(21, 112, 250, 1)",
-                    backgroundColor: "transparent",
+                    color: 'rgba(21, 112, 250, 1)',
+                    backgroundColor: 'transparent',
                   }}
                 >
                   Proceed
-                </Button>
+                </Button> */}
+                <SubmitButton isLoading={undefined} textContent="  Proceed" />
               </Box>
             </form>
           </Box>

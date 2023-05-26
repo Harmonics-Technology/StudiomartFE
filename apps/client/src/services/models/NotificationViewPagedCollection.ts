@@ -16,3 +16,4 @@ export type NotificationViewPagedCollection = {
     self?: Link;
     value?: Array<NotificationView> | null;
 };
+

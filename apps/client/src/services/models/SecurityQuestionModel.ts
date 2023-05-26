@@ -9,3 +9,4 @@ export type SecurityQuestionModel = {
     password?: string | null;
     otp?: string | null;
 };
+

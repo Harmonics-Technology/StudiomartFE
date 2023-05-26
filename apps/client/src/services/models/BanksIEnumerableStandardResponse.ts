@@ -17,3 +17,4 @@ export type BanksIEnumerableStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
+

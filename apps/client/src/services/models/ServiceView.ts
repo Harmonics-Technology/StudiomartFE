@@ -19,3 +19,4 @@ export type ServiceView = {
     serviceTypeId?: string;
     serviceType?: ServiceTypeView;
 };
+

@@ -9,13 +9,13 @@ import {
   InputRightElement,
   Text,
   VStack,
-} from "@chakra-ui/react";
-import React from "react";
-import { useForm } from "react-hook-form";
-import { BackToPage, Cvcinputgroup, PrimaryInput, PrimarySelect } from "ui";
+} from '@chakra-ui/react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { BackToPage, Cvcinputgroup, PrimaryInput, PrimarySelect } from 'ui';
 
 const CustomerCheckout = () => {
-  const months = ["jan"];
+  const months = ['jan'];
   const {
     register,
     handleSubmit,
@@ -25,22 +25,22 @@ const CustomerCheckout = () => {
   return (
     <Box w=" 100%" minH="100vh" py="30px">
       <Box w="90%" mx="auto">
-        <BackToPage name="Back to booking" path="/" />
+        <BackToPage name="Back to booking" />
 
         <Flex
-          flexDirection={["column", "column", "row"]}
-          gap={["0px", "30px"]}
+          flexDirection={['column', 'column', 'row']}
+          gap={['0px', '30px']}
           pt="30px"
         >
-          <Box width={["100%", "100%", "50%"]}>
+          <Box width={['100%', '100%', '50%']}>
             <Heading
               w="100%"
               bg="rgba(21, 112, 250, 0.1)"
               p="10px"
-              fontSize={["24px", "32px"]}
+              fontSize={['24px', '32px']}
               sx={{
-                "::first-letter": {
-                  textTransform: "capitalize",
+                '::first-letter': {
+                  textTransform: 'capitalize',
                 },
               }}
             >
@@ -49,7 +49,7 @@ const CustomerCheckout = () => {
 
             <form>
               <VStack alignItems="flex-start" spacing={5}>
-                <Box w={["100%", "100%", "350px"]}>
+                <Box w={['100%', '100%', '350px']}>
                   <PrimaryInput<any>
                     name="cardnumber"
                     register={register}
@@ -145,11 +145,11 @@ const CustomerCheckout = () => {
               </Flex>
             </form>
           </Box>
-          <Box width={["100%", "100%", "50%"]}>
+          <Box width={['100%', '100%', '50%']}>
             <Heading
               textTransform="capitalize"
               bg="rgba(21, 112, 250, 0.1)"
-              fontSize={["20px", "24px"]}
+              fontSize={['20px', '24px']}
               p="15px 20px"
               color="brand.100"
             >
@@ -166,10 +166,10 @@ const CustomerCheckout = () => {
                 <Text
                   w="50%"
                   mb="0"
-                  fontSize={["14px", "16px"]}
+                  fontSize={['14px', '16px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -180,10 +180,10 @@ const CustomerCheckout = () => {
                   mb="0"
                   textAlign="right"
                   fontWeight={600}
-                  fontSize={["16px", "18px"]}
+                  fontSize={['16px', '18px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -195,10 +195,10 @@ const CustomerCheckout = () => {
                 <Text
                   w="50%"
                   mb="0"
-                  fontSize={["14px", "16px"]}
+                  fontSize={['14px', '16px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -209,10 +209,10 @@ const CustomerCheckout = () => {
                   mb="0"
                   textAlign="right"
                   fontWeight={600}
-                  fontSize={["16px", "18px"]}
+                  fontSize={['16px', '18px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -224,10 +224,10 @@ const CustomerCheckout = () => {
                 <Text
                   w="50%"
                   mb="0"
-                  fontSize={["14px", "16px"]}
+                  fontSize={['14px', '16px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -238,10 +238,10 @@ const CustomerCheckout = () => {
                   mb="0"
                   textAlign="right"
                   fontWeight={600}
-                  fontSize={["16px", "18px"]}
+                  fontSize={['16px', '18px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -261,10 +261,10 @@ const CustomerCheckout = () => {
                 <Text
                   w="50%"
                   mb="0"
-                  fontSize={["14px", "16px"]}
+                  fontSize={['14px', '16px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -275,10 +275,10 @@ const CustomerCheckout = () => {
                   mb="0"
                   textAlign="right"
                   fontWeight={600}
-                  fontSize={["16px", "18px"]}
+                  fontSize={['16px', '18px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -290,10 +290,10 @@ const CustomerCheckout = () => {
                 <Text
                   w="50%"
                   mb="0"
-                  fontSize={["14px", "16px"]}
+                  fontSize={['14px', '16px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -304,10 +304,10 @@ const CustomerCheckout = () => {
                   mb="0"
                   textAlign="right"
                   fontWeight={600}
-                  fontSize={["16px", "18px"]}
+                  fontSize={['16px', '18px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -319,11 +319,11 @@ const CustomerCheckout = () => {
                 <Text
                   w="50%"
                   mb="0"
-                  fontSize={["14px", "16px"]}
+                  fontSize={['14px', '16px']}
                   fontWeight={600}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -334,10 +334,10 @@ const CustomerCheckout = () => {
                   mb="0"
                   textAlign="right"
                   fontWeight={600}
-                  fontSize={["16px", "18px"]}
+                  fontSize={['16px', '18px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >

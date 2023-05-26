@@ -7,3 +7,4 @@ export type Banks = {
     code?: string | null;
     name?: string | null;
 };
+

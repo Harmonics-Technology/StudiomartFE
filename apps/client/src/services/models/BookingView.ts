@@ -19,3 +19,4 @@ export type BookingView = {
     totalAmount?: number;
     status?: string | null;
 };
+
