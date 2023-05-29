@@ -7,7 +7,8 @@
   "workspaces": [
     "apps/*",
     "packages/config/*",
-    "packages/shared/*"
+    "packages/shared/*",
+    "next"
   ],
   "engines": {
     "node": ">=14.0.0"
@@ -34,6 +35,7 @@
     "firebase": "^9.22.0",
     "moment": "^2.29.4",
     "naija-state-local-government": "^1.1.2",
+    "node-fetch-polyfill": "^2.0.6",
     "react-circular-progressbar": "^2.1.0",
     "react-currency-input-field": "^3.6.10",
     "react-multi-date-picker": "^4.0.0",
