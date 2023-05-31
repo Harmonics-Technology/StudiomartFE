@@ -6,4 +6,3 @@ export type PasswordVerificationModel = {
     userId?: string;
     password?: string | null;
 };
-

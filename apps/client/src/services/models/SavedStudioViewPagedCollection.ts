@@ -3,9 +3,9 @@
 /* eslint-disable */
 
 import type { Link } from './Link';
-import type { NotificationView } from './NotificationView';
+import type { SavedStudioView } from './SavedStudioView';
 
-export type NotificationViewPagedCollection = {
+export type SavedStudioViewPagedCollection = {
     offset?: number | null;
     limit?: number | null;
     size?: number;
@@ -14,5 +14,5 @@ export type NotificationViewPagedCollection = {
     next?: Link;
     last?: Link;
     self?: Link;
-    value?: Array<NotificationView> | null;
+    value?: Array<SavedStudioView> | null;
 };

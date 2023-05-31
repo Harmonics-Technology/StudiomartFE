@@ -42,7 +42,7 @@ export const LoginPage = () => {
     handleSubmit,
     handleSubmit: VendorSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
   } = useForm<LoginModel>({
     resolver: yupResolver(validation),
     mode: "all",
@@ -56,7 +56,7 @@ export const LoginPage = () => {
         if (terms) {
           Cookies.set("isCustomer", JSON.stringify(data));
         }
-        toast.success("Login Successful!");
+        toast.success("Login Successful!", { className: "loginToast" });
         Cookies.set("customer", JSON.stringify(result.data));
         Cookies.set("user", "Customer");
         OpenAPI.TOKEN = result?.data?.token as string;
@@ -69,10 +69,12 @@ export const LoginPage = () => {
           : (window.location.href = `/`);
         return;
       }
-      toast.error(result.message as string);
+      toast.error(result.message as string, { className: "logonToast" });
       return;
     } catch (error: any) {
-      toast.error(error?.body?.message || error?.message);
+      toast.error(error?.body?.message || error?.message, {
+        className: "loginToast",
+      });
     }
   };
 
@@ -144,7 +146,7 @@ export const LoginPage = () => {
                 &nbsp;Sign up here.
               </Link>
             </Text>
-{/* 
+            {/* 
             <LoginTypeBtn
               loginOption={[
                 {
@@ -209,7 +211,11 @@ export const LoginPage = () => {
                   </Checkbox>
                 </Flex>
 
-                <SubmitButton textContent="sign in" isLoading={isSubmitting} />
+                <SubmitButton
+                  textContent="sign in"
+                  isLoading={isSubmitting}
+                  isValid={isValid}
+                />
               </form>
             )}
 

@@ -15,4 +15,3 @@ export type UserView = {
     allowEmailNotification?: boolean;
     allowPushNotification?: boolean;
 };
-

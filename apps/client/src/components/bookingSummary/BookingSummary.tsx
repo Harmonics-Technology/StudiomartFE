@@ -2,21 +2,82 @@ import {
   Box,
   Button,
   Checkbox,
+  Flex,
   Heading,
   HStack,
   Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { BackToPage, Rating } from "ui";
+import toast from "react-hot-toast";
+import { ICustomerHome } from "src/models/schema";
+import {
+  AdditionalServiceView,
+  BookingModel,
+  BookingService,
+  TimeOnly,
+} from "src/services";
+import { BackToPage, Naira, Rating } from "ui";
 
-const BookingSummary = () => {
-  const [checked, setChecked] = useState(true);
+const BookingSummary = ({ singleService, ratings, id }: ICustomerHome) => {
+  // const [checked, setChecked] = useState(true);
+  const router = useRouter();
+  const { date } = router.query;
+  const { time } = router.query;
+  const [selectedAddon, setSelectedAddon] = useState<AdditionalServiceView[]>(
+    []
+  );
+  const [loading, setLoading] = useState(false);
+
+  const addToArray = (data: AdditionalServiceView) => {
+    const exist = selectedAddon.find((x: any) => x.id == data.id);
+    if (exist) {
+      setSelectedAddon(selectedAddon.filter((x: any) => x.id !== data.id));
+      return;
+    }
+    setSelectedAddon([...selectedAddon, data]);
+  };
+
+  const grandTotal =
+    selectedAddon.reduce((a, b) => a + (b.price as number), 0) +
+    (singleService?.price as number);
+
+  const CreateBooking = async () => {
+    const data: BookingModel = {
+      date: date as string,
+      time: time as TimeOnly,
+      serviceId: id,
+    };
+    setLoading(true);
+    try {
+      const result = await BookingService.createBooking({ requestBody: data });
+      console.log({ result });
+      if (result.status) {
+        setLoading(false);
+        toast.success(result.message as string);
+        // router.push(
+        //   `/customer/bookings/${id}?date=${data.date}&time=${data.time}`
+        // );
+        return;
+      }
+      setLoading(false);
+      toast.error(result.message as string);
+      return;
+    } catch (error: any) {
+      setLoading(false);
+      toast.error(error?.body?.message || error?.message, {
+        className: "loginToast",
+      });
+    }
+  };
+
   return (
     <Box minH="screen" pb="20" pt={["5", "20"]} mx="auto" w="90%">
-      <BackToPage path="/" name="Back to studio details" />
+      <BackToPage name="Back to studio details" />
       <Stack mt={["10", "14"]} direction={["column", "row"]} spacing="5">
         <Box w={["full", "60%"]}>
           <Box>
@@ -25,7 +86,8 @@ const BookingSummary = () => {
             </Heading>
             <VStack py={["6", "8"]} align="flex-start" spacing="2">
               <Text mb="0" fontWeight={700} fontSize={["1.1rem", "1.3rem"]}>
-                Juggarnaut studio -70,000 NGN {""}
+                {singleService?.name} - {Naira(singleService?.price as number)}{" "}
+                NGN {""}
                 <Text
                   fontSize={[".9rem", "1rem"]}
                   fontWeight={400}
@@ -36,7 +98,7 @@ const BookingSummary = () => {
                 </Text>
               </Text>
               <Text color="#808080" fontSize={[".9rem", "1rem"]}>
-                Lekki, Lagos
+                {singleService?.studio?.city}, {singleService?.studio?.state}
               </Text>
               <Rating />
             </VStack>
@@ -45,41 +107,38 @@ const BookingSummary = () => {
             <Heading fontSize={["1.2rem", "1.7rem"]} p="4" bgColor="brand.300">
               Date and time
             </Heading>
-            <Text
-              py={["6", "8"]}
-              fontWeight={600}
-              fontSize={["1rem", "1.3rem"]}
-            >
-              Thur 16, June 2022{" "}
-              <Text as="span" fontWeight={400}>
-                {" "}
-                (10: 00 am - 11: 00 am)
+            <HStack align="center" py={["6", "8"]}>
+              <Text fontWeight={600} fontSize={["1rem", "1.3rem"]} mb="0">
+                {dayjs(date as string).format("ddd DD, MMMM, YYYY")}
               </Text>
-            </Text>
+              <Text fontWeight={400} mb="0">
+                ({dayjs(time as string).format("hh:mm A")})
+              </Text>
+            </HStack>
           </Box>
           <Box>
             <Heading fontSize={["1.2rem", "1.7rem"]} p="4" bgColor="brand.300">
               Additional services
             </Heading>
-            <Checkbox
-              size="lg"
-              onChange={() => setChecked((prev) => !prev)}
-              py={["6", "8"]}
-              isChecked={checked}
-            >
-              <Text
-                mb="0"
-                as="span"
-                fontSize={["1rem", "1.3rem"]}
-                fontWeight={400}
-              >
-                Studio engineer -{" "}
-              </Text>
-              <Text as="span" fontWeight={700} fontSize={[".9rem", "1rem"]}>
-                {" "}
-                1,000 NGN
-              </Text>
-            </Checkbox>
+            <VStack align="flex-start" gap=".5rem">
+              {singleService?.additionalServices?.map((x) => (
+                <Checkbox
+                  textTransform="capitalize"
+                  key={x.id}
+                  onChange={() => addToArray(x)}
+                  checked={
+                    selectedAddon.find(
+                      (e) => e.id == x.id
+                    ) as unknown as boolean
+                  }
+                >
+                  {x.name} -{" "}
+                  <span style={{ fontWeight: 600 }}>
+                    {Naira(x.price as number)} NGN
+                  </span>
+                </Checkbox>
+              ))}
+            </VStack>
           </Box>
         </Box>
         <Box w={["full", "40%"]}>
@@ -104,23 +163,28 @@ const BookingSummary = () => {
             <HStack align="center" w="full" justify="space-between">
               <Text mb="0">Studio amount per hour:</Text>
               <Text fontSize={["1.1rem", "1.2rem"]} fontWeight={600}>
-                70,000 NGN
+                {Naira(singleService?.price as number)} NGN
               </Text>
             </HStack>
-            {checked && (
-              <HStack align="center" w="full" justify="space-between">
+            {selectedAddon?.map((x: AdditionalServiceView) => (
+              <HStack
+                align="center"
+                w="full"
+                justify="space-between"
+                key={x.id}
+              >
                 <Text mb="0">Studio engineer:</Text>
                 <Text fontSize={["1.1rem", "1.2rem"]} fontWeight={600}>
-                  70,000 NGN
+                  {Naira(x?.price as number)} NGN
                 </Text>
               </HStack>
-            )}
+            ))}
             <HStack align="center" w="full" justify="space-between">
               <Text mb="0" fontSize={["1.1rem", "1.2rem"]} fontWeight={700}>
                 Total
               </Text>
               <Text fontSize={["1.1rem", "1.2rem"]} fontWeight={700}>
-                70,000 NGN
+                {Naira(grandTotal)} NGN
               </Text>
             </HStack>
             <HStack
@@ -130,26 +194,23 @@ const BookingSummary = () => {
               pt={["10", "20"]}
               pb={["10", "initial"]}
             >
-              <Link href="/customer">
-                <Button
-                  bgColor="brand.100"
-                  color="white"
-                  w={["150px", "200px"]}
-                  p="7"
-                  _hover={{
-                    color: "brand.100",
-                    bgColor: "transparent",
-                    border: "2px solid #1570FA",
-                  }}
-                  _focus={{
-                    outline: "none",
-                  }}
-                  variant="solid"
-                  borderRadius="4px"
-                >
-                  Select date
-                </Button>
-              </Link>
+              <Button
+                bgColor="brand.100"
+                color="white"
+                h="3.5rem"
+                px="2rem"
+                _hover={{
+                  color: "brand.100",
+                  bgColor: "transparent",
+                  border: "2px solid #1570FA",
+                }}
+                variant="solid"
+                borderRadius="4px"
+                onClick={CreateBooking}
+                isLoading={loading}
+              >
+                Create booking
+              </Button>
             </HStack>
           </VStack>
         </Box>

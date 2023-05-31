@@ -3,13 +3,16 @@
 /* eslint-disable */
 
 import type { Service } from './Service';
+import type { User } from './User';
 
-export type AdditionalService = {
+export type Review = {
     id?: string;
     dateCreated?: string;
     dateModified?: string;
-    name?: string | null;
-    price?: number;
+    userId?: string;
+    user?: User;
     serviceId?: string;
     service?: Service;
+    reviewNote?: string | null;
+    reviewCount?: number;
 };

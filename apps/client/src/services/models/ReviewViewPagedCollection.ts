@@ -16,4 +16,3 @@ export type ReviewViewPagedCollection = {
     self?: Link;
     value?: Array<ReviewView> | null;
 };
-

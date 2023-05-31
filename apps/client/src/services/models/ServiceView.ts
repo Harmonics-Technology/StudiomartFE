@@ -4,6 +4,7 @@
 
 import type { AdditionalServiceView } from './AdditionalServiceView';
 import type { MediaView } from './MediaView';
+import type { ReviewCountView } from './ReviewCountView';
 import type { ServiceTypeView } from './ServiceTypeView';
 import type { StudioView } from './StudioView';
 
@@ -18,5 +19,5 @@ export type ServiceView = {
     additionalServices?: Array<AdditionalServiceView> | null;
     serviceTypeId?: string;
     serviceType?: ServiceTypeView;
+    reviewCounts?: ReviewCountView;
 };
-

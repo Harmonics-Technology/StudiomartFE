@@ -17,12 +17,12 @@ export class ReviewService {
      * @throws ApiError
      */
     public static createReview({
-        device,
-        requestBody,
-    }: {
-        device?: any,
-        requestBody?: ReviewModel,
-    }): CancelablePromise<ReviewViewStandardResponse> {
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: ReviewModel,
+}): CancelablePromise<ReviewViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Review/create',
@@ -43,18 +43,18 @@ export class ReviewService {
      * @throws ApiError
      */
     public static getReviews({
-        offset,
-        limit,
-        studioId,
-        serviceId,
-        device,
-    }: {
-        offset?: number,
-        limit?: number,
-        studioId?: string,
-        serviceId?: string,
-        device?: any,
-    }): CancelablePromise<ReviewViewPagedCollectionStandardResponse> {
+offset,
+limit,
+studioId,
+serviceId,
+device,
+}: {
+offset?: number,
+limit?: number,
+studioId?: string,
+serviceId?: string,
+device?: any,
+}): CancelablePromise<ReviewViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Review/reviews',

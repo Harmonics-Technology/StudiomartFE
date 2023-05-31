@@ -4,9 +4,10 @@ import React from "react";
 type Props = {
   textContent: string;
   isLoading: any;
+  isValid: boolean;
 };
 
-const SubmitButton = ({ textContent, isLoading }: Props) => {
+const SubmitButton = ({ textContent, isLoading, isValid }: Props) => {
   return (
     <>
       <Box w="100%" h="3rem">
@@ -20,9 +21,10 @@ const SubmitButton = ({ textContent, isLoading }: Props) => {
           textTransform="capitalize"
           color="white"
           transition="0.5s linear"
-          borderRadius="0"
           cursor="pointer"
           isLoading={isLoading}
+          isDisabled={isValid == false}
+          borderRadius="5px"
           _hover={{
             backgroundColor: "transparent",
             color: "brand.100",

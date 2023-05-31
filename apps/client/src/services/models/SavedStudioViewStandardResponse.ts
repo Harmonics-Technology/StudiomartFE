@@ -3,8 +3,9 @@
 /* eslint-disable */
 
 import type { HttpStatusCode } from './HttpStatusCode';
+import type { SavedStudioView } from './SavedStudioView';
 
-export type BooleanStandardResponse = {
+export type SavedStudioViewStandardResponse = {
     href?: string | null;
     relations?: Array<string> | null;
     method?: string | null;
@@ -12,7 +13,7 @@ export type BooleanStandardResponse = {
     routeValues?: any;
     status?: boolean;
     message?: string | null;
-    data?: boolean;
+    data?: SavedStudioView;
     statusCode?: HttpStatusCode;
     errors?: any;
 };

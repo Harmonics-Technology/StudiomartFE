@@ -3,12 +3,13 @@ import ScheduleDateTime from "@components/customerStudioScheduling/ScheduleDateT
 import React from "react";
 import { GetServerSideProps } from "next";
 import { withPageAuth } from "@components/utils/withPageAuth";
-import { BookingService, LookupModel } from "src/services";
+import { BookingService, LookupModel, StudioService } from "src/services";
+import { ICustomerHome } from "src/models/schema";
 
-const index = ({}: LookupModel) => {
+const index = ({ singleService, id }: ICustomerHome) => {
   return (
     <>
-      <ScheduleDateTime />
+      <ScheduleDateTime singleService={singleService} id={id} />
     </>
   );
 };
@@ -22,11 +23,11 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
       const singleService = await StudioService.getServiceById({
         id,
       });
-      const ratings = await ReviewService.getReviews({ serviceId });
+
       return {
         props: {
           singleService: singleService.data,
-          ratings: ratings?.data,
+          id,
         },
       };
     } catch (error: any) {

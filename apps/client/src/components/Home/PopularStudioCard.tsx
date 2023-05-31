@@ -16,6 +16,7 @@ const PopularStudioCard = ({ service }: IPopularStudios) => {
     itemStrokeWidth: 2,
     activeStrokeColor: "transparent",
   };
+  // console.log({ service });
   return (
     <Box role="group">
       <Box

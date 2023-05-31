@@ -1,28 +1,31 @@
-import { StudioDetails } from "@components/details/StudioDetails";
+import BookingSummary from "@components/bookingSummary/BookingSummary";
 import { withPageAuth } from "@components/utils/withPageAuth";
 import { GetServerSideProps } from "next";
 import React from "react";
 import { ICustomerHome } from "src/models/schema";
-import { ReviewService, StudioService } from "src/services";
+import { StudioService, ReviewService } from "src/services";
 
-const SingleServiceView = ({ singleService, ratings }: ICustomerHome) => {
-  return <StudioDetails singleService={singleService} ratings={ratings} />;
+const summary = ({ singleService, ratings, id }: ICustomerHome) => {
+  return (
+    <BookingSummary singleService={singleService} ratings={ratings} id={id} />
+  );
 };
 
-export default SingleServiceView;
+export default summary;
 
 export const getServerSideProps: GetServerSideProps = withPageAuth(
   async (ctx: any) => {
-    const { serviceId } = ctx.query;
+    const { summaryId } = ctx.query;
     try {
       const singleService = await StudioService.getServiceById({
-        id: serviceId,
+        id: summaryId,
       });
-      const ratings = await ReviewService.getReviews({ serviceId });
+      const ratings = await ReviewService.getReviews({ serviceId: summaryId });
       return {
         props: {
           singleService: singleService.data,
           ratings: ratings?.data,
+          id: summaryId,
         },
       };
     } catch (error: any) {

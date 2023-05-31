@@ -27,12 +27,12 @@ export class UserService {
      * @throws ApiError
      */
     public static create({
-        device,
-        requestBody,
-    }: {
-        device?: any,
-        requestBody?: RegisterModel,
-    }): CancelablePromise<UserViewStandardResponse> {
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: RegisterModel,
+}): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/User/register',
@@ -50,12 +50,12 @@ export class UserService {
      * @throws ApiError
      */
     public static loginUser({
-        device,
-        requestBody,
-    }: {
-        device?: any,
-        requestBody?: LoginModel,
-    }): CancelablePromise<UserViewStandardResponse> {
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: LoginModel,
+}): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/User/login',
@@ -73,12 +73,12 @@ export class UserService {
      * @throws ApiError
      */
     public static verify({
-        token,
-        device,
-    }: {
-        token: string,
-        device?: any,
-    }): CancelablePromise<UserViewStandardResponse> {
+token,
+device,
+}: {
+token: string,
+device?: any,
+}): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/User/verifyUser/{token}',
@@ -97,14 +97,14 @@ export class UserService {
      * @throws ApiError
      */
     public static initiateReset({
-        redirectUrl,
-        device,
-        requestBody,
-    }: {
-        redirectUrl?: string,
-        device?: any,
-        requestBody?: InitiateResetModel,
-    }): CancelablePromise<UserViewStandardResponse> {
+redirectUrl,
+device,
+requestBody,
+}: {
+redirectUrl?: string,
+device?: any,
+requestBody?: InitiateResetModel,
+}): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/User/reset/initiate',
@@ -125,12 +125,12 @@ export class UserService {
      * @throws ApiError
      */
     public static completeReset({
-        device,
-        requestBody,
-    }: {
-        device?: any,
-        requestBody?: PasswordReset,
-    }): CancelablePromise<UserViewStandardResponse> {
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: PasswordReset,
+}): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/User/reset/complete',
@@ -148,12 +148,12 @@ export class UserService {
      * @throws ApiError
      */
     public static updateUser({
-        device,
-        requestBody,
-    }: {
-        device?: any,
-        requestBody?: UpdateUserModel,
-    }): CancelablePromise<UserViewStandardResponse> {
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: UpdateUserModel,
+}): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/User/update',
@@ -171,14 +171,14 @@ export class UserService {
      * @throws ApiError
      */
     public static updatePassword({
-        oldPassword,
-        newPassword,
-        device,
-    }: {
-        oldPassword?: string,
-        newPassword?: string,
-        device?: any,
-    }): CancelablePromise<UserViewStandardResponse> {
+oldPassword,
+newPassword,
+device,
+}: {
+oldPassword?: string,
+newPassword?: string,
+device?: any,
+}): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/User/change_password',
@@ -198,12 +198,12 @@ export class UserService {
      * @throws ApiError
      */
     public static userProfile({
-        userId,
-        device,
-    }: {
-        userId: string,
-        device?: any,
-    }): CancelablePromise<UserProfileViewStandardResponse> {
+userId,
+device,
+}: {
+userId: string,
+device?: any,
+}): CancelablePromise<UserProfileViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/User/user-profile/{userId}',
@@ -222,12 +222,12 @@ export class UserService {
      * @throws ApiError
      */
     public static getUserById({
-        userId,
-        device,
-    }: {
-        userId: string,
-        device?: any,
-    }): CancelablePromise<UserViewStandardResponse> {
+userId,
+device,
+}: {
+userId: string,
+device?: any,
+}): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/User/{userId}',
@@ -246,10 +246,10 @@ export class UserService {
      * @throws ApiError
      */
     public static validateToken({
-        device,
-    }: {
-        device?: any,
-    }): CancelablePromise<UserViewStandardResponse> {
+device,
+}: {
+device?: any,
+}): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/User/validate-token',
@@ -268,12 +268,12 @@ export class UserService {
      * @throws ApiError
      */
     public static becomeVendor({
-        device,
-        requestBody,
-    }: {
-        device?: any,
-        requestBody?: VendorUpgradeModel,
-    }): CancelablePromise<UserViewStandardResponse> {
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: VendorUpgradeModel,
+}): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/User/become-vendor',
@@ -291,12 +291,12 @@ export class UserService {
      * @throws ApiError
      */
     public static createVendor({
-        device,
-        requestBody,
-    }: {
-        device?: any,
-        requestBody?: VendorRegisterModel,
-    }): CancelablePromise<UserViewStandardResponse> {
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: VendorRegisterModel,
+}): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/User/create-vendor',
@@ -314,10 +314,10 @@ export class UserService {
      * @throws ApiError
      */
     public static getOtp({
-        device,
-    }: {
-        device?: any,
-    }): CancelablePromise<UserViewStandardResponse> {
+device,
+}: {
+device?: any,
+}): CancelablePromise<UserViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/User/get-otp',
@@ -333,12 +333,12 @@ export class UserService {
      * @throws ApiError
      */
     public static createSecurityQuestion({
-        device,
-        requestBody,
-    }: {
-        device?: any,
-        requestBody?: SecurityQuestionModel,
-    }): CancelablePromise<BooleanStandardResponse> {
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: SecurityQuestionModel,
+}): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/User/security-question/create-or-update',
@@ -359,12 +359,12 @@ export class UserService {
      * @throws ApiError
      */
     public static verifySecurityQuestionAnswer({
-        answer,
-        device,
-    }: {
-        answer?: string,
-        device?: any,
-    }): CancelablePromise<BooleanStandardResponse> {
+answer,
+device,
+}: {
+answer?: string,
+device?: any,
+}): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/User/security-question/verify-answer',
@@ -386,10 +386,10 @@ export class UserService {
      * @throws ApiError
      */
     public static getUserSecurityQuestion({
-        device,
-    }: {
-        device?: any,
-    }): CancelablePromise<StringStandardResponse> {
+device,
+}: {
+device?: any,
+}): CancelablePromise<StringStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/User/security-question/question',
@@ -408,12 +408,12 @@ export class UserService {
      * @throws ApiError
      */
     public static verifyPassword({
-        device,
-        requestBody,
-    }: {
-        device?: any,
-        requestBody?: PasswordVerificationModel,
-    }): CancelablePromise<BooleanStandardResponse> {
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: PasswordVerificationModel,
+}): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/User/verify-user-password',

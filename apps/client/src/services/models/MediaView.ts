@@ -6,4 +6,3 @@ export type MediaView = {
     url?: string | null;
     id?: string;
 };
-

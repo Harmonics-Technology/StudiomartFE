@@ -9,4 +9,3 @@ export type Link = {
     routeName?: string | null;
     routeValues?: any;
 };
-

@@ -26,4 +26,3 @@ export type StudioView = {
     linkedIn?: string | null;
     youTube?: string | null;
 };
-

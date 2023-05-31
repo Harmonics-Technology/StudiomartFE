@@ -17,4 +17,3 @@ export type VendorDashboardViewStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
-

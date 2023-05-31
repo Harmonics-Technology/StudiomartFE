@@ -17,4 +17,3 @@ export type BookingViewStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
-

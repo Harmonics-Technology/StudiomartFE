@@ -24,6 +24,7 @@ import { useRouter } from "next/router";
 
 export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
   const router = useRouter();
+  
   return (
     <Box pb="10" pt={["5", "10"]}>
       <Box w="90%" mx="auto" pb="7">
@@ -169,7 +170,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
             borderRadius="4px"
             cursor="pointer"
             onClick={() =>
-              router.push(`/customer/schedule-session${singleService?.id}`)
+              router.push(`/customer/schedule-session/${singleService?.id}`)
             }
             _hover={{
               backgroundColor: "transparent",

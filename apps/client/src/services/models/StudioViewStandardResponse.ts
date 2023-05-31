@@ -17,4 +17,3 @@ export type StudioViewStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
-

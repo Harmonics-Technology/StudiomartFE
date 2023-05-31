@@ -15,4 +15,3 @@ export type Media = {
     studioId?: string | null;
     studio?: Studio;
 };
-

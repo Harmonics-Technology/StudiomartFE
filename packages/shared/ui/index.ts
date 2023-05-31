@@ -1,3 +1,4 @@
+import useWindowSize  from './Components/utils/useWindowSize';
 import { getDeviceFromUserAgent } from "./Components/utils/GetDeviceFromUser";
 import { MenuDropdown } from "./Components/utils/MenuDropdown";
 import { SelectrixBox } from "./Components/utils/SelectrixBox";
@@ -10,7 +11,7 @@ import Rating from "./Components/utils/Rating";
 import { PrimaryTextarea } from "./Components/utils/PrimaryTextArea";
 import PrimarySelect from "./Components/utils/PrimarySelect";
 import PrimaryInput from "./Components/utils/PrimaryInput";
-import PrimaryDate from "./Components/utils/PrimaryDate";
+import {PrimaryDate} from "./Components/utils/PrimaryDate";
 import ModalWrapper from "./Components/utils/ModalWrapper";
 import MenuItem from "./Components/utils/MenuItem";
 import { LoginTypeBtn } from "./Components/utils/LoginTypeBtn";
@@ -76,4 +77,5 @@ export {
   MenuDropdown,
   getUrlRoute,
   getDeviceFromUserAgent,
+  useWindowSize,
 };

@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 @import url("https://fonts.cdnfonts.com/css/br-firma");
 @import url("@smastrom/react-rating/style.css");
+@import url("./toast.css");
 html,
 body {
   margin: 0;
@@ -27,4 +28,19 @@ body {
   width: 100%;
   object-fit: cover;
   overflow: hidden;
+}
+.date {
+  border: 1px solid #808080;
+  height: 60px;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 4px;
+  font-family: "DM Sans";
+  font-size: 20px;
+  color: #636363;
+  font-weight: 700;
+}
+.dateWrapper {
+  width: 100%;
 }

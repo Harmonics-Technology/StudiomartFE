@@ -9,4 +9,3 @@ export type WithdrawalModel = {
     walletPin?: string | null;
     securityQuestionAnswer?: string | null;
 };
-

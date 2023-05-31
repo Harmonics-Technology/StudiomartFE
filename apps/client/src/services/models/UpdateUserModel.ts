@@ -12,4 +12,3 @@ export type UpdateUserModel = {
     allowEmailNotification?: boolean;
     allowPushNotification?: boolean;
 };
-

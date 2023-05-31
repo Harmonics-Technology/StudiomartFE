@@ -10,4 +10,3 @@ export type BankAccountView = {
     bankCode?: string | null;
     bankName?: string | null;
 };
-

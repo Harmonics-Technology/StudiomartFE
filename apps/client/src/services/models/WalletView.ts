@@ -7,4 +7,3 @@ export type WalletView = {
     balanceOnHold?: number;
     totalIncome?: number;
 };
-

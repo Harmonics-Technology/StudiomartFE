@@ -1,77 +1,107 @@
 import {
   FormControl,
+  FormErrorMessage,
   FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
+  GridItem,
+  Text,
 } from "@chakra-ui/react";
-import React from "react";
+import { useWindowSize } from "ui";
+import { Controller, Path, FieldError, Control } from "react-hook-form";
+import DatePicker, { DateObject } from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
-interface FormProps {
-  label: string;
-  type?: string;
-  defaultValue?: string | number;
-  fontWeight?: number;
+interface FormInputProps<TFormValues extends Record<string, unknown>> {
+  name: Path<TFormValues>;
+  required?: boolean;
+  label?: string;
+  error: FieldError | undefined;
+  control: Control<TFormValues>;
+  fontSize?: string;
   placeholder?: string;
-  focusBorderColor?: string;
-  borderColor?: string;
+  min?: any;
+  max?: any;
+  disabled?: boolean;
+  defaultValue?: any;
+  disableWeekend?: boolean;
+  format?: any;
+  isTime?: boolean;
 }
 
-const PrimaryDate = ({
-  label,
-  placeholder,
-  fontWeight,
-  defaultValue,
-  focusBorderColor,
-  borderColor,
-  type,
-}: FormProps) => {
-  return (
-    <>
-      <FormControl w="100%" mb="15px">
-        <FormLabel
-          w="100%"
-          textTransform="capitalize"
-          fontWeight={fontWeight ? fontWeight : 400}
-          mb="5px"
-          fontSize="14px"
-        >
-          {label}
-        </FormLabel>
+interface Size {
+  width: number | undefined;
+  height: number | undefined;
+}
 
-        <InputGroup w="100%">
-          <Input
-            type={type}
-            p="20px"
-            placeholder={placeholder}
-            w="100%"
-            h="40px"
-            bg="white"
-            defaultValue={defaultValue}
-            fontWeight={fontWeight}
-            borderRadius="4px"
-            focusBorderColor={focusBorderColor ? focusBorderColor : "none"}
-            borderColor={borderColor ? borderColor : "rgba(128, 128, 128, 1)"}
-            _placeholder={{
-              fontSize: "14px",
-            }}
-            _hover={{
-              borderColor: borderColor,
-            }}
-          />
-          {/* {icon && (
-                        <InputRightElement
-                            onClick={() => changeVisibility()}
-                            cursor="pointer"
-                            color="#DFDFE6"
-                        >
-                            
-                        </InputRightElement>
-                    )} */}
-        </InputGroup>
-      </FormControl>
-    </>
+export const PrimaryDate = <TFormValues extends Record<string, any>>({
+  name,
+  label = "",
+  error,
+  control,
+  fontSize = ".8rem",
+  placeholder,
+  min,
+  max,
+  disabled,
+  defaultValue,
+  disableWeekend,
+  isTime,
+  format = "DD/MM/YYYY",
+}: FormInputProps<TFormValues>) => {
+  // console.log({ defaultValue });
+  const size: Size = useWindowSize();
+  const isMobile = size.width != null && size.width <= 750;
+  return (
+    <FormControl
+      isInvalid={error?.type === "required" || error?.message !== undefined}
+    >
+      <FormLabel
+        htmlFor={label}
+        textTransform="capitalize"
+        width="fit-content"
+        fontSize={"18px"}
+      >
+        {label}
+      </FormLabel>
+      <Controller
+        control={control}
+        name={name}
+        rules={{ required: true }} //optional
+        render={({ field: { onChange, value } }) => (
+          <>
+            <DatePicker
+              value={defaultValue || value}
+              onChange={(date: any) => {
+                onChange(JSON.stringify(date?.toDate?.())?.replaceAll('"', ""));
+              }}
+              format={format}
+              inputClass={"date"}
+              containerClassName="dateWrapper"
+              hideOnScroll={isMobile ? false : true}
+              placeholder={placeholder}
+              minDate={min}
+              maxDate={max}
+              disabled={disabled}
+              mapDays={({ date }) => {
+                const isWeekend = [0, 6].includes(date.weekDay.index);
+
+                if (disableWeekend && isWeekend)
+                  return {
+                    disabled: true,
+                    style: { color: "#ccc" },
+                  };
+              }}
+              disableDayPicker={isTime}
+              plugins={
+                isTime ? [<TimePicker position="bottom" hideSeconds />] : []
+              }
+            />
+          </>
+        )}
+      />
+      <FormErrorMessage fontSize=".7rem" color="red">
+        {(error?.type === "required" && `${label} is required`) ||
+          error?.message}
+      </FormErrorMessage>
+    </FormControl>
   );
 };
-
-export default PrimaryDate;

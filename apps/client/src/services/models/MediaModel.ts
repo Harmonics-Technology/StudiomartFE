@@ -6,4 +6,3 @@ export type MediaModel = {
     url?: string | null;
     serviceId?: string;
 };
-

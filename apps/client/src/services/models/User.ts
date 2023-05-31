@@ -30,4 +30,3 @@ export type User = {
     allowEmailNotification?: boolean;
     allowPushNotification?: boolean;
 };
-

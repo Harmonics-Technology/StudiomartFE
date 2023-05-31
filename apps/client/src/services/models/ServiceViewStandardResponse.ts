@@ -17,4 +17,3 @@ export type ServiceViewStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
-
