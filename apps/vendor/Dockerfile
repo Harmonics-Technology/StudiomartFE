@@ -23,6 +23,8 @@ WORKDIR /app
 COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/yarn.lock ./yarn.lock
+RUN apk add --no-cache git openssh
+RUN git config --global url."https://".insteadOf git://
 RUN yarn install
 
 # Build the project
@@ -52,7 +54,9 @@ COPY --from=installer /app/apps/vendor/package.json .
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=installer --chown=nextjs:nodejs /app/apps/vendor/.next/standalone ./
+# COPY --from=installer /app/apps/vendor/package.json .
 COPY --from=installer --chown=nextjs:nodejs /app/apps/vendor/.next/static ./apps/vendor/.next/static
 COPY --from=installer --chown=nextjs:nodejs /app/apps/vendor/public ./apps/vendor/public
+# RUN yarn install --frozen-lockfile --production
 
 CMD node apps/vendor/server.js
