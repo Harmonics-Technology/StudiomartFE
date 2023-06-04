@@ -15,4 +15,6 @@ export type StudioViewPagedCollection = {
     last?: Link;
     self?: Link;
     value?: Array<StudioView> | null;
+    nextOffset?: number | null;
+    previousOffset?: number | null;
 };

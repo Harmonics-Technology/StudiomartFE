@@ -3,10 +3,24 @@ import { withPageAuth } from "@components/utils/withPageAuth";
 import { GetServerSideProps } from "next";
 import React from "react";
 import { ICustomerHome } from "src/models/schema";
-import { ReviewService, StudioService } from "src/services";
+import {
+  RecentlyViewedService,
+  ReviewService,
+  StudioService,
+} from "src/services";
 
-const SingleServiceView = ({ singleService, ratings }: ICustomerHome) => {
-  return <StudioDetails singleService={singleService} ratings={ratings} />;
+const SingleServiceView = ({
+  singleService,
+  ratings,
+  recentlyViewed,
+}: ICustomerHome) => {
+  return (
+    <StudioDetails
+      singleService={singleService}
+      ratings={ratings}
+      recentlyViewed={recentlyViewed}
+    />
+  );
 };
 
 export default SingleServiceView;
@@ -14,11 +28,16 @@ export default SingleServiceView;
 export const getServerSideProps: GetServerSideProps = withPageAuth(
   async (ctx: any) => {
     const { serviceId } = ctx.query;
+    const userId = JSON.parse(ctx.req.cookies.customer).id;
     try {
       const singleService = await StudioService.getServiceById({
         id: serviceId,
       });
       const ratings = await ReviewService.getReviews({ serviceId });
+      await RecentlyViewedService.createRecentlyViewed({
+        requestBody: { userId, serviceId },
+      });
+
       return {
         props: {
           singleService: singleService.data,

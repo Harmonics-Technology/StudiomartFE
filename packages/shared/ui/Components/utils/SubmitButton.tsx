@@ -4,10 +4,10 @@ import React from "react";
 type Props = {
   textContent: string;
   isLoading: any;
-  isValid: boolean;
+  isValid?: boolean;
 };
 
-const SubmitButton = ({ textContent, isLoading, isValid }: Props) => {
+const SubmitButton = ({ textContent, isLoading, isValid = true }: Props) => {
   return (
     <>
       <Box w="100%" h="3rem">

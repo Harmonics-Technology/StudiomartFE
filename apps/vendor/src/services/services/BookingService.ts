@@ -1,8 +1,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { BookingFilterOptions } from '../models/BookingFilterOptions';
 import type { BookingModel } from '../models/BookingModel';
+import type { BookingStatus } from '../models/BookingStatus';
 import type { BookingViewPagedCollectionStandardResponse } from '../models/BookingViewPagedCollectionStandardResponse';
 import type { BookingViewStandardResponse } from '../models/BookingViewStandardResponse';
 import type { BooleanStandardResponse } from '../models/BooleanStandardResponse';
@@ -34,7 +34,7 @@ requestBody?: LookupModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
             },
@@ -60,7 +60,7 @@ requestBody?: BookingModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
             },
@@ -107,7 +107,7 @@ id: string,
 device?: any,
 }): CancelablePromise<BookingViewStandardResponse> {
         return __request(OpenAPI, {
-            method: 'DELETE',
+            method: 'PUT',
             url: '/api/Booking/cancel/{id}',
             path: {
                 'id': id,
@@ -215,13 +215,25 @@ device?: any,
     public static getBookingsByServiceId({
 offset,
 limit,
+studioId,
+serviceId,
+status,
+filterBy,
+search,
+startDate,
+endDate,
 device,
-requestBody,
 }: {
 offset?: number,
 limit?: number,
+studioId?: string,
+serviceId?: string,
+status?: BookingStatus,
+filterBy?: number,
+search?: string,
+startDate?: string,
+endDate?: string,
 device?: any,
-requestBody?: BookingFilterOptions,
 }): CancelablePromise<BookingViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -232,9 +244,66 @@ requestBody?: BookingFilterOptions,
             query: {
                 'Offset': offset,
                 'Limit': limit,
+                'StudioId': studioId,
+                'ServiceId': serviceId,
+                'Status': status,
+                'FilterBy': filterBy,
+                'Search': search,
+                'StartDate': startDate,
+                'EndDate': endDate,
             },
-            body: requestBody,
-            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * Get all bookings for a user
+     * @returns BookingViewPagedCollectionStandardResponse Success
+     * @throws ApiError
+     */
+    public static getBookingsByUser({
+offset,
+limit,
+studioId,
+serviceId,
+status,
+filterBy,
+search,
+startDate,
+endDate,
+device,
+}: {
+offset?: number,
+limit?: number,
+studioId?: string,
+serviceId?: string,
+status?: BookingStatus,
+filterBy?: number,
+search?: string,
+startDate?: string,
+endDate?: string,
+device?: any,
+}): CancelablePromise<BookingViewPagedCollectionStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Booking/bookings/user',
+            headers: {
+                'device': device,
+            },
+            query: {
+                'Offset': offset,
+                'Limit': limit,
+                'StudioId': studioId,
+                'ServiceId': serviceId,
+                'Status': status,
+                'FilterBy': filterBy,
+                'Search': search,
+                'StartDate': startDate,
+                'EndDate': endDate,
+            },
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,

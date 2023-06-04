@@ -226,6 +226,7 @@ export const SingleServicePage = ({
                     borderRadius="4px"
                     p="1rem"
                     key={i}
+                    w="full"
                   >
                     <HStack justify="space-between">
                       <Text mb="0" fontWeight="500">
@@ -240,9 +241,9 @@ export const SingleServicePage = ({
                     </HStack>
                     <Text my=".3rem">{review.reviewNote}</Text>
                     <HStack justify="flex-end">
-                      {/* <Text mb="0" fontSize="12px">
+                      <Text mb="0" fontSize="12px">
                         {moment(review.dateCreated).format("MMM DD, YYYY")}
-                      </Text> */}
+                      </Text>
                     </HStack>
                   </Box>
                 ))}

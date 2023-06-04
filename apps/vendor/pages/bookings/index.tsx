@@ -23,15 +23,13 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
     try {
       const allBookings = await BookingService.getBookingsByServiceId({
         offset: pagingOptions.offset,
-        limit: pagingOptions.limit,
-        requestBody: {
-          studioId: currentStudioId,
-          search: pagingOptions.search,
-          status: pagingOptions.filters as number,
-          filterBy: pagingOptions.order,
-          startDate: pagingOptions.from,
-          endDate: pagingOptions.to,
-        },
+        limit: pagingOptions.limit || 10,
+        studioId: currentStudioId,
+        search: pagingOptions.search,
+        status: pagingOptions.filters as number,
+        filterBy: pagingOptions.order,
+        startDate: pagingOptions.from,
+        endDate: pagingOptions.to,
       });
       // console.log({ ctx });
 
@@ -41,6 +39,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
         },
       };
     } catch (error: any) {
+      console.log({ error });
       return {
         props: {
           allBookings: [],

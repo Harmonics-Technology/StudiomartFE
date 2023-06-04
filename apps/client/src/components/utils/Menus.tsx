@@ -108,7 +108,7 @@ function Menus({
                   <ListItem
                     key={i}
                     color="black"
-                    onClick={() => setOpenSidenav(false)}
+                    // onClick={() => setOpenSidenav(false)}
                     fontSize="1rem"
                     fontWeight="500"
                     p=" .8rem 0.5rem .8rem 1.5rem"

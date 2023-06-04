@@ -9,7 +9,7 @@ interface InfoProps {
 
 export const InfoBox = ({ title, desc, des }: InfoProps) => {
   return (
-    <Box w="full">
+    <Box w="full" minW="0">
       <Text fontWeight="600" mb="0">
         {title}
       </Text>

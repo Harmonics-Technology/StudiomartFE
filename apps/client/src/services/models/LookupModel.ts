@@ -2,10 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { TimeOnly } from './TimeOnly';
+import type { TimeOnlyModel } from './TimeOnlyModel';
 
 export type LookupModel = {
     serviceId?: string;
     date?: string;
-    time?: TimeOnly;
+    time?: TimeOnlyModel;
 };

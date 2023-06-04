@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Heading,
@@ -13,18 +13,55 @@ import {
 import Comments from "./Comments";
 import { FaStar } from "react-icons/fa";
 import ProgressBar from "./Progress";
-import { BackToPage, Naira, Rating } from "ui";
+import {
+  BackToPage,
+  CalculatePercent,
+  getReviewSummary,
+  Naira,
+  Rating,
+} from "ui";
 import Carousel from "./Carousel";
 import Link from "next/link";
 import { ICustomerHome } from "src/models/schema";
-import { AdditionalServiceView, MediaView, ReviewView } from "src/services";
+import {
+  AdditionalServiceView,
+  MediaView,
+  ReviewView,
+  StudioService,
+} from "src/services";
 import { DummyImage } from "react-simple-placeholder-image";
 import NoSSR from "react-no-ssr";
 import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
+import PopularStudioCard from "@components/Home/PopularStudioCard";
 
 export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
   const router = useRouter();
-  
+  const review = singleService?.reviewCounts;
+  const [loading, setLoading] = useState(false);
+  const [saveStats, setSaveStats] = useState(false);
+
+  const saveServiceForLater = async () => {
+    setLoading(true);
+    try {
+      const result = await StudioService.saveService({
+        studioId: singleService?.id,
+      });
+      if (result.status) {
+        setLoading(false);
+        setSaveStats(true);
+        toast.success("Added to wishlist", { className: "loginToast" });
+        return;
+      }
+      setLoading(false);
+      toast.error(result.message as string, { className: "loginToast" });
+    } catch (err: any) {
+      setLoading(false);
+      toast.error(err?.body?.message || err?.message, {
+        className: "loginToast",
+      });
+    }
+  };
   return (
     <Box pb="10" pt={["5", "10"]}>
       <Box w="90%" mx="auto" pb="7">
@@ -195,6 +232,12 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
             borderRadius="4px"
             border="2px solid #1570FA"
             cursor="pointer"
+            onClick={
+              saveStats
+                ? () => router.push("/customer/saved-studios")
+                : saveServiceForLater
+            }
+            isLoading={loading}
             _hover={{
               backgroundColor: "brand.100",
               color: "white",
@@ -203,7 +246,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
               outline: "none",
             }}
           >
-            Save studio
+            {saveStats ? "View Saved Studios" : "Save studio"}
           </Button>
         </Box>
       </Box>
@@ -221,11 +264,11 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
         <VStack align="flex-start" spacing={1}>
           <Heading fontSize={["1.2rem", "1.6rem"]}>Customer reviews</Heading>
           <Text fontWeight={500} color="GrayText">
-            {ratings?.size} verified rating
+            {getReviewSummary(review).reviewTotal} verified rating
           </Text>
-          <Rating />
+          <Rating value={getReviewSummary(review).reviewStars} />
           <Text fontWeight={900} fontSize={["1rem", "1.2rem"]}>
-            3.9/5
+            {getReviewSummary(review).reviewStars}/5
           </Text>
         </VStack>
         <VStack align="flex-start">
@@ -234,35 +277,75 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
               5
             </Text>
             <FaStar color="#FACC15" />
-            <ProgressBar />
+            <Box w="12rem">
+              <ProgressBar
+                size={CalculatePercent(
+                  review?.fiveStar,
+                  getReviewSummary(review).reviewTotal
+                )}
+                color="#FACC15"
+              />
+            </Box>
           </HStack>
           <HStack spacing="4">
             <Text fontWeight={500} mb="0">
               4
             </Text>
             <FaStar color="#FACC15" />
-            <ProgressBar />
+            <Box w="12rem">
+              <ProgressBar
+                size={CalculatePercent(
+                  review?.fourStar,
+                  getReviewSummary(review).reviewTotal
+                )}
+                color="#FACC15"
+              />
+            </Box>
           </HStack>
           <HStack spacing="4">
             <Text fontWeight={500} mb="0">
               3
             </Text>
             <FaStar color="#FACC15" />
-            <ProgressBar />
+            <Box w="12rem">
+              <ProgressBar
+                size={CalculatePercent(
+                  review?.threeStar,
+                  getReviewSummary(review).reviewTotal
+                )}
+                color="#FACC15"
+              />
+            </Box>
           </HStack>
           <HStack spacing="4">
             <Text fontWeight={500} mb="0">
               2
             </Text>
             <FaStar color="#FACC15" />
-            <ProgressBar />
+            <Box w="12rem">
+              <ProgressBar
+                size={CalculatePercent(
+                  review?.twoStar,
+                  getReviewSummary(review).reviewTotal
+                )}
+                color="#FACC15"
+              />
+            </Box>
           </HStack>
           <HStack spacing="4">
             <Text fontWeight={500} mb="0">
               1
             </Text>
             <FaStar color="#FACC15" />
-            <ProgressBar />
+            <Box w="12rem">
+              <ProgressBar
+                size={CalculatePercent(
+                  review?.onsStar,
+                  getReviewSummary(review).reviewTotal
+                )}
+                color="#FACC15"
+              />
+            </Box>
           </HStack>
         </VStack>
       </SimpleGrid>

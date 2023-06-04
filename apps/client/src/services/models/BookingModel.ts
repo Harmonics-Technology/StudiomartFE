@@ -2,10 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { TimeOnly } from './TimeOnly';
+import type { TimeOnlyModel } from './TimeOnlyModel';
 
 export type BookingModel = {
     serviceId?: string;
     date?: string;
-    time?: TimeOnly;
+    inputTime?: TimeOnlyModel;
+    additionalServices?: Array<string> | null;
 };

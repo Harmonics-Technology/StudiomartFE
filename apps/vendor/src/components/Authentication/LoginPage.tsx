@@ -42,11 +42,10 @@ export const LoginPage = () => {
   const { device } = useContext(UserContext);
 
   const {
-    handleSubmit,
     handleSubmit: VendorSubmit,
     register,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
   } = useForm<LoginModel>({
     resolver: yupResolver(validation),
     mode: "all",
@@ -193,7 +192,7 @@ export const LoginPage = () => {
                 &nbsp;Sign up here.
               </Link>
             </Text>
-{/* 
+            {/* 
             <LoginTypeBtn
               loginOption={[
                 {
@@ -258,7 +257,11 @@ export const LoginPage = () => {
                   <Link href="/login/reset">Forgot password</Link>
                 </Flex>
 
-                <SubmitButton textContent="sign in" isLoading={isSubmitting} />
+                <SubmitButton
+                  textContent="sign in"
+                  isLoading={isSubmitting}
+                  isValid={isValid}
+                />
               </form>
             ) : (
               <></>

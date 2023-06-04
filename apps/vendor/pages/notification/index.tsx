@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
       const notifications = await NotificationService.getUserNotification({
         userId,
         offset: pagingOptions.offset,
-        limit: pagingOptions.limit,
+        limit: pagingOptions.limit || 5,
       });
 
       return {

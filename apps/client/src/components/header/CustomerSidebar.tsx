@@ -134,7 +134,7 @@ const CustomerSidebar = ({ user }: { user: UserView }) => {
                   dropDown={[]}
                 />
                 <Menus
-                  linkName="/history"
+                  linkName="/customer/history"
                   menuTitle={`History`}
                   icon={<BsFillClockFill opacity=".8" />}
                   option={false}
@@ -154,7 +154,7 @@ const CustomerSidebar = ({ user }: { user: UserView }) => {
                   ]}
                 />
               </VStack>
-              <Link href="/become-a-vendor" pl='2rem'>
+              <Link href="/become-a-vendor" pl="2rem">
                 <Text color="brand.100" fontWeight="600" mb="0">
                   Become a vendor
                 </Text>

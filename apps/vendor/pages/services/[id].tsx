@@ -16,12 +16,18 @@ import { FilterPagingOptions } from "ui";
 interface StudioProps {
   service: ServiceView;
   reviews: ReviewViewPagedCollection;
-  serviceTypes: ServiceTypeViewListStandardResponse
+  serviceTypes: ServiceTypeViewListStandardResponse;
 }
 
 function index({ service, reviews, serviceTypes }: StudioProps) {
   // console.log({ service });
-  return <SingleServicePage service={service} reviews={reviews} serviceTypes={serviceTypes} />;
+  return (
+    <SingleServicePage
+      service={service}
+      reviews={reviews}
+      serviceTypes={serviceTypes}
+    />
+  );
 }
 
 export default index;
@@ -37,7 +43,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
       });
       const reviews = await ReviewService.getReviews({
         offset: pagingOptions.offset,
-        limit: pagingOptions.limit,
+        limit: pagingOptions.limit || 10,
         serviceId: services.data?.id,
         studioId: currentStudioId,
       });

@@ -3,9 +3,9 @@
 /* eslint-disable */
 
 import type { Link } from './Link';
-import type { SavedStudioView } from './SavedStudioView';
+import type { WaitList } from './WaitList';
 
-export type SavedStudioViewPagedCollection = {
+export type WaitListPagedCollection = {
     offset?: number | null;
     limit?: number | null;
     size?: number;
@@ -14,5 +14,7 @@ export type SavedStudioViewPagedCollection = {
     next?: Link;
     last?: Link;
     self?: Link;
-    value?: Array<SavedStudioView> | null;
+    value?: Array<WaitList> | null;
+    nextOffset?: number | null;
+    previousOffset?: number | null;
 };

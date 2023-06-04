@@ -11,6 +11,7 @@ import {
   Grid,
   HStack,
   Button,
+  Input,
 } from "@chakra-ui/react";
 import { Widget } from "@uploadcare/react-widget";
 import React, { useRef, useState } from "react";
@@ -24,7 +25,12 @@ import * as yup from "yup";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { StudioModel, StudioService } from "src/services";
-import { PrimaryInput, PrimarySelect, PrimaryTextarea } from "ui";
+import {
+  GPlacesAutoComplete,
+  PrimaryInput,
+  PrimarySelect,
+  PrimaryTextarea,
+} from "ui";
 //@ts-ignore
 import NaijaStates from "naija-state-local-government";
 import {
@@ -53,6 +59,8 @@ const AddStudio = () => {
   const {
     handleSubmit,
     register,
+    setValue,
+    reset,
     watch,
     formState: { errors, isSubmitting, isValid },
   } = useForm<StudioModel>({
@@ -61,7 +69,7 @@ const AddStudio = () => {
   });
   const allStates = NaijaStates.states();
   const selectedLga = NaijaStates.lgas(watch("state") || "lagos");
-  console.log({ selectedLga });
+  // console.log({ selectedLga });
   const router = useRouter();
   //Logo upload
   const [logoUrl, setLogoUrl] = useState();
@@ -98,6 +106,20 @@ const AddStudio = () => {
           setBannerUrl(info.originalUrl);
       });
     }
+  };
+
+  // console.log(process.env.NEXT_PUBLIC_GOOGLE_API_KEY);
+
+  const [address, setAddress] = useState<string>("");
+
+  const handleChange = (address: any) => {
+    setAddress(address);
+    console.log({ address });
+  };
+  const getCityAndState = (value: any) => {
+    // value = value.split(",");
+    setAddress(value);
+    setValue("address", value);
   };
 
   //Studio creation function
@@ -256,6 +278,15 @@ const AddStudio = () => {
               />
             </Grid>
             <Grid gap="1.5rem" templateColumns={["repeat(2, 1fr)"]} w="full">
+              {/* <PrimaryInput<StudioModel>
+                label="Studio Address"
+                type="text"
+                placeholder="Full address of your studio?"
+                name="address"
+                error={errors.address}
+                register={register}
+                ref={googleRef}
+              /> */}
               <PrimarySelect<StudioModel>
                 label="Studio Country"
                 name="country"
@@ -270,6 +301,16 @@ const AddStudio = () => {
                   </>
                 }
               />
+
+              <GPlacesAutoComplete
+                onSelect={getCityAndState}
+                onChange={handleChange}
+                address={address}
+                hasLabel="address"
+                className="auto"
+              />
+            </Grid>
+            <Grid gap="1.5rem" templateColumns={["repeat(3, 1fr)"]} w="full">
               <PrimarySelect<StudioModel>
                 label="Studio State"
                 name="state"
@@ -281,8 +322,6 @@ const AddStudio = () => {
                   </option>
                 ))}
               />
-            </Grid>
-            <Grid gap="1.5rem" templateColumns={["repeat(3, 1fr)"]} w="full">
               <PrimarySelect<StudioModel>
                 label="Studio City"
                 name="city"
@@ -300,14 +339,6 @@ const AddStudio = () => {
                 placeholder="Zip code of your studio address?"
                 name="zipCode"
                 error={errors.zipCode}
-                register={register}
-              />
-              <PrimaryInput<StudioModel>
-                label="Studio Address"
-                type="text"
-                placeholder="Full address of your studio?"
-                name="address"
-                error={errors.address}
                 register={register}
               />
             </Grid>

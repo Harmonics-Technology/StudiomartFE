@@ -26,6 +26,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 // import Link from "next/link";
 import { BsCheckCircle } from "react-icons/bs";
+import { auth, db } from "@components/firebase/firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -103,9 +106,23 @@ export const SignUpPage = () => {
     // console.log({ data });
     try {
       const result = await UserService.create({ requestBody: data });
-      console.log({ result });
+      // console.log({ result });
       if (result.status) {
-        toast.success(result.message as string);
+        const res = await createUserWithEmailAndPassword(
+          auth,
+          data.email as string,
+          data.password as string
+        );
+        await updateProfile(res.user, {
+          displayName: data.firstName,
+        });
+        await setDoc(doc(db, "users", result?.data?.id as string), {
+          uid: result.data?.id,
+          email: res.user.email,
+          displayName: data.firstName,
+        });
+        await setDoc(doc(db, "userChats", result?.data?.id as string), {});
+        toast.success(result.message as string, { className: "loginToast" });
         setSuccess(true);
         return;
       }

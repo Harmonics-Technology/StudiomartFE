@@ -15,7 +15,7 @@
         "schema:generate": "node ./script/schema-codegen.js --srcPath ./src/types/api-schema.json --destPath ./src/types/api --separatedFiles true",
         "schema:codegen": "yarn schema:fetch && yarn schema:generate",
         "format-staged": "pretty-quick --staged",
-        "openapi:codegen": "openapi --input https://studiomart-api.azurewebsites.net/swagger/v1/swagger.json --output ./src/services --client axios --useOptions"
+        "openapi:codegen": "openapi --input https://studiomartbe.azurewebsites.net/swagger/v1/swagger.json --output ./src/services --client axios --useOptions"
     },
     "dependencies": {
         "@chakra-ui/icons": "^2.0.15",
@@ -41,7 +41,7 @@
         "react-dom": "^18.2.0",
         "react-hook-form": "^7.39.5",
         "react-hot-toast": "^2.4.0",
-        "react-icons": "^4.7.1",
+        "react-icons": "^4.9.0",
         "react-multi-date-picker": "^3.3.4",
         "react-responsive-carousel": "^3.2.23",
         "react-selectrix": "^1.0.17",
@@ -71,8 +71,8 @@
         "next-transpile-modules": "^10.0.0",
         "nock": "^13.0.6",
         "ts-jest": "^26.4.4",
-        "typescript": "^4.1.3",
-        "tsconfig": "*"
+        "tsconfig": "*",
+        "typescript": "^4.1.3"
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx}": [

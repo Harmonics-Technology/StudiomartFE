@@ -12,4 +12,5 @@ export type ReviewView = {
     service?: ServiceView;
     reviewNote?: string | null;
     reviewCount?: number;
+    dateCreated?: string;
 };

@@ -10,6 +10,8 @@ import type { BooleanStandardResponse } from '../models/BooleanStandardResponse'
 import type { MediaModel } from '../models/MediaModel';
 import type { MediaUpdateModel } from '../models/MediaUpdateModel';
 import type { MediaViewStandardResponse } from '../models/MediaViewStandardResponse';
+import type { SavedServiceViewPagedCollectionStandardResponse } from '../models/SavedServiceViewPagedCollectionStandardResponse';
+import type { SavedServiceViewStandardResponse } from '../models/SavedServiceViewStandardResponse';
 import type { ServiceModel } from '../models/ServiceModel';
 import type { ServiceTypeViewListStandardResponse } from '../models/ServiceTypeViewListStandardResponse';
 import type { ServiceViewPagedCollectionStandardResponse } from '../models/ServiceViewPagedCollectionStandardResponse';
@@ -48,7 +50,7 @@ requestBody?: StudioModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -103,7 +105,7 @@ requestBody?: StudioModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -130,7 +132,7 @@ requestBody?: StudioKYCModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -185,7 +187,7 @@ requestBody?: ServiceModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -240,7 +242,7 @@ requestBody?: AdditionalServiceModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -267,7 +269,7 @@ requestBody?: UpdateServiceModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -294,7 +296,7 @@ requestBody?: AdditionalServiceModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -321,7 +323,7 @@ requestBody?: MediaUpdateModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -460,7 +462,7 @@ requestBody?: WalletPinModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -487,7 +489,7 @@ requestBody?: WalletPinModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -514,7 +516,7 @@ requestBody?: BankAccountModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -728,6 +730,8 @@ minPrice,
 maxPrice,
 rating,
 studioId,
+city,
+state,
 device,
 }: {
 offset?: number,
@@ -737,6 +741,8 @@ minPrice?: number,
 maxPrice?: number,
 rating?: number,
 studioId?: string,
+city?: string,
+state?: string,
 device?: any,
 }): CancelablePromise<ServiceViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
@@ -753,6 +759,8 @@ device?: any,
                 'MaxPrice': maxPrice,
                 'Rating': rating,
                 'StudioId': studioId,
+                'City': city,
+                'State': state,
             },
             errors: {
                 400: `Bad Request`,
@@ -803,7 +811,7 @@ requestBody?: MediaModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,
@@ -812,7 +820,7 @@ requestBody?: MediaModel,
     }
 
     /**
-     * Add service image
+     * delete service image
      * @returns BooleanStandardResponse Success
      * @throws ApiError
      */
@@ -831,6 +839,96 @@ device?: any,
             },
             headers: {
                 'device': device,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * save service
+     * @returns SavedServiceViewStandardResponse Success
+     * @throws ApiError
+     */
+    public static saveService({
+studioId,
+device,
+}: {
+studioId?: string,
+device?: any,
+}): CancelablePromise<SavedServiceViewStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/Studio/save-service',
+            headers: {
+                'device': device,
+            },
+            query: {
+                'studioId': studioId,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * remove from saved service
+     * @returns BooleanStandardResponse Success
+     * @throws ApiError
+     */
+    public static removeSavedService({
+id,
+device,
+}: {
+id: string,
+device?: any,
+}): CancelablePromise<BooleanStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/Studio/save-service/delete/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'device': device,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * List saved service
+     * @returns SavedServiceViewPagedCollectionStandardResponse Success
+     * @throws ApiError
+     */
+    public static listSavedServices({
+offset,
+limit,
+search,
+device,
+}: {
+offset?: number,
+limit?: number,
+search?: string,
+device?: any,
+}): CancelablePromise<SavedServiceViewPagedCollectionStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Studio/saved-services',
+            headers: {
+                'device': device,
+            },
+            query: {
+                'Offset': offset,
+                'Limit': limit,
+                'search': search,
             },
             errors: {
                 400: `Bad Request`,

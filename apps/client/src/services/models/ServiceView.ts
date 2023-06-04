@@ -7,6 +7,7 @@ import type { MediaView } from './MediaView';
 import type { ReviewCountView } from './ReviewCountView';
 import type { ServiceTypeView } from './ServiceTypeView';
 import type { StudioView } from './StudioView';
+import type { UserView } from './UserView';
 
 export type ServiceView = {
     id?: string;
@@ -20,4 +21,7 @@ export type ServiceView = {
     serviceTypeId?: string;
     serviceType?: ServiceTypeView;
     reviewCounts?: ReviewCountView;
+    user?: UserView;
+    totalReviewCount?: number;
+    averageRating?: number;
 };

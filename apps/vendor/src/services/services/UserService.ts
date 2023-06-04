@@ -40,7 +40,7 @@ requestBody?: RegisterModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
         });
     }
 
@@ -63,7 +63,7 @@ requestBody?: LoginModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
         });
     }
 
@@ -115,7 +115,7 @@ requestBody?: InitiateResetModel,
                 'redirectUrl': redirectUrl,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
         });
     }
 
@@ -138,7 +138,7 @@ requestBody?: PasswordReset,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
         });
     }
 
@@ -161,7 +161,7 @@ requestBody?: UpdateUserModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
         });
     }
 
@@ -281,7 +281,7 @@ requestBody?: VendorUpgradeModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
         });
     }
 
@@ -304,7 +304,7 @@ requestBody?: VendorRegisterModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
         });
     }
 
@@ -346,7 +346,7 @@ requestBody?: SecurityQuestionModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
             },
@@ -421,7 +421,7 @@ requestBody?: PasswordVerificationModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
             },

@@ -15,4 +15,6 @@ export type BookingViewPagedCollection = {
     last?: Link;
     self?: Link;
     value?: Array<BookingView> | null;
+    nextOffset?: number | null;
+    previousOffset?: number | null;
 };

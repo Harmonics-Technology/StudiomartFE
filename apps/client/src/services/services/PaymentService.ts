@@ -60,7 +60,7 @@ requestBody?: WithdrawalModel,
                 'device': device,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,

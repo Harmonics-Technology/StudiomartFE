@@ -1,4 +1,9 @@
-import useWindowSize  from './Components/utils/useWindowSize';
+import { NotFound } from './Components/utils/NotFound';
+import { GPlacesAutoComplete } from "./Components/utils/GPlacesAutoComplete";
+import { ImageLightBox } from "./Components/utils/ImageLightBox";
+import useComponentVisible from "./Components/utils/useComponentVisible";
+import { getReviewSummary } from "./Components/utils/RatingSummary";
+import useWindowSize from "./Components/utils/useWindowSize";
 import { getDeviceFromUserAgent } from "./Components/utils/GetDeviceFromUser";
 import { MenuDropdown } from "./Components/utils/MenuDropdown";
 import { SelectrixBox } from "./Components/utils/SelectrixBox";
@@ -11,7 +16,7 @@ import Rating from "./Components/utils/Rating";
 import { PrimaryTextarea } from "./Components/utils/PrimaryTextArea";
 import PrimarySelect from "./Components/utils/PrimarySelect";
 import PrimaryInput from "./Components/utils/PrimaryInput";
-import {PrimaryDate} from "./Components/utils/PrimaryDate";
+import { PrimaryDate } from "./Components/utils/PrimaryDate";
 import ModalWrapper from "./Components/utils/ModalWrapper";
 import MenuItem from "./Components/utils/MenuItem";
 import { LoginTypeBtn } from "./Components/utils/LoginTypeBtn";
@@ -30,6 +35,8 @@ import FilterStar from "./Components/utils/FilterStar";
 import DisabledInput from "./Components/utils/DisabledInput";
 import Pagination from "./Components/utils/Pagination";
 import Naira from "./Components/utils/Naira";
+import BookingFilters from "./Components/utils/BookingFilters";
+
 import {
   TableData,
   TableHead,
@@ -38,6 +45,8 @@ import {
 } from "./Components/utils/Tables";
 import CustomTable from "./Components/utils/CustomTable";
 import getUrlRoute from "./Components/Helper/GetUrl";
+import CalculatePercent from "./Components/utils/CalculatePercent";
+import { getCityAndState } from "./Components/utils/Geocode";
 
 export {
   ExploreStudioCard,
@@ -78,4 +87,12 @@ export {
   getUrlRoute,
   getDeviceFromUserAgent,
   useWindowSize,
+  getReviewSummary,
+  CalculatePercent,
+  useComponentVisible,
+  ImageLightBox,
+  GPlacesAutoComplete,
+  getCityAndState,
+  BookingFilters,
+  NotFound
 };

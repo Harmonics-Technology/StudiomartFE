@@ -15,4 +15,6 @@ export type ServiceViewPagedCollection = {
     last?: Link;
     self?: Link;
     value?: Array<ServiceView> | null;
+    nextOffset?: number | null;
+    previousOffset?: number | null;
 };

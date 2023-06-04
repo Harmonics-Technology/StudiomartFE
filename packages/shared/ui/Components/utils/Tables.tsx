@@ -9,6 +9,8 @@ export function TableStatus({ name }: { name: string }) {
         bgColor={
           name == "finished"
             ? "#D2F5DF"
+            : name == "paid"
+            ? "#D2F5DF"
             : name == "pending" || name == "in progress"
             ? "#FDF3CA"
             : name == "approved"
@@ -17,6 +19,8 @@ export function TableStatus({ name }: { name: string }) {
         }
         color={
           name == "finished"
+            ? "#16A34A"
+            : name == "paid"
             ? "#16A34A"
             : name == "in progress" || name == "pending"
             ? "#3D3D3D"

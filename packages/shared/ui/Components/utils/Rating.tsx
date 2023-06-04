@@ -1,25 +1,21 @@
-import { HStack, Text } from "@chakra-ui/react";
-import React from "react";
-import { FaStar } from "react-icons/fa";
+import { Star, Rating } from "@smastrom/react-rating";
 
-const Rating = () => {
-    return (
-        <HStack
-            spacing={["1", "unset"]}
-            align="baseline"
-            fontSize={[".7rem", "13px"]}
-        >
-            <FaStar color="#FACC15" />
-            <FaStar color="#FACC15" />
-            <FaStar color="#FACC15" />
-            <FaStar color="#FACC15" />
-            <FaStar color="#FACC15" />
-
-            <Text color="#808080" as="span" fontSize={["8px", "13px"]} pl="1">
-                .5 star
-            </Text>
-        </HStack>
-    );
+const Ratings = ({ value }: any) => {
+  const myStyles = {
+    itemShapes: Star,
+    activeFillColor: "#facc15",
+    inactiveStrokeColor: "#facc15",
+    itemStrokeWidth: 2,
+    activeStrokeColor: "transparent",
+  };
+  return (
+    <Rating
+      style={{ maxWidth: 100 }}
+      value={value || 0}
+      readOnly
+      itemStyles={myStyles}
+    />
+  );
 };
 
-export default Rating;
+export default Ratings;

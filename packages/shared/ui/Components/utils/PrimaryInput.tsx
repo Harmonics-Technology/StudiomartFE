@@ -35,6 +35,8 @@ interface FormProps<TFormValues extends Record<string, unknown>> {
   left?: boolean;
   value?: any;
   toolTip?: any;
+  ref?: any;
+  disableLabel?: boolean;
 }
 
 const PrimaryInput = <TFormValues extends Record<string, any>>({
@@ -57,7 +59,10 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
   left = false,
   value,
   toolTip,
+  ref,
+  disableLabel,
 }: FormProps<TFormValues>) => {
+  // console.log({ error, name });
   return (
     <>
       <FormControl
@@ -66,7 +71,7 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
         fontFamily="'DM Sans', sans-serif"
       >
         <HStack align="center" spacing="0" mb=".5rem">
-          <FormLabel fontSize=".8rem" mb="0">
+          <FormLabel fontSize=".8rem" mb="0" textTransform="capitalize">
             {label}
           </FormLabel>
           {toolTip && (
@@ -100,6 +105,8 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
             borderRadius={borderRadius}
             focusBorderColor={focusBorderColor ? focusBorderColor : "none"}
             borderColor="gray.400"
+            disabled={disableLabel}
+            // ref={ref || undefined}
             _placeholder={{
               fontSize: "14px",
             }}

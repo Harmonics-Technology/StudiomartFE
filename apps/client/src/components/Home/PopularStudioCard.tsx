@@ -1,22 +1,28 @@
-import { Box, Center, HStack, Image, Text, Button } from "@chakra-ui/react";
-import React from "react";
-import { FaStar } from "react-icons/fa";
+import {
+  Box,
+  Center,
+  HStack,
+  Image,
+  Text,
+  Button,
+  Flex,
+  Icon,
+  Spinner,
+} from "@chakra-ui/react";
 import Link from "next/link";
 import { IPopularStudios } from "src/models/schema";
-import { Naira } from "ui";
-import { Rating, Star } from "@smastrom/react-rating";
+import { getReviewSummary, Naira, Rating } from "ui";
 import NoSSR from "react-no-ssr";
 import { DummyImage } from "react-simple-placeholder-image";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
-const PopularStudioCard = ({ service }: IPopularStudios) => {
-  const myStyles = {
-    itemShapes: Star,
-    activeFillColor: "#facc15",
-    inactiveStrokeColor: "#facc15",
-    itemStrokeWidth: 2,
-    activeStrokeColor: "transparent",
-  };
-  // console.log({ service });
+const PopularStudioCard = ({
+  service,
+  isSaved,
+  loading,
+  del,
+  id,
+}: IPopularStudios) => {
   return (
     <Box role="group">
       <Box
@@ -65,6 +71,39 @@ const PopularStudioCard = ({ service }: IPopularStudios) => {
             </Link>
           </Center>
         </Box>
+        {isSaved && (
+          <Flex
+            pos="absolute"
+            bottom="0"
+            right="0"
+            height="30%"
+            w="30%"
+            bgColor="brand.100"
+            borderTopLeftRadius="90px"
+            justify="center"
+            align="center"
+            color="white"
+          >
+            {loading.status && loading.id == id ? (
+              <Spinner />
+            ) : (
+              <Icon
+                as={RiDeleteBin6Line}
+                fontSize="3rem"
+                cursor="pointer"
+                ml="1rem"
+                pos="absolute"
+                bottom="-50%"
+                transition=".3s ease"
+                onClick={del}
+                _groupHover={{
+                  bottom: "50%",
+                  transform: "translateY(50%)",
+                }}
+              />
+            )}
+          </Flex>
+        )}
       </Box>
       <HStack align="baseline" justify="space-between" fontWeight="600">
         <Text fontSize={[".7rem", "1.3rem"]} noOfLines={1}>
@@ -98,15 +137,10 @@ const PopularStudioCard = ({ service }: IPopularStudios) => {
           fontSize={[".7rem", "13px"]}
           gap=".5rem"
         >
-          <Rating
-            style={{ maxWidth: 100 }}
-            value={4 as number}
-            readOnly
-            itemStyles={myStyles}
-          />
+          <Rating value={service?.averageRating || 0} />
 
           <Text color="#808080" as="span" mb="0" fontSize={["8px", "13px"]}>
-            4 star
+            {service?.totalReviewCount || 0} Review
           </Text>
         </HStack>
       </HStack>

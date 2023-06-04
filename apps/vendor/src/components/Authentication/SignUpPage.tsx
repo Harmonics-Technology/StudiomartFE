@@ -131,7 +131,7 @@ export const SignUpPage = () => {
         requestBody: data,
         device,
       });
-      console.log({ result });
+      // console.log({ result });
       if (result.status) {
         const res = await createUserWithEmailAndPassword(
           auth,

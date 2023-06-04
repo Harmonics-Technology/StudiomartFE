@@ -1,7 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 @import url("https://fonts.cdnfonts.com/css/br-firma");
 @import url("@smastrom/react-rating/style.css");
+@import url("react-circular-progressbar/dist/styles.css");
 @import url("./toast.css");
+@import url("rc-slider/assets/index.css");
+@import url("react-responsive-carousel/lib/styles/carousel.min.css");
 html,
 body {
   margin: 0;
@@ -43,4 +46,28 @@ body {
 }
 .dateWrapper {
   width: 100%;
+}
+
+#globalLoader {
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  background-color: #fff;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+#globalLoader img {
+  width: 3rem;
+  height: 3rem;
+}
+.auto {
+  border: 2px solid #ddd7d7;
+  height: 2.8rem;
+  width: 100%;
+  padding: 0 1rem;
 }

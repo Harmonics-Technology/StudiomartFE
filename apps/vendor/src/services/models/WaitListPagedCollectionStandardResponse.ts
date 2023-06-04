@@ -3,9 +3,9 @@
 /* eslint-disable */
 
 import type { HttpStatusCode } from './HttpStatusCode';
-import type { SavedStudioViewPagedCollection } from './SavedStudioViewPagedCollection';
+import type { WaitListPagedCollection } from './WaitListPagedCollection';
 
-export type SavedStudioViewPagedCollectionStandardResponse = {
+export type WaitListPagedCollectionStandardResponse = {
     href?: string | null;
     relations?: Array<string> | null;
     method?: string | null;
@@ -13,7 +13,7 @@ export type SavedStudioViewPagedCollectionStandardResponse = {
     routeValues?: any;
     status?: boolean;
     message?: string | null;
-    data?: SavedStudioViewPagedCollection;
+    data?: WaitListPagedCollection;
     statusCode?: HttpStatusCode;
     errors?: any;
 };

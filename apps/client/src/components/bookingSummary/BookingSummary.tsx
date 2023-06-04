@@ -46,11 +46,16 @@ const BookingSummary = ({ singleService, ratings, id }: ICustomerHome) => {
     selectedAddon.reduce((a, b) => a + (b.price as number), 0) +
     (singleService?.price as number);
 
+  const newTime = (time as string)?.split("T")[1];
   const CreateBooking = async () => {
     const data: BookingModel = {
       date: date as string,
-      time: time as TimeOnly,
+      inputTime: {
+        hour: Number(newTime.split(":")[0]),
+        minute: Number(newTime.split(":")[1]),
+      },
       serviceId: id,
+      additionalServices: selectedAddon.map((x) => x.id as string),
     };
     setLoading(true);
     try {
@@ -59,9 +64,7 @@ const BookingSummary = ({ singleService, ratings, id }: ICustomerHome) => {
       if (result.status) {
         setLoading(false);
         toast.success(result.message as string);
-        // router.push(
-        //   `/customer/bookings/${id}?date=${data.date}&time=${data.time}`
-        // );
+        router.push(`/customer/history`);
         return;
       }
       setLoading(false);
