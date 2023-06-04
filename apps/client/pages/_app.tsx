@@ -12,6 +12,7 @@ import NextNProgress from "nextjs-progressbar";
 import toast, { ToastBar, Toaster } from "react-hot-toast";
 import { AuthContextProvider } from "@components/Context/AuthContext";
 import { ChatContextProvider } from "@components/Context/ChatContext";
+import Script from "next/script";
 import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
@@ -37,11 +38,10 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         />
         <title>Studiomart</title>
         <link rel="icon" href="/stdd.gif" type="image/x-icon" />
-
-        <script
-          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}
-        ></script>
       </Head>
+      <Script
+        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}
+      ></Script>
       <UserProvider>
         <AuthContextProvider>
           <ChatContextProvider>
