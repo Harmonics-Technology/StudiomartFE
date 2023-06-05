@@ -10,6 +10,8 @@ import { Toaster } from "react-hot-toast";
 import { Layout } from "@components/layout";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+  OpenAPI.BASE = process.env.NEXT_PUBLIC_API_BASEURL as string;
+  OpenAPI.TOKEN = Cookies.get("customerToken");
   return (
     <ChakraProvider theme={theme}>
       <Toaster position="top-right" reverseOrder={false} />

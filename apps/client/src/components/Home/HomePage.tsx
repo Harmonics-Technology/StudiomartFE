@@ -198,7 +198,9 @@ const HomePage = ({
               voluptatem accusantium totam rem quia.
             </Text>
             <BookNowLink
-              path={`category/${category?.find((x) => x.name == "Music")?.id}`}
+              path={`category/${
+                category?.find((x) => x.name?.toLowerCase() == "music")?.id
+              }`}
             />
           </Box>
         </Stack>

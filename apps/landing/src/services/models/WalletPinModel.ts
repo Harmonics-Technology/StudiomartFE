@@ -4,5 +4,5 @@
 
 export type WalletPinModel = {
     studioId?: string;
-    pin?: number;
+    pin?: string | null;
 };

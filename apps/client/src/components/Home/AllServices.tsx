@@ -25,11 +25,14 @@ import PopularStudioCard from "./PopularStudioCard";
 import { RecentlyViewed } from "./RecentlyViewed";
 import { GiMissileLauncher } from "react-icons/gi";
 import { FaRegSadCry, FaSadCry } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 const AllServices = ({ allService, recentlyViewed }: ICustomerHome) => {
   const [openFilter, setOpenFilter] = useState(false);
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
+  const router = useRouter();
+  const { state } = router.query;
   return (
     <Box w="90%" mx="auto" mb="5rem">
       <Flex justify="space-between" px="1rem" my="1rem">
@@ -63,7 +66,7 @@ const AllServices = ({ allService, recentlyViewed }: ICustomerHome) => {
         fontWeight="700"
         textTransform="capitalize"
       >
-        Viewing All Services
+        Viewing All Services {state && `That are in ${state}`}
       </Box>
 
       <Box>
