@@ -23,6 +23,7 @@ export const HeroBanner = ({ onOpen }: any) => {
       stopOnHover={false}
       showArrows={false}
       showThumbs={false}
+      transitionTime={500}
       renderIndicator={(onClickHandler, isSelected, index, label) => {
         if (isSelected) {
           return (
