@@ -7,6 +7,7 @@ import type { BankAccountModel } from '../models/BankAccountModel';
 import type { BankAccountViewListStandardResponse } from '../models/BankAccountViewListStandardResponse';
 import type { BankAccountViewStandardResponse } from '../models/BankAccountViewStandardResponse';
 import type { BooleanStandardResponse } from '../models/BooleanStandardResponse';
+import type { GlobalSearchResultViewPagedCollectionStandardResponse } from '../models/GlobalSearchResultViewPagedCollectionStandardResponse';
 import type { MediaModel } from '../models/MediaModel';
 import type { MediaUpdateModel } from '../models/MediaUpdateModel';
 import type { MediaViewStandardResponse } from '../models/MediaViewStandardResponse';
@@ -922,6 +923,40 @@ device?: any,
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Studio/saved-services',
+            headers: {
+                'device': device,
+            },
+            query: {
+                'Offset': offset,
+                'Limit': limit,
+                'search': search,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * Perform global search on studios, services and users
+     * @returns GlobalSearchResultViewPagedCollectionStandardResponse Success
+     * @throws ApiError
+     */
+    public static search({
+offset,
+limit,
+search,
+device,
+}: {
+offset?: number,
+limit?: number,
+search?: string,
+device?: any,
+}): CancelablePromise<GlobalSearchResultViewPagedCollectionStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Studio/search',
             headers: {
                 'device': device,
             },

@@ -41,6 +41,7 @@
     "react-circular-progressbar": "^2.1.0",
     "react-currency-input-field": "^3.6.10",
     "react-icons": "^4.9.0",
+    "react-loading-skeleton": "^3.3.1",
     "react-multi-date-picker": "^4.0.0",
     "react-places-autocomplete": "^7.3.0",
     "react-responsive-carousel": "^3.2.23",

@@ -68,7 +68,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/components/homeandcategory/Component/Navbar.js", "../../packages/shared/ui/Components/utils/ImageLightBox.tsx"  ],
+, "src/components/homeandcategory/Component/Navbar.js", "../../packages/shared/ui/Components/utils/ImageLightBox.tsx", "../../packages/shared/ui/Components/utils/useNonInitialEffect.tsx"  ],
   "exclude": [
     "node_modules",
     "test/*"

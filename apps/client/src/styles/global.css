@@ -5,6 +5,7 @@
 @import url("./toast.css");
 @import url("rc-slider/assets/index.css");
 @import url("react-responsive-carousel/lib/styles/carousel.min.css");
+@import url("react-loading-skeleton/dist/skeleton.css");
 html,
 body {
   margin: 0;

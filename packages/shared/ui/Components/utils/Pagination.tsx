@@ -9,7 +9,7 @@ interface pageOptions {
 
 function Pagination({ data }: pageOptions) {
   console.log({ data });
-  const totalPages = Math.floor(
+  const totalPages = Math.round(
     (data?.size as number) / (data?.limit as unknown as number)
   );
   const current = data?.offset + 1;

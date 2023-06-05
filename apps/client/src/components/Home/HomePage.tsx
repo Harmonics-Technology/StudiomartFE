@@ -40,13 +40,13 @@ const HomePage = ({
   const [error, setError] = useState<any>(null);
   // console.log({ locas });
 
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
-    } else {
-      setError("Geolocation is not supported by your browser");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
+  //   } else {
+  //     setError("Geolocation is not supported by your browser");
+  //   }
+  // }, []);
 
   const handleSuccess = (position: any) => {
     const { latitude, longitude } = position.coords;
