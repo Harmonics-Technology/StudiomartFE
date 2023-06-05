@@ -15,7 +15,7 @@ export const HeroBanner = ({ onOpen }: any) => {
   return (
     <Carousel
       showStatus={false}
-      autoPlay={false}
+      autoPlay={true}
       infiniteLoop
       animationHandler="fade"
       useKeyboardArrows
