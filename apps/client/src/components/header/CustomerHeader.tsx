@@ -29,7 +29,7 @@ const CustomerHeader = () => {
 
   useEffect(() => {
     const handleKeyDown = (event: any) => {
-      console.log("yeah");
+      // console.log("yeah");
       if (event.ctrlKey && event.key === "q") {
         onOpen();
       }
@@ -39,7 +39,7 @@ const CustomerHeader = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [onOpen]);
   return (
     <>
       <Flex
