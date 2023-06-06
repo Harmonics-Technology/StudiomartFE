@@ -71,6 +71,7 @@ export const SelectrixBox = <TFormValues extends Record<string, any>>({
 
       <Controller
         render={({ field: { onChange } }) => (
+          // @ts-ignore
           <Selectrix
             options={options}
             placeholder={placeholder}

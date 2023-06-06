@@ -26,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <Toaster position="top-right" reverseOrder={false} />
       <NextNProgress color="#1570FA" />
       <Layout>
+        {/* @ts-ignore */}
         <Component {...pageProps} />
       </Layout>
     </ChakraProvider>

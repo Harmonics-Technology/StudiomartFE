@@ -79,6 +79,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             <NextNProgress color="#1570FA" />
             <RootStoreProvider>
               <Layout>
+                {/* @ts-ignore  */}
                 <Component {...pageProps} />
               </Layout>
             </RootStoreProvider>
