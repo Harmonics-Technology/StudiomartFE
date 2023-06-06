@@ -13,7 +13,7 @@ const Photograph = () => {
         justifyContent="space-between"
         p={["1.5rem", "3rem"]}
       >
-        <BackToPage name="Back to home page" path="/customer" />
+        <BackToPage name="Back to home page" />
         <Filter isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
       </Box>
       <Box px={["1.5rem", "3rem"]} w="full" h="100%" mt="1rem">
