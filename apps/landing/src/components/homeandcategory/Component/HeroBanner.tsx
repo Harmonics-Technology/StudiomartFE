@@ -18,7 +18,7 @@ export const HeroBanner = ({ onOpen }: any) => {
       infiniteLoop
       animationHandler="fade"
       useKeyboardArrows
-      // swipeable
+      swipeable={false}
       stopOnHover={false}
       showArrows={false}
       showThumbs={false}
