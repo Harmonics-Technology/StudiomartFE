@@ -7,11 +7,12 @@ export const WaitFeatures = ({ title, note, img }: any) => {
     <Flex
       bgColor={"rgba(165, 166, 246, 0.15)"}
       borderRadius="4px"
-      h={{ base: "290px", md: "300px", lg: "400px" }}
+      h={{ base: "auto", md: "300px", lg: "400px" }}
       w="full"
       align="center"
       justify="center"
       px="1rem"
+      py={{ base: "1rem", lg: "0" }}
     >
       <VStack>
         <Image src={img} alt="img" h="100px" w="auto" />
