@@ -98,7 +98,7 @@ export const WaitListModal = ({ isOpen, onClose, data }: IWaitListProps) => {
             mt="1rem"
             mb="1rem"
             maxW="100%"
-            p="2rem 4rem"
+            p={["1rem 2rem", "2rem 4rem"]}
           >
             <ModalBody>
               <VStack gap="1rem">

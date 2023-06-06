@@ -37,11 +37,11 @@ const HomePage = ({
 }: ICustomerHome) => {
   const [index, setIndex] = useState(0);
 
-  console.log({ location });
+  // console.log({ location });
 
   const [locas, setLocas] = useState<any>(null);
   const [error, setError] = useState<any>(null);
-  console.log({ locas });
+  // console.log({ locas });
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -53,13 +53,13 @@ const HomePage = ({
 
   const handleSuccess = (position: any) => {
     const { latitude, longitude } = position.coords;
-    getCityAndState(latitude, longitude)
-      .then((result) => {
-        setLocas(result);
-      })
-      .catch((error) => {
-        console.error("Error getting city and state:", error);
-      });
+    // getCityAndState(latitude, longitude)
+    //   .then((result) => {
+    //     setLocas(result);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error getting city and state:", error);
+    //   });
     // setLocas({ latitude, longitude });
   };
   const handleError = (error: any) => {
