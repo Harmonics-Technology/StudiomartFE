@@ -9,7 +9,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { BiMessageRoundedError } from "react-icons/bi";
 import { FiFilter } from "react-icons/fi";
 import { ICustomerHome } from "src/models/schema";
 import { ServiceView } from "src/services";
@@ -21,11 +20,13 @@ import {
   useComponentVisible,
 } from "ui";
 import { FilterBox } from "./FilterBox";
-import PopularStudioCard from "./PopularStudioCard";
 import { RecentlyViewed } from "./RecentlyViewed";
-import { GiMissileLauncher } from "react-icons/gi";
-import { FaRegSadCry, FaSadCry } from "react-icons/fa";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+
+const PopularStudioCard = dynamic(() => import("./PopularStudioCard"), {
+  ssr: false,
+});
 
 const AllServices = ({ allService, recentlyViewed }: ICustomerHome) => {
   const [openFilter, setOpenFilter] = useState(false);

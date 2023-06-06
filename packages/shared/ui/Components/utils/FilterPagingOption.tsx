@@ -24,7 +24,7 @@ export const FilterPagingOptions = (ctx: any) => {
     from: from ? from : null,
     to: to ? to : null,
     filters: filters ? Number(filters) : null,
-    order: order ? Number(order) : 1,
+    order: order ? Number(order) : 2,
     serviceTypeId: serviceTypeId || null,
     minPrice: minPrice || null,
     maxPrice: maxPrice || null,

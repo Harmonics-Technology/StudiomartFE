@@ -6,9 +6,10 @@ import {
   Heading,
   SimpleGrid,
   Grid,
+  Flex,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { BackToPage, NotFound } from "ui";
+import { BackToPage, NotFound, Pagination } from "ui";
 import PopularStudioCard from "@components/Home/PopularStudioCard";
 import { ImSad2 } from "react-icons/im";
 import { IStudios } from "src/models/schema";
@@ -45,6 +46,7 @@ const SavedStudiosComponent = ({ savedStudios, studioForYou }: IStudios) => {
     <Box mx="auto" py="1rem" bgColor="gray.100">
       <Box w="90%" mx="auto">
         <BackToPage name="Back to the homepage" />
+        <Heading mt="3rem">Saved Studio</Heading>
       </Box>
       {(savedStudios?.size as number) > 0 ? (
         <Box w="90%" mx="auto">
@@ -63,6 +65,9 @@ const SavedStudiosComponent = ({ savedStudios, studioForYou }: IStudios) => {
                   loading={loading}
                   id={service.id}
                 />
+                <Flex justify="center" my="3rem">
+                  <Pagination data={savedStudios} />
+                </Flex>
               </Box>
             ))}
           </Grid>
@@ -78,6 +83,9 @@ const SavedStudiosComponent = ({ savedStudios, studioForYou }: IStudios) => {
               <PopularStudioCard key={index} service={service} />
             ))}
           </SimpleGrid>
+          <Flex justify="center" my="3rem">
+            <Pagination data={studioForYou} />
+          </Flex>
         </Box>
       </Box>
     </Box>

@@ -76,7 +76,7 @@ const BookingFilters = ({ w }: { w?: any }) => {
       return;
     }
     router.push({
-      query: { ...router.query, order: 2 },
+      query: { ...router.query, order: 1 },
     });
     return;
   };
@@ -130,7 +130,9 @@ const BookingFilters = ({ w }: { w?: any }) => {
             range
             format="MMM DD, YYYY"
             render={(stringDates: any, openCalendar: any) => {
-              // stringDates = stringDates.split("~");
+              if (!Array.isArray(stringDates)) {
+                stringDates = stringDates.split("~");
+              }
               const from = stringDates[0] || "";
               const to = stringDates[1] || "";
               const value = from && to ? from + " - " + to : from;

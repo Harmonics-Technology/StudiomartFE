@@ -31,6 +31,7 @@ import Link from "next/link";
 import {
   BookingFilters,
   getReviewSummary,
+  getUrlRoute,
   Naira,
   NotFound,
   Pagination,
@@ -72,6 +73,7 @@ export default function BookingHistory({ bookings }: IBookingsProps) {
     try {
       const result = await BookingService.checkout({
         id,
+        frontEndBaseUrl: `${getUrlRoute().clientUrl}/payment/validate`,
         device: device,
       });
       if (result.status) {
@@ -258,7 +260,7 @@ export default function BookingHistory({ bookings }: IBookingsProps) {
                         getReviewSummary(x.service?.reviewCounts).reviewStars
                       }
                     />
-                    <Text>
+                    <Text mb="0">
                       {getReviewSummary(x.service?.reviewCounts).reviewTotal}{" "}
                       review
                     </Text>

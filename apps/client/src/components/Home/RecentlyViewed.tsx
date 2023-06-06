@@ -7,11 +7,15 @@ import {
   Icon,
   Flex,
 } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 import { Carousel } from "react-responsive-carousel";
 import { RecentlyViewedView } from "src/services";
-import PopularStudioCard from "./PopularStudioCard";
+
+const PopularStudioCard = dynamic(() => import("./PopularStudioCard"), {
+  ssr: false,
+});
 
 export const RecentlyViewed = ({
   data,

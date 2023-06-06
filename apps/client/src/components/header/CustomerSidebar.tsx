@@ -97,7 +97,7 @@ const CustomerSidebar = ({ user }: { user: UserView }) => {
               borderBottom="1px solid"
               borderColor="gray.300"
             >
-              <Link href="/customer">
+              <Link href="/">
                 <HStack>
                   <Box w="10rem" pl=".5rem">
                     <Image src="/assets/studiomart.png" w="full" alt="logo" />

@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import React from "react";
 import { GoPrimitiveDot } from "react-icons/go";
+import { getUrlRoute } from "ui";
 import Fqa from "./Fqa";
 
 const BecomeVendor = () => {
@@ -47,7 +48,7 @@ const BecomeVendor = () => {
           <Text fontSize={[".9rem", "1.4rem"]} pb="9" fontWeight="500">
             List your studio and start earning from bookings.
           </Text>
-          <Link href="http://localhost:3001/register">
+          <Link href={`${getUrlRoute().vendorUrl}/register`}>
             <a target="_blank" rel="noopener noreferrer">
               <Button
                 w="170px"

@@ -24,10 +24,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
   const ipAddress =
     ctx.req.headers["x-forwarded-for"] || ctx.req.socket.remoteAddress;
 
-  // console.log({ ipAddress });
+  console.log({ ipAddress });
 
   try {
-    const response = await axios.get(`http://ip-api.com/json`);
+    const response = await axios.get(`http://ip-api.com/json/${ipAddress}`);
     const location = response.data;
     const popularStudios = await StudioService.listServices({
       offset: 0,

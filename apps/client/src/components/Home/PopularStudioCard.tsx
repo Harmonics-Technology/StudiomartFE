@@ -13,7 +13,7 @@ import Link from "next/link";
 import { IPopularStudios } from "src/models/schema";
 import { getReviewSummary, Naira, Rating } from "ui";
 import NoSSR from "react-no-ssr";
-import { DummyImage } from "react-simple-placeholder-image";
+import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const PopularStudioCard = ({
@@ -23,27 +23,27 @@ const PopularStudioCard = ({
   del,
   id,
 }: IPopularStudios) => {
+  const image = useDummyImage({});
   return (
     <Box role="group">
       <Box
-        h={["180px", "380px"]}
+        // h={["180px", "380px"]}
         w="full"
         rounded="2xl"
         overflow="hidden"
         pos="relative"
+        pb="100%"
       >
-        <NoSSR>
-          {service?.bannerImageURL ? (
-            <Image
-              h="full"
-              objectFit="cover"
-              src={service.bannerImageURL as string}
-              alt=""
-            />
-          ) : (
-            <DummyImage />
-          )}
-        </NoSSR>
+        <Image
+          h="full"
+          objectFit="cover"
+          src={(service?.bannerImageURL as string) || image}
+          alt=""
+          pos="absolute"
+          w="full"
+          left="0"
+          top="0"
+        />
 
         <Box
           position="absolute"
