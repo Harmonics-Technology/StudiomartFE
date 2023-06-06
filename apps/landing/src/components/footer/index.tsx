@@ -40,8 +40,16 @@ const NavLink = ({ name, path }: Props) => {
 
 export const Footer: React.FC = () => {
   return (
-    <Box bg="#171717" h="100px">
-      <Flex justify="space-between" h="full" align="center" w="85%" mx="auto">
+    <Box bg="#171717" h={["full", "100px"]} py={["2rem", "0"]}>
+      <Flex
+        justify="space-between"
+        h="full"
+        align="center"
+        w="85%"
+        mx="auto"
+        flexDir={["column", "row"]}
+        gap={["1rem", "0"]}
+      >
         <Box>
           <Box w="13rem" pl=".5rem" cursor="pointer">
             <Image src="/assets/logowhite.png" w="full" alt="logo" />
@@ -62,7 +70,12 @@ export const Footer: React.FC = () => {
           </Link>
         </HStack>
         <Box>
-          <Text fontSize="14px" color="rgba(249, 249, 249, 0.72)" mb="0">
+          <Text
+            fontSize="14px"
+            color="rgba(249, 249, 249, 0.72)"
+            mb="0"
+            textAlign="center"
+          >
             &copy; StudioMart 2022. All Rights Reserved.
           </Text>
         </Box>

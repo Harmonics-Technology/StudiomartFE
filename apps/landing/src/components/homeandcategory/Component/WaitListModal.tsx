@@ -91,7 +91,7 @@ export const WaitListModal = ({ isOpen, onClose, data }: IWaitListProps) => {
           <ModalContent
             py={5}
             borderRadius="10px"
-            w={["88%", "45%"]}
+            w={{ base: "88%", md: "88%", lg: "45%" }}
             // overflow="hidden"
             maxH="100vh"
             pos="fixed"
@@ -152,14 +152,14 @@ export const WaitListModal = ({ isOpen, onClose, data }: IWaitListProps) => {
           <ModalContent
             py={5}
             borderRadius="10px"
-            w={["88%", "45%"]}
+            w={{ base: "88%", lg: "45%" }}
             // overflow="hidden"
             maxH="100vh"
             pos="fixed"
             mt="1rem"
             mb="1rem"
             maxW="100%"
-            p="2rem 4rem"
+            p={["1rem 0", "2rem 4rem"]}
           >
             <ModalHeader textAlign="center">
               <Flex justify="flex-end" mb="1rem">
@@ -173,10 +173,10 @@ export const WaitListModal = ({ isOpen, onClose, data }: IWaitListProps) => {
               <Flex justify="center">
                 <Text
                   color="#171717"
-                  fontSize="32px"
+                  fontSize={["20px", "32px"]}
                   textAlign="center"
                   fontWeight="bold"
-                  lineHeight="38px"
+                  lineHeight={["unset", "38px"]}
                 >
                   Discover, connect, and thrive with StudioMart.
                 </Text>

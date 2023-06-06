@@ -15,8 +15,8 @@ export const CarouselItem = ({ img, blueTitle, title, note, onOpen }: any) => {
           <Heading
             fontFamily="Work Sans"
             color="white"
-            fontSize="64px"
-            w="100%"
+            fontSize={{ base: "35px", md: "45px", lg: "64px" }}
+            w={{ base: "95%", md: "100%", lg: "100%" }}
             textAlign="center"
           >
             <span style={{ color: "#1570fa" }}>{blueTitle}</span> {title}
@@ -27,14 +27,14 @@ export const CarouselItem = ({ img, blueTitle, title, note, onOpen }: any) => {
           color="white"
           mb="0"
           fontWeight="600"
-          fontSize="18px"
+          fontSize={{ base: "16px", md: "18px", lg: "18px" }}
           lineHeight="27px"
           textAlign="center"
-          w="60%"
+          w={{ base: "90%", md: "80%", lg: "60%" }}
         >
           {note}
         </Text>
-        <Flex justify="center" w="20%">
+        <Flex justify="center" w={["80%", "20%"]}>
           <WaitBtn onOpen={onOpen} />
         </Flex>
       </VStack>

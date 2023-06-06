@@ -44,14 +44,14 @@ export const Header = ({ onOpen }: any) => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
   return (
     <Flex bgColor="white" w="full" py="5" pos="sticky" top="0" zIndex={900}>
-      <Flex align="center" justify="space-between" w="85%" mx="auto">
+      <Flex align="center" justify="space-between" w={["90%", "85%"]} mx="auto">
         <NextLink href="/">
-          <Box w="20%">
+          <Box w={{ base: "50%", md: "30%", lg: "20%" }}>
             <Image src="/assets/studiomart.png" w="full" alt="logo" />
           </Box>
         </NextLink>
 
-        <Box w="190px">
+        <Box w={{ base: "130px", md: "150px", lg: "190px" }}>
           <WaitBtn onOpen={onOpen} />
         </Box>
       </Flex>

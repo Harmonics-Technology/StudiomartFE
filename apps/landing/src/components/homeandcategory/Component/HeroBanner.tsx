@@ -3,7 +3,6 @@ import { CarouselItem } from "./CarouselItem";
 import { Carousel } from "react-responsive-carousel";
 
 export const HeroBanner = ({ onOpen }: any) => {
-  console.log({ onOpen });
   const indicatorStyles: CSSProperties = {
     background: "white",
     width: 80,

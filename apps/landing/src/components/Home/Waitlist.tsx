@@ -45,26 +45,40 @@ export const Waitlist = ({
         <HeroBanner onOpen={onOpen} />
       </Box>
       <Box w="80%" mx="auto">
-        <Flex justify="center" my="3rem">
+        <Flex justify="center" m={["3rem 0 1rem", "3rem 0"]}>
           <Heading
-            fontSize="40px"
+            fontSize={["30px", "40px"]}
             fontWeight="700"
             color="#171717"
             letterSpacing="-0.02em"
             fontFamily="Work Sans"
+            textAlign="center"
           >
             About Studiomart
           </Heading>
         </Flex>
         <Grid
-          templateColumns={["repeat(1,1fr)", "repeat(2,1fr)"]}
-          gap="5rem"
+          templateColumns={{
+            base: "repeat(1,1fr)",
+            md: "repeat(1,1fr)",
+            lg: "repeat(2,1fr)",
+          }}
+          gap={["2rem", "5rem"]}
           w="full"
           alignItems="center"
           mb="3rem"
         >
-          <VStack w="full" minW="0" spacing="1rem">
-            <Text fontSize="18px" lineHeight="27px" textAlign="justify">
+          <VStack
+            w="full"
+            minW="0"
+            spacing="1rem"
+            order={{ base: 2, md: 2, lg: 0 }}
+          >
+            <Text
+              fontSize={["16px", "18px"]}
+              lineHeight="27px"
+              textAlign="justify"
+            >
               At StudioMart, we understand the challenges faced by studio owners
               in reaching out to their target audience and maximizing their
               studio&apos;s potential. That&apos;s why we&apos;ve created a
@@ -72,7 +86,11 @@ export const Waitlist = ({
               list their studios, showcase their unique offerings, and connect
               with eager customers.
             </Text>
-            <Text fontSize="18px" lineHeight="27px" textAlign="justify">
+            <Text
+              fontSize={["16px", "18px"]}
+              lineHeight="27px"
+              textAlign="justify"
+            >
               Our mission is to empower studio owners by providing them with a
               centralized hub to effectively promote their spaces and attract a
               diverse range of customers. Whether you own a photography studio,
@@ -85,24 +103,34 @@ export const Waitlist = ({
             <Image src="/abt.png" alt="image" w="full" h="auto" />
           </Box>
         </Grid>
-        <Stack align="center" direction="column" my="5rem">
+        <Stack align="center" direction="column" m={["5rem 0 0rem", "5rem 0"]}>
           <Heading
-            fontSize="40px"
+            fontSize={["30px", "40px"]}
             fontWeight="700"
             color="#171717"
             letterSpacing="-0.02em"
             fontFamily="Work Sans"
+            textAlign="center"
           >
             Why Studiomart?
           </Heading>
-          <Text fontSize="18px" fontWeight="500" opacity="0.7">
+          <Text
+            fontSize={["16px", "18px"]}
+            fontWeight="500"
+            opacity="0.7"
+            textAlign="center"
+          >
             An online marketplace for vendors and customers to connect.
           </Text>
         </Stack>
 
         <Grid
-          templateColumns={["repeat(1,1fr)", "repeat(4,1fr)"]}
-          gap="1rem"
+          templateColumns={{
+            base: "repeat(1,1fr)",
+            md: "repeat(2,1fr)",
+            lg: "repeat(4,1fr)",
+          }}
+          gap={{ base: "2rem", md: "2rem", lg: "1rem" }}
           w="full"
           alignItems="center"
           my="3rem"
@@ -130,35 +158,51 @@ export const Waitlist = ({
         </Grid>
 
         <Box>
-          <Stack align="center" direction="column" my="5rem">
+          <Stack
+            align="center"
+            direction="column"
+            m={["5rem 0 0rem", "5rem 0"]}
+          >
             <Heading
-              fontSize="40px"
+              fontSize={["30px", "40px"]}
               fontWeight="700"
               color="#171717"
               letterSpacing="-0.02em"
               fontFamily="Work Sans"
+              textAlign="center"
             >
               <span style={{ color: "#1570FA" }}>Explore Studios</span> in 3
               Easy Steps.
             </Heading>
-            <Text fontSize="18px" fontWeight="500" opacity="0.7">
+            <Text
+              fontSize={["16px", "18px"]}
+              fontWeight="500"
+              opacity="0.7"
+              textAlign="center"
+            >
               An online marketplace for vendors and customers to connect.
             </Text>
           </Stack>
 
-          <Flex justify="space-between" align="center" gap="2rem" my="4rem">
+          <Flex
+            justify="space-between"
+            align="center"
+            gap="2rem"
+            my="4rem"
+            flexDir={{ base: "column", md: "row" }}
+          >
             <ProcedureCard
               num="01"
               title="Create an Account"
               note="Create an account by completing  the registration process."
             />
-            <Image src="/line.png" alt="line" w="80px" />
+            <Image src="/line.png" alt="line" w="80px" mx={["auto", "0"]} />
             <ProcedureCard
               num="02"
               title="View Studios"
               note="Search and view correct details of the studios you need."
             />
-            <Image src="/line.png" alt="line" w="80px" />
+            <Image src="/line.png" alt="line" w="80px" mx={["auto", "0"]} />
             <ProcedureCard
               num="03"
               title="Contact Vendor"
@@ -166,7 +210,12 @@ export const Waitlist = ({
             />
           </Flex>
 
-          <Flex justify="center" my="3rem" w="30%" mx="auto">
+          <Flex
+            justify="center"
+            my="3rem"
+            w={{ base: "80%", md: "80%", lg: "30%" }}
+            mx="auto"
+          >
             <WaitBtn
               text="Become a Customer"
               onOpen={() => prefillForm({ userType: "Customer" })}
@@ -174,36 +223,52 @@ export const Waitlist = ({
           </Flex>
         </Box>
         <Box>
-          <Stack align="center" direction="column" my="5rem">
+          <Stack
+            align="center"
+            direction="column"
+            m={["5rem 0 0rem", "5rem 0"]}
+          >
             <Heading
-              fontSize="40px"
+              fontSize={["30px", "40px"]}
               fontWeight="700"
               color="#171717"
               letterSpacing="-0.02em"
               fontFamily="Work Sans"
+              textAlign="center"
             >
               <span style={{ color: "#1570FA" }}>List your studio </span> in 3
               Easy Steps.
             </Heading>
-            <Text fontSize="18px" fontWeight="500" opacity="0.7">
+            <Text
+              fontSize={["16px", "18px"]}
+              fontWeight="500"
+              opacity="0.7"
+              textAlign="center"
+            >
               Our platform makes connecting with customers easy with these
               simple steps.
             </Text>
           </Stack>
 
-          <Flex justify="space-between" align="center" gap="2rem" my="4rem">
+          <Flex
+            justify="space-between"
+            align="center"
+            gap="2rem"
+            my="4rem"
+            flexDir={{ base: "column", md: "row" }}
+          >
             <ProcedureCard
               num="01"
               title="Create an Account"
               note="Create an account by completing  the registration process."
             />
-            <Image src="/line.png" alt="line" w="80px" />
+            <Image src="/line.png" alt="line" w="80px" mx={["auto", "0"]} />
             <ProcedureCard
               num="02"
               title="List Your Services"
               note="Upload correct details of your  studio and services you offer."
             />
-            <Image src="/line.png" alt="line" w="80px" />
+            <Image src="/line.png" alt="line" w="80px" mx={["auto", "0"]} />
             <ProcedureCard
               num="03"
               title="Get Notified"
@@ -211,7 +276,12 @@ export const Waitlist = ({
             />
           </Flex>
 
-          <Flex justify="center" my="3rem" w="30%" mx="auto">
+          <Flex
+            justify="center"
+            my="3rem"
+            w={{ base: "80%", md: "80%", lg: "30%" }}
+            mx="auto"
+          >
             <WaitBtn
               text="Become a Vendor"
               onOpen={() => prefillForm({ userType: "Vendor" })}
@@ -226,27 +296,29 @@ export const Waitlist = ({
           justify="space-between"
           gap="6rem"
           align="center"
+          flexWrap={{ base: "wrap-reverse", md: "wrap", lg: "nowrap" }}
         >
-          <Box w="65%">
+          <Box w={{ base: "full", md: "100%", lg: "65%" }}>
             <Image src="/banner.png" w="full" h="auto" alt="banner" />
           </Box>
-          <Box w="30%">
+          <Box w={{ base: "full", md: "100%", lg: "30%" }}>
             <Stack direction="column" gap="1.5rem">
               <Heading
-                fontSize="40px"
+                fontSize={["30px", "40px"]}
                 fontWeight="700"
                 color="#171717"
                 letterSpacing="-0.02em"
                 fontFamily="Work Sans"
+                textAlign={{ base: "center", lg: "left" }}
               >
                 <span style={{ color: "#1570FA" }}>Studio-specific </span>
                 one-stop shop
               </Heading>
               <Text
-                fontSize="18px"
+                fontSize={["16px", "18px"]}
                 fontWeight="500"
                 opacity="0.7"
-                textAlign="justify"
+                textAlign={{ base: "justify", md: "center", lg: "justify" }}
               >
                 Whether you&apos;re a studio owner looking to increase bookings
                 or a customer in search of the perfect creative space,
@@ -261,7 +333,7 @@ export const Waitlist = ({
                 h="3rem"
                 onChange={(e: any) => setUserEmail(e.target.value)}
               />
-              <Flex w="80%">
+              <Flex w={{ base: "full", md: "100%", lg: "80%" }}>
                 <WaitBtn onOpen={() => prefillForm({ email: userEmail })} />
               </Flex>
             </Stack>

@@ -7,7 +7,7 @@ export const WaitFeatures = ({ title, note, img }: any) => {
     <Flex
       bgColor={"rgba(165, 166, 246, 0.15)"}
       borderRadius="4px"
-      h="400px"
+      h={{ base: "290px", md: "300px", lg: "400px" }}
       w="full"
       align="center"
       justify="center"
