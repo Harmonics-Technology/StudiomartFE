@@ -5,12 +5,18 @@ type Props = {
   textContent: string;
   isLoading: any;
   isValid?: boolean;
+  h?: string;
 };
 
-const SubmitButton = ({ textContent, isLoading, isValid = true }: Props) => {
+const SubmitButton = ({
+  textContent,
+  isLoading,
+  isValid = true,
+  h = "3rem",
+}: Props) => {
   return (
     <>
-      <Box w="100%" h="3rem">
+      <Box w="100%" h={h}>
         <Button
           type="submit"
           w="100%"

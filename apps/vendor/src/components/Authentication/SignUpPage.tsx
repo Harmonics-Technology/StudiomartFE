@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
+import React, { useContext, useState } from 'react';
+import { ChevronLeftIcon } from '@chakra-ui/icons';
 import {
   Box,
   Flex,
@@ -14,22 +14,22 @@ import {
   Link,
   Image,
   Circle,
-} from "@chakra-ui/react";
-import { PrimaryInput, SubmitButton, CustomStepper, LoginTypeBtn } from "ui";
-import { VendorRegisterModel, UserService, RegisterModel } from "src/services";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import YupPassword from "yup-password";
-import toast from "react-hot-toast";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
+} from '@chakra-ui/react';
+import { PrimaryInput, SubmitButton, CustomStepper, LoginTypeBtn } from 'ui';
+import { VendorRegisterModel, UserService, RegisterModel } from 'src/services';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import YupPassword from 'yup-password';
+import toast from 'react-hot-toast';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 // import Link from "next/link";
-import { BsCheckCircle } from "react-icons/bs";
-import { auth, db } from "@components/firebase/firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { UserContext } from "@components/Context/UserContext";
+import { BsCheckCircle } from 'react-icons/bs';
+import { auth, db } from '@components/firebase/firebase';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { UserContext } from '@components/Context/UserContext';
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -39,7 +39,7 @@ const validation = yup.object().shape({
   password: yup.string().password(),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match"),
+    .oneOf([yup.ref('password'), null], 'Passwords must match'),
 });
 
 // const schema = yup.object().shape({});
@@ -51,7 +51,7 @@ export const SignUpPage = () => {
   };
   const [terms, setTerms] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-  const [loginType, setLoginType] = useState("Vendor");
+  const [loginType, setLoginType] = useState('Vendor');
   const { device } = useContext(UserContext);
   const [step, setStep] = useState(0);
   let validationSchema = {
@@ -61,7 +61,7 @@ export const SignUpPage = () => {
     password: yup.string().password(),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref("password"), null], "Passwords must match"),
+      .oneOf([yup.ref('password'), null], 'Passwords must match'),
   };
   if (step == 1) {
     validationSchema = {
@@ -80,7 +80,7 @@ export const SignUpPage = () => {
     formState: { errors, isSubmitting },
   } = useForm<RegisterModel>({
     resolver: yupResolver(validation),
-    mode: "all",
+    mode: 'all',
   });
   const {
     handleSubmit: VendorSubmit,
@@ -89,7 +89,7 @@ export const SignUpPage = () => {
     formState: { errors: isError, isSubmitting: submitting, isValid },
   } = useForm<VendorRegisterModel>({
     resolver: yupResolver(schema),
-    mode: "all",
+    mode: 'all',
   });
 
   const completeFormStep = async () => {
@@ -102,7 +102,7 @@ export const SignUpPage = () => {
 
   const onSubmitRegister = async (data: RegisterModel) => {
     if (!terms) {
-      toast.error("You have not accepted the terms and conditions");
+      toast.error('You have not accepted the terms and conditions');
       return;
     }
     // console.log({ data });
@@ -122,7 +122,7 @@ export const SignUpPage = () => {
   };
   const onSubmitVendor = async (data: VendorRegisterModel) => {
     if (!terms) {
-      toast.error("You have not accepted the terms and conditions");
+      toast.error('You have not accepted the terms and conditions');
       return;
     }
     // console.log({ data });
@@ -141,21 +141,21 @@ export const SignUpPage = () => {
         await updateProfile(res.user, {
           displayName: data.firstName,
         });
-        await setDoc(doc(db, "users", result?.data?.id as string), {
+        await setDoc(doc(db, 'users', result?.data?.id as string), {
           uid: result.data?.id,
           email: res.user.email,
           displayName: data.firstName,
         });
-        await setDoc(doc(db, "userChats", result?.data?.id as string), {});
-        toast.success(result.message as string, { className: "loginToast" });
+        await setDoc(doc(db, 'userChats', result?.data?.id as string), {});
+        toast.success(result.message as string, { className: 'loginToast' });
         setSuccess(true);
         return;
       }
-      toast.error(result.message as string, { className: "loginToast" });
+      toast.error(result.message as string, { className: 'loginToast' });
       return;
     } catch (error: any) {
       toast.error(error?.body?.message || error?.message, {
-        className: "loginToast",
+        className: 'loginToast',
       });
     }
   };
@@ -165,11 +165,16 @@ export const SignUpPage = () => {
       border="2px hidden red"
       w="100%"
       minH="100vh"
-      justify="space-between"
+      justify={{ base: 'none', md: 'space-between' }}
       align="center"
       // bgColor="#e0edff"
     >
-      <Box w="55%" h="100vh" overflow="hidden">
+      <Box
+        w="55%"
+        h="100vh"
+        overflow="hidden"
+        display={{ base: 'none', lg: 'unset' }}
+      >
         <Carousel
           showStatus={false}
           autoPlay
@@ -189,7 +194,13 @@ export const SignUpPage = () => {
           <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
         </Carousel>
       </Box>
-      <Flex w="50%" pos="relative" h="100vh" align="center">
+      <Flex
+        w={{ base: '100%', md: '80%', lg: '50%' }}
+        pos="relative"
+        h="100vh"
+        align="center"
+        mx="auto"
+      >
         {success ? (
           <VStack w="100%" h="auto" p="3rem 3rem">
             <Icon as={BsCheckCircle} color="green" fontSize="2rem" />
@@ -205,7 +216,7 @@ export const SignUpPage = () => {
           </VStack>
         ) : (
           <>
-            {loginType == "Vendor" && (
+            {loginType == 'Vendor' && (
               <Box pos="absolute" top="0" w="100%">
                 <CustomStepper steps={[0, 1]} currentStep={step} />
               </Box>
@@ -237,8 +248,8 @@ export const SignUpPage = () => {
               Sign up to get started.
             </Text> */}
                 <Text
-                  fontSize={["14px", "16px"]}
-                  display={["block", "block", "block"]}
+                  fontSize={['14px', '16px']}
+                  display={['block', 'block', 'block']}
                   textAlign="center"
                   fontWeight="600"
                 >
@@ -251,13 +262,13 @@ export const SignUpPage = () => {
                 <LoginTypeBtn
                   loginOption={[
                     {
-                      text: "Customer",
+                      text: 'Customer',
                       url: `${
                         process.env.NEXT_PUBLIC_CLIENT_URL as string
                       }/register`,
                     },
                     {
-                      text: "Vendor",
+                      text: 'Vendor',
                       url: `${
                         process.env.NEXT_PUBLIC_VENDOR_URL as string
                       }/register`,
@@ -268,18 +279,18 @@ export const SignUpPage = () => {
               </VStack>
               <Box
                 w="100%"
-                h={["100%", "100%", "100%"]}
+                h={['100%', '100%', '100%']}
                 // border="2px hidden green"
                 overflow="auto"
                 py="15px"
                 pr="3px"
               >
-                {loginType == "Vendor" ? (
+                {loginType == 'Vendor' ? (
                   <form onSubmit={VendorSubmit(onSubmitVendor)}>
                     <VStack
                       spacing="1.5rem"
-                      w="full"
-                      display={step == 1 ? "none" : "flex"}
+                      w={{ base: '110%', md: 'full' }}
+                      display={step == 1 ? 'none' : 'flex'}
                     >
                       <PrimaryInput<VendorRegisterModel>
                         label="Email Address"
@@ -291,7 +302,7 @@ export const SignUpPage = () => {
                         toolTip="An active email address to reach your studio"
                       />
                       <Grid
-                        templateColumns={["repeat(2,1fr)"]}
+                        templateColumns={['repeat(2,1fr)']}
                         gap="1.5rem 1rem"
                         w="full"
                       >
@@ -315,7 +326,7 @@ export const SignUpPage = () => {
                         <PrimaryInput<VendorRegisterModel>
                           label="Password"
                           placeholder="Enter your password"
-                          type={passwordVisible ? "text" : "password"}
+                          type={passwordVisible ? 'text' : 'password'}
                           icon={true}
                           passwordVisible={passwordVisible}
                           changeVisibility={changeInputType}
@@ -326,7 +337,7 @@ export const SignUpPage = () => {
                         <PrimaryInput<VendorRegisterModel>
                           label="Re-enter password"
                           placeholder="Confirm your password"
-                          type={passwordVisible ? "text" : "password"}
+                          type={passwordVisible ? 'text' : 'password'}
                           icon={true}
                           passwordVisible={passwordVisible}
                           changeVisibility={changeInputType}
@@ -351,7 +362,7 @@ export const SignUpPage = () => {
                     <VStack
                       spacing="1.5rem"
                       w="full"
-                      display={step == 0 ? "none" : "flex"}
+                      display={step == 0 ? 'none' : 'flex'}
                     >
                       <PrimaryInput<VendorRegisterModel>
                         label="Studio Name"
@@ -390,10 +401,10 @@ export const SignUpPage = () => {
                           size="md"
                           onChange={(e) => setTerms(e.target.checked)}
                         >
-                          I have read, undrestood and accept the{" "}
+                          I have read, undrestood and accept the{' '}
                           <span
                             style={{
-                              color: "#1570FA",
+                              color: '#1570FA',
                             }}
                           >
                             Terms and Conditions
@@ -428,7 +439,7 @@ export const SignUpPage = () => {
                       error={errors.email}
                       register={register}
                     />
-                    <Grid templateColumns={["repeat(2,1fr)"]} gap="0rem 1rem">
+                    <Grid templateColumns={['repeat(2,1fr)']} gap="0rem 1rem">
                       <PrimaryInput<RegisterModel>
                         label="First Name"
                         type="text"
@@ -449,7 +460,7 @@ export const SignUpPage = () => {
                       <PrimaryInput<RegisterModel>
                         label="Password"
                         placeholder="Enter your password"
-                        type={passwordVisible ? "text" : "password"}
+                        type={passwordVisible ? 'text' : 'password'}
                         icon={true}
                         passwordVisible={passwordVisible}
                         changeVisibility={changeInputType}
@@ -460,7 +471,7 @@ export const SignUpPage = () => {
                       <PrimaryInput<RegisterModel>
                         label="Re-enter password"
                         placeholder="Confirm your password"
-                        type={passwordVisible ? "text" : "password"}
+                        type={passwordVisible ? 'text' : 'password'}
                         icon={true}
                         passwordVisible={passwordVisible}
                         changeVisibility={changeInputType}
@@ -482,10 +493,10 @@ export const SignUpPage = () => {
                         size="md"
                         onChange={(e) => setTerms(e.target.checked)}
                       >
-                        I have read, undrestood and accept the{" "}
+                        I have read, undrestood and accept the{' '}
                         <span
                           style={{
-                            color: "#1570FA",
+                            color: '#1570FA',
                           }}
                         >
                           Terms and Conditions
@@ -501,8 +512,8 @@ export const SignUpPage = () => {
                 )}
 
                 <Text
-                  fontSize={["14px", "14px"]}
-                  display={["block", "block", "block"]}
+                  fontSize={['14px', '14px']}
+                  display={['block', 'block', 'block']}
                   textAlign="center"
                   mt="1rem"
                   color="#3e3e3e"

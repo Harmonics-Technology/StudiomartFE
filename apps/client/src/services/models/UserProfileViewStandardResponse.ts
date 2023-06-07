@@ -17,3 +17,4 @@ export type UserProfileViewStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
+

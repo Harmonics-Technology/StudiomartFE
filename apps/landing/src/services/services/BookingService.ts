@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { BookingModel } from '../models/BookingModel';
+import type { BookingStatus } from '../models/BookingStatus';
+import type { BookingViewPagedCollectionStandardResponse } from '../models/BookingViewPagedCollectionStandardResponse';
 import type { BookingViewStandardResponse } from '../models/BookingViewStandardResponse';
 import type { BooleanStandardResponse } from '../models/BooleanStandardResponse';
 import type { LookupModel } from '../models/LookupModel';
@@ -14,6 +16,7 @@ import { request as __request } from '../core/request';
 export class BookingService {
 
     /**
+     * Lookup for a date and time to see if it is available
      * @returns BooleanStandardResponse Success
      * @throws ApiError
      */
@@ -39,6 +42,7 @@ requestBody?: LookupModel,
     }
 
     /**
+     * Create a new booking
      * @returns BookingViewStandardResponse Success
      * @throws ApiError
      */
@@ -64,6 +68,7 @@ requestBody?: BookingModel,
     }
 
     /**
+     * Get a booking by it's id
      * @returns BookingViewStandardResponse Success
      * @throws ApiError
      */
@@ -90,6 +95,7 @@ device?: any,
     }
 
     /**
+     * Cancel a booking by id
      * @returns BookingViewStandardResponse Success
      * @throws ApiError
      */
@@ -101,7 +107,7 @@ id: string,
 device?: any,
 }): CancelablePromise<BookingViewStandardResponse> {
         return __request(OpenAPI, {
-            method: 'DELETE',
+            method: 'PUT',
             url: '/api/Booking/cancel/{id}',
             path: {
                 'id': id,
@@ -116,6 +122,7 @@ device?: any,
     }
 
     /**
+     * Accept a booking by id
      * @returns BookingViewStandardResponse Success
      * @throws ApiError
      */
@@ -142,6 +149,7 @@ device?: any,
     }
 
     /**
+     * Reject a booking by id
      * @returns BookingViewStandardResponse Success
      * @throws ApiError
      */
@@ -173,14 +181,17 @@ device?: any,
     }
 
     /**
+     * Check in a booking by id, this returns a payment link
      * @returns StringStandardResponse Success
      * @throws ApiError
      */
     public static checkout({
 id,
+frontEndBaseUrl,
 device,
 }: {
 id: string,
+frontEndBaseUrl?: string,
 device?: any,
 }): CancelablePromise<StringStandardResponse> {
         return __request(OpenAPI, {
@@ -192,8 +203,115 @@ device?: any,
             headers: {
                 'device': device,
             },
+            query: {
+                'frontEndBaseUrl': frontEndBaseUrl,
+            },
             errors: {
                 400: `Bad Request`,
+            },
+        });
+    }
+
+    /**
+     * Get all service bookings
+     * @returns BookingViewPagedCollectionStandardResponse Success
+     * @throws ApiError
+     */
+    public static getBookingsByServiceId({
+offset,
+limit,
+studioId,
+serviceId,
+status,
+filterBy,
+search,
+startDate,
+endDate,
+device,
+}: {
+offset?: number,
+limit?: number,
+studioId?: string,
+serviceId?: string,
+status?: BookingStatus,
+filterBy?: number,
+search?: string,
+startDate?: string,
+endDate?: string,
+device?: any,
+}): CancelablePromise<BookingViewPagedCollectionStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Booking/bookings',
+            headers: {
+                'device': device,
+            },
+            query: {
+                'Offset': offset,
+                'Limit': limit,
+                'StudioId': studioId,
+                'ServiceId': serviceId,
+                'Status': status,
+                'FilterBy': filterBy,
+                'Search': search,
+                'StartDate': startDate,
+                'EndDate': endDate,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * Get all bookings for a user
+     * @returns BookingViewPagedCollectionStandardResponse Success
+     * @throws ApiError
+     */
+    public static getBookingsByUser({
+offset,
+limit,
+studioId,
+serviceId,
+status,
+filterBy,
+search,
+startDate,
+endDate,
+device,
+}: {
+offset?: number,
+limit?: number,
+studioId?: string,
+serviceId?: string,
+status?: BookingStatus,
+filterBy?: number,
+search?: string,
+startDate?: string,
+endDate?: string,
+device?: any,
+}): CancelablePromise<BookingViewPagedCollectionStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Booking/bookings/user',
+            headers: {
+                'device': device,
+            },
+            query: {
+                'Offset': offset,
+                'Limit': limit,
+                'StudioId': studioId,
+                'ServiceId': serviceId,
+                'Status': status,
+                'FilterBy': filterBy,
+                'Search': search,
+                'StartDate': startDate,
+                'EndDate': endDate,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
             },
         });
     }

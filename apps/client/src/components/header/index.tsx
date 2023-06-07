@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Link, Flex, Heading, Stack, Box, Button } from "@chakra-ui/react";
+import {
+  Link,
+  Flex,
+  Image,
+  Stack,
+  Box,
+  Button,
+  HStack,
+} from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { Harmburger } from "ui";
@@ -34,14 +42,11 @@ export const Header = () => {
     <Flex bgColor="white" w="full" py="5" pos="sticky" top="0" zIndex={900}>
       <Flex align="center" justify="space-between" w="90%" mx="auto">
         <NextLink href="/">
-          <Heading
-            zIndex={10}
-            textAlign={"center"}
-            cursor="pointer"
-            fontSize={{ base: "1.4rem", lg: "2rem" }}
-          >
-            StudioMart
-          </Heading>
+          <HStack>
+            <Box w="13rem" pl=".5rem" cursor="pointer">
+              <Image src="/assets/studiomart.png" w="full" alt="logo" />
+            </Box>
+          </HStack>
         </NextLink>
         <Stack
           pos={["fixed", "unset"]}

@@ -47,15 +47,17 @@ const BecomeVendor = () => {
           <Text fontSize={[".9rem", "1.4rem"]} pb="9" fontWeight="500">
             List your studio and start earning from bookings.
           </Text>
-          <Link href="/">
-            <Button
-              w="170px"
-              h="50px"
-              fontSize={[".8rem", "unset"]}
-              bgColor="brand.100"
-            >
-              Become a Vendor
-            </Button>
+          <Link href="http://localhost:3001/register">
+            <a target="_blank" rel="noopener noreferrer">
+              <Button
+                w="170px"
+                h="50px"
+                fontSize={[".8rem", "unset"]}
+                bgColor="brand.100"
+              >
+                Become a Vendor
+              </Button>
+            </a>
           </Link>
         </VStack>
       </VStack>

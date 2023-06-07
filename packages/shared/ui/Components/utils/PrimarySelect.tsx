@@ -20,6 +20,7 @@ interface FormInputProps<TFormValues extends Record<string, unknown>> {
   defaultValue?: any;
   mb?: any;
   focusBorderColor?: any;
+  h?: string;
 }
 export const PrimarySelect = <TFormValues extends Record<string, any>>({
   name,
@@ -34,6 +35,7 @@ export const PrimarySelect = <TFormValues extends Record<string, any>>({
   defaultValue,
   mb = "0rem",
   focusBorderColor = "none",
+  h = "2.8rem",
 }: FormInputProps<TFormValues>) => {
   return (
     <>
@@ -58,7 +60,7 @@ export const PrimarySelect = <TFormValues extends Record<string, any>>({
           icon={<TfiAngleDown color="#DFDFE6" fontSize=".8rem" />}
           placeholder={placeholder}
           w="100%"
-          h="2.8rem"
+          h={h}
           defaultValue={defaultValue}
           fontWeight={fontWeight}
           borderRadius="4px"

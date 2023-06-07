@@ -25,3 +25,4 @@ export type ServiceView = {
     totalReviewCount?: number;
     averageRating?: number;
 };
+

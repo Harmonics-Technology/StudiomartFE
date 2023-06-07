@@ -10,3 +10,4 @@ export type UpdateServiceModel = {
     bannerImageURL?: string | null;
     serviceTypeId?: string;
 };
+

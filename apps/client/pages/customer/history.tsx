@@ -20,7 +20,6 @@ export default history;
 export const getServerSideProps: GetServerSideProps = withPageAuth(
   async (ctx: any) => {
     const pagingOptions = FilterPagingOptions(ctx);
-    const userId = JSON.parse(ctx.req.cookies.vendor).id;
     try {
       const bookings = await BookingService.getBookingsByUser({
         offset: pagingOptions.offset,

@@ -13,21 +13,21 @@ import {
   Collapse,
   VStack,
   Image,
-} from "@chakra-ui/react";
-import React from "react";
+} from '@chakra-ui/react';
+import React from 'react';
 import {
   BsFillCaretDownFill,
   BsFillCaretUpFill,
   BsFillPersonFill,
   BsFillClockFill,
   BsBorderWidth,
-} from "react-icons/bs";
-import { IoMdClose } from "react-icons/io";
-import { IoStorefront } from "react-icons/io5";
-import { FaHome } from "react-icons/fa";
-import NextLink from "next/link";
-import { UserView } from "src/services";
-import Menus from "@components/utils/Menus";
+} from 'react-icons/bs';
+import { IoMdClose } from 'react-icons/io';
+import { IoStorefront } from 'react-icons/io5';
+import { FaHome } from 'react-icons/fa';
+import NextLink from 'next/link';
+import { UserView } from 'src/services';
+import Menus from '@components/utils/Menus';
 
 const NavLinks = ({
   name,
@@ -47,7 +47,7 @@ const NavLinks = ({
         display="inline-block"
         px="7"
         py="3"
-        _hover={{ bgColor: "brand.100", color: "white" }}
+        _hover={{ bgColor: 'brand.100', color: 'white' }}
       >
         {name}
       </Link>
@@ -76,7 +76,7 @@ const CustomerSidebar = ({ user }: { user: UserView }) => {
         onClick={onOpen}
         fontSize="1.5rem"
         cursor="pointer"
-        mt={["1", "1.5"]}
+        mt={['1', '1.5']}
       >
         <BsBorderWidth />
       </Box>
@@ -87,7 +87,7 @@ const CustomerSidebar = ({ user }: { user: UserView }) => {
         trapFocus={false}
       >
         <DrawerOverlay />
-        <DrawerContent maxW="20%">
+        <DrawerContent maxW={{ base: '60%', lg: '20%' }}>
           <DrawerHeader px="3">
             <HStack
               align="center"
@@ -124,7 +124,7 @@ const CustomerSidebar = ({ user }: { user: UserView }) => {
                   menuTitle={`Hi ${user?.firstName}`}
                   icon={<BsFillPersonFill opacity=".8" />}
                   option={true}
-                  dropDown={["my profile", "customer support"]}
+                  dropDown={['my profile', 'customer support']}
                 />
                 <Menus
                   linkName="/"
@@ -146,11 +146,11 @@ const CustomerSidebar = ({ user }: { user: UserView }) => {
                   icon={<IoStorefront opacity=".8" />}
                   option={true}
                   dropDown={[
-                    "music studio",
-                    "photography studio",
-                    "makeup studio",
-                    "hair studio",
-                    "video studio",
+                    'music studio',
+                    'photography studio',
+                    'makeup studio',
+                    'hair studio',
+                    'video studio',
                   ]}
                 />
               </VStack>

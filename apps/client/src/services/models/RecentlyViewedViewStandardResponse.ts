@@ -17,3 +17,4 @@ export type RecentlyViewedViewStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
+

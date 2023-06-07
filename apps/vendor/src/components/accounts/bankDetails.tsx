@@ -20,7 +20,7 @@ import { BankCard } from "src/utils/BankCard";
 import { UserContext } from "@components/Context/UserContext";
 import { VerifyPasswordModal } from "@components/Modals/VerifyPasswordModal";
 import axios from "axios";
-import useNonInitialEffect from "src/utils/useNonInitialEffect";
+import { useNonInitialEffect } from "ui";
 
 const schema = yup.object().shape({
   accountName: yup.string().required(),

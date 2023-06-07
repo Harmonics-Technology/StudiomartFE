@@ -35,7 +35,7 @@ interface FormProps<TFormValues extends Record<string, unknown>> {
   left?: boolean;
   value?: any;
   toolTip?: any;
-  ref?: any;
+  h?: any;
   disableLabel?: boolean;
 }
 
@@ -59,7 +59,7 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
   left = false,
   value,
   toolTip,
-  ref,
+  h = "2.8rem",
   disableLabel,
 }: FormProps<TFormValues>) => {
   // console.log({ error, name });
@@ -99,7 +99,7 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
             placeholder={placeholder}
             {...register(name, { required, ...validate })}
             w="100%"
-            h="2.8rem"
+            h={h}
             defaultValue={defaultValue}
             fontWeight={fontWeight}
             borderRadius={borderRadius}

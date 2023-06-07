@@ -25,6 +25,9 @@ export type { BookingViewPagedCollection } from './models/BookingViewPagedCollec
 export type { BookingViewPagedCollectionStandardResponse } from './models/BookingViewPagedCollectionStandardResponse';
 export type { BookingViewStandardResponse } from './models/BookingViewStandardResponse';
 export type { BooleanStandardResponse } from './models/BooleanStandardResponse';
+export type { GlobalSearchResultView } from './models/GlobalSearchResultView';
+export type { GlobalSearchResultViewPagedCollection } from './models/GlobalSearchResultViewPagedCollection';
+export type { GlobalSearchResultViewPagedCollectionStandardResponse } from './models/GlobalSearchResultViewPagedCollectionStandardResponse';
 export { HttpStatusCode } from './models/HttpStatusCode';
 export type { InitiateResetModel } from './models/InitiateResetModel';
 export type { Link } from './models/Link';
