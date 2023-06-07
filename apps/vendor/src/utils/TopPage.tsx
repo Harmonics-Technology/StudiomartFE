@@ -8,10 +8,11 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
-import React from "react";
+import React, { useContext } from "react";
 // import ModalWrapper from "ui/Components/utils/ModalWrapper";
 import AddingOptionsModal from "@components/Modals/AddingOptionsModal";
 import { ServiceTypeViewListStandardResponse } from "src/services";
+import { UserContext } from "@components/Context/UserContext";
 
 interface TopPageProps {
   page: string;
@@ -22,6 +23,8 @@ interface TopPageProps {
 
 function TopPage({ page, details, right, serviceTypes }: TopPageProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const{device} = useContext(UserContext)
+  console.log(device)
   return (
     <Box bgColor="white">
       <Flex
@@ -31,6 +34,7 @@ function TopPage({ page, details, right, serviceTypes }: TopPageProps) {
         mx="auto"
         py=".7rem"
         px="2.5rem"
+        // flexDirection={{ base: 'column', lg: 'row'}}
       >
         <Box fontFamily="BR Firma">
           <Text fontSize="1.5rem" fontWeight="600" mb=".2rem">
@@ -39,8 +43,8 @@ function TopPage({ page, details, right, serviceTypes }: TopPageProps) {
           <Text>{details}</Text>
         </Box>
         {right && (
-          <Button bgColor="brand.100" color="white" px="2rem" onClick={onOpen}>
-            Add Services
+          <Button bgColor="brand.100" color="white" p={{base: "1.5rem", lg:"0 2rem"}} w={{base:'2rem', lg:'fit-content'}} minW={{base:'0', lg:'inherit'}} h={{base:'2rem', lg:'3rem'}} borderRadius={{base:'50%', lg:'5px'}} onClick={onOpen} >
+            {device == 'Mobile device' ? '+' : 'Add Services'}
           </Button>
         )}
         <AddingOptionsModal

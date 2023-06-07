@@ -36,11 +36,13 @@ export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
           px="2rem"
           my="2rem"
           templateColumns={["repeat(1,1fr)", "repeat(3,1fr)"]}
+          gap='2rem'
+          
         >
           {studios?.data?.value?.map((x: ServiceView, i: any) => (
             <Box
               minH="14rem"
-              w="23rem"
+              w="full"
               bg="white"
               borderRadius="10px"
               key={i}
