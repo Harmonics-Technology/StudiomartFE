@@ -10,6 +10,7 @@ import {
   Flex,
   HStack,
 } from '@chakra-ui/react';
+
 import NextLink from 'next/link';
 import {
   FaFacebookF,
@@ -24,6 +25,18 @@ type Props = {
 };
 
 const NavLink = ({ name, path }: Props) => {
+  return (
+    <NextLink href={path} passHref>
+      <Link
+        fontSize={['14px', '16px']}
+        color="whiteAlpha.700"
+        cursor="pointer"
+        _hover={{ color: 'white' }}
+      >
+        {name}
+      </Link>
+    </NextLink>
+  );
   return (
     <NextLink href={path} passHref>
       <Link
@@ -51,9 +64,11 @@ export const Footer: React.FC = () => {
           spacing={['8', 'unset']}
         >
           <VStack align="flex-start">
-            <Heading fontSize={['1.4rem', '2rem']} color="white">
-              StudioMart
-            </Heading>
+            <HStack>
+              <Box w="13rem" pl=".5rem" cursor="pointer">
+                <Image src="/assets/logowhite.png" w="full" alt="logo" />
+              </Box>
+            </HStack>
             <VStack spacing="4" pt={['8', '3']} align="flex-start">
               <NavLink path="/" name="Rent a studio" />
               <NavLink path="/" name="Add a studio" />

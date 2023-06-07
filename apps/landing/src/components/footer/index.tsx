@@ -40,103 +40,33 @@ const NavLink = ({ name, path }: Props) => {
 
 export const Footer: React.FC = () => {
   return (
-    <Box bg="black" pt={[10, 16]} pb={["10", "5"]}>
-      <Box w="85%" mx="auto">
-        <Stack
-          direction={["column", "row"]}
-          justify="space-between"
-          align="start"
-          flexWrap="wrap"
-          mb={["16", "10"]}
-          spacing={["8", "unset"]}
-        >
-          <VStack align="flex-start" w="15%">
-            <Box>
-              <Image src="/assets/logowhite.png" w="full" alt="logo" />
-            </Box>
-            <VStack spacing="4" pt={["8", "3"]} align="flex-start">
-              <NavLink path="/" name="Rent a studio" />
-              <NavLink path="/" name="Add a studio" />
-              <Box pt="8">
-                <Image
-                  w={["130px", "170px"]}
-                  src="/assets/googlePlay.png"
-                  alt="Download on Google Play"
-                />
-              </Box>
-            </VStack>
-          </VStack>
-          <VStack align="flex-start">
-            <Text
-              color="whiteAlpha.900"
-              fontSize={["1rem", "1.3rem"]}
-              fontWeight="500"
-            >
-              Studio Category
-            </Text>
-            <VStack spacing="5" align="flex-start">
-              <NavLink path="/" name="Music Studio" />
-              <NavLink path="/" name="Photo Studio" />
-              <NavLink path="/" name="Make Up Studio" />
-              <NavLink path="/" name="Art Studio" />
-              <NavLink path="/" name="Podcast Studio" />
-            </VStack>
-          </VStack>
-          <VStack align="flex-start">
-            <Text
-              color="whiteAlpha.900"
-              fontSize={["1rem", "1.3rem"]}
-              fontWeight="500"
-            >
-              Company
-            </Text>
-            <VStack spacing="5" align="flex-start">
-              <NavLink path="/" name="About Us" />
-              <NavLink path="/" name="Contact" />
-            </VStack>
-          </VStack>
-          <VStack align="flex-start">
-            <Text
-              color="whiteAlpha.900"
-              fontSize={["1rem", "1.3rem"]}
-              fontWeight="500"
-            >
-              Support
-            </Text>
-            <VStack spacing="5" align="flex-start">
-              <NavLink path="/" name="Studio Fee" />
-              <NavLink path="/" name="Terms & Conditions" />
-              <NavLink path="/" name="Privacy" />
-            </VStack>
-          </VStack>
-        </Stack>
-        <Divider />
-        <Flex
-          mt="8"
-          gap={["8", "unset"]}
-          color="whiteAlpha.700"
-          justifyContent="space-between"
-          flexDir={["column-reverse", "row"]}
-        >
-          <Text fontSize={["14px", "16px"]}>
+    <Box bg="#171717" h="100px">
+      <Flex justify="space-between" h="full" align="center" w="85%" mx="auto">
+        <Box>
+          <Box w="13rem" pl=".5rem" cursor="pointer">
+            <Image src="/assets/logowhite.png" w="full" alt="logo" />
+          </Box>
+        </Box>
+        <HStack spacing={["4", "2"]} color="rgba(249, 249, 249, 0.72)">
+          <Link href="/">
+            <FaInstagram />
+          </Link>
+          <Link href="/">
+            <FaTwitter />
+          </Link>
+          <Link href="/">
+            <FaLinkedinIn />
+          </Link>
+          <Link href="/">
+            <FaFacebookF />
+          </Link>
+        </HStack>
+        <Box>
+          <Text fontSize="14px" color="rgba(249, 249, 249, 0.72)" mb="0">
             &copy; StudioMart 2022. All Rights Reserved.
           </Text>
-          <HStack spacing={["4", "2"]}>
-            <Link href="/">
-              <FaInstagram />
-            </Link>
-            <Link href="/">
-              <FaTwitter />
-            </Link>
-            <Link href="/">
-              <FaLinkedinIn />
-            </Link>
-            <Link href="/">
-              <FaFacebookF />
-            </Link>
-          </HStack>
-        </Flex>
-      </Box>
+        </Box>
+      </Flex>
     </Box>
   );
 };

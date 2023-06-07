@@ -10,7 +10,7 @@ import { PrimarySelect, PrimaryInput, ModalWrapper, DisabledInput } from "ui";
 import { VerifyPasswordModal } from "./VerifyPasswordModal";
 import * as yup from "yup";
 import axios from "axios";
-import useNonInitialEffect from "src/utils/useNonInitialEffect";
+import {useNonInitialEffect} from "ui";
 
 const schema = yup.object().shape({
   accountName: yup.string().required(),

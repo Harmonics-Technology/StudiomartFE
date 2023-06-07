@@ -130,7 +130,7 @@ const BookingFilters = ({ w }: { w?: any }) => {
             range
             format="MMM DD, YYYY"
             render={(stringDates: any, openCalendar: any) => {
-              stringDates = stringDates.split("~");
+              // stringDates = stringDates.split("~");
               const from = stringDates[0] || "";
               const to = stringDates[1] || "";
               const value = from && to ? from + " - " + to : from;

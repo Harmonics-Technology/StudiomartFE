@@ -30,7 +30,7 @@ export const FilterPagingOptions = (ctx: any) => {
     maxPrice: maxPrice || null,
     rating: Number(rating) || null,
     studioId: studioId || null,
-    city: city || null,
+    city: city,
     state: state || null,
   };
   //   console.log({ options });
