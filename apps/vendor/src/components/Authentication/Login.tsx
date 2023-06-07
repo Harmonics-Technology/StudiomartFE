@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
+import React, { useEffect, useState } from 'react';
+import { ChevronLeftIcon } from '@chakra-ui/icons';
 import {
   Box,
   Flex,
@@ -8,16 +8,16 @@ import {
   VStack,
   Checkbox,
   HStack,
-} from "@chakra-ui/react";
-import { PrimaryInput, SubmitButton } from "ui";
-import { LoginModel, UserService } from "src/services";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import YupPassword from "yup-password";
-import toast from "react-hot-toast";
-import Link from "next/link";
-import Cookies from "js-cookie";
+} from '@chakra-ui/react';
+import { PrimaryInput, SubmitButton } from 'ui';
+import { LoginModel, UserService } from 'src/services';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import YupPassword from 'yup-password';
+import toast from 'react-hot-toast';
+import Link from 'next/link';
+import Cookies from 'js-cookie';
 YupPassword(yup);
 
 const schema = yup.object().shape({
@@ -33,8 +33,8 @@ const Login = () => {
   const [terms, setTerms] = useState<boolean>(false);
   const [loggedIn, setLoggedIn] = useState<any>({});
   useEffect(() => {
-    if (Cookies.get("hash") !== undefined) {
-      setLoggedIn(JSON.parse(Cookies.get("hash") as string));
+    if (Cookies.get('hash') !== undefined) {
+      setLoggedIn(JSON.parse(Cookies.get('hash') as string));
     }
   }, []);
   console.log({ loggedIn });
@@ -44,7 +44,7 @@ const Login = () => {
     formState: { errors, isSubmitting },
   } = useForm<LoginModel>({
     resolver: yupResolver(schema),
-    mode: "all",
+    mode: 'all',
   });
 
   const onSubmit = async (data: LoginModel) => {
@@ -55,14 +55,14 @@ const Login = () => {
     try {
       const result = await UserService.loginUser({ requestBody: data });
       if (result.status) {
-        toast.success("Login Successful!");
-        Cookies.set("user", JSON.stringify(result.data));
+        toast.success('Login Successful!');
+        Cookies.set('user', JSON.stringify(result.data));
         if (terms) {
-          Cookies.set("hash", JSON.stringify(logged), {
+          Cookies.set('hash', JSON.stringify(logged), {
             expires: 10,
           });
         }
-        window.location.href = "/customer";
+        window.location.href = '/customer';
         return;
       }
       toast.error(result.message as string);
@@ -83,7 +83,7 @@ const Login = () => {
       <Flex w="100%" minH="100vh" border="2px hidden blue" color="white">
         <Box
           border="2px hidden green"
-          display={["none", "none", "block"]}
+          display={['none', 'none', 'block']}
           w="50%"
           h="auto"
           backgroundImage="/assets/login-hero.svg"
@@ -110,9 +110,9 @@ const Login = () => {
         </Box>
         {/* info */}
         <Box
-          w={["100%", "100%", "50%"]}
+          w={['100%', '100%', '50%']}
           border="4px hidden red"
-          h={["100%", "100%", "100vh"]}
+          h={['100%', '100%', '100vh']}
           color="black"
           overflow="hidden"
         >
@@ -124,7 +124,7 @@ const Login = () => {
             border="2px hidden green"
           >
             <Box
-              w={["90%", "75%"]}
+              w={['90%', '75%']}
               mx="auto"
               border="2px hidden blue"
               pos="relative"
@@ -160,7 +160,7 @@ const Login = () => {
 
                 <Box
                   w="100%"
-                  h={["100%", "100%", "100%"]}
+                  h={['100%', '100%', '100%']}
                   // border="2px hidden green"
                   overflow="auto"
                   py="15px"
@@ -180,7 +180,7 @@ const Login = () => {
                     <PrimaryInput<LoginModel>
                       label="Password"
                       placeholder="Enter your password"
-                      type={passwordVisible ? "text" : "password"}
+                      type={passwordVisible ? 'text' : 'password'}
                       icon={true}
                       passwordVisible={passwordVisible}
                       changeVisibility={changeInputType}
@@ -231,8 +231,8 @@ const Login = () => {
                   </form>
 
                   <Text
-                    fontSize={["14px", "16px"]}
-                    display={["block", "block", "none"]}
+                    fontSize={['14px', '16px']}
+                    display={['block', 'block', 'none']}
                   >
                     Don&apos;t have an account? You can
                     <Link href="/register">&nbsp;sign up here.</Link>

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Box,
   Button,
@@ -8,23 +8,32 @@ import {
   HStack,
   Image,
   Grid,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 function DashboardBanner() {
   return (
-    <Flex bgColor="brand.100" m="2rem" borderRadius="xl">
+    <Flex
+      bgColor="brand.100"
+      m={{ base: '1rem', md: '2rem' }}
+      borderRadius="xl"
+      gap={{ base: '4', md: '' }}
+    >
       <Box w="70%">
         <Heading
-          fontSize="48px"
+          fontSize={{ base: '20px', md: '48px' }}
           fontWeight="700"
           color="white"
-          pl="2rem"
+          pl={{ base: '.5rem', md: '2rem' }}
           py="2rem"
         >
           Life is much more easier <br />
           with our mobile app
         </Heading>
-        <HStack pl="2rem" pb="2rem" mt="-1">
+        <HStack
+          pl={{ base: '.5rem', md: '2rem' }}
+          pb="2rem"
+          mt={{ base: '2', md: '-1' }}
+        >
           <Image
             w="7rem"
             h="2.3rem"
@@ -40,9 +49,9 @@ function DashboardBanner() {
           />
         </HStack>
       </Box>
-      <Box ml="-16" mt="6">
+      <Box ml="-16" mt={{ base: '4', md: '6' }}>
         <Image
-          h="12rem"
+          h={{ base: '8rem', md: '12rem' }}
           objectFit="cover"
           src="/assets/iphone.png"
           alt="image"

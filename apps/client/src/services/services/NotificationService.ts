@@ -16,18 +16,18 @@ export class NotificationService {
      * @throws ApiError
      */
     public static getUserNotification({
-userId,
-offset,
-limit,
-isRead,
-device,
-}: {
-userId: string,
-offset?: number,
-limit?: number,
-isRead?: boolean,
-device?: any,
-}): CancelablePromise<NotificationViewPagedCollectionStandardResponse> {
+        userId,
+        offset,
+        limit,
+        isRead,
+        device,
+    }: {
+        userId: string,
+        offset?: number,
+        limit?: number,
+        isRead?: boolean,
+        device?: any,
+    }): CancelablePromise<NotificationViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Notification/{userId}',
@@ -54,12 +54,12 @@ device?: any,
      * @throws ApiError
      */
     public static markAsRead({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<BooleanStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Notification/read/{id}',
@@ -81,12 +81,12 @@ device?: any,
      * @throws ApiError
      */
     public static deleteNotification({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<BooleanStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Notification/delete/{id}',

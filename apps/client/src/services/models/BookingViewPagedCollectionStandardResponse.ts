@@ -17,3 +17,4 @@ export type BookingViewPagedCollectionStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
+

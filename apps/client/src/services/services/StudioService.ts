@@ -7,6 +7,7 @@ import type { BankAccountModel } from '../models/BankAccountModel';
 import type { BankAccountViewListStandardResponse } from '../models/BankAccountViewListStandardResponse';
 import type { BankAccountViewStandardResponse } from '../models/BankAccountViewStandardResponse';
 import type { BooleanStandardResponse } from '../models/BooleanStandardResponse';
+import type { GlobalSearchResultViewPagedCollectionStandardResponse } from '../models/GlobalSearchResultViewPagedCollectionStandardResponse';
 import type { MediaModel } from '../models/MediaModel';
 import type { MediaUpdateModel } from '../models/MediaUpdateModel';
 import type { MediaViewStandardResponse } from '../models/MediaViewStandardResponse';
@@ -37,12 +38,12 @@ export class StudioService {
      * @throws ApiError
      */
     public static createStudio({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: StudioModel,
-}): CancelablePromise<StudioViewStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: StudioModel,
+    }): CancelablePromise<StudioViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/create',
@@ -64,12 +65,12 @@ requestBody?: StudioModel,
      * @throws ApiError
      */
     public static getStudioById({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<StudioViewStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<StudioViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Studio/{id}',
@@ -92,12 +93,12 @@ device?: any,
      * @throws ApiError
      */
     public static updateStudio({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: StudioModel,
-}): CancelablePromise<StudioViewStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: StudioModel,
+    }): CancelablePromise<StudioViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/update',
@@ -119,12 +120,12 @@ requestBody?: StudioModel,
      * @throws ApiError
      */
     public static addOrUpdateKyc({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: StudioKYCModel,
-}): CancelablePromise<StudioViewStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: StudioKYCModel,
+    }): CancelablePromise<StudioViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/kyc',
@@ -146,12 +147,12 @@ requestBody?: StudioKYCModel,
      * @throws ApiError
      */
     public static deleteStudio({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<BooleanStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/delete/{id}',
@@ -174,12 +175,12 @@ device?: any,
      * @throws ApiError
      */
     public static createService({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: ServiceModel,
-}): CancelablePromise<ServiceViewStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: ServiceModel,
+    }): CancelablePromise<ServiceViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/service/create',
@@ -201,12 +202,12 @@ requestBody?: ServiceModel,
      * @throws ApiError
      */
     public static getServiceById({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<ServiceViewStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<ServiceViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Studio/service/{id}',
@@ -229,12 +230,12 @@ device?: any,
      * @throws ApiError
      */
     public static createAdditionalService({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: AdditionalServiceModel,
-}): CancelablePromise<AdditionalServiceViewStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: AdditionalServiceModel,
+    }): CancelablePromise<AdditionalServiceViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/additional-service/create',
@@ -256,12 +257,12 @@ requestBody?: AdditionalServiceModel,
      * @throws ApiError
      */
     public static updateService({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: UpdateServiceModel,
-}): CancelablePromise<ServiceViewStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: UpdateServiceModel,
+    }): CancelablePromise<ServiceViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/service/update',
@@ -283,12 +284,12 @@ requestBody?: UpdateServiceModel,
      * @throws ApiError
      */
     public static updateAAdditionalService({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: AdditionalServiceModel,
-}): CancelablePromise<AdditionalServiceViewStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: AdditionalServiceModel,
+    }): CancelablePromise<AdditionalServiceViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/additional-service/update',
@@ -310,12 +311,12 @@ requestBody?: AdditionalServiceModel,
      * @throws ApiError
      */
     public static updateMediaUrl({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: MediaUpdateModel,
-}): CancelablePromise<MediaViewStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: MediaUpdateModel,
+    }): CancelablePromise<MediaViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/image/update',
@@ -337,12 +338,12 @@ requestBody?: MediaUpdateModel,
      * @throws ApiError
      */
     public static deleteService({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<BooleanStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/service/delete/{id}',
@@ -365,12 +366,12 @@ device?: any,
      * @throws ApiError
      */
     public static deleteAdditionalService({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<BooleanStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/additional-service/delete/{id}',
@@ -393,12 +394,12 @@ device?: any,
      * @throws ApiError
      */
     public static deleteServiceImage({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<BooleanStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/service-image/delete/{id}',
@@ -421,12 +422,12 @@ device?: any,
      * @throws ApiError
      */
     public static getWallet({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<WalletViewStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<WalletViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Studio/{id}/wallet',
@@ -449,12 +450,12 @@ device?: any,
      * @throws ApiError
      */
     public static createWalletPin({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: WalletPinModel,
-}): CancelablePromise<WalletViewStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: WalletPinModel,
+    }): CancelablePromise<WalletViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/wallet/pin/create',
@@ -476,12 +477,12 @@ requestBody?: WalletPinModel,
      * @throws ApiError
      */
     public static verifyPin({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: WalletPinModel,
-}): CancelablePromise<WalletViewStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: WalletPinModel,
+    }): CancelablePromise<WalletViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/wallet/pin/verify',
@@ -503,12 +504,12 @@ requestBody?: WalletPinModel,
      * @throws ApiError
      */
     public static addBankAccount({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: BankAccountModel,
-}): CancelablePromise<BankAccountViewStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: BankAccountModel,
+    }): CancelablePromise<BankAccountViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/accounts/add',
@@ -530,12 +531,12 @@ requestBody?: BankAccountModel,
      * @throws ApiError
      */
     public static deleteBankAccount({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<BooleanStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/accounts/delete/{id}',
@@ -558,12 +559,12 @@ device?: any,
      * @throws ApiError
      */
     public static getBankAccounts({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<BankAccountViewListStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<BankAccountViewListStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Studio/{id}/accounts',
@@ -586,16 +587,16 @@ device?: any,
      * @throws ApiError
      */
     public static listTransactions({
-id,
-offset,
-limit,
-device,
-}: {
-id: string,
-offset?: number,
-limit?: number,
-device?: any,
-}): CancelablePromise<TransactionViewPagedCollectionStandardResponse> {
+        id,
+        offset,
+        limit,
+        device,
+    }: {
+        id: string,
+        offset?: number,
+        limit?: number,
+        device?: any,
+    }): CancelablePromise<TransactionViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Studio/{id}/transactions',
@@ -622,14 +623,14 @@ device?: any,
      * @throws ApiError
      */
     public static listUserStudios({
-offset,
-limit,
-device,
-}: {
-offset?: number,
-limit?: number,
-device?: any,
-}): CancelablePromise<StudioViewPagedCollectionStandardResponse> {
+        offset,
+        limit,
+        device,
+    }: {
+        offset?: number,
+        limit?: number,
+        device?: any,
+    }): CancelablePromise<StudioViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Studio/user/studios',
@@ -653,16 +654,16 @@ device?: any,
      * @throws ApiError
      */
     public static listStudios({
-offset,
-limit,
-search,
-device,
-}: {
-offset?: number,
-limit?: number,
-search?: string,
-device?: any,
-}): CancelablePromise<StudioViewPagedCollectionStandardResponse> {
+        offset,
+        limit,
+        search,
+        device,
+    }: {
+        offset?: number,
+        limit?: number,
+        search?: string,
+        device?: any,
+    }): CancelablePromise<StudioViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Studio/studios',
@@ -687,16 +688,16 @@ device?: any,
      * @throws ApiError
      */
     public static listStudioServices({
-studioId,
-offset,
-limit,
-device,
-}: {
-studioId: string,
-offset?: number,
-limit?: number,
-device?: any,
-}): CancelablePromise<StudioViewPagedCollectionStandardResponse> {
+        studioId,
+        offset,
+        limit,
+        device,
+    }: {
+        studioId: string,
+        offset?: number,
+        limit?: number,
+        device?: any,
+    }): CancelablePromise<StudioViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Studio/{studioId}/services',
@@ -723,28 +724,28 @@ device?: any,
      * @throws ApiError
      */
     public static listServices({
-offset,
-limit,
-serviceTypeId,
-minPrice,
-maxPrice,
-rating,
-studioId,
-city,
-state,
-device,
-}: {
-offset?: number,
-limit?: number,
-serviceTypeId?: string,
-minPrice?: number,
-maxPrice?: number,
-rating?: number,
-studioId?: string,
-city?: string,
-state?: string,
-device?: any,
-}): CancelablePromise<ServiceViewPagedCollectionStandardResponse> {
+        offset,
+        limit,
+        serviceTypeId,
+        minPrice,
+        maxPrice,
+        rating,
+        studioId,
+        city,
+        state,
+        device,
+    }: {
+        offset?: number,
+        limit?: number,
+        serviceTypeId?: string,
+        minPrice?: number,
+        maxPrice?: number,
+        rating?: number,
+        studioId?: string,
+        city?: string,
+        state?: string,
+        device?: any,
+    }): CancelablePromise<ServiceViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Studio/services',
@@ -775,10 +776,10 @@ device?: any,
      * @throws ApiError
      */
     public static getServiceTypes({
-device,
-}: {
-device?: any,
-}): CancelablePromise<ServiceTypeViewListStandardResponse> {
+        device,
+    }: {
+        device?: any,
+    }): CancelablePromise<ServiceTypeViewListStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Studio/service-types',
@@ -798,12 +799,12 @@ device?: any,
      * @throws ApiError
      */
     public static addMediaUrl({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: MediaModel,
-}): CancelablePromise<MediaViewStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: MediaModel,
+    }): CancelablePromise<MediaViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/service/add-image',
@@ -825,12 +826,12 @@ requestBody?: MediaModel,
      * @throws ApiError
      */
     public static deleteMediaUrl({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<BooleanStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/service/delete-image/{id}',
@@ -853,12 +854,12 @@ device?: any,
      * @throws ApiError
      */
     public static saveService({
-studioId,
-device,
-}: {
-studioId?: string,
-device?: any,
-}): CancelablePromise<SavedServiceViewStandardResponse> {
+        studioId,
+        device,
+    }: {
+        studioId?: string,
+        device?: any,
+    }): CancelablePromise<SavedServiceViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/save-service',
@@ -881,12 +882,12 @@ device?: any,
      * @throws ApiError
      */
     public static removeSavedService({
-id,
-device,
-}: {
-id: string,
-device?: any,
-}): CancelablePromise<BooleanStandardResponse> {
+        id,
+        device,
+    }: {
+        id: string,
+        device?: any,
+    }): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Studio/save-service/delete/{id}',
@@ -909,19 +910,52 @@ device?: any,
      * @throws ApiError
      */
     public static listSavedServices({
-offset,
-limit,
-search,
-device,
-}: {
-offset?: number,
-limit?: number,
-search?: string,
-device?: any,
-}): CancelablePromise<SavedServiceViewPagedCollectionStandardResponse> {
+        offset,
+        limit,
+        search,
+        device,
+    }: {
+        offset?: number,
+        limit?: number,
+        search?: string,
+        device?: any,
+    }): CancelablePromise<SavedServiceViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Studio/saved-services',
+            headers: {
+                'device': device,
+            },
+            query: {
+                'Offset': offset,
+                'Limit': limit,
+                'search': search,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * @returns GlobalSearchResultViewPagedCollectionStandardResponse Success
+     * @throws ApiError
+     */
+    public static search({
+        offset,
+        limit,
+        search,
+        device,
+    }: {
+        offset?: number,
+        limit?: number,
+        search?: string,
+        device?: any,
+    }): CancelablePromise<GlobalSearchResultViewPagedCollectionStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Studio/search',
             headers: {
                 'device': device,
             },

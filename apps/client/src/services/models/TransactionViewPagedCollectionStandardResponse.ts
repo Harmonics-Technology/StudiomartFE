@@ -17,3 +17,4 @@ export type TransactionViewPagedCollectionStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
+

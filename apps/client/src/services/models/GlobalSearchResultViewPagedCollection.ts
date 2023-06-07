@@ -2,10 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { GlobalSearchResultView } from './GlobalSearchResultView';
 import type { Link } from './Link';
-import type { ReviewView } from './ReviewView';
 
-export type ReviewViewPagedCollection = {
+export type GlobalSearchResultViewPagedCollection = {
     offset?: number | null;
     limit?: number | null;
     size?: number;
@@ -14,7 +14,7 @@ export type ReviewViewPagedCollection = {
     next?: Link;
     last?: Link;
     self?: Link;
-    value?: Array<ReviewView> | null;
+    value?: Array<GlobalSearchResultView> | null;
     nextOffset?: number | null;
     previousOffset?: number | null;
 };

@@ -2,12 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type UpdateServiceModel = {
+export type GlobalSearchResultView = {
     id?: string;
     name?: string | null;
     description?: string | null;
-    price?: number;
-    bannerImageURL?: string | null;
-    serviceTypeId?: string;
+    image?: string | null;
+    isStudio?: boolean;
 };
 

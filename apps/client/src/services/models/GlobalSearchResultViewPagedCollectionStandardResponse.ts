@@ -2,10 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { GlobalSearchResultViewPagedCollection } from './GlobalSearchResultViewPagedCollection';
 import type { HttpStatusCode } from './HttpStatusCode';
-import type { VendorDashboardView } from './VendorDashboardView';
 
-export type VendorDashboardViewStandardResponse = {
+export type GlobalSearchResultViewPagedCollectionStandardResponse = {
     href?: string | null;
     relations?: Array<string> | null;
     method?: string | null;
@@ -13,7 +13,7 @@ export type VendorDashboardViewStandardResponse = {
     routeValues?: any;
     status?: boolean;
     message?: string | null;
-    data?: VendorDashboardView;
+    data?: GlobalSearchResultViewPagedCollection;
     statusCode?: HttpStatusCode;
     errors?: any;
 };

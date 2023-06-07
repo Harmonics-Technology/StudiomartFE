@@ -12,3 +12,4 @@ export type UserProfileView = {
     profilePicture?: string | null;
     phoneNumber?: string | null;
 };
+

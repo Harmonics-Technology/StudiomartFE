@@ -10,3 +10,4 @@ export type SavedServiceView = {
     serviceId?: string;
     service?: ServiceView;
 };
+

@@ -9,3 +9,4 @@ export type BankAccountModel = {
     bankCode?: string | null;
     bankName?: string | null;
 };
+
