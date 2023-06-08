@@ -151,7 +151,7 @@ export const SingleStudioPage = ({ singleStudio }: StudioProps) => {
 
           <Grid
             gap="1.5rem"
-            templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}
+            templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
             w="full"
             m="4rem 0 1rem"
           >

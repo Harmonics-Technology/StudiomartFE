@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Box,
   Button,
@@ -8,9 +8,9 @@ import {
   HStack,
   Image,
   Grid,
-} from "@chakra-ui/react";
-import data from "./data";
-import { ArrowBackIcon, ArrowForwardIcon, AddIcon } from "@chakra-ui/icons";
+} from '@chakra-ui/react';
+import data from './data';
+import { ArrowBackIcon, ArrowForwardIcon, AddIcon } from '@chakra-ui/icons';
 function ServicesCard() {
   return (
     <>
@@ -27,7 +27,7 @@ function ServicesCard() {
               fontSize="20px"
               cursor="default"
             >
-              {" "}
+              {' '}
               view all
             </Text>
           </Flex>
@@ -40,8 +40,8 @@ function ServicesCard() {
               w="24px"
               borderRadius="full"
               _hover={{
-                bgColor: "black",
-                transition: ".5s ease",
+                bgColor: 'black',
+                transition: '.5s ease',
               }}
             >
               <ArrowBackIcon boxSize="1.2em" color="white" mt="-1" ml="3px" />
@@ -53,8 +53,8 @@ function ServicesCard() {
               w="24px"
               borderRadius="full"
               _hover={{
-                bgColor: "black",
-                transition: ".5s ease",
+                bgColor: 'black',
+                transition: '.5s ease',
               }}
             >
               <ArrowForwardIcon
