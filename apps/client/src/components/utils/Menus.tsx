@@ -80,6 +80,7 @@ function Menus({
                     color={"black"}
                     fontWeight={"700"}
                     fontSize="1rem"
+                    mb="0"
                     pl=".5rem"
                     noOfLines={1}
                   >
@@ -93,7 +94,7 @@ function Menus({
                   transition="all .35s ease-in-out"
                   color={"black"}
                   fontSize="1.2rem"
-                  pr="1rem"
+                  p="0rem 1rem 1rem 0"
                 >
                   <FaAngleDown />
                 </Box>
@@ -157,6 +158,7 @@ function Menus({
                       fontSize="1rem"
                       pl=".5rem"
                       noOfLines={1}
+                      mb="0"
                     >
                       {menuTitle}
                     </Text>

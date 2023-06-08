@@ -5,12 +5,14 @@ import { SideText } from "ui";
 
 const AccountSideBar = () => {
   return (
-    <Box w="30%">
+    <Box w={{ base: "full", lg: "30%" }}>
       <VStack
-        align="stretch"
+        align="flex-start"
         spacing={0}
         gap="2rem"
         fontFamily='"DM Sans", sans-serif'
+        flexDirection={{ base: "row", lg: "column" }}
+        overflow="auto"
       >
         <SideText data="basic-information" />
         <SideText data="studio-kyc-information" />
