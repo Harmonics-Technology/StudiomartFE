@@ -1,14 +1,14 @@
-import { Box, Flex } from "@chakra-ui/react";
-import VendorHeader from "@components/header/VendorHeader";
-import VendorSideNav from "@components/header/VendorSideNav";
-import { useRouter } from "next/router";
-import React, { useContext } from "react";
-import { Footer, Header } from "..";
-import Login from "@components/Authentication/Login";
-import Notice from "@components/Dashboard/Notice";
-import { UserContext } from "@components/Context/UserContext";
-import { StudioView, UserView } from "src/services";
-import NoSSR from "react-no-ssr";
+import { Box, Flex } from '@chakra-ui/react';
+import VendorHeader from '@components/header/VendorHeader';
+import VendorSideNav from '@components/header/VendorSideNav';
+import { useRouter } from 'next/router';
+import React, { useContext, useState } from 'react';
+import { Footer, Header } from '..';
+import Login from '@components/Authentication/Login';
+import Notice from '@components/Dashboard/Notice';
+import { UserContext } from '@components/Context/UserContext';
+import { StudioView, UserView } from 'src/services';
+import NoSSR from 'react-no-ssr';
 
 export const Layout: React.FC = ({ children }) => {
   const router = useRouter();
@@ -18,21 +18,22 @@ export const Layout: React.FC = ({ children }) => {
   );
   // console.log({ notDone, userStudios, currentStudioId });
   const noNav =
-    router.asPath.startsWith("/login") || router.asPath.startsWith("/register");
+    router.asPath.startsWith('/login') || router.asPath.startsWith('/register');
+  const [showSide, setShowSide] = useState<boolean>(false);
   return (
     <>
       {noNav ? (
         <Box>{children}</Box>
       ) : (
         <Flex pos="relative" bg="#f3f2f1">
-          <VendorSideNav />
-          <Box w={["full", "82%"]} as="main" ml="auto" minH="95vh">
-            <VendorHeader />
+          <VendorSideNav showSide={showSide} setShowSide={setShowSide} />
+          <Box w={{ base: 'full', lg: '82%' }} as="main" ml="auto" minH="95vh">
+            <VendorHeader showSide={showSide} setShowSide={setShowSide} />
             <NoSSR>
               <Box as="div" w="100%" mb="1rem" minH="80vh">
                 {notDone?.meansOfIdentification ||
                 notDone?.cacDocumentReference ||
-                router.pathname.startsWith("/account") ? (
+                router.pathname.startsWith('/account') ? (
                   <Box>{children}</Box>
                 ) : (
                   <Notice />

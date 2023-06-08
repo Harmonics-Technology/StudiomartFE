@@ -20,7 +20,7 @@ export const WalletCard = ({ title, amount, image }: WalletProps) => {
       <Circle size="40px">
         <Image src={image} alt="image" h="full" w="full" objectFit="cover" />
       </Circle>
-      <VStack spacing={0} align="start">
+      <VStack spacing={0} align="start" w="max-content">
         <Text fontSize="16px" mb="0">
           {title}
         </Text>

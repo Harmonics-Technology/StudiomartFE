@@ -17,3 +17,4 @@ export type WaitListPagedCollectionStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
+

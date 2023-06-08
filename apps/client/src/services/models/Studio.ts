@@ -38,3 +38,4 @@ export type Studio = {
     services?: Array<Service> | null;
     bankAccounts?: Array<BankAccount> | null;
 };
+

@@ -18,3 +18,4 @@ export type ReviewViewPagedCollection = {
     nextOffset?: number | null;
     previousOffset?: number | null;
 };
+

@@ -17,19 +17,25 @@ import {
   MenuList,
   Heading,
   Avatar,
-} from "@chakra-ui/react";
-import React, { useContext } from "react";
-import { FaAngleDown } from "react-icons/fa";
-import { GoSettings } from "react-icons/go";
-import Link from "next/link";
-import { RiNotification3Fill, RiSearch2Fill } from "react-icons/ri";
-import { UserContext } from "@components/Context/UserContext";
-import { StudioView } from "src/services";
-import { useRouter } from "next/router";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import Cookies from "js-cookie";
+} from '@chakra-ui/react';
+import React, { useContext } from 'react';
+import { FaAngleDown } from 'react-icons/fa';
+import { GoSettings } from 'react-icons/go';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import Link from 'next/link';
+import { RiNotification3Fill, RiSearch2Fill } from 'react-icons/ri';
+import { UserContext } from '@components/Context/UserContext';
+import { StudioView } from 'src/services';
+import { useRouter } from 'next/router';
+import { ChevronDownIcon } from '@chakra-ui/icons';
+import Cookies from 'js-cookie';
 
-function VendorHeader() {
+type Side = {
+  setShowSide: any;
+  showSide: boolean;
+};
+
+function VendorHeader({ setShowSide, showSide }: Side) {
   const { userStudios, user, setCurrentStudioId, currentStudioId, notifys } =
     useContext(UserContext);
   const router = useRouter();
@@ -42,13 +48,19 @@ function VendorHeader() {
       },
     });
     setCurrentStudioId(value);
-    Cookies.set("currentStudioId", value);
+    Cookies.set('currentStudioId', value);
   };
   // console.log({ notifys });
   // console.log(userStudios?.filter((x: any) => x.id == currentStudioId)[0].name);
   return (
     <Box w="full" bgColor="white">
       <Box w="100%" ml="auto">
+        <Box w="90%" mx="auto" pt="1rem" display={{ base: '', lg: 'none' }}>
+          <GiHamburgerMenu
+            size="25px"
+            onClick={() => setShowSide((prev: any) => !prev)}
+          />
+        </Box>
         <Flex
           h="5.5rem"
           align="center"
@@ -92,6 +104,7 @@ function VendorHeader() {
               </Flex>
             </Box>
           </Flex> */}
+
           <Avatar
             src={user?.profilePicture}
             name={user?.fullName}
@@ -131,9 +144,9 @@ function VendorHeader() {
                 <RiNotification3Fill />
               </Link>
               <Circle
-                bgColor={"brand.100"}
+                bgColor={'brand.100'}
                 size=".8rem"
-                display={messageCount <= 0 ? "none" : "flex"}
+                display={messageCount <= 0 ? 'none' : 'flex'}
                 fontSize=".5rem"
                 color="white"
                 fontWeight="bold"
@@ -169,10 +182,10 @@ function VendorHeader() {
                 bgColor="transparent"
                 // color="gray.700"
                 _hover={{
-                  bgColor: "transparent",
+                  bgColor: 'transparent',
                 }}
                 _active={{
-                  bgColor: "transparent",
+                  bgColor: 'transparent',
                 }}
               >
                 Action
@@ -182,7 +195,7 @@ function VendorHeader() {
                 <MenuItem
                   mb=".5rem"
                   as="div"
-                  onClick={() => router.push("/account")}
+                  onClick={() => router.push('/account')}
                   justifyContent="center"
                   cursor="pointer"
                 >

@@ -17,3 +17,4 @@ export type BankAccountViewListStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
+

@@ -13,3 +13,4 @@ export type VendorDashboardView = {
     topServices?: Array<TopServiceView> | null;
     recentBookings?: Array<BookingView> | null;
 };
+

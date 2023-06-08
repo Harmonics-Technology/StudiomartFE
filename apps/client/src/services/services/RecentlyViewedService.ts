@@ -17,12 +17,12 @@ export class RecentlyViewedService {
      * @throws ApiError
      */
     public static createRecentlyViewed({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: RecentlyViewedModel,
-}): CancelablePromise<RecentlyViewedViewStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: RecentlyViewedModel,
+    }): CancelablePromise<RecentlyViewedViewStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/RecentlyViewed/create',
@@ -44,12 +44,12 @@ requestBody?: RecentlyViewedModel,
      * @throws ApiError
      */
     public static getRecentlyViewedItems({
-type,
-device,
-}: {
-type: string,
-device?: any,
-}): CancelablePromise<RecentlyViewedViewIEnumerableStandardResponse> {
+        type,
+        device,
+    }: {
+        type: string,
+        device?: any,
+    }): CancelablePromise<RecentlyViewedViewIEnumerableStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/RecentlyViewed/get/{type}',

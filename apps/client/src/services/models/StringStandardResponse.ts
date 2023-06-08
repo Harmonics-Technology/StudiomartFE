@@ -16,3 +16,4 @@ export type StringStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
+

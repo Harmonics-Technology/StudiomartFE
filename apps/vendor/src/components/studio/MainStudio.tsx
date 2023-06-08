@@ -1,15 +1,15 @@
-import { Box, Text, Image, Button, Grid } from "@chakra-ui/react";
-import React, { useContext } from "react";
-import { useRouter } from "next/router";
-import { UserContext } from "@components/Context/UserContext";
-import TopPage from "../../utils/TopPage";
+import { Box, Text, Image, Button, Grid } from '@chakra-ui/react';
+import React, { useContext } from 'react';
+import { useRouter } from 'next/router';
+import { UserContext } from '@components/Context/UserContext';
+import TopPage from '../../utils/TopPage';
 import {
   ServiceTypeViewListStandardResponse,
   ServiceView,
   ServiceViewPagedCollectionStandardResponse,
-} from "src/services";
-import { DummyImage } from "react-simple-placeholder-image";
-import NoSSR from "react-no-ssr";
+} from 'src/services';
+import { DummyImage } from 'react-simple-placeholder-image';
+import NoSSR from 'react-no-ssr';
 
 interface StudioProps {
   studios: ServiceViewPagedCollectionStandardResponse;
@@ -27,7 +27,7 @@ export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
         <Box>
           <TopPage
             page={`${user?.lastName}!`}
-            details={"Welcome to your dashboard"}
+            details={'Welcome to your dashboard'}
             right={true}
             serviceTypes={serviceTypes}
           />
@@ -36,12 +36,16 @@ export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
           px="2rem"
           my="2rem"
           templateColumns={["repeat(1,1fr)", "repeat(3,1fr)"]}
+          gap='2rem'
+          
         >
           {studios?.data?.value?.map((x: ServiceView, i: any) => (
             <Box
               minH="14rem"
-              w="23rem"
+              w="full"
               bg="white"
+              mb="1rem"
+              mx={{ base: '0', md: '1rem' }}
               borderRadius="10px"
               key={i}
               overflow="hidden"

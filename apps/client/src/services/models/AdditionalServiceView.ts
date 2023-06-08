@@ -8,3 +8,4 @@ export type AdditionalServiceView = {
     price?: number;
     serviceId?: string;
 };
+

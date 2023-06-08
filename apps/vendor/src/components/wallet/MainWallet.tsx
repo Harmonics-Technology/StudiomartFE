@@ -127,6 +127,7 @@ const MainWallet = ({
           <Box>
             <Box bgColor="white">
               <Flex
+            flexDirection={{ base: 'column', lg: 'row'}}
                 justify="space-between"
                 align="center"
                 w="100%"
@@ -154,9 +155,17 @@ const MainWallet = ({
           </Box>
 
           <Box mx="auto" mt="2rem" w="92%">
-            <Grid templateColumns="1.8fr 1.1fr" gap="2rem">
+          <Grid templateColumns={{ base: "1fr", md: "1.8fr 1.1fr" }} gap="2rem">
               <VStack align="flex-start" gap="2rem" spacing="0" minW="0">
-                <HStack w="full" gap="1rem" spacing="0">
+              <HStack
+              w="full"
+              gap="1rem"
+              spacing="0"
+              overflowX={{ base: "scroll", md: "visible" }}
+              overflowY="hidden"
+              flexWrap="nowrap"
+              pb={{base: '1rem', lg:'0'}}
+            >
                   <WalletCard
                     title="Wallet Balance"
                     amount={Naira((studioWallet?.balance as number) || 0)}
@@ -175,12 +184,13 @@ const MainWallet = ({
                 </HStack>
 
                 <Box
-                  w="full"
-                  bgColor="white"
-                  borderRadius="8px"
-                  p="2rem 2rem 3rem"
-                  minH="20rem"
-                >
+            w="full"
+            borderRadius="8px"
+            p="2rem 1.5rem"
+            bgColor="white"
+            minW="0"
+            overflow="hidden"
+          >
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <Heading fontSize="20px" pb="1.5rem">
                       Withdrawal Information
