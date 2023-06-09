@@ -8,13 +8,13 @@ import {
   Flex,
   Icon,
   Spinner,
-} from "@chakra-ui/react";
-import Link from "next/link";
-import { IPopularStudios } from "src/models/schema";
-import { getReviewSummary, Naira, Rating } from "ui";
-import NoSSR from "react-no-ssr";
-import { DummyImage } from "react-simple-placeholder-image";
-import { RiDeleteBin6Line } from "react-icons/ri";
+} from '@chakra-ui/react';
+import Link from 'next/link';
+import { IPopularStudios } from 'src/models/schema';
+import { getReviewSummary, Naira, Rating } from 'ui';
+import NoSSR from 'react-no-ssr';
+import { DummyImage } from 'react-simple-placeholder-image';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 const PopularStudioCard = ({
   service,
@@ -24,9 +24,9 @@ const PopularStudioCard = ({
   id,
 }: IPopularStudios) => {
   return (
-    <Box role="group">
+    <Box role="group" my="2">
       <Box
-        h={["180px", "380px"]}
+        h={['180px', '380px']}
         w="full"
         rounded="2xl"
         overflow="hidden"
@@ -53,7 +53,7 @@ const PopularStudioCard = ({
           h="full"
           overflow="hidden"
           transition="all .5s ease"
-          _groupHover={{ bgColor: "blackAlpha.600" }}
+          _groupHover={{ bgColor: 'blackAlpha.600' }}
         >
           <Center h="100%">
             <Link href={`/customer/details/${service?.id}`}>
@@ -61,10 +61,10 @@ const PopularStudioCard = ({
                 display="none"
                 bgColor="white"
                 color="brand.100"
-                fontSize={[".8rem", "1rem"]}
-                px={["5", "8"]}
-                h={["8", "12"]}
-                _groupHover={{ display: "block" }}
+                fontSize={['.8rem', '1rem']}
+                px={['5', '8']}
+                h={['8', '12']}
+                _groupHover={{ display: 'block' }}
               >
                 Book Now
               </Button>
@@ -97,8 +97,8 @@ const PopularStudioCard = ({
                 transition=".3s ease"
                 onClick={del}
                 _groupHover={{
-                  bottom: "50%",
-                  transform: "translateY(50%)",
+                  bottom: '50%',
+                  transform: 'translateY(50%)',
                 }}
               />
             )}
@@ -106,10 +106,10 @@ const PopularStudioCard = ({
         )}
       </Box>
       <HStack align="baseline" justify="space-between" fontWeight="600">
-        <Text fontSize={[".7rem", "1.3rem"]} noOfLines={1}>
+        <Text fontSize={['.7rem', '1.3rem']} noOfLines={1}>
           {service?.name}
         </Text>
-        <Text fontSize={[".7rem", "1rem"]}>
+        <Text fontSize={['.7rem', '1rem']}>
           {`${Naira(service?.price as number)}.00`}
           {/* <Text
             color="#808080"
@@ -121,25 +121,25 @@ const PopularStudioCard = ({
           </Text> */}
         </Text>
       </HStack>
-      <HStack align="center" mt="-5" justify="space-between">
+      <HStack align="center" mt="-2" justify="space-between">
         <Text
           color="#808080"
           noOfLines={1}
-          fontSize={[".7rem", "14px"]}
-          mt={["2", "0"]}
+          fontSize={['.7rem', '14px']}
+          mt={['2', '0']}
           mb="0"
         >
           {service?.studio?.city} {service?.studio?.state}
         </Text>
         <HStack
-          spacing={["1", "unset"]}
+          spacing={['1', 'unset']}
           align="center"
-          fontSize={[".7rem", "13px"]}
+          fontSize={['.7rem', '13px']}
           gap=".5rem"
         >
           <Rating value={service?.averageRating || 0} />
 
-          <Text color="#808080" as="span" mb="0" fontSize={["8px", "13px"]}>
+          <Text color="#808080" as="span" mb="0" fontSize={['8px', '13px']}>
             {service?.totalReviewCount || 0} Review
           </Text>
         </HStack>
