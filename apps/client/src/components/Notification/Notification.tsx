@@ -92,7 +92,7 @@ const Notification = ({ notifications }: notificationProps) => {
         {/* <Text>Never miss a things!</Text> */}
       </VStack>
       <Box
-        w="80%"
+        w={{ base: "full", lg: "80%" }}
         bgColor="white"
         mx="auto"
         px="2rem"
@@ -109,6 +109,7 @@ const Notification = ({ notifications }: notificationProps) => {
                 borderBottom="0.8px solid #D4DDDF"
                 key={info.id}
                 py="1rem"
+                // flexDirection={{ base: "column", lg: "row" }}
               >
                 <Flex align="center" gap="1.5rem" w="70%">
                   <Circle
@@ -118,9 +119,10 @@ const Notification = ({ notifications }: notificationProps) => {
                   <Avatar
                     src={info?.user?.profilePicture as string}
                     name={info?.user?.fullName || ""}
+                    display={{ base: "none", lg: "block" }}
                   />
                   <Text
-                    pr="4rem"
+                    pr={{ base: "0", lg: "4rem" }}
                     fontWeight="400"
                     mb="0"
                     color={info.isRead ? "gray.300" : "black"}

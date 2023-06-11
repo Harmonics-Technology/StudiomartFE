@@ -264,11 +264,11 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
         <VStack align="flex-start" spacing={1}>
           <Heading fontSize={["1.2rem", "1.6rem"]}>Customer reviews</Heading>
           <Text fontWeight={500} color="GrayText">
-            {getReviewSummary(review).reviewTotal} verified rating
+            {singleService?.totalReviewCount} verified rating
           </Text>
-          <Rating value={getReviewSummary(review).reviewStars} />
+          <Rating value={singleService?.averageRating} />
           <Text fontWeight={900} fontSize={["1rem", "1.2rem"]}>
-            {getReviewSummary(review).reviewStars}/5
+            {singleService?.averageRating}/5
           </Text>
         </VStack>
         <VStack align="flex-start">
@@ -281,7 +281,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
               <ProgressBar
                 size={CalculatePercent(
                   review?.fiveStar,
-                  getReviewSummary(review).reviewTotal
+                  singleService?.totalReviewCount
                 )}
                 color="#FACC15"
               />
@@ -296,7 +296,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
               <ProgressBar
                 size={CalculatePercent(
                   review?.fourStar,
-                  getReviewSummary(review).reviewTotal
+                  singleService?.totalReviewCount
                 )}
                 color="#FACC15"
               />
@@ -311,7 +311,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
               <ProgressBar
                 size={CalculatePercent(
                   review?.threeStar,
-                  getReviewSummary(review).reviewTotal
+                  singleService?.totalReviewCount
                 )}
                 color="#FACC15"
               />
@@ -326,7 +326,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
               <ProgressBar
                 size={CalculatePercent(
                   review?.twoStar,
-                  getReviewSummary(review).reviewTotal
+                  singleService?.totalReviewCount
                 )}
                 color="#FACC15"
               />
@@ -341,7 +341,7 @@ export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
               <ProgressBar
                 size={CalculatePercent(
                   review?.onsStar,
-                  getReviewSummary(review).reviewTotal
+                  singleService?.totalReviewCount
                 )}
                 color="#FACC15"
               />

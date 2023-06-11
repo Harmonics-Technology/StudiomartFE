@@ -5,14 +5,14 @@ import StudioInfo from "./StudioInfo";
 
 const SingleStudioPages = ({ allService, studio }: any) => {
   return (
-    <Flex>
-      <Box w="25%" h="90vh" overflow="hidden auto" bgColor="transparent">
+    <Box>
+      <Box w="100%">
         <StudioInfo singleStudio={studio} />
       </Box>
-      <Box w="75%">
+      <Box w="100%">
         <AllServices allService={allService} />
       </Box>
-    </Flex>
+    </Box>
   );
 };
 

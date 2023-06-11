@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
   try {
     const allService = await StudioService.listStudios({
       offset: pagingOptions.offset,
-      limit: pagingOptions.limit,
+      limit: pagingOptions.limit || 9,
       search: pagingOptions.search,
     });
     return {

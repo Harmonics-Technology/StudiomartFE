@@ -142,7 +142,7 @@ export const SearchBox = ({ isOpen, onClose }: any) => {
             bgColor="white"
             w="full"
             align="flex-start"
-            my="1rem"
+            my={{ base: "0", lg: "0rem" }}
             overflow="auto"
             maxH="70vh"
           >
@@ -234,6 +234,7 @@ export const SearchBox = ({ isOpen, onClose }: any) => {
                 bgColor="brand.100"
                 color="white"
                 px="2rem"
+                mt="1rem"
                 onClick={() => setLimt((prev) => prev + 5)}
                 isDisabled={!searchedData?.next}
               >

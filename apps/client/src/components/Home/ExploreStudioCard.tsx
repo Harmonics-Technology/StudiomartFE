@@ -16,7 +16,7 @@ const ExploreStudioCard = ({ img, text, display, path }: Props) => {
           align="center"
           justify="center"
           display={display}
-          h={["120px", "280px"]}
+          h={["180px", "280px"]}
           cursor="pointer"
           transition="all .5s"
           bgSize="cover"

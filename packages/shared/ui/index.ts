@@ -1,3 +1,4 @@
+import { ProcedureCard } from "./Components/utils/ProcedureCard";
 import { useNonInitialEffect } from "./Components/utils/useNonInitialEffect";
 import { NotFound } from "./Components/utils/NotFound";
 import { GPlacesAutoComplete } from "./Components/utils/GPlacesAutoComplete";
@@ -36,6 +37,7 @@ import FilterStar from "./Components/utils/FilterStar";
 import DisabledInput from "./Components/utils/DisabledInput";
 import Pagination from "./Components/utils/Pagination";
 import Naira from "./Components/utils/Naira";
+import { Cur } from "./Components/utils/Naira";
 import BookingFilters from "./Components/utils/BookingFilters";
 
 import {
@@ -48,6 +50,7 @@ import CustomTable from "./Components/utils/CustomTable";
 import getUrlRoute from "./Components/Helper/GetUrl";
 import CalculatePercent from "./Components/utils/CalculatePercent";
 import { getCityAndState } from "./Components/utils/Geocode";
+import { sliderSettings } from "./Components/utils/SlickSettings";
 
 export {
   ExploreStudioCard,
@@ -83,6 +86,7 @@ export {
   InfoBox,
   CurrencyField,
   Naira,
+  Cur,
   SelectrixBox,
   MenuDropdown,
   getUrlRoute,
@@ -97,4 +101,6 @@ export {
   BookingFilters,
   NotFound,
   useNonInitialEffect,
+  ProcedureCard,
+  sliderSettings,
 };

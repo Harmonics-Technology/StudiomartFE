@@ -20,6 +20,7 @@ export const ProcedureCard = ({ num, title, note }: any) => {
         color="#171717"
         mb="0"
         textAlign="center"
+        fontFamily="Work Sans"
       >
         {title}
       </Text>
@@ -30,6 +31,7 @@ export const ProcedureCard = ({ num, title, note }: any) => {
         mb="0"
         lineHeight="27px"
         textAlign="center"
+        fontFamily="Work Sans"
       >
         {note}
       </Text>

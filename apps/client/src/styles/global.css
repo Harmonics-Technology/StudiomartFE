@@ -1,11 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 @import url("https://fonts.cdnfonts.com/css/br-firma");
 @import url("@smastrom/react-rating/style.css");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.cdnfonts.com/css/cabinet-grotesk");
 @import url("react-circular-progressbar/dist/styles.css");
 @import url("./toast.css");
 @import url("rc-slider/assets/index.css");
-@import url("react-responsive-carousel/lib/styles/carousel.min.css");
 @import url("react-loading-skeleton/dist/skeleton.css");
+@import url("slick-carousel/slick/slick.css");
+@import url("slick-carousel/slick/slick-theme.css");
 html,
 body {
   margin: 0;
@@ -71,4 +74,16 @@ body {
   height: 2.8rem;
   width: 100%;
   padding: 0 1rem;
+}
+.slick-slide {
+  margin-right: 2rem;
+}
+.slick-track {
+  display: flex !important;
+}
+
+@media (max-width: 700px) {
+  .slick-slide {
+    margin-right: 0rem;
+  }
 }

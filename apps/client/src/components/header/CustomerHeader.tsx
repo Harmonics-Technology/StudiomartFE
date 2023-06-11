@@ -51,19 +51,22 @@ const CustomerHeader = () => {
         align="center"
         justify="space-between"
       >
-        <HStack align="center" spacing={["7", "10"]} justify="space-between">
-          <CustomerSidebar user={user} />
+        <HStack align="center" spacing={["5", "10"]} justify="space-between">
+          <CustomerSidebar user={user} logout={logout} opens={onOpen} />
           <Link href="/" passHref>
             <HStack>
-              <Box w="13rem" pl=".5rem" cursor="pointer">
+              <Box
+                w={{ base: "11rem", lg: "13rem" }}
+                pl=".5rem"
+                cursor="pointer"
+              >
                 <Image src="/assets/studiomart.png" w="full" alt="logo" />
               </Box>
             </HStack>
           </Link>
         </HStack>
-        <Box width={["50%"]}>
+        <Box width={["50%"]} display={{ base: "none", lg: "block" }}>
           <InputGroup
-            display={["none", "block"]}
             alignSelf="center"
             py={{ base: "0", lg: "1" }}
             size="lg"
@@ -96,10 +99,15 @@ const CustomerHeader = () => {
             </InputRightElement>
           </InputGroup>
         </Box>
-        <HStack align="center" spacing={["5", "7"]} justifySelf="flex-end">
+        <HStack
+          align="center"
+          spacing={["5", "5"]}
+          justifySelf="flex-end"
+          // display="none"
+        >
           <Link href="/customer/saved-studios" passHref>
             <a>
-              <Circle size="30px" bgColor='bgColor="rgba(21, 112, 250, 0.05)"'>
+              <Circle size="50px" bgColor="rgba(21, 112, 250, 0.05)">
                 <Icon
                   as={BsBookmarkHeart}
                   fontSize="1rem"
@@ -115,7 +123,7 @@ const CustomerHeader = () => {
           </Link>
           <Link href="/customer/notification" passHref>
             <a>
-              <Circle size="30px" bgColor='bgColor="rgba(21, 112, 250, 0.05)"'>
+              <Circle size="50px" bgColor="rgba(21, 112, 250, 0.05)">
                 <Icon
                   as={BsBell}
                   fontSize="1rem"
@@ -130,15 +138,18 @@ const CustomerHeader = () => {
             </a>
           </Link>
           <Button
-            h="3rem"
+            h="2.6rem"
             w="full"
             px="2rem"
             // bg="brand.100"
-            // color="white"
-            variant='outline'
+            borderRadius="4px"
+            color="brand.100"
+            borderColor="brand.100"
+            variant="outline"
+            display={{ base: "none", lg: "flex" }}
             onClick={() => logout(["customerToken", "customer"])}
           >
-            Logout
+            Log out
           </Button>
         </HStack>
       </Flex>

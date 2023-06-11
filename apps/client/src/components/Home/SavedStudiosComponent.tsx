@@ -10,37 +10,11 @@ import {
 import React, { useState } from "react";
 import { BackToPage, NotFound } from "ui";
 import PopularStudioCard from "@components/Home/PopularStudioCard";
-import { ImSad2 } from "react-icons/im";
 import { IStudios } from "src/models/schema";
 import { useRouter } from "next/router";
-import toast from "react-hot-toast";
-import { StudioService } from "src/services";
 
 const SavedStudiosComponent = ({ savedStudios, studioForYou }: IStudios) => {
-  const router = useRouter();
-  const [loading, setLoading] = useState<any>({ status: false, id: "" });
-
-  const removeSaved = async (id: string) => {
-    setLoading({ status: true, id });
-    try {
-      const result = await StudioService.removeSavedService({
-        id,
-      });
-      if (result.status) {
-        setLoading({ status: false });
-        toast.success("Item Deleted", { className: "loginToast" });
-        router.reload();
-        return;
-      }
-      setLoading({ status: false });
-      toast.error(result.message as string, { className: "loginToast" });
-    } catch (err: any) {
-      setLoading({ status: false });
-      toast.error(err?.body?.message || err?.message, {
-        className: "loginToast",
-      });
-    }
-  };
+  // console.log({ savedStudios });
   return (
     <Box mx="auto" py="1rem" bgColor="gray.100">
       <Box w="90%" mx="auto">
@@ -49,7 +23,7 @@ const SavedStudiosComponent = ({ savedStudios, studioForYou }: IStudios) => {
       {(savedStudios?.size as number) > 0 ? (
         <Box w="90%" mx="auto">
           <Grid
-            templateColumns={["repeat(3,1fr)"]}
+            templateColumns={["repeat(1,1fr)", "repeat(3,1fr)"]}
             w="full"
             my="3rem"
             gap="2rem"
@@ -59,8 +33,6 @@ const SavedStudiosComponent = ({ savedStudios, studioForYou }: IStudios) => {
                 <PopularStudioCard
                   service={service.service}
                   isSaved
-                  del={() => removeSaved(service.id as string)}
-                  loading={loading}
                   id={service.id}
                 />
               </Box>
@@ -73,7 +45,7 @@ const SavedStudiosComponent = ({ savedStudios, studioForYou }: IStudios) => {
       <Box w="90%" mx="auto" mb="3rem">
         <Heading>Studios for you</Heading>
         <Box>
-          <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
+          <SimpleGrid mt={["5", "10"]} columns={[1, 3]} spacing={["3", "6"]}>
             {studioForYou?.value?.map((service, index) => (
               <PopularStudioCard key={index} service={service} />
             ))}

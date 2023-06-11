@@ -8,23 +8,31 @@ import {
   Text,
   Button,
   HStack,
-} from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import ExploreStudioCard from './ExploreStudioCard';
-import PopularStudioCard from './PopularStudioCard';
-import TextTransition, { presets } from 'react-text-transition';
-import { BookNowLink, getCityAndState } from 'ui';
-import { ICustomerHome } from 'src/models/schema';
-import { StudioService } from 'src/services';
-import category from '../utils/category.json';
+  Flex,
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import ExploreStudioCard from "./ExploreStudioCard";
+import TextTransition, { presets } from "react-text-transition";
+import { getCityAndState, ProcedureCard } from "ui";
+import { ICustomerHome } from "src/models/schema";
+import category from "../utils/category.json";
+import dynamic from "next/dynamic";
+import { StudioCategory } from "@components/utils/StudioCategory";
+
+const PopularStudioCard = dynamic(
+  () => import("@components/Home/PopularStudioCard"),
+  {
+    ssr: false,
+  }
+);
 
 const studios = [
-  'music studio',
-  'makeup studio',
-  'photo studio',
-  'art studio',
-  'podcast studio',
+  "music studio",
+  "makeup studio",
+  "photo studio",
+  "art studio",
+  "podcast studio",
 ];
 
 const HomePage = ({
@@ -55,7 +63,7 @@ const HomePage = ({
         setLocas(result);
       })
       .catch((error) => {
-        console.error('Error getting city and state:', error);
+        console.error("Error getting city and state:", error);
       });
     // setLocas({ latitude, longitude });
   };
@@ -72,7 +80,7 @@ const HomePage = ({
     <Box as="div">
       <VStack
         w="full"
-        minH={['400px', '90vh']}
+        minH={["400px", "90vh"]}
         align="flex-start"
         justify="center"
         backgroundColor="rgba(4, 12, 33, 0.7)"
@@ -84,18 +92,18 @@ const HomePage = ({
       >
         <Box w="90%" mx="auto">
           <Text
-            fontSize={['1.5rem', '2.7rem']}
+            fontSize={["1.5rem", "2.7rem"]}
             color="white"
             fontWeight="700"
             lineHeight="normal"
             as="h1"
           >
-            Find the next{' '}
+            Find the next{" "}
             <Text color="brand.100" as="span">
               <TextTransition inline springConfig={presets.slow}>
                 {studios[index % studios.length]}
               </TextTransition>
-            </Text>{' '}
+            </Text>{" "}
             for <br /> your creative explorations.
           </Text>
           <HStack spacing="25px" pt="8">
@@ -103,7 +111,7 @@ const HomePage = ({
               <Button
                 w="150px"
                 h="50px"
-                fontSize={['.8rem', 'unset']}
+                fontSize={[".8rem", "unset"]}
                 borderRadius="0px"
                 color="white"
                 bgColor="brand.100"
@@ -115,7 +123,7 @@ const HomePage = ({
               <Button
                 w="150px"
                 h="50px"
-                fontSize={['.8rem', 'unset']}
+                fontSize={[".8rem", "unset"]}
                 borderRadius="0px"
                 bgColor="white"
               >
@@ -128,36 +136,55 @@ const HomePage = ({
       <Stack
         w="90%"
         mx="auto"
-        py={['2rem', '5rem']}
-        direction={['column-reverse', 'row']}
+        py={["2rem", "5rem"]}
+        direction={["column-reverse", "row"]}
         spacing="10"
-        align="center"
+        align="flex-start"
       >
         <Box>
           <Image src="assets/aboutus.png" w="full" alt="about us" />
         </Box>
-        <Box w={{ base: 'full', lg: '60%' }} textAlign={['center', 'unset']}>
+        <Box w={{ base: "full", lg: "60%" }}>
           <Text
             fontWeight="600"
             color="brand.100"
-            fontSize={['1rem', '1.2rem']}
+            fontSize={["1rem", "1.2rem"]}
+            textAlign={["center", "unset"]}
           >
             About Us
           </Text>
-          <Heading fontWeight="700" fontSize={['1.3rem', '1.8rem']}>
-            We provide the best studio <br /> rental for you
+          <Heading
+            fontWeight="700"
+            fontSize={["1.3rem", "1.8rem"]}
+            fontFamily="BR Firma"
+            textAlign={["center", "unset"]}
+          >
+            We provide the best studio rental for you
           </Heading>
-          <Box fontSize={['.85rem', '1.15rem']}>
+          <Box
+            fontSize={[".85rem", "1.15rem"]}
+            lineHeight="32px"
+            w={{ base: "100%", lg: "90%" }}
+            textAlign="justify"
+          >
             <Text mt="5">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo.
+              At StudioMart, we understand the challenges faced by individuals
+              in reaching out to their target creative studios and getting
+              desired service. That&apos;s why we&apos;ve created a convenient
+              and user-friendly platform that allows customers to browse through
+              listings, compare features, and make informed decisions based on
+              their specific needs. With our intuitive search and filtering
+              options, customers can easily discover studios that align with
+              their requirements.
             </Text>
             <Text mt="10">
-              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit
-              aut fugit, sed quia consequuntur magni dolores eos qui ratione
-              voluptatem sequi nesciunt.
+              At StudioMart, we value transparency, trust, and the spirit of
+              collaboration; We strive to create a seamless experience for both
+              studio owners and customers alike. Our platform promotes open
+              communication between studio owners and customers, ensuring a
+              smooth booking process and a positive experience for all parties
+              involved. StudioMart is here to bridge the gap and create a
+              thriving community of studio enthusiasts.
             </Text>
           </Box>
         </Box>
@@ -167,101 +194,72 @@ const HomePage = ({
           <Text
             fontWeight="600"
             color="brand.100"
-            fontSize={['1rem', '1.2rem']}
+            fontSize={["1rem", "1.2rem"]}
           >
             Categories
           </Text>
-          <Heading fontWeight="700" mb="2" fontSize={['1.3rem', '1.8rem']}>
+          <Heading
+            fontWeight="700"
+            mb="2"
+            fontSize={["1.3rem", "1.8rem"]}
+            fontFamily="BR Firma"
+          >
             Find the best studio rental for your occassion
           </Heading>
         </Box>
-        <Stack
-          minH="600px"
-          direction={['column', 'row']}
-          align="center"
-          justify="space-evenly"
+        <VStack
+          w={{ base: "full", lg: "80%" }}
+          mx="auto"
+          gap={{ base: "2rem", lg: "0" }}
         >
-          <Box>
-            <Image
-              w="full"
-              h={['auto', '520px']}
-              src="assets/homepage-musicstudio.png"
-              alt="music studio"
-            />
-          </Box>
-          <Box textAlign={['center', 'unset']}>
-            <Heading fontWeight="700" fontSize={['1.3rem', '1.8rem']}>
-              Music Studios
-            </Heading>
-            <Text my="5" fontSize={['0.85rem', '1.15rem']}>
-              Sed ut perspiciatis unde omnis iste natus error sit <br />
-              voluptatem accusantium totam rem quia.
-            </Text>
-            <BookNowLink
-              path={`category/${
-                category?.find((x) => x.name?.toLowerCase() == 'music')?.id
-              }`}
-            />
-          </Box>
-        </Stack>
-        <Stack
-          minH="600px"
-          direction={['column-reverse', 'row']}
-          align="center"
-          justify="space-evenly"
-        >
-          <Box textAlign={['center', 'unset']}>
-            <Heading fontWeight="700" fontSize={['1.3rem', '1.8rem']}>
-              Photo Studios
-            </Heading>
-            <Text my="5" fontSize={['0.85rem', '1.15rem']}>
-              Nemo enim ipsam voluptatem quia <br /> voluptas sit aspernatur aut
-              odit aut fugit sed quia.
-            </Text>
-            <BookNowLink
-              path={`category/${category?.find((x) => x.name == 'PHOTO')?.id}`}
-            />
-          </Box>
-          <Box>
-            <Image
-              w="full"
-              h={['auto', '520px']}
-              src="assets/homepage-photostudio.png"
-              alt="categories"
-            />
-          </Box>
-        </Stack>
-        <Stack
-          minH="600px"
-          direction={['column', 'row']}
-          align="center"
-          justify="space-evenly"
-        >
-          <Box>
-            <Image
-              w="full"
-              h={['auto', '520px']}
-              src="assets/homepage-makeupstudio.png"
-              alt="categories"
-            />
-          </Box>
-          <Box textAlign={['center', 'unset']}>
-            <Heading fontWeight="700" fontSize={['1.3rem', '1.8rem']}>
-              Make Up Studios
-            </Heading>
-            <Text my="5" fontSize={['0.85rem', '1.15rem']}>
-              Sed ut perspiciatis unde omnis iste natus error sit <br />
-              voluptatem accusantium totam rem quia.
-            </Text>
-            <BookNowLink
-              path={`category/${category?.find((x) => x.name == 'MAKEUP')?.id}`}
-            />
-          </Box>
-        </Stack>
+          <StudioCategory
+            cat="music"
+            category={category}
+            content="Booking your dream studio is a breeze on our user-friendly
+            platform. Embrace the convenience of online booking, where you
+            can effortlessly browse through a curated selection of music
+            studios, compare availability and prices, and secure your
+            desired slot with just a few clicks."
+            img="assets/homepage-musicstudio.png"
+            title="Music Studios"
+          />
+          <StudioCategory
+            cat="photo"
+            category={category}
+            content=" Capture your moments in style with our exclusive photo studio
+            booking platform! From intimate portrait sessions to elaborate
+            fashion shoots, we have the ideal studio to suit your needs.
+            Discover the perfect space to unleash your creativity and bring
+            your vision to life."
+            img="assets/homepage-photostudio.png"
+            title="Photo Studios"
+            reverse
+          />
+          <StudioCategory
+            cat="makeup"
+            category={category}
+            content="Say goodbye to endless phone calls and inquiries! Our
+            user-friendly website allows you to browse through a variety of
+            makeup studios, compare prices, and book your preferred
+            appointment with just a few clicks. It's never been easier
+            to secure your spot at the best makeup studio around your
+            preferred location."
+            img="assets/homepage-makeupstudio.png"
+            title="Make Up Studios"
+          />
+        </VStack>
       </Box>
-      <Box w="90%" mx="auto" my={['3', '10']}>
-        <HStack align="center" justify="space-between">
-          <Heading fontSize={{ base: '1.3rem', md: '2.3rem' }}>
+      <Box w="90%" mx="auto" my={["3", "10"]}>
+        <HStack
+          align={{ base: "flex-start", lg: "center" }}
+          justify="space-between"
+          flexDir={{ base: "column", lg: "row" }}
+          spacing="0"
+        >
+          <Heading
+            fontSize={{ base: "1.3rem", md: "2.3rem" }}
+            fontFamily="BR Firma"
+          >
             Explore Studios For You
           </Heading>
           <Link passHref href="/all-studios">
@@ -276,35 +274,43 @@ const HomePage = ({
           </Link>
         </HStack>
         <SimpleGrid
-          mt={['5', '10']}
-          columns={{ base: 3, md: 4 }}
-          spacing={['3', '6']}
+          mt={["5", "10"]}
+          columns={{ base: 2, md: 4 }}
+          spacing={["3", "6"]}
         >
           <ExploreStudioCard
             img="/pixel2.png"
-            path={`category/${category?.find((x) => x.name == 'Music')?.id}`}
+            path={`category/${category?.find((x) => x.name == "Music")?.id}`}
             text="Music Studios"
           />
           <ExploreStudioCard
             img="assets/homepage-hero.png"
-            path={`category/${category?.find((x) => x.name == 'Music')?.id}`}
-            text="Podcast Studios"
+            path={`category/${category?.find((x) => x.name == "VIDEO")?.id}`}
+            text="Video Studios"
           />
           <ExploreStudioCard
             img="/pixel5.png"
-            path={`category/${category?.find((x) => x.name == 'MAKEUP')?.id}`}
+            path={`category/${category?.find((x) => x.name == "MAKEUP")?.id}`}
             text="Make Up Studios"
           />
           <ExploreStudioCard
             img="/pixel4.png"
-            path={`category/${category?.find((x) => x.name == 'PHOTO')?.id}`}
+            path={`category/${category?.find((x) => x.name == "PHOTO")?.id}`}
             text="Photo Studios"
           />
         </SimpleGrid>
       </Box>
-      <Box w="90%" mx="auto" mt={['10', '20']} mb="10">
-        <HStack align="center" justify="space-between">
-          <Heading fontSize={{ base: '1.3rem', md: '2.3rem' }}>
+      <Box w="90%" mx="auto" mt={["10", "20"]} mb="10">
+        <HStack
+          align={{ base: "flex-start", lg: "center" }}
+          justify="space-between"
+          flexDir={{ base: "column", lg: "row" }}
+          spacing="0"
+        >
+          <Heading
+            fontSize={{ base: "1.3rem", md: "2.3rem" }}
+            fontFamily="BR Firma"
+          >
             Popular Services
           </Heading>
           <Link passHref href="/all-services">
@@ -318,15 +324,23 @@ const HomePage = ({
             </Text>
           </Link>
         </HStack>
-        <SimpleGrid mt={['5', '10']} columns={[2, 3]} spacing={['3', '6']}>
+        <SimpleGrid mt={["5", "10"]} columns={[1, 3]} spacing={["3", "6"]}>
           {popularStudios?.value?.map((service, index) => (
             <PopularStudioCard key={index} service={service} />
           ))}
         </SimpleGrid>
       </Box>
-      <Box w="90%" mx="auto" mt={['10', '20']} mb="10">
-        <HStack align="center" justify="space-between">
-          <Heading fontSize={{ base: '1.3rem', md: '2.3rem' }}>
+      <Box w="90%" mx="auto" mt={["10", "20"]} mb="10">
+        <HStack
+          align={{ base: "flex-start", lg: "center" }}
+          justify="space-between"
+          flexDir={{ base: "column", lg: "row" }}
+          spacing="0"
+        >
+          <Heading
+            fontSize={{ base: "1.3rem", md: "2.3rem" }}
+            fontFamily="BR Firma"
+          >
             Studios Near You
           </Heading>
           <Link passHref href={`/all-services/${location?.city}`}>
@@ -340,7 +354,7 @@ const HomePage = ({
             </Text>
           </Link>
         </HStack>
-        <SimpleGrid mt={['5', '10']} columns={[2, 3]} spacing={['3', '6']}>
+        <SimpleGrid mt={["5", "10"]} columns={[1, 3]} spacing={["3", "6"]}>
           {studiosNearMe?.value?.map((service, index) => (
             <PopularStudioCard key={index} service={service} />
           ))}
@@ -349,68 +363,52 @@ const HomePage = ({
       <Box w="90%" mx="auto" id="how-it-works" py="10">
         <Heading
           textAlign="center"
-          fontSize={['1.2rem', '2.2rem']}
+          fontSize={["1.2rem", "2.2rem"]}
           color="brand.100"
+          fontFamily="BR Firma"
         >
           How StudioMart Works
         </Heading>
-        <SimpleGrid columns={[1, 3]} mt="16" spacing={['10', '16']}>
-          <Box>
-            <Box>
-              <Image src="assets/01.png" alt="one" />
-            </Box>
-            <Text mt="-6" zIndex="2" fontSize="1.2rem" fontWeight="600">
-              Discover Studios
-            </Text>
-            <Text fontSize={['.9rem', '1rem']} lineHeight={['taller', 'unset']}>
-              Discover Studios near you Nemo enim ipsam voluptatem quia voluptas
-              sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-              dolores.s
-            </Text>
-          </Box>
-          <Box>
-            <Image src="assets/02.png" alt="one" />
-            <Text
-              mt="-6"
-              bgColor="white"
-              zIndex="2"
-              fontSize="1.2rem"
-              fontWeight="600"
-            >
-              Request Studiotime
-            </Text>
-            <Text fontSize={['.9rem', '1rem']} lineHeight={['taller', 'unset']}>
-              Discover Studios near you Nemo enim ipsam voluptatem quia voluptas
-              sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-              dolores.s
-            </Text>
-          </Box>
-          <Box>
-            <Image src="assets/03.png" alt="one" />
-            <Text
-              mt="-6"
-              bgColor="white"
-              zIndex="2"
-              fontSize="1.2rem"
-              fontWeight="600"
-            >
-              Book & Confirm
-            </Text>
-            <Text fontSize={['.9rem', '1rem']} lineHeight={['taller', 'unset']}>
-              Discover Studios near you Nemo enim ipsam voluptatem quia voluptas
-              sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-              dolores.s
-            </Text>
-          </Box>
-        </SimpleGrid>
-        <Box textAlign={['start', 'center']} my="10">
+        <Flex
+          justify="space-between"
+          align="center"
+          gap="2rem"
+          my="4rem"
+          flexDirection={{ base: "column", lg: "row" }}
+        >
+          <ProcedureCard
+            num="01"
+            title="Create an Account"
+            note="Create an account by completing  the registration process."
+          />
+          <Image src="/line.png" alt="line" w="80px" />
+          <ProcedureCard
+            num="02"
+            title="View Studios"
+            note="Search and view correct details of the studios you need."
+          />
+          <Image src="/line.png" alt="line" w="80px" />
+          <ProcedureCard
+            num="03"
+            title="Contact Vendor"
+            note="Contact vendors and book their services conveniently."
+          />
+        </Flex>
+
+        <Box
+          textAlign={["start", "center"]}
+          my="10"
+          mx="auto"
+          w={{ base: "50%", lg: "fit-content" }}
+        >
           <Link passHref href="/all-services">
             <Button
               h="12"
-              fontSize={['.9rem', '1rem']}
+              fontSize={[".9rem", "1rem"]}
               bg="brand.100"
               color="white"
               px="10"
+              w="full"
             >
               Book Now
             </Button>
@@ -419,31 +417,31 @@ const HomePage = ({
       </Box>
       <Box bgColor="rgba(21, 112, 250, 0.08)" py="20">
         <Stack
-          direction={'row'}
-          w="90%"
+          direction={{ base: "column", lg: "row" }}
+          w={{ base: "90%", lg: "60%" }}
           mx="auto"
           align="center"
-          justify={['space-evenly']}
-          spacing={['8']}
+          justify={["space-evenly"]}
+          spacing={["8"]}
         >
-          <Box color="black">
+          <Box color="black" w={{ base: "fit-content", lg: "full" }}>
             <Image
-              w={['90px', 'auto']}
+              w={["200px", "auto"]}
               src="assets/mobileapp.png"
               alt="mobile app"
             />
           </Box>
-          <Box>
-            <Heading fontSize={['1.3rem', '3rem']}>
-              Download the <br /> Mobile App
+          <VStack w="full" align={{ base: "center", lg: "flex-start" }}>
+            <Heading fontSize={["1.5rem", "3rem"]} fontFamily="BR Firma">
+              Download the Mobile App
             </Heading>
-            <Text my={['5', '10']} fontSize={['.9rem', '1.2rem']}>
+            <Text fontSize={[".9rem", "1.2rem"]}>
               StudioMart is available on playstore.
             </Text>
-            <HStack spacing="4" my={{ base: '-2rem', md: '' }}>
+            <HStack spacing="4">
               <Box>
                 <Image
-                  width={['80px', 'auto']}
+                  width={["120px", "auto"]}
                   cursor="pointer"
                   src="assets/Download BTN (1).png"
                   alt="download on a pay store"
@@ -451,14 +449,14 @@ const HomePage = ({
               </Box>
               <Box>
                 <Image
-                  width={['80px', 'auto']}
+                  width={["120px", "auto"]}
                   cursor="pointer"
                   src="assets/Download BTN.png"
                   alt="download on a pay store"
                 />
               </Box>
             </HStack>
-          </Box>
+          </VStack>
         </Stack>
       </Box>
     </Box>

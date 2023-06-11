@@ -35,9 +35,14 @@ const AllServices = ({ allService, recentlyViewed }: ICustomerHome) => {
   const { state } = router.query;
   return (
     <Box w="90%" mx="auto" mb="5rem">
-      <Flex justify="space-between" px="1rem" my="1rem">
-        <Box w="100%" mx="auto" py="1rem" pb="7">
-          <BackToPage name="Back to the homepage" />
+      <Flex
+        justify="space-between"
+        px={{ base: "0", lg: "1rem" }}
+        my="1.5rem"
+        align="center"
+      >
+        <Box w="100%" mx="auto">
+          <BackToPage name="Back" />
         </Box>
         <Box pos="relative">
           <Flex
@@ -46,7 +51,7 @@ const AllServices = ({ allService, recentlyViewed }: ICustomerHome) => {
             color="white"
             borderRadius="4px"
             h="2.5rem "
-            px="3rem"
+            px={{ base: "1.5rem", lg: "3rem" }}
             align="center"
             cursor="pointer"
             onClick={() => setIsComponentVisible(true)}
@@ -61,7 +66,7 @@ const AllServices = ({ allService, recentlyViewed }: ICustomerHome) => {
         </Box>
       </Flex>
       <Box
-        px="20px"
+        px={{ base: "0", lg: "20px" }}
         fontSize="22px"
         fontWeight="700"
         textTransform="capitalize"
@@ -73,7 +78,7 @@ const AllServices = ({ allService, recentlyViewed }: ICustomerHome) => {
         {allService?.value?.length == 0 ? (
           <NotFound />
         ) : (
-          <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
+          <SimpleGrid mt={["5", "10"]} columns={[1, 3]} spacing={["3", "6"]}>
             {allService?.value?.map((service: ServiceView) => (
               <PopularStudioCard key={service.id} service={service} />
             ))}

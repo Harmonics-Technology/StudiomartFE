@@ -8,6 +8,7 @@ import fontSizes from "./foundations/fontSizes";
 
 import font from "./foundations/fontSizes";
 
+import { headingTheme } from "./foundations/heading";
 
 /**
  * This file is generated for providing a custom theme to Chakra UI
@@ -17,10 +18,11 @@ import font from "./foundations/fontSizes";
  */
 
 const overrides = {
-    ...styles,
-    colors,
-    fontSizes,
-    font,
+  ...styles,
+  colors,
+  fontSizes,
+  font,
+  components: { Heading: headingTheme },
 };
 
 const theme = extendTheme(overrides);

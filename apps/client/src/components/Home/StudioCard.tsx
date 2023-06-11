@@ -8,10 +8,11 @@ import {
   Flex,
   Icon,
   Spinner,
+  VStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { IPopularStudios, IStudios } from "src/models/schema";
-import { getReviewSummary, Naira, Rating } from "ui";
+import { getReviewSummary, MenuDropdown, Naira, Rating } from "ui";
 import NoSSR from "react-no-ssr";
 import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -22,43 +23,66 @@ const StudiCard = ({ service }: IStudios) => {
   const router = useRouter();
   return (
     <Box
-      minH="14rem"
+      h="full"
       w="full"
-      bg="white"
-      borderRadius="10px"
+      borderRadius="4px"
+      border="1px solid #E8E8E8"
       overflow="hidden"
-      boxShadow="md"
     >
-      <Image
-        src={(service?.coverPhoto as string) || image}
-        alt="Banner Image"
-        h="14rem "
-        w="100%"
-        objectFit="cover"
-        bgColor="white"
-      />
-
-      <Box h="fit-content" w="100%" textAlign="left" p="1rem 1rem 1.5rem">
-        <Text fontWeight="600" fontSize="20px" mb=".5rem">
-          {service?.name}
-        </Text>
-        <Text fontSize="15px" fontWeight="400" noOfLines={3} minH="5rem">
-          {service?.description}
-        </Text>
-
-        <Button
-          onClick={() => router.push(`/all-studios/${service?.id}`)}
-          w="100%"
-          variant="outline"
-          cursor="pointer"
-          border="1px solid"
-          borderColor="brand.100"
-          color="brand.100"
-          // onClick={() => deactivateService(x.id)}
-        >
-          View Studio
-        </Button>
+      <Box overflow="hidden" h="20rem" w="full" pos="relative">
+        <Image
+          h="full"
+          w="full"
+          objectFit="cover"
+          src={(service?.coverPhoto as string) || image}
+          alt=""
+        />
       </Box>
+
+      <HStack align="center" justify="space-between" fontWeight="600" p="1rem">
+        <VStack align="flex-start">
+          <HStack align="flex-end">
+            <Text
+              fontSize={["1rem", "20px"]}
+              noOfLines={1}
+              color="#171717"
+              fontWeight="500"
+              fontFamily="BR Firma"
+              mb="0"
+            >
+              {service?.name}
+            </Text>
+          </HStack>
+          <Text
+            color="#636363"
+            noOfLines={1}
+            fontSize={[".7rem", "16px"]}
+            fontWeight="500"
+            fontFamily="BR Firma"
+            mb="0"
+          >
+            {service?.city}, {service?.state}
+          </Text>
+          <Text fontSize=".9rem" fontWeight="700" color="#171717" mb="0">
+            Capacity: {service?.studioCapacity}
+          </Text>
+        </VStack>
+        <MenuDropdown
+          menus={[
+            {
+              label: "View Studio",
+              id: 1,
+              onclick: () => router.push(`/all-studios/${service?.id}`),
+            },
+            // {
+            //   label: "Book Service",
+            //   id: 2,
+            //   onclick: () =>
+            //     router.push(`/customer/schedule-session/${service?.id}`),
+            // },
+          ]}
+        />
+      </HStack>
     </Box>
   );
 };

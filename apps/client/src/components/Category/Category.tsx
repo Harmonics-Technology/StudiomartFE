@@ -1,6 +1,6 @@
 import { Box, Flex, Text, SimpleGrid, HStack, Heading } from "@chakra-ui/react";
 import React from "react";
-import { BackToPage, Pagination } from "ui";
+import { BackToPage, NotFound, Pagination } from "ui";
 import { FiFilter } from "react-icons/fi";
 import { BiMessageRoundedError } from "react-icons/bi";
 import PopularStudioCard from "@components/Home/PopularStudioCard";
@@ -43,16 +43,9 @@ const Category = ({
 
       <Box>
         {singlecategory?.value?.length == 0 ? (
-          <Flex mx="2rem" gap=".5rem" justify="center">
-            <BiMessageRoundedError color="blue" size={30} />
-            <Text>
-              Sorry, No{" "}
-              {category.find((x) => x.id == categoryId)?.name.toLowerCase()}{" "}
-              service is available
-            </Text>
-          </Flex>
+          <NotFound />
         ) : (
-          <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
+          <SimpleGrid mt={["5", "10"]} columns={[1, 3]} spacing={["3", "6"]}>
             {singlecategory?.value?.map((service, index) => (
               <PopularStudioCard key={index} service={service} />
             ))}

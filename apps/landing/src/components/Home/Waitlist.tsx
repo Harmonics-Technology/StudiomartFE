@@ -10,7 +10,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { HeroBanner } from "@components/homeandcategory/Component/HeroBanner";
-import { ProcedureCard } from "@components/homeandcategory/Component/ProcedureCard";
+import { ProcedureCard } from "ui";
 import { WaitBtn } from "@components/homeandcategory/Component/WaitBtn";
 import { WaitFeatures } from "@components/homeandcategory/Component/WaitFeatures";
 import React, { useState } from "react";

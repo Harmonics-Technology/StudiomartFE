@@ -1,130 +1,76 @@
-import { Flex, Circle, Grid, VStack, Box, Image } from "@chakra-ui/react";
+import {
+  Flex,
+  Circle,
+  Grid,
+  VStack,
+  Box,
+  Image,
+  Text,
+  HStack,
+} from "@chakra-ui/react";
 import { InfoBox } from "@components/utils/InfoBox";
 import React from "react";
 import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
 import { ISingleStudioProps } from "src/models/schema";
+import { Rating } from "ui";
 
 const StudioInfo = ({ singleStudio }: ISingleStudioProps) => {
   const image = useDummyImage({});
   return (
-    <Box
-      mx="auto"
-      w="100%"
-      py="1rem"
-      px="1.5rem"
-      borderRadius="30px"
-      // bgColor="white"
-      boxShadow="sm"
-    >
-      <Box mb="1.5rem">
-        <Flex
-          justify="center"
-          align="center"
-          h="8rem"
-          w="full"
-          borderRadius="10px"
-          // overflow="hidden"
-          bgColor="gray.300"
-          // border="1px solid"
-          borderColor="gray.400"
-          pos="relative"
+    <Box w="90%" mx="auto" my="4rem">
+      <Box>
+        <Text
+          fontSize={["1rem", "24px"]}
+          noOfLines={1}
+          color="#171717"
+          fontWeight="600"
+          fontFamily="BR Firma"
+          mb="0"
         >
-          <Image
-            src={(singleStudio?.coverPhoto as string) || image}
-            alt="Banner Image"
-            w="full"
-            h="full"
-            objectFit="cover"
-          />
-
-          <Circle
-            size="5rem"
-            overflow="hidden"
-            border="3px solid gray"
-            mx="auto"
-            pos="absolute"
-            top="60%"
-            left="50%"
-            bgColor="brand.100"
-            transform="translateX(-50%)"
+          {singleStudio?.name}
+        </Text>
+        <Text color="#Afafaf" as="span" mb="0" fontSize="16px">
+          {singleStudio?.city}, {singleStudio?.state}
+        </Text>
+        {/* <HStack align="center" fontSize={[".7rem", "13px"]}>
+          <Text color="#Afafaf" as="span" mb="0" fontSize="12px">
+            {singleStudio?.averageRating || 0} Star
+          </Text>
+          <Rating value={singleStudio?.averageRating || 0} />
+          <Text
+            color="#808080"
+            as="span"
+            mb="0"
+            fontSize="12px"
+            fontWeight="500"
           >
-            <Image
-              src={(singleStudio?.logo as string) || image}
-              alt="Banner Image"
-              w="full"
-              h="full"
-              objectFit="cover"
-            />
-          </Circle>
-        </Flex>
+            ({singleStudio?.totalReviewCount || 0})
+          </Text>
+        </HStack> */}
       </Box>
-
-      <Grid
-        gap="1.5rem"
-        templateColumns={["repeat(1, 1fr)", "repeat(1, 1fr)"]}
-        w="full"
-        m="4rem 0 1rem"
-        // color="white"
+      <Flex
+        mx="auto"
+        py={["1rem", "1rem"]}
+        direction={["column-reverse", "row"]}
+        gap="4rem"
+        align="center"
+        justify="center"
+        w={{ base: "full", lg: "full" }}
       >
-        <Box>
-          <VStack gap="0rem" align="flex-start">
-            <InfoBox title={"Studio Name"} desc={singleStudio?.name} />
-            <InfoBox
-              title={"Studio Description"}
-              desc={singleStudio?.description}
-              des
-            />
-          </VStack>
+        <Box w="full">
+          <Text fontSize="18px" lineHeight="27px">
+            {singleStudio?.description}
+          </Text>
         </Box>
-        <Box>
-          <VStack gap="1rem" align="flex-start">
-            <Grid
-              gap="1.5rem"
-              templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
-              w="full"
-            >
-              <InfoBox title={"Country"} desc={singleStudio?.country} />
-              <InfoBox title={"Studio Address"} desc={"***********"} />
-            </Grid>
-
-            <Grid
-              gap="1.5rem"
-              templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
-              w="full"
-            >
-              <InfoBox title={"State"} desc={singleStudio?.state} />
-              <InfoBox title={"City"} desc={singleStudio?.city} />
-            </Grid>
-            {/* <InfoBox title={"Email Address"} desc={singleStudio?.email} /> */}
-            {/* <Grid
-              gap="1.5rem"
-              templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
-              w="full"
-            >
-              <InfoBox title={"Phone no"} desc={singleStudio?.phone} />
-              <InfoBox title={"Postal code"} desc={singleStudio?.zipCode} />
-            </Grid> */}
-            <Grid
-              gap="1.5rem"
-              templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
-              w="full"
-              minW="0"
-            >
-              <InfoBox title={"Facebook"} desc={singleStudio?.facebook} />
-              <InfoBox title={"Twitter"} desc={singleStudio?.twitter} />
-            </Grid>
-
-            <Grid
-              gap="1.5rem"
-              templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
-              w="full"
-            >
-              <InfoBox title={"LinkedIn"} desc={singleStudio?.linkedIn} />
-              <InfoBox title={"Youtube"} desc={singleStudio?.youTube} />
-            </Grid>
-          </VStack>
+        <Box w="full">
+          <Image
+            src={singleStudio?.coverPhoto || image}
+            alt="bannerImg"
+            w="full"
+            h="auto"
+          />
         </Box>
-      </Grid>
+      </Flex>
     </Box>
   );
 };
