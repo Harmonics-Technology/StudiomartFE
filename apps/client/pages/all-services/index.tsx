@@ -1,8 +1,11 @@
-import AllServices from "@components/Home/AllServices";
 import { GetServerSideProps } from "next";
+import dynamic from "next/dynamic";
 import React from "react";
 import { OpenAPI, RecentlyViewedService, StudioService } from "src/services";
 import { FilterPagingOptions } from "ui";
+const AllServices = dynamic(() => import("@components/Home/AllServices"), {
+  ssr: false,
+});
 
 const AllService = ({ allService, recentlyViewed }: any) => {
   return (

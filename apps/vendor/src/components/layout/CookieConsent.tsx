@@ -34,14 +34,17 @@ const CookieConsent = ({
     <Flex
       justify="center"
       pos="fixed"
-      bottom="2%"
+      bottom={{ base: "0%", lg: "2%" }}
       bgColor="white"
       boxShadow="sm"
       // color="white"
-      w="25%"
+      w={{ base: "100%", lg: "25%" }}
       // left="50%"
       // transform="translateX(-50%)"
-      right={isConsented ? "-40%" : "2%"}
+      right={{
+        base: isConsented ? "-100%" : "0%",
+        lg: isConsented ? "-40%" : "2%",
+      }}
       transition=".5s all cubic-bezier(0,.88,.71,.07)"
       py="1.5rem"
       borderRadius="10px"
@@ -51,11 +54,21 @@ const CookieConsent = ({
           {message}
         </Text>
         <HStack gap=".5rem" color="white" w="full">
-          <Button onClick={handleAccept} bgColor="brand.100" w="full">
-            {acceptLabel}
-          </Button>
-          <Button onClick={handleDecline} bgColor="#DC2626" w="full">
+          <Button
+            onClick={handleDecline}
+            bgColor="#DC2626"
+            w="full"
+            color="white"
+          >
             {declineLabel}
+          </Button>
+          <Button
+            onClick={handleAccept}
+            bgColor="brand.100"
+            w="full"
+            color="white"
+          >
+            {acceptLabel}
           </Button>
         </HStack>
       </VStack>

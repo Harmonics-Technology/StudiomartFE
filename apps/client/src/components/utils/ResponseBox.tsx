@@ -10,7 +10,7 @@ export const ResponseBox = ({ response }: any) => {
       borderRadius="3px"
       cursor="pointer"
       fontWeight="600"
-      ml="auto"
+      ml={{ base: "auto", lg: "auto" }}
       bgColor={
         response == "pending"
           ? "#FDF3CA"

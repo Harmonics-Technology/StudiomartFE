@@ -1,10 +1,11 @@
 import { Box, Flex } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import NoSSR from "react-no-ssr";
 import { Chat } from "./Chat";
 import { SideBar } from "./SideBar";
 
 export const ChatHome = () => {
+  const [showChat, setShowChat] = useState(false);
   return (
     <NoSSR>
       <Box mb="3rem">
@@ -15,9 +16,10 @@ export const ChatHome = () => {
           gap="2rem"
           h="78vh"
           overflow="hidden"
+          pos="relative"
         >
-          <SideBar />
-          <Chat />
+          <SideBar showChat={showChat} setShowChat={setShowChat} />
+          <Chat showChat={showChat} setShowChat={setShowChat} />
         </Flex>
       </Box>
     </NoSSR>

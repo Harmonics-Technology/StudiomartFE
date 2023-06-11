@@ -128,15 +128,15 @@ export default function BasicInformation({ user }: { user: UserView }) {
       my="3rem"
     >
       <Stack
-        direction="row"
+        direction={{ base: "column", lg: "row" }}
         spacing={0}
         gap="2rem"
         width="90%"
-        ml="5rem"
+        ml={{ base: "1rem", lg: "5rem" }}
         py="5rem"
       >
         <AccountSideBar />
-        <Box w="45%" fontFamily='"DM Sans", sans-serif'>
+        <Box w={{ base: "full", lg: "45%" }} fontFamily='"DM Sans", sans-serif'>
           <form onSubmit={handleSubmit(onSubmit)}>
             <NoSSR>
               <Box display="none">
@@ -150,7 +150,12 @@ export default function BasicInformation({ user }: { user: UserView }) {
                 />
               </Box>
             </NoSSR>
-            <Flex align="flex-end" gap=".5rem" mb="1rem">
+            <Flex
+              justify={{ base: "center", lg: "flex-start" }}
+              align="flex-end"
+              gap=".5rem"
+              mb="1rem"
+            >
               <Circle
                 bgColor={"#636363"}
                 color={"white"}

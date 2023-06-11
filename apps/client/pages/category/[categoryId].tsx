@@ -2,10 +2,14 @@ import React from "react";
 import { GetServerSideProps } from "next";
 import { withPageAuth } from "@components/utils/withPageAuth";
 import { RecentlyViewedService, StudioService } from "src/services";
-import Category from "@components/Category/Category";
 import { ISingleCategory } from "src/models/schema";
 import { FilterPagingOptions } from "ui";
 import { toast } from "react-hot-toast";
+import dynamic from "next/dynamic";
+
+const Category = dynamic(() => import("@components/Category/Category"), {
+  ssr: false,
+});
 
 const singleStudioView = ({
   singlecategory,

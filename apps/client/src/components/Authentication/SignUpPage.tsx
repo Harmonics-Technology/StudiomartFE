@@ -158,11 +158,16 @@ export const SignUpPage = () => {
       border="2px hidden red"
       w="100%"
       minH="100vh"
-      justify="space-between"
+      justify={{ base: "none", md: "space-between" }}
       align="center"
       // bgColor="#e0edff"
     >
-      <Box w="55%" h="100vh" overflow="hidden">
+      <Box
+        w="55%"
+        h="100vh"
+        overflow="hidden"
+        display={{ base: "none", lg: "unset" }}
+      >
         <Carousel
           showStatus={false}
           autoPlay
@@ -180,9 +185,16 @@ export const SignUpPage = () => {
           <Image src="/assets/005.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/001.jpg" alt="any" w="full" objectFit="cover" />
         </Carousel>
-        <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
+        {/* <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" /> */}
       </Box>
-      <Flex w="50%" pos="relative" h="100vh" align="center">
+
+      <Flex
+        w={{ base: "100%", md: "80%", lg: "50%" }}
+        pos="relative"
+        h="100vh"
+        align="center"
+        mx="auto"
+      >
         {success ? (
           <VStack w="100%" h="auto" p="3rem 3rem">
             <Icon as={BsCheckCircle} color="green" fontSize="2rem" />
@@ -198,11 +210,6 @@ export const SignUpPage = () => {
           </VStack>
         ) : (
           <>
-            {loginType == "Vendor" && (
-              <Box pos="absolute" top="0" w="100%">
-                <CustomStepper steps={[0, 1]} currentStep={step} />
-              </Box>
-            )}
             <Box
               w="full"
               bgColor="white"
@@ -212,6 +219,9 @@ export const SignUpPage = () => {
               py="1rem"
               // boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
             >
+              <Flex w="10%" justify="center" mx="auto" mb="2rem">
+                <Image src="/stdd.gif" w="full" alt="logo" />
+              </Flex>
               <VStack spacing={0} gap="1.5rem" w="100%" mb="10px">
                 <Heading
                   fontWeight={700}
@@ -226,9 +236,6 @@ export const SignUpPage = () => {
                   Welcome to studio services without border!
                 </Heading>
 
-                {/* <Text color="#54595E" lineHeight={1.5}>
-              Sign up to get started.
-            </Text> */}
                 <Text
                   fontSize={["14px", "16px"]}
                   display={["block", "block", "block"]}
@@ -241,7 +248,7 @@ export const SignUpPage = () => {
                   </Link>
                 </Text>
 
-                <LoginTypeBtn
+                {/* <LoginTypeBtn
                   loginOption={[
                     {
                       text: "Customer",
@@ -257,237 +264,95 @@ export const SignUpPage = () => {
                     },
                   ]}
                   loginType={loginType}
-                />
+                /> */}
               </VStack>
               <Box
-                w="100%"
+                w={{ base: "110%", md: "100%" }}
                 h={["100%", "100%", "100%"]}
                 // border="2px hidden green"
                 overflow="auto"
                 py="15px"
                 pr="3px"
               >
-                {loginType == "Vendor" ? (
-                  <form onSubmit={VendorSubmit(onSubmitVendor)}>
-                    {step == 0 ? (
-                      <>
-                        <PrimaryInput<VendorRegisterModel>
-                          label="Email Address"
-                          type="email"
-                          placeholder="Enter your email"
-                          name="email"
-                          error={isError.email}
-                          register={registers}
-                        />
-                        <Grid
-                          templateColumns={["repeat(2,1fr)"]}
-                          gap="0rem 1rem"
-                        >
-                          <PrimaryInput<VendorRegisterModel>
-                            label="First Name"
-                            type="text"
-                            placeholder="Enter your first name"
-                            name="firstName"
-                            error={isError.firstName}
-                            register={registers}
-                          />
-
-                          <PrimaryInput<VendorRegisterModel>
-                            label="Last Name"
-                            type="text"
-                            placeholder="Enter your last name"
-                            name="lastName"
-                            error={isError.lastName}
-                            register={registers}
-                          />
-                          <PrimaryInput<VendorRegisterModel>
-                            label="Password"
-                            placeholder="Enter your password"
-                            type={passwordVisible ? "text" : "password"}
-                            icon={true}
-                            passwordVisible={passwordVisible}
-                            changeVisibility={changeInputType}
-                            name="password"
-                            error={isError.password}
-                            register={registers}
-                          />
-                          <PrimaryInput<VendorRegisterModel>
-                            label="Re-enter password"
-                            placeholder="Confirm your password"
-                            type={passwordVisible ? "text" : "password"}
-                            icon={true}
-                            passwordVisible={passwordVisible}
-                            changeVisibility={changeInputType}
-                            name="confirmPassword"
-                            error={isError.confirmPassword}
-                            register={registers}
-                          />
-                        </Grid>
-                      </>
-                    ) : (
-                      <>
-                        <PrimaryInput<VendorRegisterModel>
-                          label="Studio Name"
-                          type="text"
-                          placeholder="Enter your studio name"
-                          name="studioName"
-                          error={isError.studioName}
-                          register={registers}
-                        />
-                        <PrimaryInput<VendorRegisterModel>
-                          label="Studio Description"
-                          type="text"
-                          placeholder="Enter a short description about your studio"
-                          name="studioDescription"
-                          error={isError.studioDescription}
-                          register={registers}
-                        />
-                        <PrimaryInput<VendorRegisterModel>
-                          label="Studio Address"
-                          type="text"
-                          placeholder="Where is your studio located"
-                          name="studioAddress"
-                          error={isError.studioAddress}
-                          register={registers}
-                        />
-                        <Flex
-                          w="100%"
-                          alignItems="flex-end"
-                          justifyContent="flex-start"
-                          my="10px"
-                        >
-                          <Checkbox
-                            alignItems="center"
-                            borderColor="none"
-                            borderRadius="5px"
-                            size="md"
-                            onChange={(e) => setTerms(e.target.checked)}
-                          >
-                            I have read, undrestood and accept the{" "}
-                            <span
-                              style={{
-                                color: "#1570FA",
-                              }}
-                            >
-                              Terms and Conditions
-                            </span>
-                          </Checkbox>
-                        </Flex>
-                      </>
-                    )}
-
-                    {step !== 1 ? (
-                      <Button
-                        w="full"
-                        bgColor="brand.100"
-                        borderRadius="0"
-                        height="3rem"
-                        color="white"
-                        mb="1rem"
-                        onClick={completeFormStep}
-                      >
-                        Next
-                      </Button>
-                    ) : (
-                      <HStack align="center" h="fit-content" my="1rem">
-                        <Button
-                          w="full"
-                          bgColor="gray.400"
-                          borderRadius="0"
-                          height="3rem"
-                          color="white"
-                          onClick={() => setStep(step - 1)}
-                        >
-                          Back
-                        </Button>
-                        <SubmitButton
-                          textContent="sign up"
-                          isLoading={submitting}
-                        />
-                      </HStack>
-                    )}
-                  </form>
-                ) : (
-                  <form onSubmit={handleSubmit(onSubmitRegister)}>
+                <form onSubmit={handleSubmit(onSubmitRegister)}>
+                  <PrimaryInput<RegisterModel>
+                    label="Email Address"
+                    type="email"
+                    placeholder="Enter your email"
+                    name="email"
+                    error={errors.email}
+                    register={register}
+                  />
+                  <Grid templateColumns={["repeat(2,1fr)"]} gap="0rem 1rem">
                     <PrimaryInput<RegisterModel>
-                      label="Email Address"
-                      type="email"
-                      placeholder="Enter your email"
-                      name="email"
-                      error={errors.email}
+                      label="First Name"
+                      type="text"
+                      placeholder="Enter your first name"
+                      name="firstName"
+                      error={errors.firstName}
                       register={register}
                     />
-                    <Grid templateColumns={["repeat(2,1fr)"]} gap="0rem 1rem">
-                      <PrimaryInput<RegisterModel>
-                        label="First Name"
-                        type="text"
-                        placeholder="Enter your first name"
-                        name="firstName"
-                        error={errors.firstName}
-                        register={register}
-                      />
 
-                      <PrimaryInput<RegisterModel>
-                        label="Last Name"
-                        type="text"
-                        placeholder="Enter your last name"
-                        name="lastName"
-                        error={errors.lastName}
-                        register={register}
-                      />
-                      <PrimaryInput<RegisterModel>
-                        label="Password"
-                        placeholder="Enter your password"
-                        type={passwordVisible ? "text" : "password"}
-                        icon={true}
-                        passwordVisible={passwordVisible}
-                        changeVisibility={changeInputType}
-                        name="password"
-                        error={errors.password}
-                        register={register}
-                      />
-                      <PrimaryInput<RegisterModel>
-                        label="Re-enter password"
-                        placeholder="Confirm your password"
-                        type={passwordVisible ? "text" : "password"}
-                        icon={true}
-                        passwordVisible={passwordVisible}
-                        changeVisibility={changeInputType}
-                        name="confirmPassword"
-                        error={errors.confirmPassword}
-                        register={register}
-                      />
-                    </Grid>
-                    <Flex
-                      w="100%"
-                      alignItems="flex-end"
-                      justifyContent="flex-start"
-                      mb="1rem"
-                    >
-                      <Checkbox
-                        alignItems="center"
-                        borderColor="none"
-                        borderRadius="5px"
-                        size="md"
-                        onChange={(e) => setTerms(e.target.checked)}
-                      >
-                        I have read, undrestood and accept the{" "}
-                        <span
-                          style={{
-                            color: "#1570FA",
-                          }}
-                        >
-                          Terms and Conditions
-                        </span>
-                      </Checkbox>
-                    </Flex>
-
-                    <SubmitButton
-                      textContent="sign up"
-                      isLoading={isSubmitting}
+                    <PrimaryInput<RegisterModel>
+                      label="Last Name"
+                      type="text"
+                      placeholder="Enter your last name"
+                      name="lastName"
+                      error={errors.lastName}
+                      register={register}
                     />
-                  </form>
-                )}
+                    <PrimaryInput<RegisterModel>
+                      label="Password"
+                      placeholder="Enter your password"
+                      type={passwordVisible ? "text" : "password"}
+                      icon={true}
+                      passwordVisible={passwordVisible}
+                      changeVisibility={changeInputType}
+                      name="password"
+                      error={errors.password}
+                      register={register}
+                    />
+                    <PrimaryInput<RegisterModel>
+                      label="Re-enter password"
+                      placeholder="Confirm your password"
+                      type={passwordVisible ? "text" : "password"}
+                      icon={true}
+                      passwordVisible={passwordVisible}
+                      changeVisibility={changeInputType}
+                      name="confirmPassword"
+                      error={errors.confirmPassword}
+                      register={register}
+                    />
+                  </Grid>
+                  <Flex
+                    w="100%"
+                    alignItems="flex-end"
+                    justifyContent="flex-start"
+                    mb="1rem"
+                  >
+                    <Checkbox
+                      alignItems="center"
+                      borderColor="none"
+                      borderRadius="5px"
+                      size="md"
+                      onChange={(e) => setTerms(e.target.checked)}
+                    >
+                      I have read, undrestood and accept the{" "}
+                      <span
+                        style={{
+                          color: "#1570FA",
+                        }}
+                      >
+                        Terms and Conditions
+                      </span>
+                    </Checkbox>
+                  </Flex>
+
+                  <SubmitButton
+                    textContent="sign up"
+                    isLoading={isSubmitting}
+                  />
+                </form>
 
                 <Text
                   fontSize={["14px", "14px"]}

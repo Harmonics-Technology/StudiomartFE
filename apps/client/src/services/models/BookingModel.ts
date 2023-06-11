@@ -10,3 +10,4 @@ export type BookingModel = {
     inputTime?: TimeOnlyModel;
     additionalServices?: Array<string> | null;
 };
+

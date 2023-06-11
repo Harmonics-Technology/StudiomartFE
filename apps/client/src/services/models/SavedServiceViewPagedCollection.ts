@@ -18,3 +18,4 @@ export type SavedServiceViewPagedCollection = {
     nextOffset?: number | null;
     previousOffset?: number | null;
 };
+

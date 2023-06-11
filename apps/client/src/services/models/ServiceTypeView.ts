@@ -6,3 +6,4 @@ export type ServiceTypeView = {
     id?: string;
     name?: string | null;
 };
+

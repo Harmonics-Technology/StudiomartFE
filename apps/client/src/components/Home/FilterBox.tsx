@@ -77,6 +77,7 @@ export const FilterBox = ({ setOpenFilter }: any) => {
       mt="1rem"
       zIndex="999"
       borderRadius="10px"
+      right="0"
     >
       <VStack w="full" gap="1rem" align="flex-start">
         <Box w="full">

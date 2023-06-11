@@ -8,11 +8,13 @@ import {
   Heading,
   SimpleGrid,
   Stack,
+  Flex,
 } from "@chakra-ui/react";
+import { BecomeVendorInfo } from "@components/utils/BecomeVendorInfo";
 import Link from "next/link";
 import React from "react";
 import { GoPrimitiveDot } from "react-icons/go";
-import { getUrlRoute } from "ui";
+import { getUrlRoute, ProcedureCard } from "ui";
 import Fqa from "./Fqa";
 
 const BecomeVendor = () => {
@@ -70,59 +72,40 @@ const BecomeVendor = () => {
         >
           Start Earning in Just 3 Steps
         </Heading>
-        <SimpleGrid columns={[1, 3]} mt="16" spacing={["10", "16"]}>
-          <Box>
-            <Box>
-              <Image src="assets/01.png" alt="one" />
-            </Box>
-            <Text mt="-6" zIndex="2" fontSize="1.2rem" fontWeight="600">
-              Add Studio
-            </Text>
-            <Text fontSize={[".9rem", "1rem"]} lineHeight={["taller", "unset"]}>
-              Discover Studios near you Nemo enim ipsam voluptatem quia voluptas
-              sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-              dolores.s
-            </Text>
-          </Box>
-          <Box>
-            <Image src="assets/02.png" alt="one" />
-            <Text
-              mt="-6"
-              bgColor="white"
-              zIndex="2"
-              fontSize="1.2rem"
-              fontWeight="600"
-            >
-              Get Booked
-            </Text>
-            <Text fontSize={[".9rem", "1rem"]} lineHeight={["taller", "unset"]}>
-              Discover Studios near you Nemo enim ipsam voluptatem quia voluptas
-              sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-              dolores.s
-            </Text>
-          </Box>
-          <Box>
-            <Image src="assets/03.png" alt="one" />
-            <Text
-              mt="-6"
-              bgColor="white"
-              zIndex="2"
-              fontSize="1.2rem"
-              fontWeight="600"
-            >
-              Receive Payment
-            </Text>
-            <Text fontSize={[".9rem", "1rem"]} lineHeight={["taller", "unset"]}>
-              Discover Studios near you Nemo enim ipsam voluptatem quia voluptas
-              sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-              dolores.s
-            </Text>
-          </Box>
-        </SimpleGrid>
-        <Box textAlign={["start", "center"]} mt="10">
-          <Link href="/">
+        <Flex
+          justify="space-between"
+          align="center"
+          gap="2rem"
+          my="4rem"
+          flexDirection={{ base: "column", lg: "row" }}
+        >
+          <ProcedureCard
+            num="01"
+            title="Create an Account"
+            note="Create an account by completing  the registration process."
+          />
+          <Image src="/line.png" alt="line" w="80px" />
+          <ProcedureCard
+            num="02"
+            title="List Your Services"
+            note="Upload correct details of your  studio and services you offer."
+          />
+          <Image src="/line.png" alt="line" w="80px" />
+          <ProcedureCard
+            num="03"
+            title="Get Notified"
+            note="Connect with customers and get  notified when your services are needed."
+          />
+        </Flex>
+        <Box
+          textAlign={["start", "center"]}
+          mt="10"
+          mx="auto"
+          w={{ base: "50%", lg: "fit-content" }}
+        >
+          <Link href={`${getUrlRoute().vendorUrl}/register`}>
             <Button
-              w="170px"
+              w="full"
               h="50px"
               fontSize={[".8rem", "unset"]}
               bgColor="brand.100"
@@ -133,44 +116,52 @@ const BecomeVendor = () => {
           </Link>
         </Box>
       </Box>
-      <Box bgColor="rgba(21, 112, 250, 0.08)" py="20">
+      <Box bgColor="rgba(21, 112, 250, 0.08)" py="20" w="full">
         <Stack
-          direction={"row"}
-          w="90%"
+          direction={{ base: "column", lg: "row" }}
+          w={{ base: "90%", lg: "60%" }}
           mx="auto"
           align="center"
           justify={["space-evenly"]}
           spacing={["8"]}
         >
-          <Box color="black">
+          <Box color="black" w={{ base: "fit-content", lg: "full" }}>
             <Image
-              w={["90px", "auto"]}
-              src="assets/Mock up.png"
+              w={["200px", "full"]}
+              src="assets/mobileapp.png"
               alt="mobile app"
             />
           </Box>
-          <Box>
-            <Heading fontSize={["1.3rem", "3rem"]}>
-              Download the <br /> Mobile App
+          <VStack
+            w="full"
+            align={{ base: "center", lg: "flex-start" }}
+            gap={{ base: "0", lg: "1rem" }}
+          >
+            <Heading fontSize={["1.5rem", "3rem"]} fontFamily="BR Firma">
+              Download the Mobile App
             </Heading>
-            <Text my={["5", "10"]} fontSize={[".9rem", "1.2rem"]}>
+            <Text fontSize={[".9rem", "1.2rem"]}>
               StudioMart is available on playstore.
             </Text>
             <HStack spacing="4">
-              <Image
-                width={["80px", "auto"]}
-                cursor="pointer"
-                src="assets/Download BTN (1).png"
-                alt="download on a pay store"
-              />
-              <Image
-                width={["80px", "auto"]}
-                cursor="pointer"
-                src="assets/Download BTN.png"
-                alt="download on a pay store"
-              />
+              <Box>
+                <Image
+                  width={["120px", "auto"]}
+                  cursor="pointer"
+                  src="assets/Download BTN (1).png"
+                  alt="download on a pay store"
+                />
+              </Box>
+              <Box>
+                <Image
+                  width={["120px", "auto"]}
+                  cursor="pointer"
+                  src="assets/Download BTN.png"
+                  alt="download on a pay store"
+                />
+              </Box>
             </HStack>
-          </Box>
+          </VStack>
         </Stack>
       </Box>
       <Box w="90%" mx="auto" py={["10", "24"]}>
@@ -186,40 +177,25 @@ const BecomeVendor = () => {
           spacing={["5", "20"]}
           mt={["10", "20"]}
         >
-          {Array(4)
-            .fill(null)
-            .map((x, index) => (
-              <HStack
-                key={index}
-                align="baseline"
-                spacing="7"
-                w={["full", "90%"]}
-              >
-                <Box fontSize={["1.2rem", "1.5rem"]}>
-                  <GoPrimitiveDot />
-                </Box>
-                <VStack align="start">
-                  <Text
-                    mb="0"
-                    fontWeight="bold"
-                    fontSize={["1.1rem", "1.5rem"]}
-                  >
-                    Rent a studio
-                  </Text>
-                  <Text
-                    lineHeight={["24px", "32px"]}
-                    fontSize={[".9rem", "1.1rem"]}
-                  >
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                    odit enim ipsam voluptatem quia voluptas sit aspernatur aut
-                    odit aut odit aut odit.
-                  </Text>
-                </VStack>
-              </HStack>
-            ))}
+          <BecomeVendorInfo
+            title="Expand Your Reach"
+            content="By listing your studios on our platform, you tap into a vast community of potential clients actively seeking your services. Gain exposure to a broader audience and increase your chances of securing more bookings."
+          />
+          <BecomeVendorInfo
+            title="Streamlined Booking Process"
+            content="Our user-friendly interface makes it easy for clients to discover and book your studio. We provide a seamless booking experience, eliminating unnecessary complexities and saving you time and effort."
+          />
+          <BecomeVendorInfo
+            title="Customer Support"
+            content="Our dedicated customer support team is always ready to assist you and address any queries or concerns. We strive to ensure a positive experience for both vendors and clients, providing prompt assistance whenever needed."
+          />
+          <BecomeVendorInfo
+            title="Secure Payment System"
+            content="Ensuring peace of mind for all your transactions. Enjoy seamless, fast, and reliable payments, all backed by our robust security measures. Trust us to safeguard your transactions and keep your sensitive data confidential."
+          />
         </SimpleGrid>
       </Box>
-      <Box w="90%" mx="auto" pb={["14", "24"]}>
+      <Box w="90%" m={{ base: "3rem auto 6rem", lg: "2rem auto 6rem" }}>
         <Heading
           textAlign="center"
           fontSize={["1.2rem", "2.2rem"]}

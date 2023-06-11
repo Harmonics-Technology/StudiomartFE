@@ -1,4 +1,3 @@
-import SavedStudiosComponent from "@components/Home/SavedStudiosComponent";
 import React from "react";
 import { GetServerSideProps } from "next";
 import { withPageAuth } from "@components/utils/withPageAuth";
@@ -7,6 +6,13 @@ import { StudioService } from "src/services";
 import { IStudios } from "src/models/schema";
 import { FilterPagingOptions } from "ui";
 import axios from "axios";
+import dynamic from "next/dynamic";
+const SavedStudiosComponent = dynamic(
+  () => import("@components/Home/SavedStudiosComponent"),
+  {
+    ssr: false,
+  }
+);
 
 const savedStudiosComponent = ({ savedStudios, studioForYou }: IStudios) => {
   return (

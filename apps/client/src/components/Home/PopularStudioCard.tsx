@@ -8,145 +8,166 @@ import {
   Flex,
   Icon,
   Spinner,
+  VStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { IPopularStudios } from "src/models/schema";
-import { getReviewSummary, Naira, Rating } from "ui";
+import { Cur, getReviewSummary, MenuDropdown, Naira, Rating } from "ui";
 import NoSSR from "react-no-ssr";
 import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useRouter } from "next/router";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { StudioService } from "src/services";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
-const PopularStudioCard = ({
-  service,
-  isSaved,
-  loading,
-  del,
-  id,
-}: IPopularStudios) => {
+const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
   const image = useDummyImage({});
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const saveServiceForLater = async () => {
+    setLoading(true);
+    try {
+      const result = await StudioService.saveService({
+        studioId: service?.id,
+      });
+      if (result.status) {
+        setLoading(false);
+        // setSaveStats(true);
+        toast.success("Added to saved items", { className: "loginToast" });
+        return;
+      }
+      setLoading(false);
+      toast.error(result.message as string, { className: "loginToast" });
+    } catch (err: any) {
+      setLoading(false);
+      toast.error(err?.body?.message || err?.message, {
+        className: "loginToast",
+      });
+    }
+  };
+  const removeSaved = async () => {
+    setLoading(true);
+    try {
+      const result = await StudioService.removeSavedService({
+        id: id as string,
+      });
+      if (result.status) {
+        setLoading(false);
+        toast.success("Item Removed", { className: "loginToast" });
+        router.reload();
+        return;
+      }
+      setLoading(false);
+      toast.error(result.message as string, { className: "loginToast" });
+    } catch (err: any) {
+      setLoading(false);
+      toast.error(err?.body?.message || err?.message, {
+        className: "loginToast",
+      });
+    }
+  };
   return (
-    <>
-      <Box role="group">
-        <Box
-          // h={["180px", "380px"]}
+    <Box
+      role="group"
+      h="full"
+      w="full"
+      borderRadius="4px"
+      border="1px solid #E8E8E8"
+      overflow="hidden"
+    >
+      <Box overflow="hidden" h="20rem" w="full" pos="relative">
+        <Image
+          h="full"
           w="full"
-          rounded="2xl"
-          overflow="hidden"
-          pos="relative"
-          pb="100%"
-        >
-          <Image
-            h="full"
-            objectFit="cover"
-            src={(service?.bannerImageURL as string) || image}
-            alt=""
-            pos="absolute"
-            w="full"
-            left="0"
-            top="0"
-          />
-
-          <Box
-            position="absolute"
-            // rounded="2xl"
-            top="0"
-            w="full"
-            h="full"
-            overflow="hidden"
-            transition="all .5s ease"
-            _groupHover={{ bgColor: "blackAlpha.600" }}
-          >
-            <Center h="100%">
-              <Link href={`/customer/details/${service?.id}`}>
-                <Button
-                  display="none"
-                  bgColor="white"
-                  color="brand.100"
-                  fontSize={[".8rem", "1rem"]}
-                  px={["5", "8"]}
-                  h={["8", "12"]}
-                  _groupHover={{ display: "block" }}
-                >
-                  Book Now
-                </Button>
-              </Link>
-            </Center>
-          </Box>
-          {isSaved && (
-            <Flex
-              pos="absolute"
-              bottom="0"
-              right="0"
-              height="30%"
-              w="30%"
-              bgColor="brand.100"
-              borderTopLeftRadius="90px"
-              justify="center"
-              align="center"
-              color="white"
-            >
-              {loading.status && loading.id == id ? (
-                <Spinner />
+          objectFit="cover"
+          src={(service?.bannerImageURL as string) || image}
+          alt=""
+        />
+        <Box pos="absolute" top="5%" right="3%">
+          {loading ? (
+            <Spinner size="sm" />
+          ) : (
+            <>
+              {isSaved ? (
+                <Icon
+                  as={AiFillHeart}
+                  onClick={removeSaved}
+                  fontSize="1.3rem"
+                  color="red"
+                />
               ) : (
                 <Icon
-                  as={RiDeleteBin6Line}
-                  fontSize="3rem"
-                  cursor="pointer"
-                  ml="1rem"
-                  pos="absolute"
-                  bottom="-50%"
-                  transition=".3s ease"
-                  onClick={del}
-                  _groupHover={{
-                    bottom: "50%",
-                    transform: "translateY(50%)",
-                  }}
+                  as={AiOutlineHeart}
+                  onClick={saveServiceForLater}
+                  fontSize="1.3rem"
                 />
               )}
-            </Flex>
+            </>
           )}
         </Box>
-        <HStack align="baseline" justify="space-between" fontWeight="600">
-          <Text fontSize={[".7rem", "1.3rem"]} noOfLines={1}>
-            {service?.name}
-          </Text>
-          <Text fontSize={[".7rem", "1rem"]}>
-            {`${Naira(service?.price as number)}.00`}
-            {/* <Text
-            color="#808080"
-            fontWeight="normal"
-            fontSize={["5px", "initial"]}
-            as="span"
-          >
-            per hour
-          </Text> */}
-          </Text>
-        </HStack>
-        <HStack align="center" mt="-5" justify="space-between">
-          <Text
-            color="#808080"
-            noOfLines={1}
-            fontSize={[".7rem", "14px"]}
-            mt={["2", "0"]}
-            mb="0"
-          >
-            {service?.studio?.city} {service?.studio?.state}
-          </Text>
-          <HStack
-            spacing={["1", "unset"]}
-            align="center"
-            fontSize={[".7rem", "13px"]}
-            gap=".5rem"
-          >
-            <Rating value={service?.averageRating || 0} />
-
-            <Text color="#808080" as="span" mb="0" fontSize={["8px", "13px"]}>
-              {service?.totalReviewCount || 0} Review
+      </Box>
+      <HStack align="center" justify="space-between" fontWeight="600" p="1rem">
+        <VStack align="flex-start">
+          <HStack align="flex-end">
+            <Text
+              fontSize={["1rem", "20px"]}
+              noOfLines={1}
+              color="#171717"
+              fontWeight="500"
+              fontFamily="BR Firma"
+              mb="0"
+            >
+              {service?.name}
+            </Text>
+            <Text
+              color="#636363"
+              noOfLines={1}
+              fontSize={[".7rem", "14px"]}
+              fontWeight="500"
+              fontFamily="BR Firma"
+              mb="0"
+            >
+              {service?.studio?.city}, {service?.studio?.state}
             </Text>
           </HStack>
-        </HStack>
-      </Box>
-    </>
+          <HStack align="center" fontSize={[".7rem", "13px"]}>
+            <Text color="#Afafaf" as="span" mb="0" fontSize="12px">
+              {service?.averageRating || 0} Star
+            </Text>
+            <Rating value={service?.averageRating || 0} />
+            <Text
+              color="#808080"
+              as="span"
+              mb="0"
+              fontSize="12px"
+              fontWeight="500"
+            >
+              ({service?.totalReviewCount || 0})
+            </Text>
+          </HStack>
+          <Text fontSize=".9rem" fontWeight="700" color="#171717" mb="0">
+            From {`${Cur(service?.price as number)} NGN`}
+          </Text>
+        </VStack>
+        <MenuDropdown
+          menus={[
+            {
+              label: "View Service",
+              id: 1,
+              onclick: () => router.push(`/customer/details/${service?.id}`),
+            },
+            {
+              label: "Book Service",
+              id: 2,
+              onclick: () =>
+                router.push(`/customer/schedule-session/${service?.id}`),
+            },
+          ]}
+        />
+      </HStack>
+    </Box>
   );
 };
 

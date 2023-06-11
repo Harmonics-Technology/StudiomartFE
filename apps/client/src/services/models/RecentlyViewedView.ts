@@ -14,3 +14,4 @@ export type RecentlyViewedView = {
     service?: ServiceView;
     studio?: StudioView;
 };
+

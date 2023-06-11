@@ -159,7 +159,7 @@ const AddStudio = () => {
         mx="auto"
         w="95%"
         my="2rem"
-        p="3rem"
+        p={{ base: "2rem", lg: "3rem" }}
         borderRadius="30px"
         bgColor="white"
         boxShadow="sm"
@@ -243,7 +243,11 @@ const AddStudio = () => {
             Studio Information
           </Heading>
           <VStack gap="1.5rem" w="full">
-            <Grid gap="1.5rem" templateColumns={["repeat(2, 1fr)"]} w="full">
+            <Grid
+              gap="1.5rem"
+              templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
+              w="full"
+            >
               <PrimaryInput<StudioModel>
                 label="Studio Name"
                 type="text"
@@ -277,7 +281,11 @@ const AddStudio = () => {
                 register={register}
               />
             </Grid>
-            <Grid gap="1.5rem" templateColumns={["repeat(2, 1fr)"]} w="full">
+            <Grid
+              gap="1.5rem"
+              templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
+              w="full"
+            >
               {/* <PrimaryInput<StudioModel>
                 label="Studio Address"
                 type="text"
@@ -310,7 +318,11 @@ const AddStudio = () => {
                 className="auto"
               />
             </Grid>
-            <Grid gap="1.5rem" templateColumns={["repeat(3, 1fr)"]} w="full">
+            <Grid
+              gap="1.5rem"
+              templateColumns={["repeat(1, 1fr)", "repeat(3, 1fr)"]}
+              w="full"
+            >
               <PrimarySelect<StudioModel>
                 label="Studio State"
                 name="state"
@@ -359,7 +371,7 @@ const AddStudio = () => {
             <Flex
               justify="center"
               align="center"
-              h="15rem"
+              h={{ base: "8rem", lg: "15rem" }}
               w="full"
               borderRadius="10px"
               overflow="hidden"
@@ -425,7 +437,11 @@ const AddStudio = () => {
             Social Media Information
           </Heading>
           <VStack gap="1.5rem" w="full">
-            <Grid gap="1.5rem" templateColumns={["repeat(4, 1fr)"]} w="full">
+            <Grid
+              gap="1.5rem"
+              templateColumns={["repeat(2, 1fr)", "repeat(4, 1fr)"]}
+              w="full"
+            >
               <PrimaryInput<StudioModel>
                 label="Facebook url"
                 type="text"

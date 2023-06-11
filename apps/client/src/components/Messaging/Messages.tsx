@@ -21,7 +21,13 @@ export const Messages = () => {
   console.log({ messages });
   return (
     <Box>
-      <Box h="58vh" py="2rem" overflow="hidden auto" px="1rem" boxShadow="md">
+      <Box
+        h={{ base: "60vh", lg: "58vh" }}
+        py="2rem"
+        overflow="hidden auto"
+        px="1rem"
+        boxShadow="md"
+      >
         {messages.map((m: any) => (
           <Message message={m} key={m?.id} />
         ))}

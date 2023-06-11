@@ -1,17 +1,42 @@
 import { Box, Image, Text, VStack } from "@chakra-ui/react";
 import { AuthContext } from "@components/Context/AuthContext";
+import { ChatContext } from "@components/Context/ChatContext";
 import { UserContext } from "@components/Context/UserContext";
 import { db } from "@components/firebase/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { Chats } from "./Chats";
 import { Search } from "./Search";
 
-export const SideBar = () => {
+export const SideBar = ({ showChat, setShowChat }: any) => {
   const [chat, setChat] = useState<any>([]);
   const { currentUser } = useContext(AuthContext);
   const { user } = useContext(UserContext);
   console.log({ currentUser, user });
+
+  const { dispatch, data } = useContext(ChatContext);
+
+  const handleSelect = async (u: any) => {
+    console.log({ u });
+    const combinedId =
+      currentUser?.uid > u?.userInfo.uid
+        ? currentUser?.uid + u?.userInfo?.uid
+        : u?.userInfo?.uid + currentUser?.uid;
+    console.log({ combinedId, u });
+    dispatch({ type: "CHANGE_USER", payload: u?.userInfo });
+    if (u.isRead == false) {
+      await updateDoc(doc(db, "userChats", u.userInfo.uid), {
+        [combinedId + ".isRead"]: true,
+        [combinedId + ".lastMessage.isRead"]: true,
+      });
+      await updateDoc(doc(db, "userChats", currentUser.uid), {
+        [combinedId + ".isRead"]: true,
+        [combinedId + ".lastMessage.isRead"]: true,
+      });
+    }
+    setShowChat(true);
+  };
+
   useEffect(() => {
     const getChats = () => {
       const unsub = onSnapshot(
@@ -32,9 +57,12 @@ export const SideBar = () => {
       bgColor="white"
       borderRadius="8px"
       h="78vh"
-      w="28%"
+      w={{ base: "100%", lg: "28%" }}
       py="2rem"
       boxShadow="lg"
+      pos={{ base: "absolute", lg: "relative" }}
+      left={{ base: !showChat ? "0%" : "-100%", lg: "0" }}
+      transition="all .3s ease"
     >
       {chat == undefined ? (
         <>
@@ -46,7 +74,7 @@ export const SideBar = () => {
           {Object?.entries(chat)?.length > 0 ? (
             <>
               <Search chat={chat} setChat={setChat} />
-              <Chats chat={chat} />
+              <Chats chat={chat} handleSelect={handleSelect} />
             </>
           ) : (
             <VStack spacing="1rem" justify="center" h="full">

@@ -14,3 +14,4 @@ export type NotificationView = {
     isRead?: boolean;
     dateCreated?: string;
 };
+

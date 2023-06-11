@@ -45,6 +45,8 @@
     "react-responsive-carousel": "^3.2.23",
     "react-places-autocomplete": "^7.3.0",
     "react-simple-placeholder-image": "^0.1.2",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "turbo": "^1.8.3"
   },
   "resolutions": {

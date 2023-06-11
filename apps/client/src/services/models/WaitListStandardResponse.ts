@@ -17,3 +17,4 @@ export type WaitListStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
+

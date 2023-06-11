@@ -90,11 +90,16 @@ export const LoginPage = () => {
       border="2px hidden red"
       w="100%"
       minH="100vh"
-      justify="space-between"
+      justify={{ base: "none", md: "space-between" }}
       align="center"
       // bgColor="#e0edff"
     >
-      <Box w="55%" h="100vh" overflow="hidden">
+      <Box
+        w="55%"
+        h="100vh"
+        overflow="hidden"
+        display={{ base: "none", lg: "block" }}
+      >
         <Carousel
           showStatus={false}
           autoPlay
@@ -113,18 +118,27 @@ export const LoginPage = () => {
           <Image src="/assets/005.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/001.jpg" alt="any" w="full" objectFit="cover" />
         </Carousel>
-        <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
+        {/* <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" /> */}
       </Box>
-      <Flex w="50%" pos="relative" h="100vh" align="center">
+      <Flex
+        w={{ base: "100%", md: "80%", lg: "50%" }}
+        pos="relative"
+        h="100vh"
+        align="center"
+        mx="auto"
+      >
         <Box
           w="full"
           bgColor="white"
           // borderRadius="30px"
-          px="4rem"
+          px={{ base: "2rem", lg: "4rem" }}
           mt=".5rem"
           py="1rem"
           // boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
         >
+          <Flex w="10%" justify="center" mx="auto" mb="2rem">
+            <Image src="/stdd.gif" w="full" alt="logo" />
+          </Flex>
           <VStack spacing={0} gap="1.5rem" w="100%" mb="10px">
             <Heading
               fontWeight={700}

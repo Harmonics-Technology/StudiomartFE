@@ -17,14 +17,14 @@ export class PaymentService {
      * @throws ApiError
      */
     public static verifyPayment({
-transactionReference,
-transactionId,
-device,
-}: {
-transactionReference: string,
-transactionId: number,
-device?: any,
-}): CancelablePromise<ObjectStandardResponse> {
+        transactionReference,
+        transactionId,
+        device,
+    }: {
+        transactionReference: string,
+        transactionId: number,
+        device?: any,
+    }): CancelablePromise<ObjectStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Payment/verify/{transactionReference}/{transactionId}',
@@ -47,12 +47,12 @@ device?: any,
      * @throws ApiError
      */
     public static withdrawFromWallet({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: WithdrawalModel,
-}): CancelablePromise<BooleanStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: WithdrawalModel,
+    }): CancelablePromise<BooleanStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Payment/wallet/withdraw',

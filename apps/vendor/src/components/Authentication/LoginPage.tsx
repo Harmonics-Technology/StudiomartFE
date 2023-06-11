@@ -126,14 +126,19 @@ export const LoginPage = () => {
       border="2px hidden red"
       w="100%"
       minH="100vh"
-      justify="space-between"
+      justify={{ base: "none", md: "space-between" }}
       align="center"
       // bgColor="#e0edff"
     >
-      <Box w="55%" h="100vh" overflow="hidden" pos="relative">
-        <Box w="30%" pos="absolute" top="2rem" left="3rem">
+      <Box
+        w="55%"
+        h="100vh"
+        overflow="hidden"
+        display={{ base: "none", lg: "unset" }}
+      >
+        {/* <Box w="30%" pos="absolute" top="2rem" left="3rem">
           <Image src="/assets/studiomart.png" w="full" alt="logo" />
-        </Box>
+        </Box> */}
         <Carousel
           showStatus={false}
           autoPlay
@@ -154,7 +159,13 @@ export const LoginPage = () => {
           <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
         </Carousel>
       </Box>
-      <Flex w="50%" pos="relative" h="100vh" align="center">
+      <Flex
+        w={{ base: "100%", md: "80%", lg: "50%" }}
+        pos="relative"
+        h="100vh"
+        align="center"
+        mx="auto"
+      >
         <Box
           w="full"
           bgColor="white"
@@ -164,6 +175,9 @@ export const LoginPage = () => {
           py="1rem"
           // boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
         >
+          <Flex w="10%" justify="center" mx="auto" mb="2rem">
+            <Image src="/stdd.gif" w="full" alt="logo" />
+          </Flex>
           <VStack spacing={0} gap="1.5rem" w="100%" mb="10px">
             <Heading
               fontWeight={700}

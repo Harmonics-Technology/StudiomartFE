@@ -17,12 +17,12 @@ export class WaitListService {
      * @throws ApiError
      */
     public static createWaitList({
-device,
-requestBody,
-}: {
-device?: any,
-requestBody?: WaitList,
-}): CancelablePromise<WaitListStandardResponse> {
+        device,
+        requestBody,
+    }: {
+        device?: any,
+        requestBody?: WaitList,
+    }): CancelablePromise<WaitListStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/WaitList/create',
@@ -40,14 +40,14 @@ requestBody?: WaitList,
      * @throws ApiError
      */
     public static list({
-offset,
-limit,
-device,
-}: {
-offset?: number,
-limit?: number,
-device?: any,
-}): CancelablePromise<WaitListPagedCollectionStandardResponse> {
+        offset,
+        limit,
+        device,
+    }: {
+        offset?: number,
+        limit?: number,
+        device?: any,
+    }): CancelablePromise<WaitListPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/WaitList/list-waitlist',

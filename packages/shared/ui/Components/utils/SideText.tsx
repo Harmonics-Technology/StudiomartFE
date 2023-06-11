@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "@chakra-ui/react";
+import { Link, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 export const SideText = ({ data }: any) => {
@@ -13,8 +13,12 @@ export const SideText = ({ data }: any) => {
       fontSize="16px"
       color={router.asPath == url ? "brand.100" : "#636363"}
       textTransform="capitalize"
+      textOverflow="ellipsis"
+      mb={{ base: "1rem", lg: "0" }}
     >
-      {text}
+      <Text mb="0" whiteSpace="nowrap">
+        {text}
+      </Text>
     </Link>
   );
 };

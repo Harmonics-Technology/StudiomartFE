@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
     });
     const studiosNearMe = await StudioService.listServices({
       offset: 0,
-      limit: 9,
+      limit: 6,
       state: location?.city,
     });
 

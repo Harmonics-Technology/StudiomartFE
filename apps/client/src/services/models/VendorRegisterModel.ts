@@ -13,3 +13,4 @@ export type VendorRegisterModel = {
     studioDescription?: string | null;
     studioAddress?: string | null;
 };
+

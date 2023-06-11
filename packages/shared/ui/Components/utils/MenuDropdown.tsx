@@ -10,12 +10,20 @@ import {
 } from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-export const MenuDropdown = ({ menus }: any) => {
+interface IMenuProps {
+  menus: any;
+  menuIcon?: any;
+}
+
+export const MenuDropdown = ({
+  menus,
+  menuIcon = <BsThreeDotsVertical />,
+}: IMenuProps) => {
   return (
     <Menu>
       <MenuButton
         as={Button}
-        rightIcon={<BsThreeDotsVertical />}
+        rightIcon={menuIcon}
         bgColor="transparent"
         color="gray.800"
         _hover={{
@@ -37,7 +45,7 @@ export const MenuDropdown = ({ menus }: any) => {
             color={x.color}
             onClick={x.onclick}
           >
-            <Icon as={x.icon} />
+            {x.icon && <Icon as={x.icon} />}
             <Text mb="0">{x.label}</Text>
           </MenuItem>
         ))}

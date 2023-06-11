@@ -11,6 +11,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { AiFillMail } from "react-icons/ai";
 import {
   FaFacebookF,
   FaTwitter,
@@ -56,17 +57,17 @@ export const Footer: React.FC = () => {
           </Box>
         </Box>
         <HStack spacing={["4", "2"]} color="rgba(249, 249, 249, 0.72)">
-          <Link href="/">
+          <Link href="https://instagram.com/studiomart.io" target="_blank">
             <FaInstagram />
           </Link>
-          <Link href="/">
+          <Link href="https://twitter.com/studiomart_io" target="_blank">
             <FaTwitter />
           </Link>
-          <Link href="/">
+          <Link href="https://linkedin.com/studiomart_io" target="_blank">
             <FaLinkedinIn />
           </Link>
-          <Link href="/">
-            <FaFacebookF />
+          <Link href="mailto:hello@studiomart.io" target="_blank">
+            <AiFillMail />
           </Link>
         </HStack>
         <Box>

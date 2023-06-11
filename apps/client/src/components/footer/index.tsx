@@ -10,13 +10,17 @@ import {
   Flex,
   HStack,
 } from "@chakra-ui/react";
+
 import NextLink from "next/link";
+import category from "../utils/category.json";
 import {
   FaFacebookF,
   FaTwitter,
   FaInstagram,
   FaLinkedinIn,
 } from "react-icons/fa";
+import { getUrlRoute } from "ui";
+import { AiFillMail } from "react-icons/ai";
 
 type Props = {
   name: string;
@@ -24,6 +28,18 @@ type Props = {
 };
 
 const NavLink = ({ name, path }: Props) => {
+  return (
+    <NextLink href={path} passHref>
+      <Link
+        fontSize={["14px", "16px"]}
+        color="whiteAlpha.700"
+        cursor="pointer"
+        _hover={{ color: "white" }}
+      >
+        {name}
+      </Link>
+    </NextLink>
+  );
   return (
     <NextLink href={path} passHref>
       <Link
@@ -57,8 +73,11 @@ export const Footer: React.FC = () => {
               </Box>
             </HStack>
             <VStack spacing="4" pt={["8", "3"]} align="flex-start">
-              <NavLink path="/" name="Rent a studio" />
-              <NavLink path="/" name="Add a studio" />
+              <NavLink path="/all-studios" name="Rent a studio" />
+              <NavLink
+                path={`${getUrlRoute().vendorUrl}/login`}
+                name="Add a studio"
+              />
               <Box pt="8">
                 <Image
                   w={["130px", "170px"]}
@@ -77,11 +96,41 @@ export const Footer: React.FC = () => {
               Studio Category
             </Text>
             <VStack spacing="5" align="flex-start">
-              <NavLink path="/" name="Music Studio" />
-              <NavLink path="/" name="Photo Studio" />
-              <NavLink path="/" name="Make Up Studio" />
-              <NavLink path="/" name="Art Studio" />
-              <NavLink path="/" name="Podcast Studio" />
+              <NavLink
+                path={`category/${
+                  category?.find((x: any) => x.name?.toLowerCase() == "music")
+                    ?.id
+                }`}
+                name="Music Studio"
+              />
+              <NavLink
+                path={`category/${
+                  category?.find((x: any) => x.name?.toLowerCase() == "photo")
+                    ?.id
+                }`}
+                name="Photo Studio"
+              />
+              <NavLink
+                path={`category/${
+                  category?.find((x: any) => x.name?.toLowerCase() == "makeup")
+                    ?.id
+                }`}
+                name="Make Up Studio"
+              />
+              <NavLink
+                path={`category/${
+                  category?.find((x: any) => x.name?.toLowerCase() == "hair")
+                    ?.id
+                }`}
+                name="Hair Studio"
+              />
+              <NavLink
+                path={`category/${
+                  category?.find((x: any) => x.name?.toLowerCase() == "video")
+                    ?.id
+                }`}
+                name="Video Studio"
+              />
             </VStack>
           </VStack>
           <VStack align="flex-start">
@@ -93,8 +142,8 @@ export const Footer: React.FC = () => {
               Company
             </Text>
             <VStack spacing="5" align="flex-start">
-              <NavLink path="/" name="About Us" />
-              <NavLink path="/" name="Contact" />
+              <NavLink path="/about" name="About Us" />
+              <NavLink path="/contact" name="Contact" />
             </VStack>
           </VStack>
           <VStack align="flex-start">
@@ -124,17 +173,17 @@ export const Footer: React.FC = () => {
             &copy; StudioMart 2022. All Rights Reserved.
           </Text>
           <HStack spacing={["4", "2"]}>
-            <Link href="/">
+            <Link href="https://instagram.com/studiomart.io" target="_blank">
               <FaInstagram />
             </Link>
-            <Link href="/">
+            <Link href="https://twitter.com/studiomart_io" target="_blank">
               <FaTwitter />
             </Link>
-            <Link href="/">
+            <Link href="https://linkedin.com/studiomart_io" target="_blank">
               <FaLinkedinIn />
             </Link>
-            <Link href="/">
-              <FaFacebookF />
+            <Link href="mailto:hello@studiomart.io" target="_blank">
+              <AiFillMail />
             </Link>
           </HStack>
         </Flex>

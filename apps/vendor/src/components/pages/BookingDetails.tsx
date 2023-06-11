@@ -111,7 +111,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
               borderRadius="12px"
               border="1px solid"
               borderColor="gray.400"
-              p="2rem 1.5rem"
+              p={{ base: ".8rem", lg: "2rem 1.5rem" }}
             >
               <VStack gap="1rem" align="left">
                 <BookingText top="Client ID/Email" bottom={data?.user?.email} />
@@ -130,7 +130,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
               borderRadius="12px"
               border="1px solid"
               borderColor="gray.400"
-              p="2rem"
+              p={{ base: ".8rem", lg: "2rem 1.5rem" }}
             >
               <VStack gap="1rem" align="left">
                 <BookingText top="Service Name" bottom={data.service?.name} />
@@ -173,7 +173,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
               borderRadius="12px"
               border="1px solid"
               borderColor="gray.400"
-              p="2rem"
+              p={{ base: ".8rem", lg: "2rem 1.5rem" }}
             >
               <VStack gap="1rem" align="left">
                 <Grid templateColumns="60% auto">
@@ -205,16 +205,18 @@ function BookingDetails({ data, closed }: DetailsProps) {
           </Box>
           <HStack
             w="full"
-            h="3rem"
-            gap="2rem"
+            h="fit-content"
+            spacing={0}
+            gap={{ base: "1rem", lg: "2rem" }}
             mb="1rem !important"
+            flexDir={{ base: "column", lg: "row" }}
             display={response == "pending" ? "flex" : "none"}
           >
             <Button
               variant="outline"
               width="full"
               border="2px solid"
-              h="full"
+              h="3rem"
               onClick={onOpen}
             >
               Reject Booking
@@ -224,7 +226,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
               w="full"
               bgColor="#1570FA"
               color="white"
-              h="full"
+              h="3rem"
               onClick={() => acceptUserBooking(data.id as string)}
               isLoading={loading}
             >
