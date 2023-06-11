@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -8,21 +8,21 @@ import {
   Checkbox,
   Link,
   Image,
-} from '@chakra-ui/react';
-import { PrimaryInput, SubmitButton, LoginTypeBtn } from 'ui';
-import { LoginModel, OpenAPI, StudioService, UserService } from 'src/services';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import YupPassword from 'yup-password';
-import toast from 'react-hot-toast';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/router';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@components/firebase/firebase';
-import { UserContext } from '@components/Context/UserContext';
+} from "@chakra-ui/react";
+import { PrimaryInput, SubmitButton, LoginTypeBtn } from "ui";
+import { LoginModel, OpenAPI, StudioService, UserService } from "src/services";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import YupPassword from "yup-password";
+import toast from "react-hot-toast";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@components/firebase/firebase";
+import { UserContext } from "@components/Context/UserContext";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -37,8 +37,8 @@ export const LoginPage = () => {
   };
   const router = useRouter();
   const [terms, setTerms] = useState<boolean>(false);
-  const [loginType, setLoginType] = useState('Vendor');
-  const currentStudioId = Cookies.get('currentStudioId');
+  const [loginType, setLoginType] = useState("Vendor");
+  const currentStudioId = Cookies.get("currentStudioId");
   const { device } = useContext(UserContext);
 
   const {
@@ -48,7 +48,7 @@ export const LoginPage = () => {
     formState: { errors, isSubmitting, isValid },
   } = useForm<LoginModel>({
     resolver: yupResolver(validation),
-    mode: 'all',
+    mode: "all",
   });
 
   const onSubmitVendor = async (data: LoginModel) => {
@@ -59,7 +59,7 @@ export const LoginPage = () => {
       if (result.status) {
         if (terms) {
           Cookies.set(
-            'isVendor',
+            "isVendor",
             JSON.stringify({
               email: data.email,
               pass: data.password,
@@ -73,22 +73,22 @@ export const LoginPage = () => {
           data.password as string
         );
 
-        Cookies.set('vendor', JSON.stringify(result.data));
-        Cookies.set('user', 'Vendor');
+        Cookies.set("vendor", JSON.stringify(result.data));
+        Cookies.set("user", "Vendor");
         OpenAPI.TOKEN = result?.data?.token as string;
-        result.data && Cookies.set('vendorToken', result.data.token as string);
+        result.data && Cookies.set("vendorToken", result.data.token as string);
         const studios = await StudioService.listUserStudios({
           offset: 0,
           limit: 10,
         });
-        toast.success('Login Successful!', {
-          className: 'loginToast',
+        toast.success("Login Successful!", {
+          className: "loginToast",
         });
         studios.status &&
-          Cookies.set('vendorStudios', JSON.stringify(studios.data?.value));
+          Cookies.set("vendorStudios", JSON.stringify(studios.data?.value));
         currentStudioId == undefined &&
           Cookies.set(
-            'currentStudioId',
+            "currentStudioId",
             studios?.data?.value?.at(0)?.id as string
           );
         router.query.from
@@ -99,18 +99,18 @@ export const LoginPage = () => {
         return;
       }
       toast.error(result.message as string, {
-        className: 'loginToast',
+        className: "loginToast",
       });
       return;
     } catch (error: any) {
       toast.error(error?.body?.message || error?.message, {
-        className: 'loginToast',
+        className: "loginToast",
       });
     }
   };
 
   useEffect(() => {
-    const isUser = Cookies.get('isVendor');
+    const isUser = Cookies.get("isVendor");
     if (isUser !== undefined) {
       const userDetails = JSON.parse(isUser as unknown as string);
       setTerms(userDetails.rememberMe);
@@ -126,7 +126,7 @@ export const LoginPage = () => {
       border="2px hidden red"
       w="100%"
       minH="100vh"
-      justify={{ base: 'none', md: 'space-between' }}
+      justify={{ base: "none", md: "space-between" }}
       align="center"
       // bgColor="#e0edff"
     >
@@ -134,11 +134,11 @@ export const LoginPage = () => {
         w="55%"
         h="100vh"
         overflow="hidden"
-        display={{ base: 'none', lg: 'unset' }}
+        display={{ base: "none", lg: "unset" }}
       >
-        <Box w="30%" pos="absolute" top="2rem" left="3rem">
+        {/* <Box w="30%" pos="absolute" top="2rem" left="3rem">
           <Image src="/assets/studiomart.png" w="full" alt="logo" />
-        </Box>
+        </Box> */}
         <Carousel
           showStatus={false}
           autoPlay
@@ -160,7 +160,7 @@ export const LoginPage = () => {
         </Carousel>
       </Box>
       <Flex
-        w={{ base: '100%', md: '80%', lg: '50%' }}
+        w={{ base: "100%", md: "80%", lg: "50%" }}
         pos="relative"
         h="100vh"
         align="center"
@@ -175,6 +175,9 @@ export const LoginPage = () => {
           py="1rem"
           // boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
         >
+          <Flex w="10%" justify="center" mx="auto" mb="2rem">
+            <Image src="/stdd.gif" w="full" alt="logo" />
+          </Flex>
           <VStack spacing={0} gap="1.5rem" w="100%" mb="10px">
             <Heading
               fontWeight={700}
@@ -193,8 +196,8 @@ export const LoginPage = () => {
               Sign up to get started.
             </Text> */}
             <Text
-              fontSize={['14px', '16px']}
-              display={['block', 'block', 'block']}
+              fontSize={["14px", "16px"]}
+              display={["block", "block", "block"]}
               textAlign="center"
               fontWeight="600"
             >
@@ -220,13 +223,13 @@ export const LoginPage = () => {
           </VStack>
           <Box
             w="100%"
-            h={['100%', '100%', '100%']}
+            h={["100%", "100%", "100%"]}
             // border="2px hidden green"
             overflow="auto"
             py="15px"
             pr="3px"
           >
-            {loginType == 'Vendor' ? (
+            {loginType == "Vendor" ? (
               <form onSubmit={VendorSubmit(onSubmitVendor)}>
                 <VStack mb="1rem" spacing={0} gap="1rem">
                   <PrimaryInput<LoginModel>
@@ -240,7 +243,7 @@ export const LoginPage = () => {
                   <PrimaryInput<LoginModel>
                     label="Password"
                     placeholder="Enter your password"
-                    type={passwordVisible ? 'text' : 'password'}
+                    type={passwordVisible ? "text" : "password"}
                     icon={true}
                     passwordVisible={passwordVisible}
                     changeVisibility={changeInputType}
@@ -279,8 +282,8 @@ export const LoginPage = () => {
             )}
 
             <Text
-              fontSize={['14px', '14px']}
-              display={['block', 'block', 'block']}
+              fontSize={["14px", "14px"]}
+              display={["block", "block", "block"]}
               textAlign="center"
               mt="1rem"
               color="#3e3e3e"

@@ -12,13 +12,14 @@ import {
   useDisclosure,
   InputLeftElement,
   Text,
+  Circle,
 } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import { SearchBox } from "@components/Home/SearchBox";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect } from "react";
-import { BsSearch } from "react-icons/bs";
+import { BsBell, BsBookmarkHeart, BsSearch } from "react-icons/bs";
 import { IoIosNotifications, IoIosBookmark } from "react-icons/io";
 import CustomerSidebar from "./CustomerSidebar";
 
@@ -68,13 +69,13 @@ const CustomerHeader = () => {
             size="lg"
             boxShadow="sm"
             borderRadius="4px"
-            border="2px solid"
-            borderColor="brand.100"
+            border="0.5px solid #E8E8E8"
+            // borderColor="brand.100"
             pl="2"
             onClick={onOpen}
           >
             <InputLeftElement pointerEvents="none" h="full">
-              <Icon as={BsSearch} color="brand.100" />
+              <Icon as={BsSearch} color="#AFAFAF" />
             </InputLeftElement>
             <Input
               type="text"
@@ -89,7 +90,7 @@ const CustomerHeader = () => {
               {/* <Button h="full" w="full" bg="brand.100" color="white" size="sm">
               Search
             </Button> */}
-              <Text mb="0" fontWeight="500" fontSize=".9rem">
+              <Text mb="0" fontWeight="500" fontSize=".9rem" color="gray.500">
                 Ctrl + Q
               </Text>
             </InputRightElement>
@@ -98,33 +99,43 @@ const CustomerHeader = () => {
         <HStack align="center" spacing={["5", "7"]} justifySelf="flex-end">
           <Link href="/customer/saved-studios" passHref>
             <a>
-              <Icon
-                as={IoIosBookmark}
-                fontSize="1.5rem"
-                cursor="pointer"
-                color={
-                  router.asPath === "/customer/saved-studios"
-                    ? "#1570FA"
-                    : "black"
-                }
-              />
+              <Circle size="30px" bgColor='bgColor="rgba(21, 112, 250, 0.05)"'>
+                <Icon
+                  as={BsBookmarkHeart}
+                  fontSize="1rem"
+                  cursor="pointer"
+                  color={
+                    router.asPath === "/customer/saved-studios"
+                      ? "#1570FA"
+                      : "black"
+                  }
+                />
+              </Circle>
             </a>
           </Link>
           <Link href="/customer/notification" passHref>
             <a>
-              <Icon
-                as={IoIosNotifications}
-                fontSize="1.5rem"
-                cursor="pointer"
-              />
+              <Circle size="30px" bgColor='bgColor="rgba(21, 112, 250, 0.05)"'>
+                <Icon
+                  as={BsBell}
+                  fontSize="1rem"
+                  cursor="pointer"
+                  color={
+                    router.asPath === "/customer/notifications"
+                      ? "#1570FA"
+                      : "black"
+                  }
+                />
+              </Circle>
             </a>
           </Link>
           <Button
             h="3rem"
             w="full"
-            px="3rem"
-            bg="brand.100"
-            color="white"
+            px="2rem"
+            // bg="brand.100"
+            // color="white"
+            variant='outline'
             onClick={() => logout(["customerToken", "customer"])}
           >
             Logout

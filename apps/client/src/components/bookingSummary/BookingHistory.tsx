@@ -306,7 +306,7 @@ export default function BookingHistory({ bookings }: IBookingsProps) {
                       bgColor="gray.500"
                       color="white"
                       borderRadius="0"
-                      isDisabled={x.status?.toLowerCase() !== "completed"}
+                      // isDisabled={x.status?.toLowerCase() !== "completed"}
                       onClick={() => {
                         setReviewId(x.serviceId);
                         onOpen();

@@ -1,14 +1,23 @@
-import { Avatar, Box, Circle, Heading, HStack, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Circle,
+  Heading,
+  HStack,
+  Icon,
+  Text,
+} from "@chakra-ui/react";
 import { AuthContext } from "@components/Context/AuthContext";
 import { ChatContext } from "@components/Context/ChatContext";
 import React, { useContext } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
+import { IoIosArrowBack } from "react-icons/io";
 import { MdBlock } from "react-icons/md";
 import { MenuDropdown } from "ui";
 import { Inputs } from "./Input";
 import { Messages } from "./Messages";
 
-export const Chat = () => {
+export const Chat = ({ showChat, setShowChat }: any) => {
   const { data } = useContext(ChatContext);
   const { currentUser } = useContext(AuthContext);
   console.log({ data, currentUser });
@@ -19,7 +28,15 @@ export const Chat = () => {
     //
   };
   return (
-    <Box bgColor="white" borderRadius="8px" p="2rem 2rem" w="72%">
+    <Box
+      bgColor="white"
+      borderRadius="8px"
+      p={{ base: "2rem 0rem", lg: "2rem 2rem" }}
+      w={{ base: "100%", lg: "72%" }}
+      pos={{ base: "absolute", lg: "relative" }}
+      left={{ base: showChat ? "0%" : "100%", lg: "0" }}
+      transition="all .3s ease"
+    >
       {data.chatId !== "null" && (
         <>
           <HStack
@@ -29,6 +46,11 @@ export const Chat = () => {
             pb=".5rem"
           >
             <HStack spacing={2}>
+              <Icon
+                as={IoIosArrowBack}
+                onClick={() => setShowChat((prev: any) => !prev)}
+                display={{ base: "block", lg: "none" }}
+              />
               <Avatar src="" name={data?.user?.displayName} size="sm" />
               <Box>
                 <Heading
