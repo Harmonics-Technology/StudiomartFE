@@ -35,9 +35,8 @@ export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
         <Grid
           px="2rem"
           my="2rem"
-          templateColumns={["repeat(1,1fr)", "repeat(3,1fr)"]}
-          gap='2rem'
-          
+          templateColumns={['repeat(1,1fr)', 'repeat(3,1fr)']}
+          gap="2rem"
         >
           {studios?.data?.value?.map((x: ServiceView, i: any) => (
             <Box
@@ -88,6 +87,7 @@ export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
                   border="1px solid"
                   borderColor="brand.100"
                   color="brand.100"
+                  fontSize={{ base: '12px', md: '15px' }}
                   // onClick={() => deactivateService(x.id)}
                 >
                   View Service

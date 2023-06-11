@@ -12,13 +12,13 @@ import {
   Flex,
   Icon,
   FormLabel,
-} from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import NoticePage from "src/utils/NoticePage";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { CurrencyField, Naira, Pagination, PrimaryInput } from "ui";
+} from '@chakra-ui/react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import NoticePage from 'src/utils/NoticePage';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { CurrencyField, Naira, Pagination, PrimaryInput } from 'ui';
 import {
   BankAccount,
   Banks,
@@ -27,16 +27,16 @@ import {
   TransactionViewPagedCollection,
   WalletView,
   WithdrawalModel,
-} from "src/services";
-import RecentTransaction from "./RecentTransaction";
-import { WalletCard } from "src/utils/WalletCard";
-import { useRouter } from "next/router";
-import AddBankAccountModal from "@components/Modals/AddBankAccountModal";
-import { TfiAngleDown } from "react-icons/tfi";
-import WithdrawalPin from "@components/Modals/WithdrawalPin";
-import { UserContext } from "@components/Context/UserContext";
-import toast from "react-hot-toast";
-import Notice from "@components/Dashboard/Notice";
+} from 'src/services';
+import RecentTransaction from './RecentTransaction';
+import { WalletCard } from 'src/utils/WalletCard';
+import { useRouter } from 'next/router';
+import AddBankAccountModal from '@components/Modals/AddBankAccountModal';
+import { TfiAngleDown } from 'react-icons/tfi';
+import WithdrawalPin from '@components/Modals/WithdrawalPin';
+import { UserContext } from '@components/Context/UserContext';
+import toast from 'react-hot-toast';
+import Notice from '@components/Dashboard/Notice';
 
 interface WalletViewProps {
   banks: Banks[];
@@ -47,7 +47,7 @@ interface WalletViewProps {
   studioWallet: WalletView;
 }
 const validation = yup.object().shape({
-  amount: yup.number().min(500, "Minimum withdrawal amount is N500").required(),
+  amount: yup.number().min(500, 'Minimum withdrawal amount is N500').required(),
   bankId: yup.string().required(),
   walletPin: yup.string().required(),
   securityQuestionAnswer: yup.string().required(),
@@ -71,7 +71,7 @@ const MainWallet = ({
     formState: { errors, isSubmitting, isValid },
   } = useForm<WithdrawalModel>({
     resolver: yupResolver(validation),
-    mode: "all",
+    mode: 'all',
   });
 
   const router = useRouter();
@@ -87,7 +87,7 @@ const MainWallet = ({
     setShowSelect((prev) => !prev);
     setSelectedBank(value);
     console.log({ value });
-    setValue("bankId", value.id);
+    setValue('bankId', value.id);
   };
 
   // console.log(watch("id"));
@@ -100,7 +100,7 @@ const MainWallet = ({
       });
       if (result.status) {
         toast.success(
-          "Your withdrawal is been proccessed, you will be notified once completed."
+          'Your withdrawal is been proccessed, you will be notified once completed.'
         );
         router.reload();
         return;
@@ -109,7 +109,7 @@ const MainWallet = ({
       return;
     } catch (error: any) {
       toast.error(error?.body?.message || error?.message, {
-        className: "loginToast",
+        className: 'loginToast',
       });
     }
   };
@@ -127,9 +127,9 @@ const MainWallet = ({
           <Box>
             <Box bgColor="white">
               <Flex
-            flexDirection={{ base: 'column', lg: 'row'}}
+                flexDirection={{ base: 'column', md: 'row' }}
                 justify="space-between"
-                align="center"
+                align={{ base: 'start', md: 'center' }}
                 w="100%"
                 mx="auto"
                 py=".7rem"
@@ -137,9 +137,9 @@ const MainWallet = ({
               >
                 <Box fontFamily="BR Firma">
                   <Text fontSize="1.5rem" fontWeight="600" mb=".2rem">
-                    {"Wallet"}
+                    {'Wallet'}
                   </Text>
-                  <Text>{"Here you see all your money transactions "}</Text>
+                  <Text>{'Here you see all your money transactions '}</Text>
                 </Box>
 
                 <Button
@@ -155,17 +155,20 @@ const MainWallet = ({
           </Box>
 
           <Box mx="auto" mt="2rem" w="92%">
-          <Grid templateColumns={{ base: "1fr", md: "1.8fr 1.1fr" }} gap="2rem">
-              <VStack align="flex-start" gap="2rem" spacing="0" minW="0">
-              <HStack
-              w="full"
-              gap="1rem"
-              spacing="0"
-              overflowX={{ base: "scroll", md: "visible" }}
-              overflowY="hidden"
-              flexWrap="nowrap"
-              pb={{base: '1rem', lg:'0'}}
+            <Grid
+              templateColumns={{ base: '1fr', md: '1.8fr 1.1fr' }}
+              gap="2rem"
             >
+              <VStack align="flex-start" gap="2rem" spacing="0" minW="0">
+                <HStack
+                  w="full"
+                  gap="1rem"
+                  spacing="0"
+                  overflowX={{ base: 'scroll', md: 'visible' }}
+                  overflowY="hidden"
+                  flexWrap="nowrap"
+                  pb={{ base: '1rem', lg: '0' }}
+                >
                   <WalletCard
                     title="Wallet Balance"
                     amount={Naira((studioWallet?.balance as number) || 0)}
@@ -184,13 +187,13 @@ const MainWallet = ({
                 </HStack>
 
                 <Box
-            w="full"
-            borderRadius="8px"
-            p="2rem 1.5rem"
-            bgColor="white"
-            minW="0"
-            overflow="hidden"
-          >
+                  w="full"
+                  borderRadius="8px"
+                  p="2rem 1.5rem"
+                  bgColor="white"
+                  minW="0"
+                  overflow="hidden"
+                >
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <Heading fontSize="20px" pb="1.5rem">
                       Withdrawal Information
@@ -198,10 +201,10 @@ const MainWallet = ({
                     <VStack align="flex-start" spacing={0} gap="1.2rem">
                       <CurrencyField<WithdrawalModel>
                         placeholder="₦0.00"
-                        defaultValue={""}
+                        defaultValue={''}
                         register={register}
                         error={errors.amount}
-                        name={"amount"}
+                        name={'amount'}
                         control={control}
                         label="Enter amount to withdraw"
                       />
@@ -268,8 +271,8 @@ const MainWallet = ({
                                   w="full"
                                   onClick={() => selectBank(x)}
                                   _hover={{
-                                    bgColor: "brand.100",
-                                    color: "white",
+                                    bgColor: 'brand.100',
+                                    color: 'white',
                                   }}
                                 >
                                   <HStack
@@ -356,7 +359,7 @@ const MainWallet = ({
                         (info: TransactionView) => (
                           <RecentTransaction
                             key={info.bookingId}
-                            mode={info.title ? "payment" : "withdrawal"}
+                            mode={info.title ? 'payment' : 'withdrawal'}
                             message={`${info.description} from ${info.user?.firstName}`}
                             amount={info.amount as unknown as number}
                             date={info.booking?.date}

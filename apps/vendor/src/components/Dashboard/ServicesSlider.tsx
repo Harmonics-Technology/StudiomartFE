@@ -7,15 +7,15 @@ import {
   Circle,
   Icon,
   Button,
-} from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { ServiceView } from "src/services";
-import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
-import NoSSR from "react-no-ssr";
+} from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { ServiceView } from 'src/services';
+import { DummyImage, useDummyImage } from 'react-simple-placeholder-image';
+import NoSSR from 'react-no-ssr';
 
 interface SliderProps {
   data: ServiceView[] | null | undefined;
@@ -42,15 +42,15 @@ export const ServiceSlider = ({ data }: SliderProps) => {
   };
 
   return (
-    <Box>
+    <Box w={{ base: '94%', md: 'full' }} mx="auto">
       <HStack justify="space-between">
         <HStack
           align="center"
           fontFamily="BR Firma"
-          pl={{ base: "1rem", md: ".5rem" }}
+          pl={{ base: '1rem', md: '.5rem' }}
           fontWeight="600"
           my="2rem"
-          fontSize={{ base: "10px", md: "18px" }}
+          fontSize={{ base: '14px', md: '20px' }}
         >
           <Text mb="0" fontFamily="inherit">
             Services
@@ -58,15 +58,15 @@ export const ServiceSlider = ({ data }: SliderProps) => {
           <Text
             color="brand.100"
             mb="0"
-            fontSize={{ base: "10px", md: "16px" }}
+            fontSize={{ base: '12px', md: '16px' }}
             cursor="pointer"
             fontFamily="inherit"
-            onClick={() => router.push("/services")}
+            onClick={() => router.push('/services')}
           >
             view all
           </Text>
         </HStack>
-        <HStack cursor="pointer" pr={{ base: "4" }}>
+        <HStack cursor="pointer" pr={{ base: '4' }}>
           <Circle onClick={prev} size="24px" color="white" bgColor="gray.600">
             <Icon as={BsArrowLeftShort} />
           </Circle>
@@ -91,7 +91,7 @@ export const ServiceSlider = ({ data }: SliderProps) => {
       >
         {data?.map((x: ServiceView, i: any) => (
           <Box
-            minH={{ base: "8rem", md: "14rem" }}
+            minH={{ base: '8rem', md: '14rem' }}
             // w={{ base: 'full', md: '23rem' }}
             bg="white"
             borderRadius="10px"
@@ -105,13 +105,13 @@ export const ServiceSlider = ({ data }: SliderProps) => {
                 <Image
                   src={x.bannerImageURL as string}
                   alt="Banner Image"
-                  h={{ base: "10rem", md: "14rem" }}
+                  h={{ base: '10rem', md: '14rem' }}
                   w="100%"
                   objectFit="cover"
                   bgColor="white"
                 />
               ) : (
-                <Box h={{ base: "8rem", md: "14rem" }}>
+                <Box h={{ base: '8rem', md: '14rem' }}>
                   <DummyImage />
                 </Box>
               )}
@@ -120,7 +120,7 @@ export const ServiceSlider = ({ data }: SliderProps) => {
             <Box h="fit-content" w="100%" textAlign="left" p="1rem 1rem 1.5rem">
               <Text
                 fontWeight="600"
-                fontSize={{ base: "14px", md: "20px" }}
+                fontSize={{ base: '14px', md: '20px' }}
                 mb=".5rem"
                 fontFamily="BR Firma"
                 noOfLines={1}
@@ -128,7 +128,7 @@ export const ServiceSlider = ({ data }: SliderProps) => {
                 {x.name}
               </Text>
               <Text
-                fontSize={{ base: "10px", md: "15px" }}
+                fontSize={{ base: '10px', md: '15px' }}
                 fontWeight="400"
                 fontFamily="BR Firma"
                 noOfLines={3}
@@ -146,7 +146,7 @@ export const ServiceSlider = ({ data }: SliderProps) => {
                 variant="outline"
                 borderColor="brand.100"
                 color="brand.100"
-                fontSize={{ base: ".6rem", md: "1rem" }}
+
                 // borderWidth='2px'
               >
                 View Service

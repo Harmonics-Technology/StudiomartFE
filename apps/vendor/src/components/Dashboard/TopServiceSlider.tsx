@@ -43,7 +43,7 @@ export const TopServiceSlider = ({ data }: SliderProps) => {
       <HStack justify="space-between">
         <Text
           fontFamily="BR Firma"
-          fontSize={{ base: '10px', md: '20px' }}
+          fontSize={{ base: '14px', md: '20px' }}
           fontWeight="600"
         >
           Top Services
