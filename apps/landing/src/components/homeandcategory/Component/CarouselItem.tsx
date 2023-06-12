@@ -4,7 +4,14 @@ import { WaitBtn } from "./WaitBtn";
 
 export const CarouselItem = ({ img, blueTitle, title, note, onOpen }: any) => {
   return (
-    <Flex h="650px" bgImage={`url(${img})`} align="center">
+    <Flex
+      h="650px"
+      bgImage={`url(${img})`}
+      align="center"
+      bgPosition="center"
+      bgRepeat="no-repeat"
+      bgSize="cover"
+    >
       <VStack w="full" spacing="1.5rem">
         <HStack
           fontWeight="700"
