@@ -25,7 +25,7 @@ const SavedStudiosComponent = ({ savedStudios, studioForYou }: IStudios) => {
       {(savedStudios?.size as number) > 0 ? (
         <Box w="90%" mx="auto">
           <Grid
-            templateColumns={["repeat(1,1fr)", "repeat(3,1fr)"]}
+            templateColumns={["repeat(2,1fr)", "repeat(3,1fr)"]}
             w="full"
             my="3rem"
             gap="2rem"
@@ -50,7 +50,7 @@ const SavedStudiosComponent = ({ savedStudios, studioForYou }: IStudios) => {
       <Box w="90%" mx="auto" mb="3rem">
         <Heading>Studios for you</Heading>
         <Box>
-          <SimpleGrid mt={["5", "10"]} columns={[1, 3]} spacing={["3", "6"]}>
+          <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
             {studioForYou?.value?.map((service, index) => (
               <PopularStudioCard key={index} service={service} />
             ))}

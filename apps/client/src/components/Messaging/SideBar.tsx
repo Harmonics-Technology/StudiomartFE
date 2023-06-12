@@ -59,7 +59,7 @@ export const SideBar = ({ showChat, setShowChat }: any) => {
       h="78vh"
       w={{ base: "100%", lg: "28%" }}
       py="2rem"
-      boxShadow="lg"
+      boxShadow={{ base: "none", lg: "lg" }}
       pos={{ base: "absolute", lg: "relative" }}
       left={{ base: !showChat ? "0%" : "-100%", lg: "0" }}
       transition="all .3s ease"

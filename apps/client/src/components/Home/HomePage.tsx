@@ -324,7 +324,7 @@ const HomePage = ({
             </Text>
           </Link>
         </HStack>
-        <SimpleGrid mt={["5", "10"]} columns={[1, 3]} spacing={["3", "6"]}>
+        <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
           {popularStudios?.value?.map((service, index) => (
             <PopularStudioCard key={index} service={service} />
           ))}
@@ -354,7 +354,7 @@ const HomePage = ({
             </Text>
           </Link>
         </HStack>
-        <SimpleGrid mt={["5", "10"]} columns={[1, 3]} spacing={["3", "6"]}>
+        <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
           {studiosNearMe?.value?.map((service, index) => (
             <PopularStudioCard key={index} service={service} />
           ))}

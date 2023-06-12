@@ -19,7 +19,7 @@ import Slider from "rc-slider";
 //@ts-ignore
 import NaijaStates from "naija-state-local-government";
 
-export const FilterBox = ({ setOpenFilter }: any) => {
+export const FilterBox = () => {
   const router = useRouter();
   const [value, setValue] = useState<any>();
   const [showRating, setShowRating] = useState(true);

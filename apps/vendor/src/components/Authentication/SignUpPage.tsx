@@ -225,24 +225,24 @@ export const SignUpPage = () => {
               w="full"
               bgColor="white"
               // borderRadius="30px"
-              px="4rem"
+              px={{ base: "2rem", lg: "4rem" }}
               mt=".5rem"
               py="1rem"
               // boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
             >
               <Flex w="10%" justify="center" mx="auto" mb="2rem">
-                <Image src="/stdd.gif" w="full" alt="logo" />
+                <Image src="/logofav.png" w="full" alt="logo" />
               </Flex>
               <VStack spacing={0} gap="1.5rem" w="100%" mb="10px">
                 <Heading
                   fontWeight={700}
-                  fontSize="30px"
+                  fontSize={{ base: "24px", lg: "30px" }}
                   // lineHeight={"44px"}
                   color="black"
                   textTransform="capitalize"
                   textAlign="center"
                   mx="auto"
-                  w="80%"
+                  w={{ base: "full", lg: "80%" }}
                 >
                   Welcome to studio services without border!
                 </Heading>
@@ -290,8 +290,8 @@ export const SignUpPage = () => {
               >
                 <form onSubmit={VendorSubmit(onSubmitVendor)}>
                   <VStack
-                    spacing="1.5rem"
-                    w={{ base: "110%", md: "full" }}
+                    spacing={{ base: "1rem", lg: "1.5rem" }}
+                    w={{ base: "100%", md: "full" }}
                     display={step == 1 ? "none" : "flex"}
                   >
                     <PrimaryInput<VendorRegisterModel>
@@ -305,7 +305,7 @@ export const SignUpPage = () => {
                     />
                     <Grid
                       templateColumns={["repeat(2,1fr)"]}
-                      gap="1.5rem 1rem"
+                      gap={{ base: "1rem", lg: "1.5rem 1rem" }}
                       w="full"
                     >
                       <PrimaryInput<VendorRegisterModel>
@@ -362,7 +362,7 @@ export const SignUpPage = () => {
                   </VStack>
 
                   <VStack
-                    spacing="1.5rem"
+                    spacing={{ base: "1rem", lg: "1.5rem" }}
                     w="full"
                     display={step == 0 ? "none" : "flex"}
                   >

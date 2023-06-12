@@ -98,7 +98,7 @@ const Notification = ({ notifications }: notificationProps) => {
         px="2rem"
         py="2rem"
         borderRadius="20px"
-        boxShadow="lg"
+        boxShadow={{ base: "none", lg: "lg" }}
       >
         {(notifications?.value as any)?.length > 0 ? (
           <SimpleGrid bg="white">

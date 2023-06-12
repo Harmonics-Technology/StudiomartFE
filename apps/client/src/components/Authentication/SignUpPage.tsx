@@ -214,24 +214,24 @@ export const SignUpPage = () => {
               w="full"
               bgColor="white"
               // borderRadius="30px"
-              px="4rem"
+              px={{ base: "2rem", lg: "4rem" }}
               mt=".5rem"
               py="1rem"
               // boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
             >
               <Flex w="10%" justify="center" mx="auto" mb="2rem">
-                <Image src="/stdd.gif" w="full" alt="logo" />
+                <Image src="/logofav.png" w="full" alt="logo" />
               </Flex>
               <VStack spacing={0} gap="1.5rem" w="100%" mb="10px">
                 <Heading
                   fontWeight={700}
-                  fontSize="30px"
+                  fontSize={{ base: "24px", lg: "30px" }}
                   // lineHeight={"44px"}
                   color="black"
                   textTransform="capitalize"
                   textAlign="center"
                   mx="auto"
-                  w="80%"
+                  w={{ base: "100%", lg: "80%" }}
                 >
                   Welcome to studio services without border!
                 </Heading>
@@ -267,7 +267,7 @@ export const SignUpPage = () => {
                 /> */}
               </VStack>
               <Box
-                w={{ base: "110%", md: "100%" }}
+                w={{ base: "100%", md: "100%" }}
                 h={["100%", "100%", "100%"]}
                 // border="2px hidden green"
                 overflow="auto"
@@ -275,55 +275,61 @@ export const SignUpPage = () => {
                 pr="3px"
               >
                 <form onSubmit={handleSubmit(onSubmitRegister)}>
-                  <PrimaryInput<RegisterModel>
-                    label="Email Address"
-                    type="email"
-                    placeholder="Enter your email"
-                    name="email"
-                    error={errors.email}
-                    register={register}
-                  />
-                  <Grid templateColumns={["repeat(2,1fr)"]} gap="0rem 1rem">
+                  <VStack spacing={0} gap="1rem" w="100%" mb="10px">
                     <PrimaryInput<RegisterModel>
-                      label="First Name"
-                      type="text"
-                      placeholder="Enter your first name"
-                      name="firstName"
-                      error={errors.firstName}
+                      label="Email Address"
+                      type="email"
+                      placeholder="Enter your email"
+                      name="email"
+                      error={errors.email}
                       register={register}
                     />
+                    <Grid
+                      templateColumns={["repeat(1,1fr)", "repeat(2,1fr)"]}
+                      gap="1rem 1rem"
+                      w="full"
+                    >
+                      <PrimaryInput<RegisterModel>
+                        label="First Name"
+                        type="text"
+                        placeholder="Enter your first name"
+                        name="firstName"
+                        error={errors.firstName}
+                        register={register}
+                      />
 
-                    <PrimaryInput<RegisterModel>
-                      label="Last Name"
-                      type="text"
-                      placeholder="Enter your last name"
-                      name="lastName"
-                      error={errors.lastName}
-                      register={register}
-                    />
-                    <PrimaryInput<RegisterModel>
-                      label="Password"
-                      placeholder="Enter your password"
-                      type={passwordVisible ? "text" : "password"}
-                      icon={true}
-                      passwordVisible={passwordVisible}
-                      changeVisibility={changeInputType}
-                      name="password"
-                      error={errors.password}
-                      register={register}
-                    />
-                    <PrimaryInput<RegisterModel>
-                      label="Re-enter password"
-                      placeholder="Confirm your password"
-                      type={passwordVisible ? "text" : "password"}
-                      icon={true}
-                      passwordVisible={passwordVisible}
-                      changeVisibility={changeInputType}
-                      name="confirmPassword"
-                      error={errors.confirmPassword}
-                      register={register}
-                    />
-                  </Grid>
+                      <PrimaryInput<RegisterModel>
+                        label="Last Name"
+                        type="text"
+                        placeholder="Enter your last name"
+                        name="lastName"
+                        error={errors.lastName}
+                        register={register}
+                      />
+                      <PrimaryInput<RegisterModel>
+                        label="Password"
+                        placeholder="Enter your password"
+                        type={passwordVisible ? "text" : "password"}
+                        icon={true}
+                        passwordVisible={passwordVisible}
+                        changeVisibility={changeInputType}
+                        name="password"
+                        error={errors.password}
+                        register={register}
+                      />
+                      <PrimaryInput<RegisterModel>
+                        label="Re-enter password"
+                        placeholder="Confirm your password"
+                        type={passwordVisible ? "text" : "password"}
+                        icon={true}
+                        passwordVisible={passwordVisible}
+                        changeVisibility={changeInputType}
+                        name="confirmPassword"
+                        error={errors.confirmPassword}
+                        register={register}
+                      />
+                    </Grid>
+                  </VStack>
                   <Flex
                     w="100%"
                     alignItems="flex-end"

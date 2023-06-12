@@ -137,7 +137,7 @@ export const LoginPage = () => {
           // boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
         >
           <Flex w="10%" justify="center" mx="auto" mb="2rem">
-            <Image src="/stdd.gif" w="full" alt="logo" />
+            <Image src="/logofav.png" w="full" alt="logo" />
           </Flex>
           <VStack spacing={0} gap="1.5rem" w="100%" mb="10px">
             <Heading

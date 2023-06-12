@@ -57,6 +57,7 @@ const BecomeVendor = () => {
                 h="50px"
                 fontSize={[".8rem", "unset"]}
                 bgColor="brand.100"
+                color="white"
               >
                 Become a Vendor
               </Button>

@@ -77,7 +77,12 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
       border="1px solid #E8E8E8"
       overflow="hidden"
     >
-      <Box overflow="hidden" h="20rem" w="full" pos="relative">
+      <Box
+        overflow="hidden"
+        h={{ base: "10rem", lg: "20rem" }}
+        w="full"
+        pos="relative"
+      >
         <Image
           h="full"
           w="full"
@@ -110,7 +115,11 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
       </Box>
       <HStack align="center" justify="space-between" fontWeight="600" p="1rem">
         <VStack align="flex-start">
-          <HStack align="flex-end">
+          <HStack
+            align={{ base: "none", lg: "flex-end" }}
+            spacing={{ base: "0", lg: "1" }}
+            flexDirection={{ base: "column", lg: "row" }}
+          >
             <Text
               fontSize={["1rem", "20px"]}
               noOfLines={1}
@@ -132,8 +141,19 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
               {service?.studio?.city}, {service?.studio?.state}
             </Text>
           </HStack>
-          <HStack align="center" fontSize={[".7rem", "13px"]}>
-            <Text color="#Afafaf" as="span" mb="0" fontSize="12px">
+          <HStack
+            align="center"
+            fontSize={[".7rem", "13px"]}
+            spacing="0"
+            gap=".5rem"
+          >
+            <Text
+              color="#Afafaf"
+              as="span"
+              mb="0"
+              fontSize="12px"
+              display={{ base: "none", lg: "block" }}
+            >
               {service?.averageRating || 0} Star
             </Text>
             <Rating value={service?.averageRating || 0} />
@@ -147,8 +167,17 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
               ({service?.totalReviewCount || 0})
             </Text>
           </HStack>
-          <Text fontSize=".9rem" fontWeight="700" color="#171717" mb="0">
+          <Text
+            fontSize=".9rem"
+            fontWeight="700"
+            color="#171717"
+            mb="0"
+            display={{ base: "none", lg: "block" }}
+          >
             From {`${Cur(service?.price as number)} NGN`}
+          </Text>
+          <Text fontSize=".9rem" fontWeight="700" color="#171717" mb="0">
+            {`${Naira(service?.price as number)} `}
           </Text>
         </VStack>
         <MenuDropdown

@@ -29,7 +29,6 @@ const PopularStudioCard = dynamic(() => import("./PopularStudioCard"), {
 });
 
 const AllServices = ({ allService, recentlyViewed }: ICustomerHome) => {
-  const [openFilter, setOpenFilter] = useState(false);
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
   const router = useRouter();
@@ -55,13 +54,13 @@ const AllServices = ({ allService, recentlyViewed }: ICustomerHome) => {
             px={{ base: "1.5rem", lg: "3rem" }}
             align="center"
             cursor="pointer"
-            onClick={() => setIsComponentVisible(true)}
+            onClick={() => setIsComponentVisible(!isComponentVisible)}
           >
             <FiFilter /> Filters
           </Flex>
           {isComponentVisible && (
             <Box ref={ref}>
-              <FilterBox setOpenFilter={setOpenFilter} />
+              <FilterBox />
             </Box>
           )}
         </Box>
@@ -79,7 +78,7 @@ const AllServices = ({ allService, recentlyViewed }: ICustomerHome) => {
         {allService?.value?.length == 0 ? (
           <NotFound />
         ) : (
-          <SimpleGrid mt={["5", "10"]} columns={[1, 3]} spacing={["3", "6"]}>
+          <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
             {allService?.value?.map((service: ServiceView) => (
               <PopularStudioCard key={service.id} service={service} />
             ))}
