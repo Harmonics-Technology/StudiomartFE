@@ -18,7 +18,12 @@ import React, { useState } from "react";
 import { BsBookmarkHeart, BsCheck2, BsChevronLeft } from "react-icons/bs";
 import { useDummyImage } from "react-simple-placeholder-image";
 import Slider from "react-slick";
-import { ReviewView, ServiceView, StudioService } from "src/services";
+import {
+  AdditionalServiceView,
+  ReviewView,
+  ServiceView,
+  StudioService,
+} from "src/services";
 import { Cur, CustomCheckbox, Rating } from "ui";
 import parse from "html-react-parser";
 import { ServiceInfos } from "@components/Home/ServiceInfos";
@@ -27,6 +32,7 @@ import { ReviewsBox } from "@components/Home/ReviewsBox";
 import PopularStudioCard from "@components/Home/PopularStudioCard";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 const ServiceDetails = ({
   service,
@@ -76,9 +82,25 @@ const ServiceDetails = ({
       });
     }
   };
+
+  const [selectedAddon, setSelectedAddon] = useState<any>([]);
+  const addToArray = (data: AdditionalServiceView) => {
+    const exist = selectedAddon.find((x: any) => x.id == data.id);
+    if (exist) {
+      setSelectedAddon(selectedAddon.filter((x: any) => x.id !== data.id));
+      return;
+    }
+    setSelectedAddon([...selectedAddon, data]);
+  };
+
+  const bookService = () => {
+    Cookies.set("addons", JSON.stringify(selectedAddon));
+    router.push(`/customer/schedule-session/${service?.id}`);
+  };
+
   return (
     <Box w="90%" mx="auto">
-      <HStack mt="3rem">
+      <HStack mt="3rem" onClick={() => router.back()}>
         <Icon as={BsChevronLeft} />
         <Text mb="0" textTransform="capitalize">
           {service?.serviceType?.name?.toLowerCase()}/{service?.name}
@@ -228,7 +250,7 @@ const ServiceDetails = ({
       >
         {service?.additionalServices?.map((x) => (
           <HStack key={x.id} align="center">
-            <CustomCheckbox />
+            <CustomCheckbox onChange={() => addToArray(x)} />
             <Text fontSize="18px" color="#3d3d3d" mb="0">
               {x.name}
               {" - "}
@@ -250,9 +272,7 @@ const ServiceDetails = ({
           fontSize="18px"
           h="58px"
           w="full"
-          onClick={() =>
-            router.push(`/customer/schedule-session/${service?.id}`)
-          }
+          onClick={() => bookService()}
           _hover={{
             backgroundColor: "transparent",
             color: "brand.100",

@@ -1,13 +1,19 @@
 import BookingSummary from "@components/bookingSummary/BookingSummary";
 import { withPageAuth } from "@components/utils/withPageAuth";
 import { GetServerSideProps } from "next";
+import dynamic from "next/dynamic";
 import React from "react";
 import { ICustomerHome } from "src/models/schema";
 import { StudioService, ReviewService } from "src/services";
 
-const summary = ({ singleService, ratings, id }: ICustomerHome) => {
+const NewBookingSummary = dynamic(
+  () => import("@components/bookingSummary/NewBookingSummary"),
+  { ssr: false }
+);
+
+const summary = ({ singleService, id, addons }: ICustomerHome) => {
   return (
-    <BookingSummary singleService={singleService} ratings={ratings} id={id} />
+    <NewBookingSummary singleService={singleService} id={id} addons={addons} />
   );
 };
 
@@ -16,20 +22,24 @@ export default summary;
 export const getServerSideProps: GetServerSideProps = withPageAuth(
   async (ctx: any) => {
     const { summaryId } = ctx.query;
+    let addons;
+    const addonCookie = ctx.req.cookies.addons;
+    if (addonCookie) {
+      addons = JSON.parse(addonCookie);
+    }
     try {
       const singleService = await StudioService.getServiceById({
         id: summaryId,
       });
-      const ratings = await ReviewService.getReviews({ serviceId: summaryId });
       return {
         props: {
           singleService: singleService.data,
-          ratings: ratings?.data,
           id: summaryId,
+          addons: addons || [],
         },
       };
     } catch (error: any) {
-      console.log({ error });
+      console.log({ error: error?.body?.errors });
       return {
         props: {
           popularStudios: [],

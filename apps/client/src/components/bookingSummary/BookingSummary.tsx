@@ -10,6 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
+import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -23,19 +24,20 @@ import {
 } from "src/services";
 import { BackToPage, Naira, Rating } from "ui";
 
-const BookingSummary = ({ singleService, ratings, id }: ICustomerHome) => {
+const BookingSummary = ({
+  singleService,
+  ratings,
+  id,
+  addons,
+}: ICustomerHome) => {
   // const [checked, setChecked] = useState(true);
   const router = useRouter();
   const { date } = router.query;
   const { time } = router.query;
 
-  console.log({ time });
-  const [selectedAddon, setSelectedAddon] = useState<AdditionalServiceView[]>(
-    []
-  );
+  const [selectedAddon, setSelectedAddon] =
+    useState<AdditionalServiceView[]>(addons);
   const [loading, setLoading] = useState(false);
-  const utc = require("dayjs/plugin/utc");
-  dayjs.extend(utc);
 
   const addToArray = (data: AdditionalServiceView) => {
     const exist = selectedAddon.find((x: any) => x.id == data.id);
@@ -68,6 +70,7 @@ const BookingSummary = ({ singleService, ratings, id }: ICustomerHome) => {
       if (result.status) {
         setLoading(false);
         toast.success(result.message as string);
+        Cookies.remove("addons");
         router.push(`/customer/history`);
         return;
       }
@@ -81,6 +84,8 @@ const BookingSummary = ({ singleService, ratings, id }: ICustomerHome) => {
       });
     }
   };
+
+  // useEff
 
   return (
     <Box minH="screen" pb="20" pt={["5", "20"]} mx="auto" w="90%">
@@ -133,7 +138,7 @@ const BookingSummary = ({ singleService, ratings, id }: ICustomerHome) => {
                   textTransform="capitalize"
                   key={x.id}
                   onChange={() => addToArray(x)}
-                  checked={
+                  isChecked={
                     selectedAddon.find(
                       (e) => e.id == x.id
                     ) as unknown as boolean
@@ -180,7 +185,7 @@ const BookingSummary = ({ singleService, ratings, id }: ICustomerHome) => {
                 justify="space-between"
                 key={x.id}
               >
-                <Text mb="0">Studio engineer:</Text>
+                <Text mb="0">{x.name}:</Text>
                 <Text fontSize={["1.1rem", "1.2rem"]} fontWeight={600}>
                   {Naira(x?.price as number)} NGN
                 </Text>

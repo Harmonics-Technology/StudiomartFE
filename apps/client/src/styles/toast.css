@@ -22,3 +22,10 @@
   bottom: 0 !important;
   right: 0 !important;
 }
+@media (max-width: 700px) {
+  .toaster .chakra-alert {
+    padding: 1rem;
+    height: auto;
+    width: 95%;
+  }
+}

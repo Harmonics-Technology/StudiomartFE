@@ -79,6 +79,9 @@ body {
 .slick-slide {
   margin-right: 2rem;
 }
+.service-slick {
+  width: 100%;
+}
 .service-slick .slick-slide {
   margin-right: 0;
 }
