@@ -192,7 +192,9 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
                 Only bookings cancelled before the vendor accepts your booking
                 gurantees a full refund.{" "}
                 <Link href="/policy" passHref>
-                  <span style={{ color: "#1570fa" }}>More details</span>
+                  <span style={{ color: "#1570fa", cursor: "pointer" }}>
+                    More details
+                  </span>
                 </Link>
               </Text>
             </VStack>

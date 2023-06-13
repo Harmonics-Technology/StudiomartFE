@@ -245,7 +245,7 @@ const ServiceDetails = ({
       <Grid
         templateColumns={{ base: "repeat(1fr)", lg: "repeat(2, 1fr)" }}
         w={{ base: "full", lg: "60%" }}
-        gap={{ base: "2rem", lg: "5rem" }}
+        gap={{ base: "2rem", lg: "3rem" }}
         mb={{ base: "3rem", lg: "4rem" }}
       >
         {service?.additionalServices?.map((x) => (
