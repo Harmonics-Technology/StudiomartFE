@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
-import { BsFillCaretLeftFill } from "react-icons/bs";
+import { BsChevronLeft, BsFillCaretLeftFill } from "react-icons/bs";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -18,8 +18,9 @@ const BackToPage = ({ name }: Props) => {
       cursor="pointer"
       _hover={{ color: "brand.100" }}
       onClick={() => router.back()}
+      fontFamily="DM Sans"
     >
-      <BsFillCaretLeftFill fontSize="1.3rem" />
+      <BsChevronLeft fontSize="1.3rem" />
       {name}
     </Flex>
   );

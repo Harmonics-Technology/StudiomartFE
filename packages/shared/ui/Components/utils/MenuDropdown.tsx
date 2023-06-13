@@ -32,6 +32,7 @@ export const MenuDropdown = ({
         _active={{
           bgColor: "transparent",
         }}
+        p="0"
       />
       <MenuList borderRadius="8px" p="0" cursor="pointer">
         {menus.map((x: any) => (

@@ -112,16 +112,17 @@ const CustomerProfile = ({ user }: IProfileProps) => {
     };
   }, [saveImagePrompt]);
   return (
-    <Box bgColor="brand.200" minH="screen" pb="20" pt={["10", "20"]}>
-      <Box w={["90%", "70%"]} mx="auto">
-        <BackToPage name="Back to home page" />
+    <Box bgColor="white" minH="100vh" pb="20" pt={["0", "0"]}>
+      <Box w={["90%", "60%"]} mx="auto">
+        {/* <BackToPage name="Back to home page" /> */}
         <Heading
           fontSize={["1.3rem", "2rem"]}
-          py="6"
+          py={{ base: "1rem", lg: "3rem" }}
           bgColor="white"
           mt="10"
           color="brand.100"
-          px="7"
+          px="3rem"
+          textAlign="center"
         >
           My Profile Details
         </Heading>
@@ -136,7 +137,14 @@ const CustomerProfile = ({ user }: IProfileProps) => {
               inputAcceptTypes={".jpeg,.jpg, .png"}
             />
           </Box>
-          <Flex w="full" py="10" flexDir="column" mt="1" bgColor="white" px="7">
+          <Flex
+            w="full"
+            py="10"
+            flexDir="column"
+            mt="1"
+            bgColor="white"
+            px={{ base: "1rem", lg: "5rem" }}
+          >
             <Flex justify="center" mb="2rem">
               <Circle
                 bgColor={"#636363"}
@@ -218,7 +226,7 @@ const CustomerProfile = ({ user }: IProfileProps) => {
                 </Square>
               )}
             </Flex>
-            <VStack gap="1rem" pos="relative">
+            <VStack gap="1.5rem" pos="relative">
               <PrimaryInput<UpdateUserModel>
                 name="firstName"
                 error={errors.firstName}
@@ -228,6 +236,7 @@ const CustomerProfile = ({ user }: IProfileProps) => {
                 placeholder="first name"
                 fontWeight="medium"
                 focusBorderColor="brand.100"
+                h="3.5rem"
               />
               <PrimaryInput<UpdateUserModel>
                 name="lastName"
@@ -238,6 +247,7 @@ const CustomerProfile = ({ user }: IProfileProps) => {
                 placeholder="last name"
                 fontWeight="medium"
                 focusBorderColor="brand.100"
+                h="3.5rem"
               />
               <DisabledInput<UpdateUserModel>
                 label="Email Address"
@@ -245,6 +255,7 @@ const CustomerProfile = ({ user }: IProfileProps) => {
                 placeholder="Enter your email address"
                 defaultValue={user?.email}
                 disableLabel={true}
+                h="3.5rem"
               />
               <PrimaryInput<UpdateUserModel>
                 name="phoneNumber"
@@ -255,6 +266,7 @@ const CustomerProfile = ({ user }: IProfileProps) => {
                 placeholder="phone number"
                 fontWeight="medium"
                 focusBorderColor="brand.100"
+                h="3.5rem"
               />
               {/* <PrimarySelect
               label="Gender(Optional)"
@@ -289,6 +301,7 @@ const CustomerProfile = ({ user }: IProfileProps) => {
                 textContent="save"
                 isLoading={isSubmitting}
                 isValid={isValid}
+                h="4rem"
               />
             </Box>
           </Flex>

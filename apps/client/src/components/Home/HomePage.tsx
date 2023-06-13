@@ -189,7 +189,7 @@ const HomePage = ({
           </Box>
         </Box>
       </Stack>
-      <Box w="90%" mx="auto">
+      <Box w="90%" mx="auto" m="4rem 0 8rem">
         <Box textAlign="center">
           <Text
             fontWeight="600"
@@ -210,7 +210,7 @@ const HomePage = ({
         <VStack
           w={{ base: "full", lg: "80%" }}
           mx="auto"
-          gap={{ base: "2rem", lg: "0" }}
+          gap={{ base: "2rem", lg: "5rem" }}
         >
           <StudioCategory
             cat="music"
@@ -255,6 +255,7 @@ const HomePage = ({
           justify="space-between"
           flexDir={{ base: "column", lg: "row" }}
           spacing="0"
+          mb={{ base: "1rem", lg: "4rem" }}
         >
           <Heading
             fontSize={{ base: "1.3rem", md: "2.3rem" }}
@@ -300,12 +301,13 @@ const HomePage = ({
           />
         </SimpleGrid>
       </Box>
-      <Box w="90%" mx="auto" mt={["10", "20"]} mb="10">
+      <Box w="90%" mx="auto" my={{ base: "2rem", lg: "10rem" }}>
         <HStack
           align={{ base: "flex-start", lg: "center" }}
           justify="space-between"
           flexDir={{ base: "column", lg: "row" }}
           spacing="0"
+          mb={{ base: "1rem", lg: "4rem" }}
         >
           <Heading
             fontSize={{ base: "1.3rem", md: "2.3rem" }}
@@ -330,12 +332,13 @@ const HomePage = ({
           ))}
         </SimpleGrid>
       </Box>
-      <Box w="90%" mx="auto" mt={["10", "20"]} mb="10">
+      <Box w="90%" mx="auto" mt={["10", "20"]}>
         <HStack
           align={{ base: "flex-start", lg: "center" }}
           justify="space-between"
           flexDir={{ base: "column", lg: "row" }}
           spacing="0"
+          mb={{ base: "1rem", lg: "4rem" }}
         >
           <Heading
             fontSize={{ base: "1.3rem", md: "2.3rem" }}
@@ -360,7 +363,13 @@ const HomePage = ({
           ))}
         </SimpleGrid>
       </Box>
-      <Box w="90%" mx="auto" id="how-it-works" py="10">
+      <Box
+        w="90%"
+        mx="auto"
+        id="how-it-works"
+        py="10"
+        my={{ base: "3rem", lg: "8rem" }}
+      >
         <Heading
           textAlign="center"
           fontSize={["1.2rem", "2.2rem"]}
@@ -399,11 +408,11 @@ const HomePage = ({
           textAlign={["start", "center"]}
           my="10"
           mx="auto"
-          w={{ base: "50%", lg: "fit-content" }}
+          w={{ base: "50%", lg: "30%" }}
         >
           <Link passHref href="/all-services">
             <Button
-              h="12"
+              h="4rem"
               fontSize={[".9rem", "1rem"]}
               bg="brand.100"
               color="white"

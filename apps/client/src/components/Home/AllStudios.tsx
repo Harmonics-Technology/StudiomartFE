@@ -27,7 +27,7 @@ const AllStudios = ({ allService }: any) => {
         {allService?.value?.length == 0 ? (
           <NotFound />
         ) : (
-          <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
+          <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["5", "6"]}>
             {allService?.value?.map((service: ServiceView) => (
               <StudiCard key={service.id} service={service} />
             ))}

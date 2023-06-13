@@ -28,6 +28,7 @@ interface FormProps<TFormValues extends Record<string, unknown>> {
   value?: any;
   currency?: boolean;
   readonly?: boolean;
+  h?: string;
 }
 
 const DisabledInput = <TFormValues extends Record<string, any>>({
@@ -47,6 +48,7 @@ const DisabledInput = <TFormValues extends Record<string, any>>({
   value,
   currency = false,
   readonly,
+  h = "2.8rem",
 }: FormProps<TFormValues>) => {
   return (
     <>
@@ -70,7 +72,7 @@ const DisabledInput = <TFormValues extends Record<string, any>>({
               // p="20px"
               placeholder={placeholder}
               w="100%"
-              h="2.8rem"
+              h={h}
               defaultValue={defaultValue}
               fontWeight={fontWeight}
               borderRadius={borderRadius}

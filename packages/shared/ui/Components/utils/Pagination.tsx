@@ -1,22 +1,19 @@
 import { Flex, Text, Circle, HStack, Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 interface pageOptions {
   data: any;
 }
 
 function Pagination({ data }: pageOptions) {
-  console.log({ data });
-  const totalPages = Math.round(
+  const totalPages = Math.ceil(
     (data?.size as number) / (data?.limit as unknown as number)
   );
-  const current = data?.offset + 1;
-  let pages = [];
-  for (let i = 0; i < totalPages; i++) {
-    pages.push(i);
-  }
+  console.log({ data, totalPages });
+  const current = data?.nextOffset / data?.limit;
+  const pages = [...Array(totalPages).keys()];
 
   const router = useRouter();
   const next = data?.next?.href;
@@ -59,38 +56,51 @@ function Pagination({ data }: pageOptions) {
             bgColor="brand.100"
             color="white"
             minW="unset"
-            // px="2rem"
+            borderRadius="3px"
             isDisabled={!previous}
             onClick={() => paginate("previous")}
           >
-            <FaAngleLeft /> Prev
+            <BsChevronLeft />
           </Button>
-          {pages
-            .filter((x) => x <= 2)
-            .map((x) => (
-              <Button
-                bgColor={current == x + 1 ? "brand.100" : "inherit"}
-                color={current == x + 1 ? "white" : "inherit"}
-                key={x}
-              >
-                {x + 1}
-              </Button>
-            ))}
-          {pages.length > 2 && (
-            <>
-              <span>... </span>
-              <Button bgColor="inherit">{totalPages}</Button>
-            </>
-          )}
+          <HStack mx=".5rem">
+            {pages
+              .filter((x) => x <= 2)
+              .map((x) => (
+                <Button
+                  // bgColor={current == x + 1 ? "brand.100" : "white"}
+                  // color={current == x + 1 ? "white" : "inherit"}
+                  border="2px solid"
+                  borderRadius="3px"
+                  borderColor={current == x + 1 ? "brand.100" : "gray.300"}
+                  key={x}
+                >
+                  {x + 1}
+                </Button>
+              ))}
+            {pages.length > 3 && (
+              <>
+                <span>... </span>
+                <Button
+                  bgColor="inherit"
+                  border="1px solid"
+                  borderRadius="3px"
+                  borderColor="gray.500"
+                >
+                  {totalPages}
+                </Button>
+              </>
+            )}
+          </HStack>
           <Button
             bgColor="brand.100"
             color="white"
             minW="unset"
+            borderRadius="3px"
             // px="2rem"
             isDisabled={!next}
             onClick={() => paginate("next")}
           >
-            Next <FaAngleRight fontSize="1rem" />
+            <BsChevronRight />
           </Button>
         </HStack>
       )}

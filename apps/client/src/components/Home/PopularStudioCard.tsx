@@ -89,6 +89,7 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
           objectFit="cover"
           src={(service?.bannerImageURL as string) || image}
           alt=""
+          borderRadius={{ base: "8px", lg: "0" }}
         />
         <Box pos="absolute" top="5%" right="3%">
           {loading ? (
@@ -113,7 +114,12 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
           )}
         </Box>
       </Box>
-      <HStack align="center" justify="space-between" fontWeight="600" p="1rem">
+      <HStack
+        align="center"
+        justify="space-between"
+        fontWeight="600"
+        p={{ base: "1rem .5rem", lg: "1rem" }}
+      >
         <VStack align="flex-start">
           <HStack
             align={{ base: "none", lg: "flex-end" }}
@@ -127,6 +133,7 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
               fontWeight="500"
               fontFamily="BR Firma"
               mb="0"
+              textTransform="capitalize"
             >
               {service?.name}
             </Text>

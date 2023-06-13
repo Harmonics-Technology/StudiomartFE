@@ -29,17 +29,28 @@ const StudiCard = ({ service }: IStudios) => {
       border="1px solid #E8E8E8"
       overflow="hidden"
     >
-      <Box overflow="hidden" h="20rem" w="full" pos="relative">
+      <Box
+        overflow="hidden"
+        h={{ base: "10rem", lg: "20rem" }}
+        w="full"
+        pos="relative"
+      >
         <Image
           h="full"
           w="full"
           objectFit="cover"
           src={(service?.coverPhoto as string) || image}
           alt=""
+          borderRadius={{ base: "8px", lg: "0" }}
         />
       </Box>
 
-      <HStack align="center" justify="space-between" fontWeight="600" p="1rem">
+      <HStack
+        align="center"
+        justify="space-between"
+        fontWeight="600"
+        p={{ base: "1rem .5rem", lg: "1rem" }}
+      >
         <VStack align="flex-start">
           <HStack align="flex-end">
             <Text
@@ -49,6 +60,7 @@ const StudiCard = ({ service }: IStudios) => {
               fontWeight="500"
               fontFamily="BR Firma"
               mb="0"
+              textTransform="capitalize"
             >
               {service?.name}
             </Text>
@@ -63,7 +75,12 @@ const StudiCard = ({ service }: IStudios) => {
           >
             {service?.city}, {service?.state}
           </Text>
-          <Text fontSize=".9rem" fontWeight="700" color="#171717" mb="0">
+          <Text
+            fontSize={{ base: ".8rem", lg: "1rem" }}
+            fontWeight="700"
+            color="#171717"
+            mb="0"
+          >
             Capacity: {service?.studioCapacity}
           </Text>
         </VStack>
