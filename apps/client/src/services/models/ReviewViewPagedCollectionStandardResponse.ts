@@ -17,4 +17,3 @@ export type ReviewViewPagedCollectionStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
-

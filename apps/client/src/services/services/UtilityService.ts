@@ -15,10 +15,10 @@ export class UtilityService {
      * @throws ApiError
      */
     public static getApiUtilityBanks({
-        device,
-    }: {
-        device?: any,
-    }): CancelablePromise<BanksIEnumerableStandardResponse> {
+device,
+}: {
+device?: any,
+}): CancelablePromise<BanksIEnumerableStandardResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Utility/banks',

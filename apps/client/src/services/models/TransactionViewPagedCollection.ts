@@ -18,4 +18,3 @@ export type TransactionViewPagedCollection = {
     nextOffset?: number | null;
     previousOffset?: number | null;
 };
-

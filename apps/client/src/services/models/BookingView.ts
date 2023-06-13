@@ -22,4 +22,3 @@ export type BookingView = {
     status?: string | null;
     additionalServices?: Array<AdditionalServiceView> | null;
 };
-

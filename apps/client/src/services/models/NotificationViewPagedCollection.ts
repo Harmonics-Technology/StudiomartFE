@@ -18,4 +18,3 @@ export type NotificationViewPagedCollection = {
     nextOffset?: number | null;
     previousOffset?: number | null;
 };
-

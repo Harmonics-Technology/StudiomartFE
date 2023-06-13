@@ -7,4 +7,3 @@ export type RecentlyViewedModel = {
     userId?: string;
     serviceId?: string | null;
 };
-

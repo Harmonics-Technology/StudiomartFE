@@ -10,4 +10,3 @@ export type RegisterModel = {
     confirmPassword?: string | null;
     phoneNumber?: string | null;
 };
-

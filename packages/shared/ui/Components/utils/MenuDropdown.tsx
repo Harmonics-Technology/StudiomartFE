@@ -33,7 +33,7 @@ export const MenuDropdown = ({
           bgColor: "transparent",
         }}
       />
-      <MenuList borderRadius="8px" p="0">
+      <MenuList borderRadius="8px" p="0" cursor="pointer">
         {menus.map((x: any) => (
           <MenuItem
             borderBottom="1px solid"

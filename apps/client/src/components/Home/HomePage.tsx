@@ -42,7 +42,7 @@ const HomePage = ({
 }: ICustomerHome) => {
   const [index, setIndex] = useState(0);
 
-  // console.log({ location });
+  console.log({ popularStudios });
 
   const [locas, setLocas] = useState<any>(null);
   const [error, setError] = useState<any>(null);

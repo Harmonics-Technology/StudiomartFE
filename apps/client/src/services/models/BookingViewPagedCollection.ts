@@ -18,4 +18,3 @@ export type BookingViewPagedCollection = {
     nextOffset?: number | null;
     previousOffset?: number | null;
 };
-

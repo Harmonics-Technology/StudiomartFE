@@ -8,4 +8,3 @@ export type ServiceType = {
     dateModified?: string;
     name?: string | null;
 };
-

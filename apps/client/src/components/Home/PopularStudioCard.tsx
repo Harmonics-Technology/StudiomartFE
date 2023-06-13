@@ -51,7 +51,7 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
     setLoading(true);
     try {
       const result = await StudioService.removeSavedService({
-        id: id as string,
+        id: id || (service?.id as string),
       });
       if (result.status) {
         setLoading(false);
@@ -95,7 +95,7 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
             <Spinner size="sm" />
           ) : (
             <>
-              {isSaved ? (
+              {service?.isSaved ? (
                 <Icon
                   as={AiFillHeart}
                   onClick={removeSaved}
@@ -176,7 +176,13 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
           >
             From {`${Cur(service?.price as number)} NGN`}
           </Text>
-          <Text fontSize=".9rem" fontWeight="700" color="#171717" mb="0">
+          <Text
+            fontSize=".9rem"
+            fontWeight="700"
+            color="#171717"
+            mb="0"
+            display={{ base: "block", lg: "none" }}
+          >
             {`${Naira(service?.price as number)} `}
           </Text>
         </VStack>

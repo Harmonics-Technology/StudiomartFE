@@ -27,4 +27,3 @@ export type Booking = {
     status?: Status;
     additionalServices?: Array<AdditionalService> | null;
 };
-

@@ -1,4 +1,3 @@
-import { StudioDetails } from "@components/details/StudioDetails";
 import { withPageAuth } from "@components/utils/withPageAuth";
 import { GetServerSideProps } from "next";
 import React from "react";
@@ -6,19 +5,27 @@ import { ICustomerHome } from "src/models/schema";
 import {
   RecentlyViewedService,
   ReviewService,
+  ServiceView,
   StudioService,
 } from "src/services";
+
+import dynamic from "next/dynamic";
+
+const ServiceDetails = dynamic(
+  () => import("@components/details/ServiceDetails"),
+  { ssr: false }
+);
 
 const SingleServiceView = ({
   singleService,
   ratings,
-  recentlyViewed,
+  studios,
 }: ICustomerHome) => {
   return (
-    <StudioDetails
-      singleService={singleService}
-      ratings={ratings}
-      recentlyViewed={recentlyViewed}
+    <ServiceDetails
+      service={singleService as ServiceView}
+      reviews={ratings}
+      studios={studios}
     />
   );
 };
@@ -34,6 +41,15 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
         id: serviceId,
       });
       const ratings = await ReviewService.getReviews({ serviceId });
+      let studioService;
+      if (singleService?.data?.studio !== null) {
+        studioService = await StudioService.listStudioServices({
+          studioId: singleService?.data?.studio?.id as string,
+          // studioId: "08db45f1-c422-4ec8-84d5-49db9e72de96",
+          limit: 6,
+          offset: 0,
+        });
+      }
       await RecentlyViewedService.createRecentlyViewed({
         requestBody: { userId, serviceId },
       });
@@ -42,6 +58,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
         props: {
           singleService: singleService.data,
           ratings: ratings?.data,
+          studios: studioService?.data || {},
         },
       };
     } catch (error: any) {

@@ -9,4 +9,3 @@ export type LookupModel = {
     date?: string;
     time?: TimeOnlyModel;
 };
-

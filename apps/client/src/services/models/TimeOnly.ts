@@ -9,4 +9,3 @@ export type TimeOnly = {
     readonly millisecond?: number;
     readonly ticks?: number;
 };
-

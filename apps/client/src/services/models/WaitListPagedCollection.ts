@@ -18,4 +18,3 @@ export type WaitListPagedCollection = {
     nextOffset?: number | null;
     previousOffset?: number | null;
 };
-

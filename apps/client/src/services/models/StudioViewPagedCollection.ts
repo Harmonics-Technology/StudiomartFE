@@ -18,4 +18,3 @@ export type StudioViewPagedCollection = {
     nextOffset?: number | null;
     previousOffset?: number | null;
 };
-

@@ -6,4 +6,3 @@ export type TimeOnlyModel = {
     hour?: number;
     minute?: number;
 };
-

@@ -9,6 +9,7 @@
 @import url("react-loading-skeleton/dist/skeleton.css");
 @import url("slick-carousel/slick/slick.css");
 @import url("slick-carousel/slick/slick-theme.css");
+@import url("./checkbox.css");
 html,
 body {
   margin: 0;
@@ -78,8 +79,28 @@ body {
 .slick-slide {
   margin-right: 2rem;
 }
+.service-slick .slick-slide {
+  margin-right: 0;
+}
 .slick-track {
   display: flex !important;
+}
+.slick-dots {
+  bottom: 32px !important;
+}
+.slick-dots li button:before {
+  background-color: white;
+  content: "";
+  border-radius: 50px;
+  height: 8px;
+  width: 100%;
+  opacity: 0.75;
+}
+.slick-dots li {
+  width: 100px;
+}
+.slick-dots li.slick-active button:before {
+  background-color: #1570fa;
 }
 
 @media (max-width: 700px) {

@@ -18,6 +18,7 @@ export interface ICustomerHome {
   allService?: ServiceViewPagedCollection;
   location?: any;
   studiosNearMe?: ServiceViewPagedCollection;
+  studios?: ServiceViewPagedCollection;
 }
 export interface IPopularStudios {
   service?: ServiceView;

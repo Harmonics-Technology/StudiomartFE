@@ -24,5 +24,5 @@ export type ServiceView = {
     user?: UserView;
     totalReviewCount?: number;
     averageRating?: number;
+    isSaved?: boolean;
 };
-

@@ -4,13 +4,14 @@ export function withPageAuth(gssp: any) {
   return async (context: any) => {
     const { req } = context;
     const token = req.cookies.customerToken;
-    // console.log(req.url);
 
     if (!token) {
       // Redirect to login page
       return {
         redirect: {
-          destination: `/login?from=${encodeURIComponent(req.url)}`,
+          destination: `/login?from=${encodeURIComponent(
+            req.url.replace("/_next/data/development", "")
+          )}`,
           statusCode: 302,
         },
       };

@@ -9,7 +9,6 @@ const AllStudios = dynamic(() => import("@components/Home/AllStudios"), {
 });
 
 const AllStudio = ({ allService }: any) => {
-  {/* @ts-ignore  */}
   return <AllStudios allService={allService} />;
 };
 

@@ -9,4 +9,3 @@ export type StudioKYCModel = {
     cacDocumentReference?: string | null;
     meansOfIdentification?: string | null;
 };
-

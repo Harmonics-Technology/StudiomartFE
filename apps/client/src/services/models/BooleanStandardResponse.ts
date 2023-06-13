@@ -16,4 +16,3 @@ export type BooleanStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
-

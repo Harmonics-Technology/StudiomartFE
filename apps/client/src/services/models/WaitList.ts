@@ -12,4 +12,3 @@ export type WaitList = {
     phoneNumber?: string | null;
     userType?: string | null;
 };
-

@@ -10,4 +10,3 @@ export type ReviewCountView = {
     onsStar?: number;
     zeroStar?: number;
 };
-

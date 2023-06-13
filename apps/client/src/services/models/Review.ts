@@ -16,4 +16,3 @@ export type Review = {
     reviewNote?: string | null;
     reviewCount?: number;
 };
-

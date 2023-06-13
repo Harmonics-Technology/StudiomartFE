@@ -17,4 +17,3 @@ export type RecentlyViewedViewIEnumerableStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
-

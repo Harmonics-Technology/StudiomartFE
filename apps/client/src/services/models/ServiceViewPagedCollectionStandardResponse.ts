@@ -17,4 +17,3 @@ export type ServiceViewPagedCollectionStandardResponse = {
     statusCode?: HttpStatusCode;
     errors?: any;
 };
-

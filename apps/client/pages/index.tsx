@@ -21,10 +21,9 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
   OpenAPI.BASE = process.env.NEXT_PUBLIC_API_BASEURL as string;
+  OpenAPI.TOKEN = ctx.req.cookies.customerToken;
   const ipAddress =
     ctx.req.headers["x-forwarded-for"] || ctx.req.socket.remoteAddress;
-
-  console.log({ ipAddress });
 
   try {
     const response = await axios.get(`http://ip-api.com/json/${ipAddress}`);

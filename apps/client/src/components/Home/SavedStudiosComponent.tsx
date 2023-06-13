@@ -32,11 +32,7 @@ const SavedStudiosComponent = ({ savedStudios, studioForYou }: IStudios) => {
           >
             {savedStudios?.value?.map((service, index) => (
               <Box key={index}>
-                <PopularStudioCard
-                  service={service.service}
-                  isSaved
-                  id={service.id}
-                />
+                <PopularStudioCard service={service.service} id={service.id} />
                 <Flex justify="center" my="3rem">
                   <Pagination data={savedStudios} />
                 </Flex>

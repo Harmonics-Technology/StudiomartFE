@@ -14,4 +14,3 @@ export type ServiceModel = {
     studioId?: string;
     serviceTypeId?: string;
 };
-

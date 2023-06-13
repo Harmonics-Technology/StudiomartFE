@@ -27,4 +27,3 @@ export type Service = {
     serviceType?: ServiceType;
     reviews?: Array<Review> | null;
 };
-

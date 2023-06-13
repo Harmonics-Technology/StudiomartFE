@@ -7,4 +7,3 @@ export type ReviewModel = {
     reviewNote?: string | null;
     reviewCount?: number;
 };
-
