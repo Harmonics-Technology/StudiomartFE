@@ -1,12 +1,15 @@
 import BookingsHome from "@components/pages/BookingsHome";
 import { GetServerSideProps } from "next";
 import React from "react";
-import { BookingService, BookingView } from "src/services";
+import {
+  BookingService,
+  BookingViewPagedCollection,
+} from "src/services";
 import { withPageAuth } from "src/utils/withPageAuth";
 import { FilterPagingOptions } from "ui";
 
 interface BookingProps {
-  allBookings: BookingView[];
+  allBookings: BookingViewPagedCollection;
 }
 
 function index({ allBookings }: BookingProps) {
@@ -23,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
     try {
       const allBookings = await BookingService.getBookingsByServiceId({
         offset: pagingOptions.offset,
-        limit: pagingOptions.limit || 10,
+        limit: pagingOptions.limit || 5,
         studioId: currentStudioId,
         search: pagingOptions.search,
         status: pagingOptions.filters as number,
@@ -35,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
 
       return {
         props: {
-          allBookings: allBookings.data?.value,
+          allBookings: allBookings.data,
         },
       };
     } catch (error: any) {

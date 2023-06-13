@@ -103,7 +103,7 @@ body {
   width: 100px !important;
 }
 .slick-dots li.slick-active button:before {
-  background-color: #1570fa;
+  background-color: #1570fa !important;
 }
 
 @media (max-width: 700px) {

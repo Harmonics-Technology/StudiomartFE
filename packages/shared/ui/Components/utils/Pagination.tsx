@@ -13,7 +13,7 @@ function Pagination({ data }: pageOptions) {
   );
   console.log({ data, totalPages });
   const current = data?.nextOffset / data?.limit;
-  const pages = [...Array(totalPages).keys()];
+  const pages = [...Array(totalPages || 0).keys()];
 
   const router = useRouter();
   const next = data?.next?.href;

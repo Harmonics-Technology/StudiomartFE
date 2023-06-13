@@ -39,13 +39,13 @@ import {
   TableData,
   TableStatus,
 } from "ui";
-import { BookingView } from "src/services";
+import { BookingView, BookingViewPagedCollection } from "src/services";
 import moment from "moment";
 import { useDebouncedCallback } from "use-debounce";
 import { useRouter } from "next/router";
 
 interface BookingProps {
-  allBookings: BookingView[];
+  allBookings: BookingViewPagedCollection;
 }
 
 function BookingsHome({ allBookings }: BookingProps) {
@@ -69,7 +69,7 @@ function BookingsHome({ allBookings }: BookingProps) {
         <Box w="90%" mx="auto" pb="2rem" borderRadius="20px">
           <CustomTable tableHead={thead}>
             <>
-              {allBookings?.map((info: BookingView) => (
+              {allBookings?.value?.map((info: BookingView) => (
                 <Tr key={info.id}>
                   <TableData name={info.bookingReference} full />
                   <TableData name={info.user?.fullName} full />
