@@ -18,7 +18,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FaPersonBooth } from "react-icons/fa";
-import { GiEdgedShield, GiEyeShield } from "react-icons/gi";
+import { GiBeastEye, GiEdgedShield, GiEyeShield } from "react-icons/gi";
 import { useDummyImage } from "react-simple-placeholder-image";
 import Slider from "react-slick";
 import { ICustomerHome } from "src/models/schema";
@@ -110,7 +110,7 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
             my="2rem"
             align="center"
           >
-            <Icon as={GiEyeShield} color="brand.100" />
+            <Icon as={GiBeastEye} color="brand.100" />
             <Text mb="0">
               <span style={{ fontWeight: "600" }}>
                 People are eyeing this service.
@@ -191,7 +191,7 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
                 Only bookings cancelled before the vendor accepts your booking
                 gurantees a full refund.{" "}
                 <Link href="/policy" passHref>
-                  <span style={{ color: "brand.100" }}>More details</span>
+                  <span style={{ color: "#1570fa" }}>More details</span>
                 </Link>
               </Text>
             </VStack>
