@@ -189,7 +189,7 @@ const HomePage = ({
           </Box>
         </Box>
       </Stack>
-      <Box w="90%" mx="auto" m="4rem 0 8rem">
+      <Box w="90%" m="4rem auto 8rem">
         <Box textAlign="center">
           <Text
             fontWeight="600"

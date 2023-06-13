@@ -46,10 +46,6 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
     setSelectedAddon([...selectedAddon, data]);
   };
 
-  const grandTotal =
-    selectedAddon.reduce((a, b) => a + (b.price as number), 0) +
-    (singleService?.price as number);
-
   const newTime = (time as string)?.split(" ");
   const CreateBooking = async () => {
     const data: BookingModel = {
@@ -93,6 +89,11 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
     className: "service-slick",
   };
   const image = useDummyImage({});
+  const tax = ((singleService?.price as number) / 100) * 10;
+  const grandTotal =
+    selectedAddon.reduce((a, b) => a + (b.price as number), 0) +
+    (singleService?.price as number) +
+    tax;
   return (
     <Box w={{ base: "80%", lg: "80%" }} m="3rem auto 5rem">
       <HStack flexDir={{ base: "column", lg: "row" }} gap="4rem">
@@ -201,7 +202,7 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
         <Box
           border="1px solid"
           borderColor="#e5e5e5"
-          p="2rem"
+          p={{ base: "1rem", lg: "2rem" }}
           w={{ base: "full", lg: "40%" }}
         >
           <HStack justify="space-between">
@@ -303,12 +304,7 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
             ))}
             <HStack color="#1717171" justify="space-between" w="full">
               <Text mb="0">Tax</Text>
-              <Text mb="0">
-                {Naira(
-                  (singleService?.price as number) -
-                    ((singleService?.price as number) / 100) * 10
-                )}
-              </Text>
+              <Text mb="0">{Naira(tax)}</Text>
             </HStack>
           </VStack>
           <VStack
