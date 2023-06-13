@@ -107,4 +107,7 @@ body {
   .slick-slide {
     margin-right: 0.5rem;
   }
+  .slick-dots li {
+    width: 30px;
+  }
 }

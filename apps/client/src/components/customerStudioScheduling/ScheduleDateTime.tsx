@@ -19,7 +19,7 @@ import { BackToPage, Naira, PrimaryDate, SubmitButton } from "ui";
 
 const ScheduleDateTime = ({ singleService, id }: ICustomerHome) => {
   const router = useRouter();
-  console.log({ id });
+  // console.log({ id });
 
   const {
     register,
@@ -34,24 +34,20 @@ const ScheduleDateTime = ({ singleService, id }: ICustomerHome) => {
     },
   });
 
-  // console.log(dayjs(watch("time")).format("HH"));
-
   const ChekDateAvailability = async (data: LookupModel) => {
+    const newTime = dayjs(data.time as string).format("hh mm A");
     data.time = {
       hour: Number(dayjs(data.time as string).format("H")),
       minute: Number(dayjs(data.time as string).format("mm")),
     } as any;
-    console.log({ data });
-    const time =
-      dayjs().format("YYYY-MM-DD") +
-      `T${(data.time?.hour as number) - 1}:${data.time?.minute}:00Z`;
-    // console.log({ time });
     try {
       const result = await BookingService.dateTimeLookup({ requestBody: data });
       console.log({ result });
       if (result.status) {
         toast.success(result.message as string);
-        router.push(`/customer/bookings/${id}?date=${data.date}&time=${time}`);
+        router.push(
+          `/customer/bookings/${id}?date=${data.date}&time=${newTime}`
+        );
         return;
       }
       toast.error(result.message as string);

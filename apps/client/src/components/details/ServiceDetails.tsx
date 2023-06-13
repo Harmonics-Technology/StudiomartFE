@@ -123,11 +123,16 @@ const ServiceDetails = ({
         </HStack>
       </Box>
 
-      <Box w="full" h="550px" overflow="hidden">
+      <Box w="full" h={{ base: "400px", lg: "550px" }} overflow="hidden">
         {(service?.media as any)?.length > 0 ? (
           <Slider {...settings}>
             {service?.media?.map((x) => (
-              <Box w="full" h="550px" overflow="hidden" key={x.id}>
+              <Box
+                w="full"
+                h={{ base: "400px", lg: "550px" }}
+                overflow="hidden"
+                key={x.id}
+              >
                 <Image
                   w="full"
                   h="full"
@@ -149,7 +154,7 @@ const ServiceDetails = ({
         color="#171717"
         fontWeight="600"
         fontFamily="BR Firma"
-        m="7rem 0 3rem"
+        m={{ base: "3rem 0 1rem", lg: "7rem 0 3rem" }}
       >
         About this service
       </Text>
@@ -157,7 +162,7 @@ const ServiceDetails = ({
         {parse((service?.description as string) || "")}
       </Text>
 
-      <Box my="6rem">
+      <Box my={{ base: "3rem", lg: "6rem" }}>
         <Text
           fontSize={["1rem", "24px"]}
           noOfLines={1}
@@ -171,8 +176,13 @@ const ServiceDetails = ({
         <Text fontSize="16px" lineHeight="27px" color="#3d3d3d">
           Here are the specifics of this service from Lensboy photography.
         </Text>
-        <Box mt="3rem">
-          <HStack spacing={0} gap={"3rem"}>
+        <Box mt={["2rem", "3rem"]}>
+          <HStack
+            spacing={0}
+            gap={{ base: "2rem", lg: "3rem" }}
+            align={["flex-start", "center"]}
+            flexDir={{ base: "column", lg: "row" }}
+          >
             <ServiceInfos
               title="Studio Capacity"
               value={service?.studio?.studioCapacity}
@@ -185,7 +195,11 @@ const ServiceDetails = ({
           </HStack>
         </Box>
       </Box>
-      <HStack my="4rem">
+      <HStack
+        my={["2rem", "4rem"]}
+        flexDir={{ base: "column", lg: "row" }}
+        align={["flex-start", "center"]}
+      >
         <Text
           fontSize={["1rem", "24px"]}
           noOfLines={1}
@@ -208,9 +222,9 @@ const ServiceDetails = ({
       </HStack>
       <Grid
         templateColumns={{ base: "repeat(1fr)", lg: "repeat(2, 1fr)" }}
-        w="60%"
-        gap="5rem"
-        mb="4rem"
+        w={{ base: "full", lg: "60%" }}
+        gap={{ base: "2rem", lg: "5rem" }}
+        mb={{ base: "3rem", lg: "4rem" }}
       >
         {service?.additionalServices?.map((x) => (
           <HStack key={x.id} align="center">
@@ -225,7 +239,11 @@ const ServiceDetails = ({
           </HStack>
         ))}
       </Grid>
-      <HStack w="60%" spacing={0} gap="3rem">
+      <HStack
+        w={{ base: "full", lg: "60%" }}
+        spacing={0}
+        gap={{ base: "1rem", lg: "3rem" }}
+      >
         <Button
           bgColor="brand.100"
           color="white"
@@ -273,22 +291,27 @@ const ServiceDetails = ({
         </Button>
       </HStack>
 
-      <Box my="8rem">
+      <Box my={{ base: "4rem", lg: "8rem" }}>
         <Text
           fontSize={["1rem", "24px"]}
           noOfLines={1}
           color="#171717"
           fontWeight="600"
           fontFamily="BR Firma"
-          mb="2rem"
+          mb={{ base: "1rem", lg: "2rem" }}
         >
           Reviews
         </Text>
-        <HStack gap="2rem" spacing={0}>
+        <HStack
+          gap="2rem"
+          spacing={0}
+          flexDir={{ base: "column", lg: "row" }}
+          align={["flex-start", "center"]}
+        >
           <Square
             bgColor="#f3f2f1"
             borderRadius="4px"
-            size="158px"
+            size={{ base: "150px", lg: "158px" }}
             alignItems="center"
           >
             <VStack>
@@ -301,7 +324,7 @@ const ServiceDetails = ({
               </Text>
             </VStack>
           </Square>
-          <VStack align="flex-start" w="40%">
+          <VStack align="flex-start" w={{ base: "full", lg: "40%" }}>
             <RatingInfo
               num="5"
               count={service?.reviewCounts?.fiveStar}
@@ -329,7 +352,7 @@ const ServiceDetails = ({
             />
           </VStack>
         </HStack>
-        <Box my="4rem" w="80%">
+        <Box my={{ base: "2rem", lg: "4rem" }} w={{ base: "full", lg: "80%" }}>
           <VStack w="full" align="flex-start">
             {reviews?.value?.length == 0 ? (
               <Text>No Reviews yet!!!</Text>

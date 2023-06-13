@@ -28,10 +28,14 @@ const BookingSummary = ({ singleService, ratings, id }: ICustomerHome) => {
   const router = useRouter();
   const { date } = router.query;
   const { time } = router.query;
+
+  console.log({ time });
   const [selectedAddon, setSelectedAddon] = useState<AdditionalServiceView[]>(
     []
   );
   const [loading, setLoading] = useState(false);
+  const utc = require("dayjs/plugin/utc");
+  dayjs.extend(utc);
 
   const addToArray = (data: AdditionalServiceView) => {
     const exist = selectedAddon.find((x: any) => x.id == data.id);
@@ -46,13 +50,13 @@ const BookingSummary = ({ singleService, ratings, id }: ICustomerHome) => {
     selectedAddon.reduce((a, b) => a + (b.price as number), 0) +
     (singleService?.price as number);
 
-  const newTime = (time as string)?.split("T")[1];
+  const newTime = (time as string)?.split(" ");
   const CreateBooking = async () => {
     const data: BookingModel = {
       date: date as string,
       inputTime: {
-        hour: Number(newTime.split(":")[0]),
-        minute: Number(newTime.split(":")[1]),
+        hour: Number(newTime[0]),
+        minute: Number(newTime[1]),
       },
       serviceId: id,
       additionalServices: selectedAddon.map((x) => x.id as string),
@@ -115,7 +119,7 @@ const BookingSummary = ({ singleService, ratings, id }: ICustomerHome) => {
                 {dayjs(date as string).format("ddd DD, MMMM, YYYY")}
               </Text>
               <Text fontWeight={400} mb="0">
-                ({dayjs(time as string).format("hh:mm A")})
+                ({time})
               </Text>
             </HStack>
           </Box>
