@@ -11,10 +11,10 @@ import { Search } from "./Search";
 export const SideBar = ({ showChat, setShowChat }: any) => {
   const [chat, setChat] = useState<any>([]);
   const { currentUser } = useContext(AuthContext);
-  const { user } = useContext(UserContext);
-  console.log({ currentUser, user });
+  // const { user } = useContext(UserContext);
+  // console.log({ currentUser, user });
 
-  const { dispatch, data } = useContext(ChatContext);
+  const { dispatch } = useContext(ChatContext);
 
   const handleSelect = async (u: any) => {
     console.log({ u });

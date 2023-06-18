@@ -154,7 +154,7 @@ const CustomerSidebar = ({
                   </InputGroup>
                 </Box>
                 <Menus
-                  linkName="/"
+                  linkName=""
                   menuTitle={`Home`}
                   icon={<FaHome opacity=".8" />}
                   option={false}
@@ -162,7 +162,7 @@ const CustomerSidebar = ({
                   onClose={onClose}
                 />
                 <Menus
-                  linkName="/customer"
+                  linkName="customer"
                   menuTitle={`Hi ${user?.firstName}`}
                   icon={<BsFillPersonFill opacity=".8" />}
                   option={true}
@@ -180,7 +180,7 @@ const CustomerSidebar = ({
                 />
 
                 <Menus
-                  linkName="/customer/history"
+                  linkName="customer/history"
                   menuTitle={`History`}
                   icon={<BsFillClockFill opacity=".8" />}
                   option={false}
@@ -188,7 +188,7 @@ const CustomerSidebar = ({
                   onClose={onClose}
                 />
                 <Menus
-                  linkName="/category"
+                  linkName="category"
                   menuTitle={`Studios`}
                   icon={<IoStorefront opacity=".8" />}
                   option={true}

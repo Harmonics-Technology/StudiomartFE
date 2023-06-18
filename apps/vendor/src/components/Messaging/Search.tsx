@@ -1,7 +1,6 @@
 import {
   Avatar,
   Box,
-  Button,
   Flex,
   Heading,
   HStack,
@@ -9,26 +8,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  serverTimestamp,
-  setDoc,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@components/firebase/firebase";
-import { AuthContext } from "@components/Context/AuthContext";
-import { ChatContext } from "@components/Context/ChatContext";
 
-export const Search = ({ chat, setChat }: any) => {
+export const Search = ({ chat, setChat, handleSelect }: any) => {
   const [userName, setuserName] = useState<any>("");
   const [user, setuser] = useState<any>("");
-  const { currentUser } = useContext(AuthContext);
-  const { dispatch } = useContext(ChatContext);
 
   const handleSearch = async () => {
     const q = query(
@@ -51,42 +36,7 @@ export const Search = ({ chat, setChat }: any) => {
   const handleKey = (e: any) => {
     e.code == "Enter" && handleSearch();
   };
-  const handleSelect = async (user: any) => {
-    const combinedId =
-      currentUser?.uid > user?.uid
-        ? currentUser?.uid + user?.uid
-        : user?.uid + currentUser?.uid;
-    try {
-      const res = await getDoc(doc(db, "chats", combinedId));
-      console.log({ res });
-      if (!res.exists()) {
-        await setDoc(doc(db, "chats", combinedId), { messages: [] });
-        await updateDoc(doc(db, "userChats", currentUser?.uid), {
-          [combinedId + ".userInfo"]: {
-            uid: user.uid,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-          },
-          [combinedId + ".date"]: serverTimestamp(),
-        });
-        await updateDoc(doc(db, "userChats", user.uid), {
-          [combinedId + ".userInfo"]: {
-            uid: currentUser?.uid,
-            displayName: currentUser?.displayName,
-            photoURL: currentUser?.photoURL,
-          },
-          [combinedId + ".date"]: serverTimestamp(),
-        });
-      } else {
-        dispatch({ type: "CHANGE_USER", payload: user });
-      }
-    } catch (error) {}
-    setuser(null);
-    setuserName("");
-    console.log({ userName });
-  };
 
-  console.log({ user });
   return (
     <Box>
       <Box w="90%" mx="auto">

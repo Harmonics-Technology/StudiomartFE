@@ -15,7 +15,7 @@
         "schema:generate": "node ./script/schema-codegen.js --srcPath ./src/types/api-schema.json --destPath ./src/types/api --separatedFiles true",
         "schema:codegen": "yarn schema:fetch && yarn schema:generate",
         "format-staged": "pretty-quick --staged",
-        "openapi:codegen": "openapi --input https://studiomartbe.azurewebsites.net/swagger/v1/swagger.json --output ./src/services --client axios --useOptions"
+        "openapi:codegen": "openapi --input https://studiomart-api.azurewebsites.net/swagger/v1/swagger.json --output ./src/services --client axios --useOptions"
     },
     "dependencies": {
         "@chakra-ui/icons": "^2.0.15",

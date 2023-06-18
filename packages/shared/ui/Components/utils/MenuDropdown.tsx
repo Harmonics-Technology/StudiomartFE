@@ -35,7 +35,7 @@ export const MenuDropdown = ({
         p="0"
       />
       <MenuList borderRadius="8px" p="0" cursor="pointer">
-        {menus.map((x: any) => (
+        {menus.map((x: any, i: any) => (
           <MenuItem
             borderBottom="1px solid"
             borderColor="gray.300"
@@ -45,6 +45,7 @@ export const MenuDropdown = ({
             py=".6rem"
             color={x.color}
             onClick={x.onclick}
+            key={i}
           >
             {x.icon && <Icon as={x.icon} />}
             <Text mb="0">{x.label}</Text>

@@ -21,6 +21,7 @@ import { UserContext } from "@components/Context/UserContext";
 import { VerifyPasswordModal } from "@components/Modals/VerifyPasswordModal";
 import axios from "axios";
 import { useNonInitialEffect } from "ui";
+import AccountContainer from "./AccountContainer";
 
 const schema = yup.object().shape({
   accountName: yup.string().required(),
@@ -142,71 +143,62 @@ export default function BankDetails({
               </HStack>
             </Box>
           )}
-          <Stack
-            direction="row"
-            spacing={6}
-            width="80%"
-            my="3rem"
-            mx="1rem"
-            bgColor="white"
-          >
-            <AccountSideBar />
-            <Box w="55%" fontFamily='"DM Sans", sans-serif'>
-              <form>
-                <Stack gap="1rem">
-                  <PrimarySelect<BankAccountModel>
-                    label="Bank Name"
-                    name="bankCode"
-                    error={errors.bankCode}
-                    register={register}
-                    options={
-                      <>
-                        <option hidden selected>
-                          Select a bank
+          <AccountContainer>
+            {" "}
+            <form>
+              <Stack gap="1rem">
+                <PrimarySelect<BankAccountModel>
+                  label="Bank Name"
+                  name="bankCode"
+                  error={errors.bankCode}
+                  register={register}
+                  options={
+                    <>
+                      <option hidden selected>
+                        Select a bank
+                      </option>
+                      {banks.map((bank: Banks) => (
+                        <option value={bank.code as string} key={bank.id}>
+                          {bank.name}
                         </option>
-                        {banks.map((bank: Banks) => (
-                          <option value={bank.code as string} key={bank.id}>
-                            {bank.name}
-                          </option>
-                        ))}
-                      </>
-                    }
-                  />
-                  <PrimaryInput<BankAccountModel>
-                    label="Account Number"
-                    type="text"
-                    placeholder="Enter your account number"
-                    name="accountNumber"
-                    error={errors.accountNumber}
-                    register={register}
-                    defaultValue={""}
-                  />
-                  <DisabledInput<BankAccountModel>
-                    label="Account Name"
-                    type="text"
-                    placeholder="Enter your account name"
-                    defaultValue={""}
-                    value={watch("accountName") || ""}
-                    readonly={true}
-                  />
-                  <Flex justifyContent="flex-end" w="full">
-                    <Button
-                      isDisabled={!isValid}
-                      bgColor="brand.100"
-                      color="white"
-                      width="100%"
-                      type="button"
-                      h="3rem"
-                      onClick={onOpen}
-                      isLoading={isSubmitting}
-                    >
-                      Add Bank Account
-                    </Button>
-                  </Flex>
-                </Stack>
-              </form>
-            </Box>
-          </Stack>
+                      ))}
+                    </>
+                  }
+                />
+                <PrimaryInput<BankAccountModel>
+                  label="Account Number"
+                  type="text"
+                  placeholder="Enter your account number"
+                  name="accountNumber"
+                  error={errors.accountNumber}
+                  register={register}
+                  defaultValue={""}
+                />
+                <DisabledInput<BankAccountModel>
+                  label="Account Name"
+                  type="text"
+                  placeholder="Enter your account name"
+                  defaultValue={""}
+                  value={watch("accountName") || ""}
+                  readonly={true}
+                />
+                <Flex justifyContent="flex-end" w="full">
+                  <Button
+                    isDisabled={!isValid}
+                    bgColor="brand.100"
+                    color="white"
+                    width="100%"
+                    type="button"
+                    h="3rem"
+                    onClick={onOpen}
+                    isLoading={isSubmitting}
+                  >
+                    Add Bank Account
+                  </Button>
+                </Flex>
+              </Stack>
+            </form>
+          </AccountContainer>
         </Box>
       </Flex>
     </>

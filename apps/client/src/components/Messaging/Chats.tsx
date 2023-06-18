@@ -10,43 +10,12 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { AuthContext } from "@components/Context/AuthContext";
-import { ChatContext } from "@components/Context/ChatContext";
-import { app, db } from "@components/firebase/firebase";
-import { doc, onSnapshot, updateDoc, getFirestore } from "firebase/firestore";
 import moment from "moment";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { BsCheckAll } from "react-icons/bs";
 
 export const Chats = ({ chat, handleSelect }: any) => {
-  // const { dispatch, data } = useContext(ChatContext);
   const { currentUser } = useContext(AuthContext);
-
-  // const handleSelect = async (u: any) => {
-  //   console.log({ u });
-  //   const combinedId =
-  //     currentUser?.uid > u?.userInfo.uid
-  //       ? currentUser?.uid + u?.userInfo?.uid
-  //       : u?.userInfo?.uid + currentUser?.uid;
-  //   console.log({ combinedId, u });
-  //   dispatch({ type: "CHANGE_USER", payload: u?.userInfo });
-  //   if (u.isRead == false) {
-  //     await updateDoc(doc(db, "userChats", u.userInfo.uid), {
-  //       [combinedId + ".isRead"]: true,
-  //       [combinedId + ".lastMessage.isRead"]: true,
-  //     });
-  //     await updateDoc(doc(db, "userChats", currentUser.uid), {
-  //       [combinedId + ".isRead"]: true,
-  //       [combinedId + ".lastMessage.isRead"]: true,
-  //     });
-  //   }
-  // };
-
-  // await updateDoc(doc(db, "userChats", currentUser.uid), {
-  //   [data.chatId + ".isRead"]: true,
-  //   [data.chatId + ".lastMessage.isRead"]: true,
-  // });
-
-  console.log({ chat });
 
   return (
     <>

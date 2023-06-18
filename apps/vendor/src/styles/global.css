@@ -3,6 +3,9 @@
 @import url("./uploadcare.css");
 @import url("./toast.css");
 @import url("@smastrom/react-rating/style.css");
+@import url("slick-carousel/slick/slick.css");
+@import url("slick-carousel/slick/slick-theme.css");
+
 html,
 body {
   margin: 0;
@@ -71,4 +74,23 @@ body {
   height: 2.8rem !important;
   width: 100%;
   border-radius: 4px !important;
+}
+
+.slick-slide {
+  margin-right: 2rem;
+}
+.service-slick {
+  width: 100%;
+}
+.service-slick .slick-slide {
+  margin-right: 0;
+}
+.slick-track {
+  display: flex !important;
+  margin-left: 0 !important;
+}
+@media (max-width: 700px) {
+  .slick-slide {
+    margin-right: 0.5rem !important;
+  }
 }

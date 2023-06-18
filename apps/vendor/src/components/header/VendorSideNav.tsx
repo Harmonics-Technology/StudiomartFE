@@ -7,19 +7,19 @@ import {
   Square,
   Text,
   VStack,
-} from '@chakra-ui/react';
-import { CloseIcon } from '@chakra-ui/icons';
-import Link from 'next/link';
-import React, { useContext } from 'react';
-import { RxDashboard } from 'react-icons/rx';
-import { MdMiscellaneousServices } from 'react-icons/md';
-import { FiLogOut } from 'react-icons/fi';
-import { FaBook, FaHome } from 'react-icons/fa';
-import { BiMessageDots } from 'react-icons/bi';
-import { BsPersonFill, BsWalletFill } from 'react-icons/bs';
-import { RiRemoteControlFill } from 'react-icons/ri';
-import { MenuItem } from 'ui';
-import { UserContext } from '@components/Context/UserContext';
+} from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
+import Link from "next/link";
+import React, { useContext } from "react";
+import { RxDashboard } from "react-icons/rx";
+import { MdMiscellaneousServices } from "react-icons/md";
+import { FiLogOut } from "react-icons/fi";
+import { FaBook, FaHome } from "react-icons/fa";
+import { BiMessageDots } from "react-icons/bi";
+import { BsPersonFill, BsWalletFill } from "react-icons/bs";
+import { RiRemoteControlFill } from "react-icons/ri";
+import { MenuItem } from "ui";
+import { UserContext } from "@components/Context/UserContext";
 
 type Side = {
   setShowSide: any;
@@ -35,12 +35,12 @@ function VendorSideNav({ setShowSide, showSide }: Side) {
       bgColor="#FFFFFF"
       h="100vh"
       w={{
-        base: showSide ? '60%' : '0',
-        md: showSide ? '30%' : '0',
-        lg: '18%',
+        base: showSide ? "60%" : "0",
+        md: showSide ? "30%" : "0",
+        lg: "18%",
       }}
       pos="fixed"
-      pl={{ base: showSide ? '2rem' : '0', lg: '2rem' }}
+      pl={{ base: showSide ? "2rem" : "0", lg: "2rem" }}
       pt="2rem"
       zIndex="1"
       align="flex-start"
@@ -50,10 +50,9 @@ function VendorSideNav({ setShowSide, showSide }: Side) {
       <Flex
         justify="end"
         mb="1rem"
-        w="80%"
-        display={{ base: 'flex', lg: 'none' }}
+        w="90%"
+        display={{ base: "flex", lg: "none" }}
       >
-        {' '}
         <CloseIcon
           my="auto"
           onClick={() => setShowSide((prev: any) => !prev)}
@@ -61,8 +60,8 @@ function VendorSideNav({ setShowSide, showSide }: Side) {
       </Flex>
       <Link href="/dashboard" passHref>
         <HStack>
-          <Box w="85%" pl={{ base: '.2rem', md: '.5rem' }} gap={1}>
-            <Image src="/assets/studiomart.png" w="full" alt="logo" />{' '}
+          <Box w="85%" pl={{ base: ".2rem", md: ".5rem" }} gap={1}>
+            <Image src="/assets/studiomart.png" w="full" alt="logo" />{" "}
           </Box>
         </HStack>
       </Link>
@@ -72,7 +71,7 @@ function VendorSideNav({ setShowSide, showSide }: Side) {
           spacing={0}
           gap="1.5rem"
           mt="4rem"
-          pr={{ base: '2rem' }}
+          pr={{ base: showSide ? "2rem" : "0", lg: "2rem" }}
           w="full"
         >
           <MenuItem
@@ -114,14 +113,14 @@ function VendorSideNav({ setShowSide, showSide }: Side) {
             w="full"
             borderRadius="4px"
             h="3rem"
-            color={'red'}
+            color={"red"}
             onClick={() =>
               logout([
-                'vendorToken',
-                'vendor',
-                'currentStudioId',
-                'vendorStudios',
-                'user',
+                "vendorToken",
+                "vendor",
+                "currentStudioId",
+                "vendorStudios",
+                "user",
               ])
             }
           >

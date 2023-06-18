@@ -44,7 +44,7 @@ export const Waitlist = ({
       <Box w="full">
         <HeroBanner onOpen={onOpen} />
       </Box>
-      <Box w="80%" mx="auto">
+      <Box w="85%" mx="auto">
         <Flex justify="center" m={["3rem 0 1rem", "3rem 0"]}>
           <Heading
             fontSize={["30px", "40px"]}

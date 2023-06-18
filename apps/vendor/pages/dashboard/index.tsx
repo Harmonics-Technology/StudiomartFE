@@ -1,7 +1,4 @@
 import { Box } from "@chakra-ui/react";
-import { MainDashboard } from "@components/Dashboard/MainDashboard";
-import RecentOrders from "@components/Dashboard/RecentOrders";
-import Cookies from "js-cookie";
 import { GetServerSideProps } from "next";
 
 import React from "react";
@@ -10,12 +7,16 @@ import {
   DashboardService,
   StudioService,
   VendorDashboardView,
-  BookingService,
   ServiceViewPagedCollection,
   ServiceTypeViewListStandardResponse,
 } from "src/services";
 import { withPageAuth } from "src/utils/withPageAuth";
+import dynamic from "next/dynamic";
 
+const MainDashboard = dynamic(
+  () => import("@components/Dashboard/MainDashboard"),
+  { ssr: false }
+);
 interface DashboardProps {
   serviceTypes: ServiceTypeViewListStandardResponse;
   dashboardMetrics: VendorDashboardView;

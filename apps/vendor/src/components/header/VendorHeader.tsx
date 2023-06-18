@@ -17,18 +17,18 @@ import {
   MenuList,
   Heading,
   Avatar,
-} from '@chakra-ui/react';
-import React, { useContext } from 'react';
-import { FaAngleDown } from 'react-icons/fa';
-import { GoSettings } from 'react-icons/go';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import Link from 'next/link';
-import { RiNotification3Fill, RiSearch2Fill } from 'react-icons/ri';
-import { UserContext } from '@components/Context/UserContext';
-import { StudioView } from 'src/services';
-import { useRouter } from 'next/router';
-import { ChevronDownIcon } from '@chakra-ui/icons';
-import Cookies from 'js-cookie';
+} from "@chakra-ui/react";
+import React, { useContext } from "react";
+import { FaAngleDown } from "react-icons/fa";
+import { GoSettings } from "react-icons/go";
+import { GiHamburgerMenu } from "react-icons/gi";
+import Link from "next/link";
+import { RiNotification3Fill, RiSearch2Fill } from "react-icons/ri";
+import { UserContext } from "@components/Context/UserContext";
+import { StudioView } from "src/services";
+import { useRouter } from "next/router";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import Cookies from "js-cookie";
 
 type Side = {
   setShowSide: any;
@@ -48,14 +48,14 @@ function VendorHeader({ setShowSide, showSide }: Side) {
       },
     });
     setCurrentStudioId(value);
-    Cookies.set('currentStudioId', value);
+    Cookies.set("currentStudioId", value);
   };
   // console.log({ notifys });
   // console.log(userStudios?.filter((x: any) => x.id == currentStudioId)[0].name);
   return (
     <Box w="full" bgColor="white">
       <Box w="100%" ml="auto">
-        <Box w="90%" mx="auto" pt="1rem" display={{ base: '', lg: 'none' }}>
+        <Box w="90%" mx="auto" pt="1rem" display={{ base: "", lg: "none" }}>
           <GiHamburgerMenu
             size="25px"
             onClick={() => setShowSide((prev: any) => !prev)}
@@ -69,42 +69,6 @@ function VendorHeader({ setShowSide, showSide }: Side) {
           w="95%"
           // ml="auto"
         >
-          {/* <Flex h="3rem" w="15%">
-            <InputGroup>
-              <InputLeftElement top=".4rem" color="#636363">
-                <RiSearch2Fill />
-              </InputLeftElement>
-              <Input
-                type="search"
-                placeholder="search studio"
-                h="full"
-                borderRadius="5px 0 0 5px"
-                w="100%"
-                bgColor="#E8E8E8"
-                _placeholder={{
-                  color: "#636363",
-                }}
-              />
-            </InputGroup>
-            <Box
-              bgColor="brand.100"
-              color="white"
-              px="1.5rem"
-              borderRadius="0 5px 5px 0"
-            >
-              <Flex
-                transform="rotate(90deg)"
-                fontSize="1.5rem"
-                fontWeight="bold"
-                align="center"
-                h="100%"
-                cursor="pointer"
-              >
-                <GoSettings />
-              </Flex>
-            </Box>
-          </Flex> */}
-
           <Avatar
             src={user?.profilePicture}
             name={user?.fullName}
@@ -120,6 +84,10 @@ function VendorHeader({ setShowSide, showSide }: Side) {
               fontWeight="600"
               fontFamily="BR Firma"
               border="0"
+              // value={
+              //   userStudios?.filter((x: any) => x.id == currentStudioId)[0]
+              //     ?.name
+              // }
               onChange={(e) => changeStudio(e.target.value)}
               _focusVisible={{
                 border: 0,
@@ -140,13 +108,13 @@ function VendorHeader({ setShowSide, showSide }: Side) {
           </Box>
           <HStack>
             <Box mr="0rem" pos="relative" cursor="pointer">
-              <Link href="/notification" passHref>
+              <Box onClick={() => router.push("/notification")}>
                 <RiNotification3Fill />
-              </Link>
+              </Box>
               <Circle
-                bgColor={'brand.100'}
+                bgColor={"brand.100"}
                 size=".8rem"
-                display={messageCount <= 0 ? 'none' : 'flex'}
+                display={messageCount <= 0 ? "none" : "flex"}
                 fontSize=".5rem"
                 color="white"
                 fontWeight="bold"
@@ -160,21 +128,7 @@ function VendorHeader({ setShowSide, showSide }: Side) {
                 {/* <sup>+</sup> */}
               </Circle>
             </Box>
-            {/* <Circle bgColor="brand.100" size="3rem" overflow="hidden">
-              {user?.profilePicture ? (
-                <Image
-                  src={user.profilePicture}
-                  objectFit="cover"
-                  w="full"
-                  h="full"
-                  alt=""
-                />
-              ) : (
-                <Heading fontSize="1.3rem" color="white">{`${user?.firstName.at(
-                  0
-                )}${user?.lastName.at(0)}`}</Heading>
-              )}
-            </Circle> */}
+
             <Menu>
               <MenuButton
                 as={Button}
@@ -182,10 +136,10 @@ function VendorHeader({ setShowSide, showSide }: Side) {
                 bgColor="transparent"
                 // color="gray.700"
                 _hover={{
-                  bgColor: 'transparent',
+                  bgColor: "transparent",
                 }}
                 _active={{
-                  bgColor: 'transparent',
+                  bgColor: "transparent",
                 }}
               >
                 Action
@@ -195,7 +149,7 @@ function VendorHeader({ setShowSide, showSide }: Side) {
                 <MenuItem
                   mb=".5rem"
                   as="div"
-                  onClick={() => router.push('/account')}
+                  onClick={() => router.push("/account")}
                   justifyContent="center"
                   cursor="pointer"
                 >

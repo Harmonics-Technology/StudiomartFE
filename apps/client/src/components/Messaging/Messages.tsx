@@ -18,7 +18,7 @@ export const Messages = () => {
     };
   }, [data.chatId]);
 
-  console.log({ messages });
+  // console.log({ messages });
   return (
     <Box>
       <Box

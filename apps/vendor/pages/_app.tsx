@@ -19,6 +19,7 @@ import { toast, ToastBar, Toaster } from "react-hot-toast";
 import { AuthContextProvider } from "@components/Context/AuthContext";
 import { ChatContextProvider } from "@components/Context/ChatContext";
 import Head from "next/head";
+import Script from "next/script";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   OpenAPI.BASE = process.env.NEXT_PUBLIC_API_BASEURL as string;
@@ -43,10 +44,10 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         />
         <title>Studiomart Vendor</title>
         <link rel="icon" href="/stdd.gif" type="image/x-icon" />
-        <script
-          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}
-        ></script>
       </Head>
+      <Script
+        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}
+      ></Script>
       <UserProvider>
         <AuthContextProvider>
           <ChatContextProvider>
