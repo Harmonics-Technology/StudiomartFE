@@ -21,9 +21,9 @@ import {
   Spinner,
   IconButton,
   VStack,
-} from '@chakra-ui/react';
-import { ServiceSlider } from '@components/Dashboard/ServicesSlider';
-import React, { useContext, useRef, useState } from 'react';
+} from "@chakra-ui/react";
+import { ServiceSlider } from "@components/Dashboard/ServicesSlider";
+import React, { useContext, useRef, useState } from "react";
 import {
   AdditionalService,
   UpdateServiceModel,
@@ -34,7 +34,7 @@ import {
   StudioView,
   AdditionalServiceModel,
   MediaView,
-} from 'src/services';
+} from "src/services";
 import {
   CurrencyField,
   DisabledInput,
@@ -42,22 +42,22 @@ import {
   PrimaryInput,
   PrimarySelect,
   PrimaryTextarea,
-} from 'ui';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import YupPassword from 'yup-password';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/router';
-import { FaTrash } from 'react-icons/fa';
-import { Widget } from '@uploadcare/react-widget';
-import { AiFillDelete, AiFillEdit, AiOutlinePlus } from 'react-icons/ai';
-import { UserContext } from '@components/Context/UserContext';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import { FiUpload } from 'react-icons/fi';
-import { HiInformationCircle } from 'react-icons/hi';
-import { BsCheck2All } from 'react-icons/bs';
+} from "ui";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import YupPassword from "yup-password";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
+import { FaTrash } from "react-icons/fa";
+import { Widget } from "@uploadcare/react-widget";
+import { AiFillDelete, AiFillEdit, AiOutlinePlus } from "react-icons/ai";
+import { UserContext } from "@components/Context/UserContext";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import { FiUpload } from "react-icons/fi";
+import { HiInformationCircle } from "react-icons/hi";
+import { BsCheck2All } from "react-icons/bs";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -95,7 +95,7 @@ const EditServiceModal = ({
     formState: { errors, isSubmitting, isValid },
   } = useForm<UpdateServiceModel>({
     resolver: yupResolver(validation),
-    mode: 'all',
+    mode: "all",
     defaultValues: {
       id: service.id,
       bannerImageURL: service.bannerImageURL,
@@ -116,19 +116,19 @@ const EditServiceModal = ({
     },
   } = useForm<AdditionalServiceModel>({
     resolver: yupResolver(schema),
-    mode: 'all',
+    mode: "all",
   });
 
   const [loading, setLoading] = useState<any>({
     status: false,
-    id: '',
+    id: "",
     delete: false,
   });
 
   const onChangeImg = (file: any) => {
     if (file) {
       file.progress((info: any) => {
-        setLoading({ status: true, id: 'imageLoad' });
+        setLoading({ status: true, id: "imageLoad" });
       });
       file.done((info: any) => {
         // setUploadedMedia(info.originalUrl);
@@ -143,7 +143,7 @@ const EditServiceModal = ({
   const [populatedImages, setPopulatedImages] = useState<any>(service.media);
   const [newField, setNewField] = useState<any>([]);
   const [addon, setAddon] = useState({
-    id: '',
+    id: "",
     name: undefined,
     price: undefined,
   });
@@ -157,7 +157,7 @@ const EditServiceModal = ({
       });
       console.log({ result });
       if (result.status) {
-        toast.success('Successful!', { className: 'loginToast' });
+        toast.success("Successful!", { className: "loginToast" });
         setNewField([]);
         const services = await StudioService.getServiceById({
           id: service.id as string,
@@ -167,7 +167,7 @@ const EditServiceModal = ({
         // router.reload();
         return;
       }
-      toast.error(result.message as string, { className: 'loginToast' });
+      toast.error(result.message as string, { className: "loginToast" });
       return;
     } catch (error: any) {
       toast.error(error?.body?.message || error?.message);
@@ -182,7 +182,7 @@ const EditServiceModal = ({
       });
       console.log({ result });
       if (result.status) {
-        toast.success('Successful!', { className: 'loginToast' });
+        toast.success("Successful!", { className: "loginToast" });
         const services = await StudioService.getServiceById({
           id: service.id as string,
         });
@@ -192,7 +192,7 @@ const EditServiceModal = ({
         return;
       }
       setLoading({ status: false });
-      toast.error(result.message as string, { className: 'loginToast' });
+      toast.error(result.message as string, { className: "loginToast" });
       return;
     } catch (error: any) {
       setLoading({ status: false });
@@ -209,7 +209,7 @@ const EditServiceModal = ({
       console.log({ result });
       if (result.status) {
         setLoading({ status: false });
-        toast.success('Successful!', { className: 'loginToast' });
+        toast.success("Successful!", { className: "loginToast" });
         setPopulatedItem(
           service?.additionalServices?.filter((x) => x.id !== id)
         );
@@ -217,7 +217,7 @@ const EditServiceModal = ({
         return;
       }
       setLoading({ status: false });
-      toast.error(result.message as string, { className: 'loginToast' });
+      toast.error(result.message as string, { className: "loginToast" });
       return;
     } catch (error: any) {
       setLoading({ status: false });
@@ -233,17 +233,17 @@ const EditServiceModal = ({
       if (result.status) {
         setPopulatedImages(service?.media?.filter((x: any) => x.id !== id));
         setLoading({ status: false });
-        toast.success('Successful!', { className: 'loginToast' });
+        toast.success("Successful!", { className: "loginToast" });
         // router.reload();
         return;
       }
       setLoading({ status: false });
-      toast.error(result.message as string, { className: 'loginToast' });
+      toast.error(result.message as string, { className: "loginToast" });
       return;
     } catch (error: any) {
       setLoading({ status: false });
       toast.error(error?.body?.message || error?.message, {
-        className: 'loginToast',
+        className: "loginToast",
       });
     }
   };
@@ -258,17 +258,17 @@ const EditServiceModal = ({
         });
         setPopulatedImages(services.data?.media);
         setLoading({ status: false });
-        toast.success('Successful!', { className: 'loginToast' });
+        toast.success("Successful!", { className: "loginToast" });
         // router.reload();
         return;
       }
       setLoading({ status: false });
-      toast.error(result.message as string, { className: 'loginToast' });
+      toast.error(result.message as string, { className: "loginToast" });
       return;
     } catch (error: any) {
       setLoading({ status: false });
       toast.error(error?.body?.message || error?.message, {
-        className: 'loginToast',
+        className: "loginToast",
       });
     }
   };
@@ -276,7 +276,7 @@ const EditServiceModal = ({
   const [bannerUrl, setBannerUrl] = useState();
   const [imageLoading, setImageLoading] = useState<any>({
     status: false,
-    total: '',
+    total: "",
   });
   const widgetApi = useRef<any>(null);
   const uploadBannerUrl = (file: any) => {
@@ -285,7 +285,7 @@ const EditServiceModal = ({
         setImageLoading({ status: true, total: info.progress });
       });
       file.done((info: any) => {
-        setImageLoading({ status: false, total: '' });
+        setImageLoading({ status: false, total: "" });
         setBannerUrl(info.originalUrl);
       });
     }
@@ -303,7 +303,7 @@ const EditServiceModal = ({
     try {
       const result = await StudioService.updateService({ requestBody: data });
       if (result.status) {
-        toast.success('Successful!');
+        toast.success("Successful!");
         router.reload();
         return;
       }
@@ -330,7 +330,7 @@ const EditServiceModal = ({
             register={register}
           />
           <Grid
-            templateColumns={{ base: 'repeat(1,1fr)', md: 'repeat(2,1fr)' }}
+            templateColumns={{ base: "repeat(1,1fr)", md: "repeat(2,1fr)" }}
             gap="1.5rem"
             mt="1.5rem"
           >
@@ -339,7 +339,7 @@ const EditServiceModal = ({
               defaultValue={service.price}
               register={register}
               error={errors.price}
-              name={'price'}
+              name={"price"}
               control={control}
               label="Service Price (NGN)"
             />
@@ -372,7 +372,7 @@ const EditServiceModal = ({
                 imagesOnly
                 onFileSelect={uploadBannerUrl}
                 ref={widgetApi}
-                inputAcceptTypes={'.jpeg,.jpg, .png'}
+                inputAcceptTypes={".jpeg,.jpg, .png"}
               />
             </Box>
             <FormLabel fontSize=".8rem">Upload Cover Image</FormLabel>
@@ -413,7 +413,7 @@ const EditServiceModal = ({
                     transition=".5s all ease"
                     onClick={() => widgetApi.current.openDialog()}
                     _groupHover={{
-                      bottom: '0',
+                      bottom: "0",
                     }}
                   >
                     Change Photo
@@ -442,7 +442,7 @@ const EditServiceModal = ({
             </Flex>
           </Box>
           <Grid
-            templateColumns={{ base: 'repeat(1,1fr)', md: 'repeat(2,1fr)' }}
+            templateColumns={{ base: "repeat(1,1fr)", md: "repeat(2,1fr)" }}
             gap="1.5rem"
           >
             <Box minW="0">
@@ -452,7 +452,7 @@ const EditServiceModal = ({
                 name="description"
                 error={errors.description}
                 register={register}
-                defaultValue={''}
+                defaultValue={""}
               />
             </Box>
             <Box minW="0">
@@ -496,7 +496,7 @@ const EditServiceModal = ({
                         transform="translate(-50%, -50%)"
                         _groupHover={{
                           opacity: 1,
-                          bgColor: 'rgba(0,0,0,.5)',
+                          bgColor: "rgba(0,0,0,.5)",
                         }}
                       >
                         {loading.status && loading.id == x.id ? (
@@ -535,7 +535,7 @@ const EditServiceModal = ({
                         onFileSelect={(file) => onChangeImg(file)}
                       />
 
-                      {loading.status && loading.id == 'imageLoad' ? (
+                      {loading.status && loading.id == "imageLoad" ? (
                         <Spinner size="sm" />
                       ) : (
                         <Icon as={AiOutlinePlus} />
@@ -548,7 +548,7 @@ const EditServiceModal = ({
           </Grid>
         </form>
         <Box my=".5rem">
-          <Flex justify="space-between" flexDir={{ base: 'column', md: 'row' }}>
+          <Flex justify="space-between" flexDir={{ base: "column", md: "row" }}>
             <HStack align="center" spacing="0">
               <FormLabel fontSize=".9rem" mb="0">
                 Additional services
@@ -572,10 +572,10 @@ const EditServiceModal = ({
             </Button>
           </Flex>
           {newField.map((x: any) => (
-            <form>
+            <form key={x.id}>
               <HStack key={x.id} align="flex-end" w="full" gap="1rem">
                 <Grid
-                  templateColumns={['repeat(2,1fr)']}
+                  templateColumns={["repeat(2,1fr)"]}
                   gap="1.5rem"
                   mt="1rem"
                   w="full"
@@ -591,14 +591,14 @@ const EditServiceModal = ({
                     placeholder="₦0.00"
                     register={registers}
                     error={isError.price}
-                    name={'price'}
+                    name={"price"}
                     control={controls}
                     label="Service Price (NGN)"
                   />
                 </Grid>
                 <Button
                   aria-label="Edit Addon"
-                  bgColor={'brand.100'}
+                  bgColor={"brand.100"}
                   color="white"
                   height="2.8rem"
                   px="2.5rem"
@@ -606,7 +606,7 @@ const EditServiceModal = ({
                   isDisabled={!isAddValid}
                   onClick={handleAdditionalSubmit(additionServicesFn)}
                   _hover={{
-                    bgColor: 'brand.100',
+                    bgColor: "brand.100",
                   }}
                 >
                   Add
@@ -620,8 +620,8 @@ const EditServiceModal = ({
                 <HStack key={x.id} align="flex-end" w="full" gap="1rem">
                   <Grid
                     templateColumns={{
-                      base: 'repeat(1,1fr)',
-                      lg: 'repeat(1,1fr)',
+                      base: "repeat(1,1fr)",
+                      lg: "repeat(1,1fr)",
                     }}
                     gap="1.5rem"
                     w="full"
@@ -652,7 +652,7 @@ const EditServiceModal = ({
                     <IconButton
                       icon={<BsCheck2All />}
                       aria-label="Edit Addon"
-                      bgColor={addon.id == x.id ? 'brand.100' : 'gray.400'}
+                      bgColor={addon.id == x.id ? "brand.100" : "gray.400"}
                       color="white"
                       height="2.8rem"
                       w="2.8rem"
@@ -672,7 +672,7 @@ const EditServiceModal = ({
                     <IconButton
                       icon={<AiFillDelete />}
                       aria-label="Edit Addon"
-                      bgColor={addon.id == x.id ? 'red' : 'gray.400'}
+                      bgColor={addon.id == x.id ? "red" : "gray.400"}
                       color="white"
                       height="2.8rem"
                       w="2.8rem"

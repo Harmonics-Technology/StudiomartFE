@@ -11,9 +11,10 @@ function Pagination({ data }: pageOptions) {
   const totalPages = Math.ceil(
     (data?.size as number) / (data?.limit as unknown as number)
   );
-  console.log({ data, totalPages });
+  // console.log({ data, totalPages });
   const current = data?.nextOffset / data?.limit;
   const pages = [...Array(totalPages || 0).keys()];
+  // const pages =
 
   const router = useRouter();
   const next = data?.next?.href;
