@@ -96,90 +96,80 @@ export default function SecurityQuestion({
   const { device } = useContext(UserContext);
   console.log({ device });
   return (
-    <Flex
-      bgColor="white"
-      align="center"
-      minH="60vh"
-      w="90%"
-      mx="auto"
-      my="3rem"
-    >
-      <AccountContainer>
-        {" "}
-        {userQuest?.message && (
-          <Text
-            textAlign="right"
-            color="brand.100"
-            fontSize=".8rem"
-            cursor="pointer"
-            onClick={() => setUserQuest(undefined)}
-          >
-            Change Security Question
-          </Text>
-        )}
-        {userQuest?.message && (
-          <Box w="full" h="80vh" pos="absolute" zIndex="888" />
-        )}
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-          <VStack gap="1rem">
-            <PrimaryInput<SecurityQuestionModel>
-              label="Set a personal security question."
-              type="text"
-              placeholder="what is your pet name"
-              name="question"
-              error={errors.question}
-              register={register}
-              defaultValue={userQuest?.message}
-            />
-            <PrimaryInput<SecurityQuestionModel>
-              label="Enter the answer"
-              type="text"
-              placeholder="cat"
-              name="answer"
-              error={errors.answer}
-              register={register}
-              // defaultValue={user?.lastName}
-            />
-            <PrimaryInput<SecurityQuestionModel>
-              label="Please Enter Generated OTP"
-              type="text"
-              placeholder="489752"
-              name="otp"
-              error={errors.otp}
-              register={register}
-              defaultValue={""}
-              icon={true}
-              changeVisibility={getOtp}
-              otp={isLoading ? <Spinner size="sm" /> : "Get OTP"}
-            />
-            <PrimaryInput<SecurityQuestionModel>
-              label="Please enter your password"
-              placeholder="......"
-              type={passwordVisible ? "text" : "password"}
-              icon={true}
-              passwordVisible={passwordVisible}
-              changeVisibility={() => setPasswordVisible((prev) => !prev)}
-              name="password"
-              error={errors.password}
-              register={register}
-            />
+    <AccountContainer>
+      {userQuest?.message && (
+        <Text
+          textAlign="right"
+          color="brand.100"
+          fontSize=".8rem"
+          cursor="pointer"
+          onClick={() => setUserQuest(undefined)}
+        >
+          Change Security Question
+        </Text>
+      )}
+      {userQuest?.message && (
+        <Box w="full" h="80vh" pos="absolute" zIndex="888" />
+      )}
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+        <VStack gap="1rem">
+          <PrimaryInput<SecurityQuestionModel>
+            label="Set a personal security question."
+            type="text"
+            placeholder="what is your pet name"
+            name="question"
+            error={errors.question}
+            register={register}
+            defaultValue={userQuest?.message}
+          />
+          <PrimaryInput<SecurityQuestionModel>
+            label="Enter the answer"
+            type="text"
+            placeholder="cat"
+            name="answer"
+            error={errors.answer}
+            register={register}
+            // defaultValue={user?.lastName}
+          />
+          <PrimaryInput<SecurityQuestionModel>
+            label="Please Enter Generated OTP"
+            type="text"
+            placeholder="489752"
+            name="otp"
+            error={errors.otp}
+            register={register}
+            defaultValue={""}
+            icon={true}
+            changeVisibility={getOtp}
+            otp={isLoading ? <Spinner size="sm" /> : "Get OTP"}
+          />
+          <PrimaryInput<SecurityQuestionModel>
+            label="Please enter your password"
+            placeholder="......"
+            type={passwordVisible ? "text" : "password"}
+            icon={true}
+            passwordVisible={passwordVisible}
+            changeVisibility={() => setPasswordVisible((prev) => !prev)}
+            name="password"
+            error={errors.password}
+            register={register}
+          />
 
-            <Flex justifyContent="flex-end" w="full">
-              <Button
-                disabled={!isValid}
-                bgColor="brand.100"
-                color="white"
-                width="100%"
-                type="submit"
-                isLoading={isSubmitting}
-                h="3rem"
-              >
-                Save
-              </Button>
-            </Flex>
-          </VStack>
-        </form>
-      </AccountContainer>
-    </Flex>
+          <Flex justifyContent="flex-end" w="full">
+            <Button
+              disabled={!isValid}
+              bgColor="brand.100"
+              color="white"
+              width="100%"
+              type="submit"
+              isLoading={isSubmitting}
+              h="3rem"
+            >
+              Save
+            </Button>
+          </Flex>
+        </VStack>
+      </form>
+    </AccountContainer>
   );
 }

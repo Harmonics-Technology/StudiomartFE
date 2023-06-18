@@ -79,105 +79,69 @@ export default function Notifications() {
   }, []);
 
   return (
-    <Flex
-      bgColor="white"
-      align="center"
-      minH="60vh"
-      w="90%"
-      mx="auto"
-      my="3rem"
-    >
-      <AccountContainer>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack spacing={0} gap="1.5rem">
-            <Text mb="0">
-              Spam is something that everyone despises. This kind that is sent
-              by email. We do not need to make sure you get the vital
-              information, and you might enjoy the cool information as well.
+    <AccountContainer>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Stack spacing={0} gap="1.5rem">
+          <Text mb="0">
+            Spam is something that everyone despises. This kind that is sent by
+            email. We do not need to make sure you get the vital information,
+            and you might enjoy the cool information as well.
+          </Text>
+          <Text>
+            Don&#39;t worry, you&#39;ll be able to go back and make changes
+            later.
+          </Text>
+          <Text mb="0" fontWeight="600">
+            How should we notify you about your account activity? Not to worry,
+            you can edit this later
+          </Text>
+          <HStack spacing="24px">
+            <Checkbox
+              onChange={(e) =>
+                setValue("allowSmsNotification", e.target.checked)
+              }
+              isChecked={watch("allowSmsNotification")}
+            >
+              SMS
+            </Checkbox>
+            <Checkbox
+              onChange={(e) =>
+                setValue("allowEmailNotification", e.target.checked)
+              }
+              isChecked={watch("allowEmailNotification")}
+            >
+              EMAIL
+            </Checkbox>
+          </HStack>
+          <VStack align="flex-start">
+            <Text fontWeight="600" fontSize="16px" mb="0">
+              Activate push notifications?
             </Text>
-            <Text>
-              Don&#39;t worry, you&#39;ll be able to go back and make changes
-              later.
-            </Text>
-            <Text mb="0" fontWeight="600">
-              How should we notify you about your account activity? Not to
-              worry, you can edit this later
-            </Text>
-            <HStack spacing="24px">
-              <Checkbox
-                onChange={(e) =>
-                  setValue("allowSmsNotification", e.target.checked)
-                }
-                isChecked={watch("allowSmsNotification")}
-              >
-                SMS
-              </Checkbox>
-              <Checkbox
-                onChange={(e) =>
-                  setValue("allowEmailNotification", e.target.checked)
-                }
-                isChecked={watch("allowEmailNotification")}
-              >
-                EMAIL
-              </Checkbox>
-            </HStack>
-            <VStack align="flex-start">
-              <Text fontWeight="600" fontSize="16px" mb="0">
-                Activate push notifications?
-              </Text>
-              <Text>For important updates and account notifications</Text>
-              <Checkbox
-                onChange={(e) =>
-                  setValue("allowPushNotification", e.target.checked)
-                }
-                isChecked={watch("allowPushNotification")}
-              >
-                Yes please do
-              </Checkbox>
-            </VStack>
-            <Flex justifyContent="flex-end" w="full">
-              <Button
-                isDisabled={!isValid}
-                bgColor="brand.100"
-                color="white"
-                width="100%"
-                type="submit"
-                isLoading={isSubmitting}
-                h="3rem"
-              >
-                Save
-              </Button>
-            </Flex>
-          </Stack>
-        </form>
-      </AccountContainer>
-    </Flex>
+            <Text>For important updates and account notifications</Text>
+            <Checkbox
+              onChange={(e) =>
+                setValue("allowPushNotification", e.target.checked)
+              }
+              isChecked={watch("allowPushNotification")}
+            >
+              Yes please do
+            </Checkbox>
+          </VStack>
+          <Flex justifyContent="flex-end" w="full">
+            <Button
+              isDisabled={!isValid}
+              bgColor="brand.100"
+              color="white"
+              width="100%"
+              type="submit"
+              isLoading={isSubmitting}
+              h="3rem"
+            >
+              Save
+            </Button>
+          </Flex>
+        </Stack>
+      </form>
+    </AccountContainer>
   );
 }
-
-//   return (
-//     <Flex width="full" align="center" justifyContent="center">
-//       <AccountSideBar/>
-//       <Box p={2}>
-//         <Box my={4} textAlign="left">
-//         <Box p={8} maxWidth="500px" >
-//           <Text>
-//              Spam is something that everyone despises. This kind that is sent by email.
-//              We do not need to make sure you get the vital information, and you might enjoy
-//              the cool information as well.
-//           </Text>
-//           <Text>
-//              Don't worry, you'll be able to go back and make changes later.
-//           </Text>
-//           <Text>
-//              How should we notify you about your account activity?
-//              Not to worry, you can edit this later
-//           </Text>
-//         <Button width="50%" type="submit" backgroundColor="blue" color="white" >
-//              Update Settings
-//         </Button>
-//         </Box>
-//         </Box>
-//       </Box>
-//     </Flex>
-//   );}

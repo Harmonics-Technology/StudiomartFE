@@ -167,7 +167,7 @@ export default function BookingHistory({ bookings }: IBookingsProps) {
   return (
     <Box my="3rem">
       <Box w={{ base: "90%", lg: "90%" }} mx="auto">
-        {/* <BookingFilters /> */}
+        <BookingFilters />
         {bookings?.value?.length == 0 ? (
           <NotFound />
         ) : (
@@ -280,7 +280,7 @@ export default function BookingHistory({ bookings }: IBookingsProps) {
                               .reviewStars
                           }
                         />
-                        <Text>
+                        <Text mb="0">
                           {
                             getReviewSummary(x.service?.reviewCounts)
                               .reviewTotal

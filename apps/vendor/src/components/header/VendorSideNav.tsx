@@ -133,6 +133,7 @@ function VendorSideNav({ setShowSide, showSide }: Side) {
                 fontSize="1rem"
                 pl=".5rem"
                 textTransform="capitalize"
+                mb="0"
               >
                 Logout
               </Text>

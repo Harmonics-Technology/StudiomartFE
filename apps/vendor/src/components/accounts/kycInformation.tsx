@@ -123,141 +123,131 @@ export default function KycInformation({ singleStudio }: StudioProps) {
   };
 
   return (
-    <Flex
-      bgColor="white"
-      align="center"
-      minH="60vh"
-      w="90%"
-      mx="auto"
-      my="3rem"
-    >
-      <AccountContainer>
-        {" "}
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack gap="1rem">
-            <PrimaryInput<StudioKYCModel>
-              label="Office Address"
-              type="text"
-              placeholder="Enter your office address"
-              name="officeAddress"
-              error={errors.officeAddress}
-              register={register}
-              defaultValue={""}
+    <AccountContainer>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Stack gap="1rem">
+          <PrimaryInput<StudioKYCModel>
+            label="Office Address"
+            type="text"
+            placeholder="Enter your office address"
+            name="officeAddress"
+            error={errors.officeAddress}
+            register={register}
+            defaultValue={""}
+          />
+          <PrimaryInput<StudioKYCModel>
+            label="Studio Capacity"
+            type="text"
+            placeholder="What is your studio capacity"
+            name="studioCapacity"
+            error={errors.studioCapacity}
+            register={register}
+            defaultValue={""}
+          />
+          <FormLabel fontWeight="500" fontSize=".8rem">
+            CAC Document
+          </FormLabel>
+          <Box display="none">
+            <Widget
+              publicKey="fda3a71102659f95625f"
+              systemDialog
+              imagesOnly
+              onFileSelect={onChangeLogoImage}
+              ref={widgetLogoApi}
+              inputAcceptTypes={".jpeg,.jpg, .png"}
             />
-            <PrimaryInput<StudioKYCModel>
-              label="Studio Capacity"
-              type="text"
-              placeholder="What is your studio capacity"
-              name="studioCapacity"
-              error={errors.studioCapacity}
-              register={register}
-              defaultValue={""}
-            />
-            <FormLabel fontWeight="500" fontSize=".8rem">
-              CAC Document
-            </FormLabel>
-            <Box display="none">
-              <Widget
-                publicKey="fda3a71102659f95625f"
-                systemDialog
-                imagesOnly
-                onFileSelect={onChangeLogoImage}
-                ref={widgetLogoApi}
-                inputAcceptTypes={".jpeg,.jpg, .png"}
-              />
-            </Box>
-            <Button
-              fontWeight="400"
-              fontSize="16px"
-              height="3.5rem"
-              color="#AFAFAF"
-              bgColor="white"
-              border="1px dotted #afafaf82"
-              justifyContent="center"
-              borderRadius="8px"
-              onClick={() => widgetLogoApi.current.openDialog()}
-            >
-              {logoLoading.status ? (
-                <Square size="3rem">
-                  <CircularProgressbar
-                    value={logoLoading.total}
-                    maxValue={1}
-                    text={`${logoLoading.total * 100}%`}
-                  />
-                </Square>
-              ) : (
-                <>
-                  <Text mb="0">
-                    {singleStudio.cacDocumentReference
-                      ? "File 001"
-                      : cacDocument.name || "CAC Document"}
-                  </Text>
-                </>
-              )}
-            </Button>
-            <FormLabel fontWeight="500" fontSize=".8rem">
-              Upload a valid means of identification
-            </FormLabel>
-            <Box display="none">
-              <Widget
-                publicKey="fda3a71102659f95625f"
-                systemDialog
-                imagesOnly
-                onFileSelect={onChangeImg}
-                ref={widgetApi}
-                inputAcceptTypes={".jpeg,.jpg, .png"}
-              />
-            </Box>
-            <Button
-              fontWeight="400"
-              fontSize="16px"
-              height="4rem"
-              color="#AFAFAF"
-              bgColor="white"
-              border="1px dotted #afafaf82"
-              justifyContent="center"
-              borderRadius="8px"
-              onClick={() => widgetApi.current.openDialog()}
-            >
-              {imageLoading.status ? (
-                <Square size="3rem">
-                  <CircularProgressbar
-                    value={logoLoading.total}
-                    maxValue={1}
-                    text={`${logoLoading.total * 100}%`}
-                  />
-                </Square>
-              ) : (
-                <>
+          </Box>
+          <Button
+            fontWeight="400"
+            fontSize="16px"
+            height="3.5rem"
+            color="#AFAFAF"
+            bgColor="white"
+            border="1px dotted #afafaf82"
+            justifyContent="center"
+            borderRadius="8px"
+            onClick={() => widgetLogoApi.current.openDialog()}
+          >
+            {logoLoading.status ? (
+              <Square size="3rem">
+                <CircularProgressbar
+                  value={logoLoading.total}
+                  maxValue={1}
+                  text={`${logoLoading.total * 100}%`}
+                />
+              </Square>
+            ) : (
+              <>
+                <Text mb="0">
                   {singleStudio.cacDocumentReference
-                    ? "File 002"
-                    : idUrl.name || (
-                        <VStack>
-                          <BiCloudUpload />
-                          <Text mb="0">
-                            Click here to upload your identification
-                          </Text>
-                        </VStack>
-                      )}
-                </>
-              )}
+                    ? "File 001"
+                    : cacDocument.name || "CAC Document"}
+                </Text>
+              </>
+            )}
+          </Button>
+          <FormLabel fontWeight="500" fontSize=".8rem">
+            Upload a valid means of identification
+          </FormLabel>
+          <Box display="none">
+            <Widget
+              publicKey="fda3a71102659f95625f"
+              systemDialog
+              imagesOnly
+              onFileSelect={onChangeImg}
+              ref={widgetApi}
+              inputAcceptTypes={".jpeg,.jpg, .png"}
+            />
+          </Box>
+          <Button
+            fontWeight="400"
+            fontSize="16px"
+            height="4rem"
+            color="#AFAFAF"
+            bgColor="white"
+            border="1px dotted #afafaf82"
+            justifyContent="center"
+            borderRadius="8px"
+            onClick={() => widgetApi.current.openDialog()}
+          >
+            {imageLoading.status ? (
+              <Square size="3rem">
+                <CircularProgressbar
+                  value={logoLoading.total}
+                  maxValue={1}
+                  text={`${logoLoading.total * 100}%`}
+                />
+              </Square>
+            ) : (
+              <>
+                {singleStudio.cacDocumentReference
+                  ? "File 002"
+                  : idUrl.name || (
+                      <VStack>
+                        <BiCloudUpload />
+                        <Text mb="0">
+                          Click here to upload your identification
+                        </Text>
+                      </VStack>
+                    )}
+              </>
+            )}
+          </Button>
+          <HStack justifyContent="flex-end" w="full">
+            <Button
+              isDisabled={!isValid}
+              bgColor="brand.100"
+              color="white"
+              width="100%"
+              type="submit"
+              isLoading={isSubmitting}
+              h="3rem"
+            >
+              Save
             </Button>
-            <HStack justifyContent="flex-end" w="full">
-              <Button
-                isDisabled={!isValid}
-                bgColor="brand.100"
-                color="white"
-                width="100%"
-                type="submit"
-                isLoading={isSubmitting}
-                h="3rem"
-              >
-                Save
-              </Button>
-            </HStack>
-          </Stack>
-        </form>
-      </AccountContainer>
-    </Flex>
+          </HStack>
+        </Stack>
+      </form>
+    </AccountContainer>
   );
 }

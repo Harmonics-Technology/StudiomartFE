@@ -100,15 +100,16 @@ const BookingFilters = ({ w }: { w?: any }) => {
   return (
     <Box borderBottom="1px solid" borderColor="gray.300">
       <HStack
-        justify="space-between"
+        justify={{ base: "space-between", lg: "space-between" }}
         p="2rem 0rem 1rem"
         fontSize=".8rem"
         align="center"
         w={w}
         mx="auto"
+        flexWrap="wrap"
       >
         <Text mb="0">Showing {filterLabel}</Text>
-        <InputGroup w="30%">
+        <InputGroup w={{ base: "60%", lg: "30%" }}>
           <InputLeftElement top=".2rem" color="gray.400" fontSize=".8rem">
             <RiSearch2Fill />
           </InputLeftElement>
@@ -138,9 +139,9 @@ const BookingFilters = ({ w }: { w?: any }) => {
               const value = from && to ? from + " - " + to : from;
               return (
                 <HStack
-                  w="fit-content"
+                  w={{ base: "full", lg: "fit-content" }}
                   px="1rem"
-                  minW="30%"
+                  minW={"30%"}
                   h="2.5rem"
                   justifyContent="center"
                   alignItems="center"

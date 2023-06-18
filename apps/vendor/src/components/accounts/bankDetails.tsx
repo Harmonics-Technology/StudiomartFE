@@ -116,91 +116,61 @@ export default function BankDetails({
         submit={true}
       />
 
-      <Flex
-        bgColor="white"
-        align="center"
-        minH="60vh"
-        w="95%"
-        mx="auto"
-        my="3rem"
-        borderRadius="10px"
-        p="5rem"
-      >
-        <Box w="full">
-          {bankAccounts.length > 0 && (
-            <Box>
-              <Text fontWeight="600">Saved Banks</Text>
-              <HStack gap="1rem">
-                {bankAccounts.map((x: any) => (
-                  <BankCard
-                    key={x.id}
-                    bankName={x.bankName}
-                    accountNumber={x.accountNumber}
-                    accountName={x.accountName}
-                    id={x.id}
-                  />
-                ))}
-              </HStack>
-            </Box>
-          )}
-          <AccountContainer>
-            {" "}
-            <form>
-              <Stack gap="1rem">
-                <PrimarySelect<BankAccountModel>
-                  label="Bank Name"
-                  name="bankCode"
-                  error={errors.bankCode}
-                  register={register}
-                  options={
-                    <>
-                      <option hidden selected>
-                        Select a bank
-                      </option>
-                      {banks.map((bank: Banks) => (
-                        <option value={bank.code as string} key={bank.id}>
-                          {bank.name}
-                        </option>
-                      ))}
-                    </>
-                  }
-                />
-                <PrimaryInput<BankAccountModel>
-                  label="Account Number"
-                  type="text"
-                  placeholder="Enter your account number"
-                  name="accountNumber"
-                  error={errors.accountNumber}
-                  register={register}
-                  defaultValue={""}
-                />
-                <DisabledInput<BankAccountModel>
-                  label="Account Name"
-                  type="text"
-                  placeholder="Enter your account name"
-                  defaultValue={""}
-                  value={watch("accountName") || ""}
-                  readonly={true}
-                />
-                <Flex justifyContent="flex-end" w="full">
-                  <Button
-                    isDisabled={!isValid}
-                    bgColor="brand.100"
-                    color="white"
-                    width="100%"
-                    type="button"
-                    h="3rem"
-                    onClick={onOpen}
-                    isLoading={isSubmitting}
-                  >
-                    Add Bank Account
-                  </Button>
-                </Flex>
-              </Stack>
-            </form>
-          </AccountContainer>
-        </Box>
-      </Flex>
+      <AccountContainer bankAccounts={bankAccounts}>
+        <form>
+          <Stack gap="1rem">
+            <PrimarySelect<BankAccountModel>
+              label="Bank Name"
+              name="bankCode"
+              error={errors.bankCode}
+              register={register}
+              options={
+                <>
+                  <option hidden selected>
+                    Select a bank
+                  </option>
+                  {banks.map((bank: Banks) => (
+                    <option value={bank.code as string} key={bank.id}>
+                      {bank.name}
+                    </option>
+                  ))}
+                </>
+              }
+            />
+            <PrimaryInput<BankAccountModel>
+              label="Account Number"
+              type="text"
+              placeholder="Enter your account number"
+              name="accountNumber"
+              error={errors.accountNumber}
+              register={register}
+              defaultValue={""}
+            />
+            <DisabledInput<BankAccountModel>
+              label="Account Name"
+              type="text"
+              placeholder="Enter your account name"
+              defaultValue={""}
+              value={watch("accountName") || ""}
+              readonly={true}
+            />
+            <Flex justifyContent="flex-end" w="full">
+              <Button
+                isDisabled={!isValid}
+                bgColor="brand.100"
+                color="white"
+                width="100%"
+                type="button"
+                h="3rem"
+                onClick={onOpen}
+                isLoading={isSubmitting}
+              >
+                Add Bank Account
+              </Button>
+            </Flex>
+          </Stack>
+        </form>
+      </AccountContainer>
     </>
   );
 }
