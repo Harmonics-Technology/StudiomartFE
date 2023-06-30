@@ -20,8 +20,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { auth } from "@components/firebase/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, signIn } from "@components/firebase/firebase";
+// import { signInWithEmailAndPassword as signIn } from "firebase/auth";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -58,11 +58,7 @@ export const LoginPage = () => {
         if (terms) {
           Cookies.set("isCustomer", JSON.stringify(data));
         }
-        await signInWithEmailAndPassword(
-          auth,
-          data.email as string,
-          data.password as string
-        );
+        await signIn(auth, data.email as string, data.password as string);
         Cookies.set("customer", JSON.stringify(result.data));
         Cookies.set("user", "Customer");
         OpenAPI.TOKEN = result?.data?.token as string;
