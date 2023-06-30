@@ -1,30 +1,116 @@
-@import url('https://fonts.cdnfonts.com/css/br-firma');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Poppins:wght@300;400;500;700&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
+@import url("https://fonts.cdnfonts.com/css/br-firma");
+@import url("@smastrom/react-rating/style.css");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.cdnfonts.com/css/cabinet-grotesk");
+@import url("react-circular-progressbar/dist/styles.css");
+@import url("./toast.css");
+@import url("rc-slider/assets/index.css");
+@import url("react-loading-skeleton/dist/skeleton.css");
+@import url("slick-carousel/slick/slick.css");
+@import url("slick-carousel/slick/slick-theme.css");
+@import url("./checkbox.css");
 html,
 body {
-    margin: 0;
-    padding: 0;                                                                    font-family: 'BR Firma', sans-serif;
-    font-family: 'DM Sans', sans-serif;
-                                                
-                                                
+  margin: 0;
+  padding: 0;
+  font-family: "DM Sans", sans-serif;
 }
 
-::-webkit-scrollbar{
-    width: 3px;
-    border-radius: 20px;
-   
-
+::-webkit-scrollbar {
+  width: 3px;
+  border-radius: 20px;
 }
 
-::-webkit-scrollbar-thumb{
-    background: #1570FA;
-    border-radius: 20px;
-    height: 5px;
+::-webkit-scrollbar-thumb {
+  background: #1570fa;
+  border-radius: 20px;
+  height: 5px;
 }
 
 .boxContainer {
-    border: '4px solid red'
+  border: "4px solid red";
+}
+.dummy-img {
+  height: 100% !important;
+  width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+.date {
+  border: 1px solid #808080;
+  height: 60px;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 4px;
+  font-family: "DM Sans";
+  font-size: 20px;
+  color: #636363;
+  font-weight: 700;
+}
+.dateWrapper {
+  width: 100%;
 }
 
+#globalLoader {
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  background-color: #fff;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+#globalLoader img {
+  width: 3rem;
+  height: 3rem;
+}
+.auto {
+  border: 2px solid #ddd7d7;
+  height: 2.8rem;
+  width: 100%;
+  padding: 0 1rem;
+}
+.slick-slide {
+  margin-right: 2rem;
+}
+.service-slick {
+  width: 100%;
+}
+.service-slick .slick-slide {
+  margin-right: 0;
+}
+.slick-track {
+  display: flex !important;
+}
+.slick-dots {
+  bottom: 32px !important;
+}
+.slick-dots li button:before {
+  background-color: white !important;
+  content: "" !important;
+  border-radius: 50px !important;
+  height: 8px !important;
+  width: 100% !important;
+  opacity: 0.75 !important;
+}
+.slick-dots li {
+  width: 100px !important;
+}
+.slick-dots li.slick-active button:before {
+  background-color: #1570fa !important;
+}
+
+@media (max-width: 700px) {
+  .slick-slide {
+    margin-right: 0.5rem !important;
+  }
+  .slick-dots li {
+    width: 30px !important;
+  }
+}

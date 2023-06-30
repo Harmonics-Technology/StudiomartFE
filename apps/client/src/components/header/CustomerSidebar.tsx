@@ -1,240 +1,256 @@
 import {
-    Drawer,
-    DrawerBody,
-    DrawerContent,
-    Text,
-    DrawerOverlay,
-    Box,
-    Flex,
-    DrawerHeader,
-    HStack,
-    Link,
-    useDisclosure,
-    Collapse,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  Text,
+  DrawerOverlay,
+  Box,
+  Flex,
+  DrawerHeader,
+  HStack,
+  Link,
+  useDisclosure,
+  Collapse,
+  VStack,
+  Button,
+  Image,
+  Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
 import React from "react";
 import {
-    BsFillCaretDownFill,
-    BsFillCaretUpFill,
-    BsFillPersonFill,
-    BsFillClockFill,
-    BsBorderWidth,
+  BsFillCaretDownFill,
+  BsFillCaretUpFill,
+  BsFillPersonFill,
+  BsFillClockFill,
+  BsBorderWidth,
+  BsSearch,
 } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { IoStorefront } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 import NextLink from "next/link";
+import { UserView } from "src/services";
+import Menus from "@components/utils/Menus";
+import category from "../utils/category.json";
 
 const NavLinks = ({
-    name,
-    path,
-    onClick,
+  name,
+  path,
+  onClick,
 }: {
-    name: string;
-    path: string;
-    onClick: any;
+  name: string;
+  path: string;
+  onClick: any;
 }) => {
-    return (
-        <NextLink href={path} passHref>
-            <Link
-                onClick={onClick}
-                borderBottom="1px solid #F5F5F5"
-                w="full"
-                display="inline-block"
-                px="7"
-                py="3"
-                _hover={{ bgColor: "brand.100", color: "white" }}
-            >
-                {name}
-            </Link>
-        </NextLink>
-    );
+  return (
+    <NextLink href={path} passHref>
+      <Link
+        onClick={onClick}
+        borderBottom="1px solid #F5F5F5"
+        w="full"
+        display="inline-block"
+        px="7"
+        py="3"
+        _hover={{ bgColor: "brand.100", color: "white" }}
+      >
+        {name}
+      </Link>
+    </NextLink>
+  );
 };
 
-const CustomerSidebar = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const { isOpen: isOpened, onToggle, onClose: onClosed } = useDisclosure();
-    const {
-        isOpen: isOpener,
-        onToggle: onToggler,
-        onClose: onCloser,
-    } = useDisclosure();
+const CustomerSidebar = ({
+  user,
+  logout,
+  opens,
+}: {
+  user: UserView;
+  logout: any;
+  opens: any;
+}) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const handleSidebar = () => {
-        onClose();
-        onClosed();
-        onCloser();
-    };
-
-    return (
-        <>
-            <Box
-                onClick={onOpen}
-                fontSize="1.5rem"
-                cursor="pointer"
-                mt={["1", "1.5"]}
+  return (
+    <Box w="full">
+      <Box
+        onClick={onOpen}
+        fontSize="1.5rem"
+        cursor="pointer"
+        mt={["1", "1.5"]}
+      >
+        <BsBorderWidth />
+      </Box>
+      <Drawer
+        isOpen={isOpen}
+        placement="left"
+        onClose={onClose}
+        trapFocus={false}
+      >
+        <DrawerOverlay />
+        <DrawerContent maxW={{ base: "60%", lg: "20%" }}>
+          <DrawerHeader px="3">
+            <HStack
+              align="center"
+              justify="space-between"
+              p="1rem 0rem 2rem"
+              boxShadow="sm"
+              borderBottom="1px solid"
+              borderColor="gray.300"
             >
-                <BsBorderWidth />
-            </Box>
-            <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
-                <DrawerOverlay />
-                <DrawerContent>
-                    <DrawerHeader px="3">
-                        <HStack align="center" justify="space-between">
-                            <Text mb="0" fontWeight={700}>
-                                StudioMart
-                            </Text>
-                            <Box
-                                onClick={onClose}
-                                p="1"
-                                cursor="pointer"
-                                rounded="md"
-                                bgColor="black"
-                                color="white"
-                            >
-                                <IoMdClose />
-                            </Box>
-                        </HStack>
-                    </DrawerHeader>
-                    <DrawerBody w="full" px="0">
-                        <Box>
-                            <Box>
-                                <Flex
-                                    align="center"
-                                    gap="3"
-                                    onClick={() => {
-                                        onCloser();
-                                        onToggle();
-                                    }}
-                                    cursor="pointer"
-                                    color={isOpened ? "white" : "black"}
-                                    bgColor={isOpened ? "brand.100" : "white"}
-                                    _hover={{
-                                        bgColor: "brand.100",
+              <Link href="/">
+                <HStack>
+                  <Box w="10rem" pl=".5rem">
+                    <Image src="/assets/studiomart.png" w="full" alt="logo" />
+                  </Box>
+                </HStack>
+              </Link>
+              <Box
+                onClick={onClose}
+                p="1"
+                cursor="pointer"
+                rounded="md"
+                bgColor="black"
+                color="white"
+              >
+                <IoMdClose />
+              </Box>
+            </HStack>
+          </DrawerHeader>
+          <DrawerBody w="full" px="0rem">
+            <VStack h="80vh" justify="space-between" align="flex-start">
+              <VStack spacing={0} gap="1rem" w="full" align="flex" mt=".5rem">
+                <Box
+                  width="90%"
+                  mx="auto"
+                  mb="1rem !important"
+                  display={{ base: "block", lg: "none" }}
+                >
+                  <InputGroup
+                    alignSelf="center"
+                    py={{ base: "0", lg: "1" }}
+                    size="lg"
+                    boxShadow="sm"
+                    borderRadius="4px"
+                    border="0.5px solid #E8E8E8"
+                    // borderColor="brand.100"
+                    pl="2"
+                    onClick={opens}
+                  >
+                    <InputLeftElement pointerEvents="none" h="full">
+                      <Icon as={BsSearch} color="#AFAFAF" />
+                    </InputLeftElement>
+                    <Input
+                      type="text"
+                      border="none"
+                      _focusVisible={{ outline: "none" }}
+                      _placeholder={{ fontSize: "1rem" }}
+                      placeholder="Search studio by name, category"
+                      overflow="hidden"
+                      pointerEvents="none"
+                    />
+                  </InputGroup>
+                </Box>
+                <Menus
+                  linkName=""
+                  menuTitle={`Home`}
+                  icon={<FaHome opacity=".8" />}
+                  option={false}
+                  dropDown={[]}
+                  onClose={onClose}
+                />
+                <Menus
+                  linkName="customer"
+                  menuTitle={`Hi ${user?.firstName}`}
+                  icon={<BsFillPersonFill opacity=".8" />}
+                  option={true}
+                  dropDown={[
+                    {
+                      id: "my-profile",
+                      name: "my profile",
+                    },
+                    {
+                      id: "customer-support",
+                      name: "customer support",
+                    },
+                  ]}
+                  onClose={onClose}
+                />
 
-                                        color: "white",
-                                    }}
-                                    borderBottom="1px solid #F5F5F5"
-                                    py="3"
-                                    px="7"
-                                >
-                                    <BsFillPersonFill fontSize="18px" />
-                                    <Text mb="0" fontWeight="medium">
-                                        Hi Fola
-                                    </Text>
-                                    {isOpened ? (
-                                        <BsFillCaretUpFill fontSize="18px" />
-                                    ) : (
-                                        <BsFillCaretDownFill fontSize="18px" />
-                                    )}
-                                </Flex>
-                                <Collapse in={isOpened} animateOpacity>
-                                    <NavLinks
-                                        name="My Profile"
-                                        path="/customer/profile"
-                                        onClick={handleSidebar}
-                                    />
-                                    <NavLinks
-                                        name="Customer support"
-                                        path="/customer/support"
-                                        onClick={handleSidebar}
-                                    />
-                                </Collapse>
-                            </Box>
-                            <NextLink href="/customer" passHref>
-                                <Flex
-                                    align="center"
-                                    onClick={handleSidebar}
-                                    gap="3"
-                                    cursor="pointer"
-                                    _hover={{
-                                        bgColor: "brand.100",
-                                        color: "white",
-                                    }}
-                                    borderBottom="1px solid #F5F5F5"
-                                    py="3"
-                                    px="7"
-                                >
-                                    <FaHome fontSize="18px" />
-                                    <Text mb="0" fontWeight="medium">
-                                        Home
-                                    </Text>
-                                </Flex>
-                            </NextLink>
-                            <NextLink href="/customer" passHref>
-                                <Flex
-                                    onClick={handleSidebar}
-                                    align="center"
-                                    gap="3"
-                                    cursor="pointer"
-                                    _hover={{
-                                        bgColor: "brand.100",
-                                        color: "white",
-                                    }}
-                                    borderBottom="1px solid #F5F5F5"
-                                    py="3"
-                                    px="7"
-                                >
-                                    <BsFillClockFill fontSize="18px" />
-                                    <Text mb="0" fontWeight="medium">
-                                        History
-                                    </Text>
-                                </Flex>
-                            </NextLink>
-                            <Box>
-                                <Flex
-                                    align="center"
-                                    gap="3"
-                                    onClick={() => {
-                                        onClosed();
-                                        onToggler();
-                                    }}
-                                    cursor="pointer"
-                                    color={isOpener ? "white" : "black"}
-                                    bgColor={isOpener ? "brand.100" : "white"}
-                                    _hover={{
-                                        bgColor: "brand.100",
-
-                                        color: "white",
-                                    }}
-                                    borderBottom="1px solid #F5F5F5"
-                                    py="3"
-                                    px="7"
-                                >
-                                    <IoStorefront fontSize="18px" />
-                                    <Text mb="0" fontWeight="medium">
-                                        Studios
-                                    </Text>
-                                    {isOpener ? (
-                                        <BsFillCaretUpFill fontSize="18px" />
-                                    ) : (
-                                        <BsFillCaretDownFill fontSize="18px" />
-                                    )}
-                                </Flex>
-                                <Collapse in={isOpener} animateOpacity>
-                                    <NavLinks
-                                        name="Music studio"
-                                        path="/customer/studio-category/music-category"
-                                        onClick={handleSidebar}
-                                    />
-                                    <NavLinks
-                                        name="Photography studio"
-                                        path="/customer/studio-category/photography-category"
-                                        onClick={handleSidebar}
-                                    />
-                                    <NavLinks
-                                        name="Make-up studio"
-                                        path="/customer/studio-category/make-up-category"
-                                        onClick={handleSidebar}
-                                    />
-                                </Collapse>
-                            </Box>
-                        </Box>
-                    </DrawerBody>
-                </DrawerContent>
-            </Drawer>
-        </>
-    );
+                <Menus
+                  linkName="customer/history"
+                  menuTitle={`History`}
+                  icon={<BsFillClockFill opacity=".8" />}
+                  option={false}
+                  dropDown={[]}
+                  onClose={onClose}
+                />
+                <Menus
+                  linkName="category"
+                  menuTitle={`Studios`}
+                  icon={<IoStorefront opacity=".8" />}
+                  option={true}
+                  dropDown={[
+                    {
+                      id: category?.find(
+                        (x: any) => x.name?.toLowerCase() == "music"
+                      )?.id,
+                      name: "music studio",
+                    },
+                    {
+                      id: category?.find(
+                        (x: any) => x.name?.toLowerCase() == "photo"
+                      )?.id,
+                      name: "photography studio",
+                    },
+                    {
+                      id: category?.find(
+                        (x: any) => x.name?.toLowerCase() == "makeup"
+                      )?.id,
+                      name: "makeup studio",
+                    },
+                    {
+                      id: category?.find(
+                        (x: any) => x.name?.toLowerCase() == "hair"
+                      )?.id,
+                      name: "hair studio",
+                    },
+                    {
+                      id: category?.find(
+                        (x: any) => x.name?.toLowerCase() == "video"
+                      )?.id,
+                      name: "video studio",
+                    },
+                  ]}
+                  onClose={onClose}
+                />
+                <Button
+                  h="3rem"
+                  w="80%"
+                  px="2rem"
+                  mx="auto !important"
+                  bg="brand.100"
+                  color="white"
+                  variant="outline"
+                  display={{ base: "flex", lg: "none" }}
+                  onClick={() => logout(["customerToken", "customer"])}
+                >
+                  Logout
+                </Button>
+              </VStack>
+              <Link href="/become-a-vendor" pl="2rem" textDecor="none">
+                <Text color="brand.100" fontWeight="600" mb="0">
+                  Become a vendor
+                </Text>
+              </Link>
+            </VStack>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </Box>
+  );
 };
 
 export default CustomerSidebar;

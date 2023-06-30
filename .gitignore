@@ -10,7 +10,7 @@ Explore
 UjjwolKayastha
 /
 next-chakra-tailwind
-Public
+# Public
 Fork your own copy of UjjwolKayastha/next-chakra-tailwind
 Code
 Issues
@@ -54,7 +54,9 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # local env files
+.env
 .env.local
+.env
 .env.development.local
 .env.test.local
 .env.production.local

@@ -1,52 +1,50 @@
-import { Box, Flex } from "@chakra-ui/react";
-import CustomerHeader from "@components/header/CustomerHeader";
-import VendorHeader from "@components/header/VendorHeader";
-import VendorSideNav from "@components/header/VendorSideNav";
-import { useRouter } from "next/router";
-import React from "react";
-import { Footer, Header } from "..";
+import { Box, Flex } from '@chakra-ui/react';
+import VendorHeader from '@components/header/VendorHeader';
+import VendorSideNav from '@components/header/VendorSideNav';
+import { useRouter } from 'next/router';
+import React, { useContext, useState } from 'react';
+import { Footer, Header } from '..';
+import Login from '@components/Authentication/Login';
+import Notice from '@components/Dashboard/Notice';
+import { UserContext } from '@components/Context/UserContext';
+import { StudioView, UserView } from 'src/services';
+import NoSSR from 'react-no-ssr';
 
 export const Layout: React.FC = ({ children }) => {
-    const router = useRouter();
-    const vendor = router.pathname.startsWith("/vendor");
-    return (
-        <>
-            {vendor ? (
-                <>
-                    <Flex pos="relative" bg="#f6f7f8">
-                        <VendorSideNav />
-                        <Box
-                            w={["full", "84%"]}
-                            as="main"
-                            ml="auto"
-                            minH="95vh"
-                        >
-                            <VendorHeader />
-                            <Box as="div" w="100%" mb="3rem">
-                                <Box>{children}</Box>
-                            </Box>
-                        </Box>
-                    </Flex>
-                </>
-            ) : (
-                <>
-                    {router.asPath === "/login" ||
-                    router.asPath ===
-                        "/register" ? null : router.pathname.startsWith(
-                          "/customer",
-                      ) ? (
-                        <CustomerHeader />
-                    ) : (
-                        <Header />
-                    )}
-                    {children}
-
-                    {router.asPath === "/login" ||
-                    router.asPath === "/register" ? null : (
-                        <Footer />
-                    )}
-                </>
-            )}
-        </>
-    );
+  const router = useRouter();
+  const { userStudios, currentStudioId } = useContext(UserContext);
+  const notDone: StudioView = userStudios?.find(
+    (x: any) => x.id == currentStudioId
+  );
+  // console.log({ notDone, userStudios, currentStudioId });
+  const noNav =
+    router.asPath.startsWith('/login') || router.asPath.startsWith('/register');
+  const [showSide, setShowSide] = useState<boolean>(false);
+  return (
+    <>
+      {noNav ? (
+        <Box>{children}</Box>
+      ) : (
+        <Flex pos="relative" bg="#f3f2f1">
+          <VendorSideNav showSide={showSide} setShowSide={setShowSide} />
+          <Box w={{ base: 'full', lg: '82%' }} as="main" ml="auto" minH="95vh">
+            <VendorHeader showSide={showSide} setShowSide={setShowSide} />
+            <NoSSR>
+              <Box as="div" w="100%" mb="1rem" minH="80vh">
+                {notDone?.meansOfIdentification ||
+                notDone?.cacDocumentReference ||
+                router.pathname.startsWith('/account') ? (
+                  <Box>{children}</Box>
+                ) : (
+                  <Notice />
+                )}
+                {/* <Box>{children}</Box> */}
+              </Box>
+            </NoSSR>
+          </Box>
+          <Footer />
+        </Flex>
+      )}
+    </>
+  );
 };

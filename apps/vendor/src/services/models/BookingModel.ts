@@ -5,5 +5,5 @@
 export type BookingModel = {
     serviceId?: string;
     date?: string;
-    time?: string;
+    time?: string | null;
 };

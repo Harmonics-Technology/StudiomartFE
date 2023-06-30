@@ -1,5 +1,4 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { Button } from "@components/button";
 
 import React from "react";
 import { BsExclamationCircleFill } from "react-icons/bs";
@@ -16,40 +15,51 @@ export const Responses = ({ response }: responseProp) => {
         bgColor={
           response == "pending"
             ? "#FDF3CA"
-            : response == "accept"
+            : response == "approved"
             ? "#D5E2F9"
-            : response == "progress"
+            : response == "in-progress"
             ? "#FDF3CA"
-            : response == "cancel"
+            : response == "rejected" || response == "cancelled"
             ? "#FDC1C1"
-            : "white"
+            : "#FDF3CA"
         }
         justify="center"
         py=".8rem"
       >
         {response == "pending" ? (
           <BsExclamationCircleFill color="#FACC15" fontSize="2rem" />
-        ) : response == "accept" ? (
+        ) : response == "approved" ? (
           <BsExclamationCircleFill color="#1570FA" fontSize="2rem" />
-        ) : response == "progress" ? (
+        ) : response == "in-progress" ? (
           <BsExclamationCircleFill color="#3D3D3D" fontSize="2rem" />
-        ) : response == "cancel" ? (
-          <BsExclamationCircleFill color="#FDC1C1" fontSize="2rem" />
+        ) : response == "rejected" || response == "cancelled" ? (
+          <BsExclamationCircleFill color="#DC2626" fontSize="2rem" />
         ) : (
-          "white"
+          <BsExclamationCircleFill color="#FDC1C1" fontSize="2rem" />
         )}
-        <Text ml="1rem" mb="0">
+        <Text
+          ml="1rem"
+          mb="0"
+          color={
+            response == "approved"
+              ? "#1570FA"
+              : response == "rejected" || response == "cancelled"
+              ? "#DC2626"
+              : "black"
+          }
+        >
           {response == "pending"
             ? "Booking Pending Confirmation"
-            : response == "accept"
+            : response == "approved"
             ? "Booking has been accepted, awaiting payment"
-            : response == "progress"
+            : response == "in-progress"
             ? "Payment has been made and sessions is in progress"
-            : response == "cancel"
+            : response == "rejected"
+            ? "Booking has been rejected"
+            : response == "cancelled"
             ? "Booking has been cancelled"
             : "Books"}
         </Text>
-
       </Flex>
       {/* ) : null} */}
     </>

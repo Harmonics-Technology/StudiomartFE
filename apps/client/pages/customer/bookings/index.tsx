@@ -7,30 +7,32 @@ import {
   HStack,
   Text,
   VStack,
-} from "@chakra-ui/react";
-import React from "react";
-import BackToPage from "src/utils/BackToPage";
-import Rating from "src/utils/Rating";
+} from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
+import { withPageAuth } from '@components/utils/withPageAuth';
+import { StudioService } from 'src/services';
+import React from 'react';
+import { BackToPage, Rating } from 'ui';
 
 const booking = () => {
   return (
     <Box w=" 100%" minH="100vh" py="30px">
       <Box w="90%" mx="auto">
-        <BackToPage name="Back to booking" path="/" />
+        <BackToPage name="Back to booking" />
         <Flex
-          flexDirection={["column", "column", "row"]}
-          gap={["0px", "30px"]}
+          flexDirection={['column', 'column', 'row']}
+          gap={['0px', '30px']}
           pt="30px"
         >
-          <Box width={["100%", "100%", "50%"]}>
+          <Box width={['100%', '100%', '50%']}>
             <Heading
               w="100%"
               bg="rgba(21, 112, 250, 0.1)"
               p="10px"
-              fontSize={["24px", "32px"]}
+              fontSize={['24px', '32px']}
               sx={{
-                "::first-letter": {
-                  textTransform: "capitalize",
+                '::first-letter': {
+                  textTransform: 'capitalize',
                 },
               }}
             >
@@ -42,18 +44,18 @@ const booking = () => {
                 w="100%"
                 fontWeight={600}
                 sx={{
-                  "::first-letter": {
-                    textTransform: "uppercase",
+                  '::first-letter': {
+                    textTransform: 'uppercase',
                   },
                 }}
                 mb="0"
               >
-                jugernaut studio - 70,000 NGN{" "}
+                jugernaut studio - 70,000 NGN{' '}
                 <span
                   style={{
-                    fontSize: "12px",
-                    color: "#718096",
-                    textTransform: "capitalize",
+                    fontSize: '12px',
+                    color: '#718096',
+                    textTransform: 'capitalize',
                   }}
                 >
                   per hour
@@ -79,10 +81,10 @@ const booking = () => {
                 mt="20px"
                 bg="rgba(21, 112, 250, 0.1)"
                 p="10px"
-                fontSize={["24px", "32px"]}
+                fontSize={['24px', '32px']}
                 sx={{
-                  "::first-letter": {
-                    textTransform: "capitalize",
+                  '::first-letter': {
+                    textTransform: 'capitalize',
                   },
                 }}
               >
@@ -97,11 +99,11 @@ const booking = () => {
                 pl="10px"
                 pt="10px"
               >
-                thursday 16, june 2022{" "}
+                thursday 16, june 2022{' '}
                 <span
                   style={{
                     fontWeight: 400,
-                    textTransform: "lowercase",
+                    textTransform: 'lowercase',
                   }}
                 >
                   (10:00a.m-11a.m)
@@ -113,11 +115,11 @@ const booking = () => {
               w="100%"
               bg="rgba(21, 112, 250, 0.1)"
               p="10px"
-              fontSize={["24px", "32px"]}
+              fontSize={['24px', '32px']}
               mt="20px"
               sx={{
-                "::first-letter": {
-                  textTransform: "capitalize",
+                '::first-letter': {
+                  textTransform: 'capitalize',
                 },
               }}
             >
@@ -128,7 +130,7 @@ const booking = () => {
               Studio Engineer -
               <span
                 style={{
-                  textTransform: "uppercase",
+                  textTransform: 'uppercase',
                   fontWeight: 600,
                 }}
               >
@@ -136,11 +138,11 @@ const booking = () => {
               </span>
             </Checkbox>
           </Box>
-          <Box width={["100%", "100%", "50%"]}>
+          <Box width={['100%', '100%', '50%']}>
             <Heading
               textTransform="capitalize"
               bg="rgba(21, 112, 250, 0.1)"
-              fontSize={["24px", "26px"]}
+              fontSize={['24px', '26px']}
               p="25px 20px"
               color="brand.100"
             >
@@ -158,10 +160,10 @@ const booking = () => {
                 <Text
                   w="50%"
                   mb="0"
-                  fontSize={["14px", "16px"]}
+                  fontSize={['14px', '16px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -172,10 +174,10 @@ const booking = () => {
                   mb="0"
                   textAlign="right"
                   fontWeight={600}
-                  fontSize={["16px", "18px"]}
+                  fontSize={['16px', '18px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -187,10 +189,10 @@ const booking = () => {
                 <Text
                   w="50%"
                   mb="0"
-                  fontSize={["14px", "16px"]}
+                  fontSize={['14px', '16px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -201,10 +203,10 @@ const booking = () => {
                   mb="0"
                   textAlign="right"
                   fontWeight={600}
-                  fontSize={["16px", "18px"]}
+                  fontSize={['16px', '18px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -216,10 +218,10 @@ const booking = () => {
                 <Text
                   w="50%"
                   mb="0"
-                  fontSize={["14px", "16px"]}
+                  fontSize={['14px', '16px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -230,10 +232,10 @@ const booking = () => {
                   mb="0"
                   textAlign="right"
                   fontWeight={600}
-                  fontSize={["16px", "18px"]}
+                  fontSize={['16px', '18px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -253,10 +255,10 @@ const booking = () => {
                 <Text
                   w="50%"
                   mb="0"
-                  fontSize={["14px", "16px"]}
+                  fontSize={['14px', '16px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -267,10 +269,10 @@ const booking = () => {
                   mb="0"
                   textAlign="right"
                   fontWeight={600}
-                  fontSize={["16px", "18px"]}
+                  fontSize={['16px', '18px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -282,10 +284,10 @@ const booking = () => {
                 <Text
                   w="50%"
                   mb="0"
-                  fontSize={["14px", "16px"]}
+                  fontSize={['14px', '16px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -296,10 +298,10 @@ const booking = () => {
                   mb="0"
                   textAlign="right"
                   fontWeight={600}
-                  fontSize={["16px", "18px"]}
+                  fontSize={['16px', '18px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -311,11 +313,11 @@ const booking = () => {
                 <Text
                   w="50%"
                   mb="0"
-                  fontSize={["14px", "16px"]}
+                  fontSize={['14px', '16px']}
                   fontWeight={600}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -326,10 +328,10 @@ const booking = () => {
                   mb="0"
                   textAlign="right"
                   fontWeight={600}
-                  fontSize={["16px", "18px"]}
+                  fontSize={['16px', '18px']}
                   sx={{
-                    "::first-letter": {
-                      textTransform: "capitalize",
+                    '::first-letter': {
+                      textTransform: 'capitalize',
                     },
                   }}
                 >
@@ -369,3 +371,27 @@ const booking = () => {
 };
 
 export default booking;
+
+// export const getServerSideProps: GetServerSideProps = withPageAuth(
+//   async (ctx: any) => {
+//     try {
+//       const allHairService = await StudioService.listServices({
+//         offset: 0,
+//         serviceTypeId: hairId,
+//       });
+//       const ratings = await ReviewService.getReviews({});
+//       return {
+//         props: {
+//           allHairService: allHairService.data,
+//           ratings: ratings?.data,
+//         },
+//       };
+//     } catch (error: any) {
+//       return {
+//         props: {
+//           allHairService: [],
+//         },
+//       };
+//     }
+//   }
+// );
