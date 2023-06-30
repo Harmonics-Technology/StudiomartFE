@@ -41,6 +41,7 @@
         "react-dom": "^18.2.0",
         "react-hook-form": "^7.39.5",
         "react-hot-toast": "^2.4.0",
+        "react-icons": "^4.9.0",
         "react-multi-date-picker": "^3.3.4",
         "react-responsive-carousel": "^3.2.23",
         "react-selectrix": "^1.0.17",
