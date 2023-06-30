@@ -5,4 +5,5 @@ module.exports = withPlugins([], {});
 module.exports = withTM({
     reactStrictMode: true,
     swcMinify: true,
+    output: 'standalone',
   });
