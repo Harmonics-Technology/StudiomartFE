@@ -30,7 +30,7 @@ export const RecentlyViewed = ({
         bgColor="gray.600"
         cursor="pointer"
         pos="absolute"
-        top="-15%"
+        top={{ base: "-21%", lg: "-15%%" }}
         right="0%"
       >
         <Icon as={BsArrowRightShort} />
@@ -47,7 +47,7 @@ export const RecentlyViewed = ({
         bgColor="gray.600"
         cursor="pointer"
         pos="absolute"
-        top="-15%"
+        top={{ base: "-21%", lg: "-15%%" }}
         right={{ base: "10%", lg: "3%" }}
       >
         <Icon as={BsArrowLeftShort} />
