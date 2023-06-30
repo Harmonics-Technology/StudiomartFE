@@ -13,7 +13,7 @@ export const NotFound = () => {
         />
       </Circle>
       <VStack justify="center">
-        <Text mb="0" color="gray.500" fontSize={{ base: "1.7rem", lg: "2rem" }}>
+        <Text mb="0" color="gray.500" fontSize={{ base: "1.7rem", lg: "2rem" }} textAlign='center'>
           Sorry, we don&apos;t have that yet
         </Text>
         <Text

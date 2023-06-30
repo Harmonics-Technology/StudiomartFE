@@ -14,11 +14,14 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import ExploreStudioCard from "./ExploreStudioCard";
 import TextTransition, { presets } from "react-text-transition";
-import { getCityAndState, ProcedureCard } from "ui";
+import { getCityAndState, NotFound, ProcedureCard } from "ui";
 import { ICustomerHome } from "src/models/schema";
 import category from "../utils/category.json";
 import dynamic from "next/dynamic";
 import { StudioCategory } from "@components/utils/StudioCategory";
+import Cookies from "js-cookie";
+import { StudioService } from "src/services";
+import { toast } from "react-hot-toast";
 
 const PopularStudioCard = dynamic(
   () => import("@components/Home/PopularStudioCard"),
@@ -35,40 +38,42 @@ const studios = [
   "podcast studio",
 ];
 
-const HomePage = ({
-  popularStudios,
-  location,
-  studiosNearMe,
-}: ICustomerHome) => {
+const HomePage = ({ popularStudios }: ICustomerHome) => {
   const [index, setIndex] = useState(0);
 
-  console.log({ popularStudios });
+  // console.log({ popularStudios });
 
   const [locas, setLocas] = useState<any>(null);
-  const [error, setError] = useState<any>(null);
-  // console.log({ locas });
+  const [studiosNearMe, setStudiosstudiosNearMe] = useState<any>(null);
+  console.log({ locas });
 
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
     } else {
-      setError("Geolocation is not supported by your browser");
+      toast.error("Geolocation is not supported by your browser");
     }
   }, []);
 
   const handleSuccess = (position: any) => {
     const { latitude, longitude } = position.coords;
-    // getCityAndState(latitude, longitude)
-    //   .then((result) => {
-    //     setLocas(result);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error getting city and state:", error);
-    //   });
-    // setLocas({ latitude, longitude });
+    getCityAndState(latitude, longitude)
+      .then(async (result) => {
+        setLocas(result);
+        const studiosNearMe = await StudioService.listServices({
+          offset: 0,
+          limit: 6,
+          state: result?.city,
+        });
+        setStudiosstudiosNearMe(studiosNearMe.data);
+      })
+      .catch((error) => {
+        console.error("Error getting city and state:", error);
+      });
+    setLocas({ latitude, longitude });
   };
   const handleError = (error: any) => {
-    // setError(error.message);
+    toast.error(error.message as string);
   };
 
   useEffect(() => {
@@ -346,22 +351,26 @@ const HomePage = ({
           >
             Studios Near You
           </Heading>
-          <Link passHref href={`/all-services/${location?.city}`}>
+          <Link passHref href={`/all-services/${locas?.city}`}>
             <Text
               color="brand.100"
               fontWeight="500"
               textDecor="underline"
               cursor="pointer"
             >
-              You are currently in: {location?.city} {location?.country}
+              You are currently in: {locas?.city}, {locas?.state}
             </Text>
           </Link>
         </HStack>
-        <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
-          {studiosNearMe?.value?.map((service, index) => (
-            <PopularStudioCard key={index} service={service} />
-          ))}
-        </SimpleGrid>
+        {studiosNearMe?.value.length == 0 ? (
+          <NotFound />
+        ) : (
+          <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
+            {studiosNearMe?.value?.map((service: any, index: number) => (
+              <PopularStudioCard key={index} service={service} />
+            ))}
+          </SimpleGrid>
+        )}
       </Box>
       <Box
         w="90%"
