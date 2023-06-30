@@ -155,9 +155,9 @@ export const Footer: React.FC = () => {
               Support
             </Text>
             <VStack spacing="5" align="flex-start">
-              <NavLink path="/" name="Studio Fee" />
-              <NavLink path="/" name="Terms & Conditions" />
-              <NavLink path="/" name="Privacy" />
+              {/* <NavLink path="/" name="Studio Fee" /> */}
+              <NavLink path="/terms" name="Terms & Conditions" />
+              <NavLink path="/privacy-policy" name="Privacy Policy" />
             </VStack>
           </VStack>
         </Stack>

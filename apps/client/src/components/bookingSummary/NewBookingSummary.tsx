@@ -9,18 +9,21 @@ import {
   Image,
   VStack,
   Button,
+  Input,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlineCalendar } from "react-icons/ai";
+import { BsCheck2 } from "react-icons/bs";
 import { FaPersonBooth } from "react-icons/fa";
 import { GiBeastEye, GiEdgedShield, GiEyeShield } from "react-icons/gi";
 import { useDummyImage } from "react-simple-placeholder-image";
 import Slider from "react-slick";
+import { BeatLoader } from "react-spinners";
 import { ICustomerHome } from "src/models/schema";
 import {
   AdditionalServiceView,
@@ -89,16 +92,51 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
     className: "service-slick",
   };
   const image = useDummyImage({});
+
+  const [couponInput, setCouponInput] = useState<any>();
+  const [couponError, setCouponError] = useState<any>();
+  const [isLoading, setIsLoading] = useState<any>();
+  const [couponApplied, setCouponApplied] = useState<any>();
+  const [viewers, setViewers] = useState<any>();
+  const applyCoupon = async () => {
+    setCouponError("");
+    setCouponApplied({});
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      if (couponInput.toLowerCase().trim() == "welcomelaunch") {
+        setCouponApplied({ discount: 10, type: "percent", valid: true });
+        return;
+      }
+      setCouponError(
+        "Sorry the discount code you added is either incorrect or has expired"
+      );
+      setIsLoading(false);
+    }, 3000);
+  };
   const tax = ((singleService?.price as number) / 100) * 10;
   const grandTotal =
-    selectedAddon.reduce((a, b) => a + (b.price as number), 0) +
+    selectedAddon?.reduce((a, b) => a + (b.price as number), 0) +
     (singleService?.price as number) +
     tax;
+  const couponGrandTotal =
+    couponApplied?.type == "percent"
+      ? grandTotal - (grandTotal / 100) * couponApplied?.discount
+      : grandTotal - couponApplied?.discount;
+
+  useEffect(() => {
+    setViewers(Math.floor(Math.random() * 20) + 1);
+  }, []);
+
   return (
     <Box w={{ base: "80%", lg: "80%" }} m="3rem auto 5rem">
       <HStack flexDir={{ base: "column", lg: "row" }} gap="4rem">
         <Box w={{ base: "full", lg: "70%" }}>
-          <Text fontSize="2rem" fontFamily="BR Firma" fontWeight="700">
+          <Text
+            fontSize={["1.5rem", "2rem"]}
+            fontFamily="BR Firma"
+            fontWeight="700"
+          >
             Review your booking
           </Text>
 
@@ -106,7 +144,7 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
             border="1px solid"
             borderColor="#e5e5e5"
             borderRadius="4px"
-            p="1.5rem 1rem"
+            p={["1rem", "1.5rem 1rem"]}
             gap="1.5rem"
             my="2rem"
             align="center"
@@ -116,8 +154,7 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
               <span style={{ fontWeight: "600" }}>
                 People are eyeing this service.
               </span>{" "}
-              {Math.floor(Math.random() * 20) + 1} others are looking at it to
-              book
+              {viewers} others are looking at it to book
             </Text>
           </Flex>
 
@@ -145,35 +182,42 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
             </VStack>
           </HStack>
 
-          <Box borderY="1px solid" borderColor="#e5e5e5" py="2rem" mb="0rem">
-            <Text fontSize="1rem" fontFamily="BR Firma" fontWeight="700">
-              Additional Service
-            </Text>
-            <Grid
-              templateColumns={{ base: "repeat(1fr)", lg: "repeat(2, 1fr)" }}
-              w={{ base: "full", lg: "100%" }}
-              gap={{ base: "2rem", lg: "2rem" }}
-              mb={{ base: "0rem", lg: "0rem" }}
+          {(singleService?.additionalServices as any)?.length > 0 && (
+            <Box
+              borderTop="1px solid"
+              borderColor="#e5e5e5"
+              py="2rem"
+              mb="0rem"
             >
-              {singleService?.additionalServices?.map((x) => (
-                <HStack key={x.id} align="center">
-                  <CustomCheckbox
-                    onChange={() => addToArray(x)}
-                    checked={selectedAddon.find((e) => e.id == x.id)}
-                  />
-                  <Text fontSize="18px" color="#3d3d3d" mb="0">
-                    {x.name}
-                    {" - "}
-                    <span style={{ fontWeight: "500" }}>
-                      {Cur(x.price as number)} NGN
-                    </span>
-                  </Text>
-                </HStack>
-              ))}
-            </Grid>
-          </Box>
+              <Text fontSize="1rem" fontFamily="BR Firma" fontWeight="700">
+                Additional Service
+              </Text>
+              <Grid
+                templateColumns={{ base: "repeat(1fr)", lg: "repeat(2, 1fr)" }}
+                w={{ base: "full", lg: "100%" }}
+                gap={{ base: "2rem", lg: "2rem" }}
+                mb={{ base: "0rem", lg: "0rem" }}
+              >
+                {singleService?.additionalServices?.map((x) => (
+                  <HStack key={x.id} align="center">
+                    <CustomCheckbox
+                      onChange={() => addToArray(x)}
+                      checked={selectedAddon.find((e) => e.id == x.id)}
+                    />
+                    <Text fontSize="18px" color="#3d3d3d" mb="0">
+                      {x.name}
+                      {" - "}
+                      <span style={{ fontWeight: "500" }}>
+                        {Cur(x.price as number)} NGN
+                      </span>
+                    </Text>
+                  </HStack>
+                ))}
+              </Grid>
+            </Box>
+          )}
           <HStack
-            borderBottom="1px solid"
+            borderY="1px solid"
             borderColor="#e5e5e5"
             py="1rem"
             my="1rem"
@@ -281,6 +325,34 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
               </Text>
             </HStack>
           </VStack>
+          <Box>
+            <Text></Text>
+            <HStack>
+              <Input
+                placeholder="Enter discount code"
+                h="2.6rem"
+                borderRadius="0"
+                w="full"
+                onChange={(e) => setCouponInput(e.target.value)}
+                textTransform="uppercase"
+              />
+              <Button
+                bgColor="black"
+                color="white"
+                borderRadius="0"
+                h="2.6rem"
+                px="2rem"
+                onClick={() => applyCoupon()}
+                isLoading={isLoading}
+                spinner={<BeatLoader color="white" size={10} />}
+              >
+                {couponApplied?.valid ? <Icon as={BsCheck2} /> : "Apply Coupon"}
+              </Button>
+            </HStack>
+            <Text fontSize=".8rem" color="red" w="100%" p=".2rem .5rem">
+              {couponError}
+            </Text>
+          </Box>
           <VStack
             align="flex-start"
             borderBottom="1px solid"
@@ -289,9 +361,16 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
             my="1rem"
             spacing="1.5rem"
           >
-            <HStack color="#1717171" justify="space-between" w="full">
+            <HStack
+              color="#1717171"
+              justify="space-between"
+              w="full"
+              align="flex-start"
+            >
               <Text mb="0">Service cost</Text>
-              <Text mb="0">{Naira(singleService?.price as number)}</Text>
+              <Box>
+                <Text mb="0">{Naira(singleService?.price as number)}</Text>
+              </Box>
             </HStack>
             {selectedAddon?.map((x: AdditionalServiceView) => (
               <HStack
@@ -315,13 +394,44 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
             py="1rem"
             my="1rem"
           >
-            <HStack justify="space-between" w="full">
-              <Text fontSize="1.2rem" fontFamily="BR Firma" fontWeight="700">
+            <HStack justify="space-between" w="full" align="flex-start">
+              <Text
+                fontSize="1.2rem"
+                fontFamily="BR Firma"
+                fontWeight="700"
+                mb="0"
+              >
                 Total (NGN)
               </Text>
-              <Text fontSize="1.2rem" fontFamily="BR Firma" fontWeight="700">
-                {Naira(grandTotal)}
-              </Text>
+              <Box textAlign="right">
+                <HStack justify="flex-end">
+                  <Text
+                    fontSize={couponApplied?.valid ? "1rem" : "1.2rem"}
+                    fontFamily="BR Firma"
+                    fontWeight={couponApplied?.valid ? "500" : "700"}
+                    mb="0"
+                    color={couponApplied?.valid ? "gray.300" : "black"}
+                    textDecor={couponApplied?.valid ? "line-through" : "none"}
+                  >
+                    {Naira(grandTotal)}
+                  </Text>
+                  {couponApplied?.valid && (
+                    <Text
+                      fontSize="1.2rem"
+                      fontFamily="BR Firma"
+                      fontWeight="700"
+                      mb="0"
+                    >
+                      {Naira(couponGrandTotal)}
+                    </Text>
+                  )}
+                </HStack>
+                {couponApplied?.valid && (
+                  <Text fontSize=".8rem" fontWeight="700" color="green">
+                    Coupon {couponInput} applied
+                  </Text>
+                )}
+              </Box>
             </HStack>
           </VStack>
 
