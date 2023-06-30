@@ -16,7 +16,12 @@ jobs:
     name: Build and Deploy Job
     env:
       NPM_CONFIG_LEGACY_PEER_DEPS: true
+      NEXT_PUBLIC_API_BASEURL: https://studiomartbe.azurewebsites.net
+      NEXT_PUBLIC_API_DEFINITION: /api-schema.json
+      NEXT_PUBLIC_CLIENT_URL: http://localhost:3000
+      NEXT_PUBLIC_VENDOR_URL: http://localhost:3001
       NEXT_PUBLIC_FIREBASE_KEY: AIzaSyBCFcK2fDbrxqQIyKUjtSIOMnwz0JoccKU
+      NEXT_PUBLIC_GOOGLE_API_KEY: AIzaSyCIjP0hsLbcMEE3UBWZc6jWxIi_1jNYdEI
     steps:
       - uses: actions/checkout@v3
         with:
