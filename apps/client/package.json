@@ -73,7 +73,8 @@
         "react-places-autocomplete": "^7.3.0",
         "react-simple-placeholder-image": "^0.1.2",
         "react-slick": "^0.29.0",
-        "slick-carousel": "^1.8.1"
+        "slick-carousel": "^1.8.1",
+        "react-no-ssr": "^1.1.0"
     },
     "devDependencies": {
         "@svgr/cli": "^5.5.0",
