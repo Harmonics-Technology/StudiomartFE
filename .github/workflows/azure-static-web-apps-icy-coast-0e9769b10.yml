@@ -16,6 +16,7 @@ jobs:
     name: Build and Deploy Job
     env:
       NPM_CONFIG_LEGACY_PEER_DEPS: true
+      NEXT_PUBLIC_FIREBASE_KEY: AIzaSyBCFcK2fDbrxqQIyKUjtSIOMnwz0JoccKU
     steps:
       - uses: actions/checkout@v3
         with:
