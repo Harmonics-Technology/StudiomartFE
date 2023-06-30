@@ -5,9 +5,9 @@ import { SingleText } from "./SingleText";
 export const TermsAndConditions = () => {
   return (
     <Box
-      w={{ base: "80%", lg: "80%" }}
+      w={{ base: "90%", lg: "80%" }}
       m="3rem auto 5rem"
-      p="2rem 4rem 4rem 4rem"
+      p={["1rem", "2rem 4rem 4rem 4rem"]}
       boxShadow="0px 8px 16px 0px rgba(190, 190, 190, 0.20)"
     >
       <Box>
@@ -27,7 +27,7 @@ export const TermsAndConditions = () => {
           'Please read these Terms and Conditions ("Terms") carefully before using StudioMart (the "Platform") provided by StudioMart Ltd. ("we," "us," or "our"). By accessing or using the Platform, you agree to be bound by these Terms. If you do not agree with any part of these Terms, you may not use the Platform.'
         }
       </Text>
-      <VStack spacing="2.5rem" align="flex-start" px="1rem">
+      <VStack spacing="2.5rem" align="flex-start" px={["0", "1rem"]}>
         <SingleText
           title="1. Acceptance of Terms"
           text="By accessing or using the Platform, you acknowledge that you have read, understood, and agree to be bound by these Terms, along with our Privacy Policy. If you do not agree with any of these terms, please refrain from using the Platform."

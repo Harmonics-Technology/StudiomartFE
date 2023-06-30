@@ -5,9 +5,9 @@ import { SingleText } from "./SingleText";
 export const Privacy = () => {
   return (
     <Box
-      w={{ base: "80%", lg: "80%" }}
+      w={{ base: "90%", lg: "80%" }}
       m="3rem auto 5rem"
-      p="2rem 4rem 4rem 4rem"
+      p={["1rem", "2rem 4rem 4rem 4rem"]}
       boxShadow="0px 8px 16px 0px rgba(190, 190, 190, 0.20)"
     >
       <Box>
@@ -27,7 +27,7 @@ export const Privacy = () => {
           'This Privacy Policy ("Policy") explains how StudioMart Ltd. ("we," "us," or "our") collects, uses, shares, and protects your personal information when you use the StudioMart platform (the "Platform"). We are committed to protecting your privacy and ensuring the security of your personal information. By using the Platform, you consent to the collection and use of your personal information as outlined in this Policy.'
         }
       </Text>
-      <VStack spacing="2.5rem" align="flex-start" px="1rem">
+      <VStack spacing="2.5rem" align="flex-start" px={["0", "1rem"]}>
         <SingleText
           title="1. Information"
           text="We Collect <br/>a. Personal Information: When you register an account, make a booking, or interact with the Platform, we may collect personal information such as your name, email address, phone number, and payment details. <br/>b. Usage Information: We automatically collect certain information about your use of the Platform, including IP address, device information, and browsing activity. 
@@ -57,7 +57,7 @@ export const Privacy = () => {
           text="We may update this Privacy Policy from time to time to reflect changes in our practices or legal obligations. We will notify you of any material changes by posting the updated Policy on the Platform. Your continued use of the Platform after the effective date of the updated Policy constitutes your acceptance of the revised terms."
         />
 
-        <Text w='90%'>
+        <Text w="90%">
           Contact Us If you have any questions or concerns regarding this
           Privacy Policy or our privacy practices, please contact us at
           <Link href="mailto:info@studiomart.io" color="brand.100">

@@ -19,7 +19,7 @@ export const SingleText = ({
       >
         {title}
       </Text>
-      <Text fontSize={["1.1rem"]} mb="0" px="1.5rem">
+      <Text fontSize={["1.1rem"]} mb="0" px={[".5rem", "1.5rem"]}>
         {parse(text)}
       </Text>
     </Box>

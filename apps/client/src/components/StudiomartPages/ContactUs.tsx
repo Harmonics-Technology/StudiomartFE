@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Circle,
   HStack,
   Input,
@@ -13,16 +14,21 @@ import { FaMailBulk, FaLocationArrow, FaPhone } from "react-icons/fa";
 
 export const ContactUs = () => {
   return (
-    <Box my="7rem" w={{ base: "80%", lg: "80%" }} mx="auto">
-      <Box pos="relative">
+    <Box my={["7rem", "7rem"]} w={{ base: "80%", lg: "80%" }} mx="auto">
+      <Box
+        pos="relative"
+        display={["flex", "block"]}
+        flexDir="column-reverse"
+        gap="2rem"
+      >
         <Box
-          boxShadow="0px 8px 16px 0px rgba(18, 18, 18, 0.15)"
+          boxShadow={["none", "0px 8px 16px 0px rgba(18, 18, 18, 0.15)"]}
           bgColor="white"
           border="0.5px solid #E8E8E8"
-          p="4rem 4rem 8rem"
-          w="80%"
+          p={["2rem", "4rem 4rem 8rem"]}
+          w={["full", "80%"]}
         >
-          <Box w="50%">
+          <Box w={["full", "50%"]}>
             <Text
               fontSize={["1.5rem", "2rem"]}
               fontFamily="BR Firma"
@@ -36,26 +42,34 @@ export const ContactUs = () => {
               as we can
             </Text>
 
-            <VStack spacing="1.5rem" mt="1rem">
+            <VStack spacing="1.5rem" mt="3rem" align="flex-start">
               <Input
-                placeholder="Enter discount code"
-                h="2.6rem"
-                borderRadius="0"
+                placeholder="Your name"
+                h="3rem"
+                borderRadius="4px"
                 w="full"
               />{" "}
               <Input
-                placeholder="Enter discount code"
-                h="2.6rem"
-                borderRadius="0"
+                placeholder="Your email"
+                h="3rem"
+                borderRadius="4px"
                 w="full"
               />{" "}
               <Textarea
-                placeholder="Enter discount code"
-                h="2.6rem"
-                borderRadius="0"
+                placeholder="Your message"
+                borderRadius="4px"
                 w="full"
                 resize="none"
               />
+              <Button
+                bgColor="brand.100"
+                color="white"
+                px="3rem"
+                h="3rem"
+                borderRadius="0"
+              >
+                Send Message
+              </Button>
             </VStack>
           </Box>
         </Box>
@@ -66,8 +80,9 @@ export const ContactUs = () => {
           pos={["relative", "absolute"]}
           right="0"
           top="50%"
+          order="0"
           color="white"
-          transform="translateY(-50%)"
+          transform={["0", "translate(50%)"]}
         >
           <Text
             fontSize={["1.5rem", "2rem"]}
