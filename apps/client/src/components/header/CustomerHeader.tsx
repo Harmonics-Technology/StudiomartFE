@@ -60,7 +60,7 @@ const CustomerHeader = () => {
                 pl=".5rem"
                 cursor="pointer"
               >
-                <Image src="/assets/studiomart.png" w="full" alt="logo" />
+                <Image src="/assets/StudioMart.png" w="full" alt="logo" />
               </Box>
             </HStack>
           </Link>
