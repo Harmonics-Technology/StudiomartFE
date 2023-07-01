@@ -44,7 +44,7 @@ export const Header = () => {
         <NextLink href="/">
           <HStack>
             <Box w="13rem" pl=".5rem" cursor="pointer">
-              <Image src="/assets/studiomart.png" w="full" alt="logo" />
+              <Image src="/assets/StudioMart.png" w="full" alt="logo" />
             </Box>
           </HStack>
         </NextLink>

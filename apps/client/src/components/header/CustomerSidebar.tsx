@@ -103,7 +103,7 @@ const CustomerSidebar = ({
               <Link href="/">
                 <HStack>
                   <Box w="10rem" pl=".5rem">
-                    <Image src="/assets/studiomart.png" w="full" alt="logo" />
+                    <Image src="/assets/StudioMart.png" w="full" alt="logo" />
                   </Box>
                 </HStack>
               </Link>
