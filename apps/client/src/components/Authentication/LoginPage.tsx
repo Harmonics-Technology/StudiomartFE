@@ -6,7 +6,6 @@ import {
   Text,
   VStack,
   Checkbox,
-  Link,
   Image,
 } from "@chakra-ui/react";
 import { PrimaryInput, SubmitButton, LoginTypeBtn } from "ui";
@@ -21,12 +20,13 @@ import { Carousel } from "react-responsive-carousel";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { auth } from "@components/firebase/firebase";
+import Link from "next/link";
 import { signInWithEmailAndPassword } from "firebase/auth";
 YupPassword(yup);
 
 const validation = yup.object().shape({
   email: yup.string().email().required(),
-  password: yup.string().password(),
+  password: yup.string().required(),
 });
 
 export const LoginPage = () => {
@@ -89,7 +89,7 @@ export const LoginPage = () => {
     <Flex
       border="2px hidden red"
       w="100%"
-      minH="100vh"
+      minH={{ base: "80vh", lg: "100vh" }}
       justify={{ base: "none", md: "space-between" }}
       align="center"
       // bgColor="#e0edff"
@@ -123,7 +123,7 @@ export const LoginPage = () => {
       <Flex
         w={{ base: "100%", md: "80%", lg: "50%" }}
         pos="relative"
-        h="100vh"
+        h="100%"
         align="center"
         mx="auto"
       >
@@ -218,7 +218,7 @@ export const LoginPage = () => {
                 <Flex
                   w="100%"
                   alignItems="flex-end"
-                  justifyContent="flex-start"
+                  justifyContent="space-between"
                   my="1rem"
                 >
                   <Checkbox
@@ -230,6 +230,7 @@ export const LoginPage = () => {
                   >
                     Remember me
                   </Checkbox>
+                  <Link href="/password/reset">Forgot Password</Link>
                 </Flex>
 
                 <SubmitButton

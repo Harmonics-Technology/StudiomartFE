@@ -27,7 +27,7 @@ YupPassword(yup);
 
 const validation = yup.object().shape({
   email: yup.string().email().required(),
-  password: yup.string().password(),
+  password: yup.string().required(),
 });
 
 export const LoginPage = () => {
@@ -125,7 +125,7 @@ export const LoginPage = () => {
     <Flex
       border="2px hidden red"
       w="100%"
-      minH="100vh"
+      minH={{ base: "80vh", lg: "100vh" }}
       justify={{ base: "none", md: "space-between" }}
       align="center"
       // bgColor="#e0edff"
@@ -137,7 +137,7 @@ export const LoginPage = () => {
         display={{ base: "none", lg: "unset" }}
       >
         {/* <Box w="30%" pos="absolute" top="2rem" left="3rem">
-          <Image src="/assets/studiomart.png" w="full" alt="logo" />
+          <Image src="/assets/StudioMart.png" w="full" alt="logo" />
         </Box> */}
         <Carousel
           showStatus={false}
@@ -162,7 +162,7 @@ export const LoginPage = () => {
       <Flex
         w={{ base: "100%", md: "80%", lg: "50%" }}
         pos="relative"
-        h="100vh"
+        h="100%"
         align="center"
         mx="auto"
       >
@@ -170,7 +170,7 @@ export const LoginPage = () => {
           w="full"
           bgColor="white"
           // borderRadius="30px"
-          px="4rem"
+          px={{ base: "2rem", md: "3rem", lg: "4rem" }}
           mt=".5rem"
           py="1rem"
           // boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
@@ -268,7 +268,7 @@ export const LoginPage = () => {
                   >
                     Remember me
                   </Checkbox>
-                  <Link href="/login/reset">Forgot password</Link>
+                  <Link href="/password/reset">Forgot password</Link>
                 </Flex>
 
                 <SubmitButton

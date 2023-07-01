@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
     try {
       const bookings = await BookingService.getBookingsByUser({
         offset: pagingOptions.offset,
-        limit: pagingOptions.limit || 5,
+        limit: pagingOptions.limit || 9,
         search: pagingOptions.search,
         status: pagingOptions.filters as number,
         filterBy: pagingOptions.order,

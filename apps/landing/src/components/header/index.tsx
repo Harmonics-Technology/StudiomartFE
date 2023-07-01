@@ -47,7 +47,7 @@ export const Header = ({ onOpen }: any) => {
       <Flex align="center" justify="space-between" w={["90%", "85%"]} mx="auto">
         <NextLink href="/">
           <Box w={{ base: "50%", md: "30%", lg: "20%" }}>
-            <Image src="/assets/studiomart.png" w="full" alt="logo" />
+            <Image src="/assets/StudioMart.png" w="full" alt="logo" />
           </Box>
         </NextLink>
 

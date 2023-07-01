@@ -44,7 +44,7 @@ interface notificationProps {
 }
 const Notification = ({ notifications }: notificationProps) => {
   const [loading, setLoading] = useState<any>({ status: false, id: "" });
-  console.log({ loading });
+  console.log({ notifications });
   const router = useRouter();
   const markAsReadFunction = async (data: string) => {
     setLoading({ status: true, id: data });

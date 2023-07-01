@@ -61,7 +61,7 @@ function VendorSideNav({ setShowSide, showSide }: Side) {
       <Link href="/dashboard" passHref>
         <HStack>
           <Box w="85%" pl={{ base: ".2rem", md: ".5rem" }} gap={1}>
-            <Image src="/assets/studiomart.png" w="full" alt="logo" />{" "}
+            <Image src="/assets/StudioMart.png" w="full" alt="logo" />{" "}
           </Box>
         </HStack>
       </Link>

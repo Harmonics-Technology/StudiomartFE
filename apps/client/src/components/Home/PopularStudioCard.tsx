@@ -21,6 +21,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { StudioService } from "src/services";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { BsBookmarkHeartFill, BsBookmarkHeart } from "react-icons/bs";
 
 const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
   const image = useDummyImage({});
@@ -76,6 +77,7 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
       borderRadius="4px"
       border="1px solid #E8E8E8"
       overflow="hidden"
+      onClick={() => router.push(`/customer/details/${service?.id}`)}
     >
       <Box
         overflow="hidden"
@@ -96,18 +98,22 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
             <Spinner size="sm" />
           ) : (
             <>
-              {service?.isSaved ? (
+              {isSaved ? (
                 <Icon
-                  as={AiFillHeart}
+                  as={BsBookmarkHeartFill}
                   onClick={removeSaved}
                   fontSize="1.3rem"
                   color="red"
+                  bgColor="white"
+                  p=".1rem"
                 />
               ) : (
                 <Icon
-                  as={AiOutlineHeart}
+                  as={BsBookmarkHeart}
                   onClick={saveServiceForLater}
                   fontSize="1.3rem"
+                  bgColor="white"
+                  p=".1rem"
                 />
               )}
             </>

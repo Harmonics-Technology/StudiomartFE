@@ -66,7 +66,7 @@ export const InitiateReset = () => {
     >
       <Box w="55%" h="100vh" overflow="hidden" pos="relative">
         <Box w="30%" pos="absolute" top="2rem" left="3rem">
-          <Image src="/assets/studiomart.png" w="full" alt="logo" />
+          <Image src="/assets/StudioMart.png" w="full" alt="logo" />
         </Box>
         <Carousel
           showStatus={false}

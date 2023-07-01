@@ -60,7 +60,7 @@ const CustomerHeader = () => {
                 pl=".5rem"
                 cursor="pointer"
               >
-                <Image src="/assets/studiomart.png" w="full" alt="logo" />
+                <Image src="/assets/StudioMart.png" w="full" alt="logo" />
               </Box>
             </HStack>
           </Link>
@@ -101,13 +101,16 @@ const CustomerHeader = () => {
         </Box>
         <HStack
           align="center"
-          spacing={["5", "5"]}
+          spacing={["1", "5"]}
           justifySelf="flex-end"
           // display="none"
         >
           <Link href="/customer/saved-studios" passHref>
             <a>
-              <Circle size="50px" bgColor="rgba(21, 112, 250, 0.05)">
+              <Circle
+                size={{ base: "40px", lg: "50px" }}
+                bgColor="rgba(21, 112, 250, 0.05)"
+              >
                 <Icon
                   as={BsBookmarkHeart}
                   fontSize="1rem"
@@ -123,7 +126,10 @@ const CustomerHeader = () => {
           </Link>
           <Link href="/customer/notification" passHref>
             <a>
-              <Circle size="50px" bgColor="rgba(21, 112, 250, 0.05)">
+              <Circle
+                size={{ base: "40px", lg: "50px" }}
+                bgColor="rgba(21, 112, 250, 0.05)"
+              >
                 <Icon
                   as={BsBell}
                   fontSize="1rem"

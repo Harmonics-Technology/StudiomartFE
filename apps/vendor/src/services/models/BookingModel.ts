@@ -2,8 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { TimeOnlyModel } from './TimeOnlyModel';
+
 export type BookingModel = {
     serviceId?: string;
     date?: string;
-    time?: string | null;
+    inputTime?: TimeOnlyModel;
+    additionalServices?: Array<string> | null;
+    voucherId?: string | null;
 };

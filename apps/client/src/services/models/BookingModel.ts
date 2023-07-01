@@ -9,4 +9,5 @@ export type BookingModel = {
     date?: string;
     inputTime?: TimeOnlyModel;
     additionalServices?: Array<string> | null;
+    voucherId?: string | null;
 };

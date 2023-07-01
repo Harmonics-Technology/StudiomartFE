@@ -179,7 +179,10 @@ export const Footer: React.FC = () => {
             <Link href="https://twitter.com/studiomart_io" target="_blank">
               <FaTwitter />
             </Link>
-            <Link href="https://linkedin.com/studiomart_io" target="_blank">
+            <Link
+              href="https://www.linkedin.com/company/studiomart.io/"
+              target="_blank"
+            >
               <FaLinkedinIn />
             </Link>
             <Link href="mailto:hello@studiomart.io" target="_blank">

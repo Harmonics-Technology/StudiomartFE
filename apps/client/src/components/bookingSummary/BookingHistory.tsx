@@ -172,51 +172,46 @@ export default function BookingHistory({ bookings }: IBookingsProps) {
           <NotFound />
         ) : (
           <>
-            <VStack w="full" gap="5rem" spacing={0}>
+            <Grid
+              w="full"
+              gap="1.5rem"
+              my="1rem"
+              templateColumns={["repeat(1, 1fr)", "repeat(3,1fr)"]}
+            >
               {bookings?.value?.map((x) => (
-                <Grid
-                  templateColumns={["repeat(3, 1fr)", "1fr 2fr"]}
-                  w="full"
-                  gap="3rem"
-                  key={x.id}
-                  py="2rem"
-                  borderY="1px solid #e5e5e5"
-                  display={{ base: "flex", lg: "grid" }}
-                  flexDir="column"
-                >
-                  <Square
-                    size={{ base: "3rem", lg: "100%" }}
-                    overflow="hidden"
-                    borderRadius="10px"
-                    bgColor="red"
-                    // display={{ base: "none", lg: "block" }}
-                  >
-                    <Image
-                      src={x.service?.bannerImageURL || image}
-                      w="full"
-                      h="full"
-                      objectFit="cover"
-                      alt=""
-                    />
-                  </Square>
-                  <Grid
-                    templateColumns={["repeat(3, 1fr)", "repeat(2, 1fr)"]}
+                <>
+                  <HStack
+                    borderRadius="8px"
+                    boxShadow="md"
+                    p="1.5rem"
+                    spacing="1rem"
                     w="full"
-                    gap="3rem"
-                    pt={{ base: "1rem", lg: "0" }}
-                    display={{ base: "flex", lg: "grid" }}
-                    flexDir="column-reverse"
-                    mt={{ base: "-5rem", lg: "0" }}
+                    h="full"
+                    key={x.id}
                   >
                     <Box
-                      pt={{ base: "0rem", lg: "2.5rem" }}
-                      borderRight="1px solid #e5e5e5"
-                      w="full"
+                      width={{ base: "10rem", lg: "10rem" }}
+                      height="100%"
+                      overflow="hidden"
+                      borderRadius="10px"
+                      bgColor="red"
+                      // display={{ base: "none", lg: "block" }}
                     >
-                      <InfoBox
-                        title="Booking reference"
-                        desc={x.bookingReference}
+                      <Image
+                        src={x.service?.bannerImageURL || image}
+                        alt="image"
+                        w="full"
+                        h="full"
+                        objectFit="cover"
                       />
+                    </Box>
+                    <VStack align="flex-start" w="full">
+                      <HStack w="full">
+                        <Text fontSize=".8rem" mb="0">
+                          Booking ID: {x.bookingReference}
+                        </Text>
+                        <ResponseBox response={x.status?.toLowerCase()} />
+                      </HStack>
                       <HStack>
                         <Text
                           fontSize={[".7rem", "1.5rem"]}
@@ -227,41 +222,23 @@ export default function BookingHistory({ bookings }: IBookingsProps) {
                           {x.service?.name}
                         </Text>
 
-                        <Text
+                        {/* <Text
                           fontSize={[".7rem", "1.5rem"]}
                           noOfLines={1}
                           fontWeight="700"
                           mb="0"
                         >
                           - {Naira(x.service?.price as number)}
-                        </Text>
+                        </Text> */}
+                      </HStack>
+                      <HStack>
+                        {x?.additionalServices?.map((b) => (
+                          <Text key={b.id} mb="0" fontSize=".8rem">
+                            {b.name} - {Naira(b.price as number)}
+                          </Text>
+                        ))}
                       </HStack>
                       <Box>
-                        {(x.additionalServices as any)?.length > 0 && (
-                          <>
-                            <Text
-                              fontSize={[".7rem", "1rem"]}
-                              noOfLines={1}
-                              fontWeight="500"
-                              mt="1rem"
-                              mb="0"
-                            >
-                              Addons
-                            </Text>
-
-                            <List display="flex" flexWrap="wrap" gap=".5rem">
-                              {x?.additionalServices?.map((b) => (
-                                <ListItem key={b.id}>
-                                  <ListIcon as={ImRadioChecked2} />
-                                  {b.name} - {Naira(b.price as number)}
-                                </ListItem>
-                              ))}
-                            </List>
-                          </>
-                        )}
-                      </Box>
-
-                      <Box mt="2rem">
                         <InfoBox
                           title="Date and Time"
                           desc={`${dayjs(x.date).format(
@@ -273,223 +250,32 @@ export default function BookingHistory({ bookings }: IBookingsProps) {
                             .format("hh:mm A")}`}
                         />
                       </Box>
-                      <HStack mb="1rem">
+                      <HStack justify="space-between" w="full">
                         <Rating
                           value={
                             getReviewSummary(x.service?.reviewCounts)
                               .reviewStars
                           }
                         />
-                        <Text mb="0">
-                          {
-                            getReviewSummary(x.service?.reviewCounts)
-                              .reviewTotal
-                          }{" "}
-                          review
-                        </Text>
-                      </HStack>
-                      <Box>
-                        <Text
-                          fontSize={[".7rem", ".9rem"]}
-                          noOfLines={1}
-                          mb=".5rem"
-                          fontWeight="600"
-                        >
-                          {x.service?.name}{" "}
-                          {x.additionalServices?.length !== 0 && <>+ </>}
-                          {x.additionalServices?.map((x) => x.name).join(",")} +
-                          tax({Naira(x.tax as number)}) ={" "}
-                          {Naira(x.totalAmount as number)}
-                        </Text>
-                      </Box>
-                      <HStack w="full">
                         <Button
                           bgColor="brand.100"
+                          borderRadius="25px"
+                          h="2rem"
                           color="white"
-                          borderRadius="0"
-                          isDisabled={x.status?.toLowerCase() !== "paid"}
-                          isLoading={
-                            loading?.status &&
-                            loading.id == x.id &&
-                            loading.type == "chat"
-                          }
+                          px="1rem"
+                          fontSize=".8rem"
                           onClick={() =>
-                            handleSelect(
-                              {
-                                uid: x.service?.user?.id,
-                                displayName: x?.service?.user?.firstName,
-                                photoURL: x.service?.user?.profilePicture,
-                              },
-                              x.id
-                            )
+                            router.push(`/customer/history/${x.id}`)
                           }
                         >
-                          <Icon as={AiFillWechat} mr=".5rem" />
-                          Chat with vendor
-                        </Button>
-                        <Button
-                          bgColor="gray.500"
-                          color="white"
-                          borderRadius="0"
-                          // isDisabled={x.status?.toLowerCase() !== "completed"}
-                          onClick={() => {
-                            setReviewId(x.serviceId);
-                            onOpen();
-                          }}
-                        >
-                          <Icon as={AiFillWechat} mr=".5rem" />
-                          Rate Service
-                        </Button>
-                        <Button
-                          bgColor="yellow.500"
-                          color="white"
-                          borderRadius="0"
-                        >
-                          <Icon as={AiFillHeart} />
+                          View Details
                         </Button>
                       </HStack>
-                    </Box>
-                    <Box
-                      pl={{ base: "0", lg: "1.5rem" }}
-                      mt={{ base: "0rem", lg: "2.5rem" }}
-                      w="full"
-                    >
-                      <ResponseBox response={x.status?.toLowerCase()} />
-                      <InfoBox
-                        title="Studio Name"
-                        desc={x.service?.studio?.name}
-                      />
-                      <InfoBox
-                        title="Studio Address"
-                        desc={
-                          x.status?.toLowerCase() == "paid"
-                            ? x.service?.studio?.address
-                            : "***************"
-                        }
-                      />
-                      <InfoBox
-                        title="Studio Email"
-                        desc={
-                          x.status?.toLowerCase() == "paid"
-                            ? x.service?.studio?.email
-                            : "***************"
-                        }
-                      />
-                      <InfoBox
-                        title="Studio Phone"
-                        desc={
-                          x.status?.toLowerCase() == "paid"
-                            ? x.service?.studio?.phone
-                            : "***************"
-                        }
-                      />
-
-                      <HStack
-                        bgColor="gray.300"
-                        w="full"
-                        h="3rem"
-                        mb="1rem"
-                        px="2rem"
-                        justify="space-between"
-                        pointerEvents={
-                          x.status?.toLowerCase() !== "paid" ? "none" : "unset"
-                        }
-                      >
-                        <Link passHref href={`${x.service?.studio?.facebook}`}>
-                          <HStack cursor="pointer">
-                            <Icon
-                              as={AiFillFacebook}
-                              fontSize="1.5rem"
-                              color="#3b5998"
-                            />
-                            <Text mb="0" fontSize=".8rem">
-                              Facebook
-                            </Text>
-                          </HStack>
-                        </Link>
-                        <Link passHref href={`${x.service?.studio?.twitter}`}>
-                          <HStack cursor="pointer">
-                            <Icon
-                              as={AiOutlineTwitter}
-                              fontSize="1.5rem"
-                              color="#00acee"
-                            />
-                            <Text mb="0" fontSize=".8rem">
-                              Twitter
-                            </Text>
-                          </HStack>
-                        </Link>
-                        <Link passHref href={`${x.service?.studio?.instagram}`}>
-                          <HStack cursor="pointer">
-                            <Icon
-                              as={AiFillInstagram}
-                              fontSize="1.5rem"
-                              color="#d62976 "
-                            />
-                            <Text mb="0" fontSize=".8rem">
-                              Insta
-                            </Text>
-                          </HStack>
-                        </Link>
-                        <Link passHref href={`${x.service?.studio?.youTube}`}>
-                          <HStack cursor="pointer">
-                            <Icon
-                              as={AiFillYoutube}
-                              fontSize="1.5rem"
-                              color="red"
-                            />
-                            <Text mb="0" fontSize=".8rem">
-                              Youtube
-                            </Text>
-                          </HStack>
-                        </Link>
-                      </HStack>
-                      <HStack
-                        w="full"
-                        h="2.8rem"
-                        mt="1.55rem"
-                        // display={response == "pending" ? "flex" : "none"}
-                      >
-                        <Button
-                          variant="outline"
-                          width="full"
-                          bgColor="red"
-                          color="white"
-                          borderRadius="0"
-                          h="full"
-                          isDisabled={x.status?.toLowerCase() !== "pending"}
-                          onClick={() => cancelBooking(x.id as string)}
-                          isLoading={
-                            loading.status &&
-                            loading.type == "cancel" &&
-                            loading.id == x.id
-                          }
-                        >
-                          Cancel Booking
-                        </Button>
-                        <Button
-                          variant="outline"
-                          w="full"
-                          bgColor="#1570FA"
-                          color="white"
-                          borderRadius="0"
-                          h="full"
-                          isDisabled={x.status?.toLowerCase() !== "approved"}
-                          onClick={() => checkoutBooking(x.id as string)}
-                          isLoading={
-                            loading.status &&
-                            loading.type == "pay" &&
-                            loading.id == x.id
-                          }
-                        >
-                          Make payment
-                        </Button>
-                      </HStack>
-                    </Box>
-                  </Grid>
-                </Grid>
+                    </VStack>
+                  </HStack>
+                </>
               ))}
-            </VStack>
+            </Grid>
             <HStack my="3rem" w="full" justify="center">
               <Pagination data={bookings} />
             </HStack>

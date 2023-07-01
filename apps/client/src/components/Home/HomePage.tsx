@@ -45,7 +45,7 @@ const HomePage = ({ popularStudios }: ICustomerHome) => {
 
   const [locas, setLocas] = useState<any>(null);
   const [studiosNearMe, setStudiosstudiosNearMe] = useState<any>(null);
-  console.log({ locas });
+  // console.log({ locas });
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -331,11 +331,19 @@ const HomePage = ({ popularStudios }: ICustomerHome) => {
             </Text>
           </Link>
         </HStack>
-        <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
-          {popularStudios?.value?.map((service, index) => (
-            <PopularStudioCard key={index} service={service} />
-          ))}
-        </SimpleGrid>
+        {studiosNearMe?.value.length == 0 ? (
+          <NotFound />
+        ) : (
+          <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
+            {popularStudios?.value?.map((service, index) => (
+              <PopularStudioCard
+                key={index}
+                service={service}
+                isSaved={service.isSaved}
+              />
+            ))}
+          </SimpleGrid>
+        )}
       </Box>
       <Box w="90%" mx="auto" mt={["10", "20"]}>
         <HStack
@@ -358,7 +366,7 @@ const HomePage = ({ popularStudios }: ICustomerHome) => {
               textDecor="underline"
               cursor="pointer"
             >
-              You are currently in: {locas?.city}, {locas?.state}
+              You are currently in: {locas?.city}, {locas?.country}
             </Text>
           </Link>
         </HStack>
@@ -367,7 +375,11 @@ const HomePage = ({ popularStudios }: ICustomerHome) => {
         ) : (
           <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
             {studiosNearMe?.value?.map((service: any, index: number) => (
-              <PopularStudioCard key={index} service={service} />
+              <PopularStudioCard
+                key={index}
+                service={service}
+                isSaved={service.isSaved}
+              />
             ))}
           </SimpleGrid>
         )}

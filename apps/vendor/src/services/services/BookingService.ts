@@ -187,9 +187,11 @@ device?: any,
      */
     public static checkout({
 id,
+frontEndBaseUrl,
 device,
 }: {
 id: string,
+frontEndBaseUrl?: string,
 device?: any,
 }): CancelablePromise<StringStandardResponse> {
         return __request(OpenAPI, {
@@ -200,6 +202,9 @@ device?: any,
             },
             headers: {
                 'device': device,
+            },
+            query: {
+                'frontEndBaseUrl': frontEndBaseUrl,
             },
             errors: {
                 400: `Bad Request`,
@@ -303,6 +308,34 @@ device?: any,
                 'Search': search,
                 'StartDate': startDate,
                 'EndDate': endDate,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * Complete bookings for a user
+     * @returns BooleanStandardResponse Success
+     * @throws ApiError
+     */
+    public static completeBooking({
+bookingId,
+device,
+}: {
+bookingId?: string,
+device?: any,
+}): CancelablePromise<BooleanStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Booking/bookings/complete',
+            headers: {
+                'device': device,
+            },
+            query: {
+                'bookingId': bookingId,
             },
             errors: {
                 400: `Bad Request`,

@@ -42,6 +42,15 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <Script
         src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}
       ></Script>
+      <Script
+        src="//code.tidio.co/3sbkfbeznhueuu7swpwljoaqi36fx4os.js"
+        async
+      ></Script>
+      <Script
+        async
+        src="https://analytics.umami.is/script.js"
+        data-website-id="ab35a0b0-e974-45ec-beb9-cf41be110c17"
+      ></Script>
       <UserProvider>
         <AuthContextProvider>
           <ChatContextProvider>

@@ -316,4 +316,32 @@ device?: any,
         });
     }
 
+    /**
+     * Complete bookings for a user
+     * @returns BooleanStandardResponse Success
+     * @throws ApiError
+     */
+    public static completeBooking({
+bookingId,
+device,
+}: {
+bookingId?: string,
+device?: any,
+}): CancelablePromise<BooleanStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Booking/bookings/complete',
+            headers: {
+                'device': device,
+            },
+            query: {
+                'bookingId': bookingId,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
 }

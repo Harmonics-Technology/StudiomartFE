@@ -14,7 +14,7 @@ import { FaMailBulk, FaLocationArrow, FaPhone } from "react-icons/fa";
 
 export const ContactUs = () => {
   return (
-    <Box my={["7rem", "7rem"]} w={{ base: "80%", lg: "80%" }} mx="auto">
+    <Box my={["7rem", "7rem"]} w={{ base: "90%", lg: "80%" }} mx="auto">
       <Box
         pos="relative"
         display={["flex", "block"]}

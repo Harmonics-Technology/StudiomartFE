@@ -49,6 +49,44 @@ device?: any,
     }
 
     /**
+     * Get users booking notifications
+     * @returns NotificationViewPagedCollectionStandardResponse Success
+     * @throws ApiError
+     */
+    public static getUserBookingNotification({
+userId,
+offset,
+limit,
+isRead,
+device,
+}: {
+userId: string,
+offset?: number,
+limit?: number,
+isRead?: boolean,
+device?: any,
+}): CancelablePromise<NotificationViewPagedCollectionStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Notification/bookings/{userId}',
+            path: {
+                'userId': userId,
+            },
+            headers: {
+                'device': device,
+            },
+            query: {
+                'Offset': offset,
+                'Limit': limit,
+                'isRead': isRead,
+            },
+            errors: {
+                400: `Bad Request`,
+            },
+        });
+    }
+
+    /**
      * Mark notification as read
      * @returns BooleanStandardResponse Success
      * @throws ApiError

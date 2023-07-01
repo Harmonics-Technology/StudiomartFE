@@ -27,19 +27,19 @@ interface DetailsProps {
 }
 function BookingDetails({ data, closed }: DetailsProps) {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<any>({ status: false });
 
   const response = data.status?.toLowerCase();
   const id = data.id;
   const router = useRouter();
   async function acceptUserBooking(id: string) {
-    setLoading(true);
+    setLoading({ status: true, type: "accept" });
     try {
       const result = await BookingService.acceptBooking({
         id,
       });
       if (result.status) {
-        setLoading(false);
+        setLoading({ status: false });
         closed();
         toast.success(
           `You have successfully accept booking, ${data.user?.firstName} would be notify to make payment`
@@ -47,16 +47,37 @@ function BookingDetails({ data, closed }: DetailsProps) {
         router.reload();
         return;
       }
-      setLoading(false);
+      setLoading({ status: false });
       toast.error(result.message as string);
       return;
     } catch (error: any) {
-      setLoading(false);
+      setLoading({ status: false });
       toast.error(error?.body?.message || error?.message, {
         className: "loginToast",
       });
     }
   }
+  const markAsCompleted = async (id: string) => {
+    setLoading({ status: true, type: "complete" });
+    try {
+      const result = await BookingService.completeBooking({
+        bookingId: id,
+      });
+      if (result.status) {
+        setLoading({ status: false });
+        toast.success(`Successful`);
+        return;
+      }
+      setLoading({ status: false });
+      toast.error(result.message as string);
+      return;
+    } catch (err: any) {
+      setLoading({ status: false });
+      toast.error(err?.body?.message || err?.message, {
+        className: "loginToast",
+      });
+    }
+  };
 
   return (
     <Box
@@ -210,7 +231,6 @@ function BookingDetails({ data, closed }: DetailsProps) {
             gap={{ base: "1rem", lg: "2rem" }}
             mb="1rem !important"
             flexDir={{ base: "column", lg: "row" }}
-            display={response == "pending" ? "flex" : "none"}
           >
             <Button
               variant="outline"
@@ -218,6 +238,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
               border="2px solid"
               h="3rem"
               onClick={onOpen}
+              isDisabled={response !== "pending"}
             >
               Reject Booking
             </Button>
@@ -228,11 +249,24 @@ function BookingDetails({ data, closed }: DetailsProps) {
               color="white"
               h="3rem"
               onClick={() => acceptUserBooking(data.id as string)}
-              isLoading={loading}
+              isLoading={loading.status && loading.type == "accept"}
+              isDisabled={response !== "pending"}
             >
               Accept Booking
             </Button>
           </HStack>
+          <Button
+            variant="outline"
+            w="full"
+            bgColor="green.500"
+            color="white"
+            h="3rem"
+            onClick={() => markAsCompleted(data.id as string)}
+            isLoading={loading.status && loading.type == "complete"}
+            isDisabled={response != "paid"}
+          >
+            Mark as completed
+          </Button>
         </VStack>
       </Box>
       <ModalWrapper isOpen={isOpen} onClose={onClose}>

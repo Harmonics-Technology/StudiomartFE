@@ -52,6 +52,7 @@ import CalculatePercent from "./Components/utils/CalculatePercent";
 import { getCityAndState } from "./Components/utils/Geocode";
 import { sliderSettings } from "./Components/utils/SlickSettings";
 import CustomCheckbox from "./Components/utils/CustomCheckbox";
+import NotFoundPage from "./Components/utils/NotFoundPage";
 
 export {
   ExploreStudioCard,
@@ -105,4 +106,5 @@ export {
   ProcedureCard,
   sliderSettings,
   CustomCheckbox,
+  NotFoundPage,
 };
