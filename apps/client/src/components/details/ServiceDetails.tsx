@@ -24,7 +24,7 @@ import {
   ServiceView,
   StudioService,
 } from "src/services";
-import { Cur, CustomCheckbox, Rating } from "ui";
+import { BackToPage, Cur, CustomCheckbox, Rating } from "ui";
 import parse from "html-react-parser";
 import { ServiceInfos } from "@components/Home/ServiceInfos";
 import { RatingInfo } from "@components/Home/RatingInfo";
@@ -100,12 +100,11 @@ const ServiceDetails = ({
 
   return (
     <Box w="90%" mx="auto">
-      <HStack mt="3rem" onClick={() => router.back()}>
-        <Icon as={BsChevronLeft} />
-        <Text mb="0" textTransform="capitalize">
-          {service?.serviceType?.name?.toLowerCase()}/{service?.name}
-        </Text>
-      </HStack>
+      <Box mt="3rem">
+        <BackToPage
+          name={`${service?.serviceType?.name?.toLowerCase()}/${service?.name}`}
+        />
+      </Box>
       <Box my="3rem">
         <Text
           fontSize={["1rem", "24px"]}
@@ -265,6 +264,7 @@ const ServiceDetails = ({
         w={{ base: "full", lg: "60%" }}
         spacing={0}
         gap={{ base: "1rem", lg: "3rem" }}
+        flexDir={{ base: "column", lg: "row" }}
       >
         <Button
           bgColor="brand.100"

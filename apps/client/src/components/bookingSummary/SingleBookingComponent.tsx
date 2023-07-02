@@ -70,6 +70,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
   });
   console.log({ bookings });
   const router = useRouter();
+  const status = bookings.status?.toLowerCase();
 
   const cancelBooking = async (id: string) => {
     setLoading({ status: true, id, type: "cancel" });
@@ -101,6 +102,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
       if (result.status) {
         setLoading({ status: false });
         toast.success(`Successful`);
+        router.reload();
         return;
       }
       setLoading({ status: false });
@@ -121,7 +123,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
   const { currentUser } = useContext(AuthContext);
 
   const handleSelect = async (chatUser: any, id: any) => {
-    // console.log({ currentUser, chatUser });
+    console.log({ currentUser, chatUser });
     setLoading({ status: true, id, type: "chat" });
     const combinedId =
       currentUser?.uid > chatUser.uid
@@ -174,11 +176,11 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
         <BackToPage name="Back" />
       </Box>
       <ResponseBoxLarge
-        response={bookings.status?.toLowerCase()}
+        response={status}
         reference={bookings.bookingReference}
       />
       <Flex
-        gap={["2rem", "4rem"]}
+        gap={["2rem", "2rem"]}
         align="center"
         mt="2rem"
         flexDir={{ base: "column", lg: "row" }}
@@ -209,6 +211,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
             w="full"
             flexDir={{ base: "column", lg: "row" }}
             align="flex-start"
+            gap='2rem'
           >
             <VStack spacing={["1rem", "2rem"]} align="flex-start" w="full">
               <Infos
@@ -333,9 +336,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
           <HStack
             h="3rem"
             gap="1rem"
-            pointerEvents={
-              bookings.status?.toLowerCase() !== "paid" ? "none" : "unset"
-            }
+            pointerEvents={status !== "paid" ? "none" : "unset"}
           >
             <SocialWrapper
               icon={AiFillFacebook}
@@ -377,7 +378,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
             <InfoBox
               title="Studio Email"
               desc={
-                bookings.status?.toLowerCase() == "paid"
+                status == "paid" || status == "completed"
                   ? bookings.service?.studio?.email
                   : "***************"
               }
@@ -385,7 +386,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
             <InfoBox
               title="Studio Phone"
               desc={
-                bookings.status?.toLowerCase() == "paid"
+                status == "paid" || status == "completed"
                   ? bookings.service?.studio?.phone
                   : "***************"
               }
@@ -395,7 +396,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
             title="Studio Address"
             des
             desc={
-              bookings.status?.toLowerCase() == "paid"
+              status == "paid" || status == "completed"
                 ? bookings.service?.studio?.address
                 : "***************"
             }
@@ -412,7 +413,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
       >
         <BookingsBtn
           text="Cancel Booking"
-          isDisabled={bookings.status?.toLowerCase() !== "pending"}
+          isDisabled={status !== "pending"}
           onClick={() => cancelBooking(bookings.id as string)}
           isLoading={
             loading.status &&
@@ -424,7 +425,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
         />
         <BookingsBtn
           text="Make payment"
-          isDisabled={bookings.status?.toLowerCase() !== "approved"}
+          isDisabled={status !== "approved"}
           onClick={() =>
             router.push(`/customer/checkout/${bookings.id as string}`)
           }
@@ -436,7 +437,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
         />
         <BookingsBtn
           text="Chat with vendor"
-          isDisabled={bookings.status?.toLowerCase() !== "paid"}
+          isDisabled={status !== "paid"}
           isLoading={
             loading?.status &&
             loading.id == bookings.id &&
@@ -445,7 +446,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
           onClick={() =>
             handleSelect(
               {
-                uid: bookings.service?.user?.id,
+                uid: bookings?.service?.user?.id,
                 displayName: bookings?.service?.user?.firstName,
                 photoURL: bookings.service?.user?.profilePicture,
               },
@@ -457,7 +458,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
         />
         <BookingsBtn
           text="Rate this service"
-          isDisabled={bookings.status?.toLowerCase() !== "completed"}
+          isDisabled={status !== "completed"}
           onClick={() => {
             setReviewId(bookings.serviceId);
             onOpen();
@@ -467,7 +468,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
         />
         <BookingsBtn
           text="Mark as Completed"
-          isDisabled={bookings.status?.toLowerCase() !== "paid"}
+          isDisabled={status !== "paid"}
           onClick={() => markAsCompleted(bookings.id as string)}
           isLoading={
             loading.status &&

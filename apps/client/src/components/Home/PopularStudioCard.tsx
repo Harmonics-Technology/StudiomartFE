@@ -77,7 +77,6 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
       borderRadius="4px"
       border="1px solid #E8E8E8"
       overflow="hidden"
-      onClick={() => router.push(`/customer/details/${service?.id}`)}
     >
       <Box
         overflow="hidden"
@@ -126,7 +125,11 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
         fontWeight="600"
         p={{ base: "1rem .5rem", lg: "1rem" }}
       >
-        <VStack align="flex-start">
+        <VStack
+          align="flex-start"
+          onClick={() => router.push(`/customer/details/${service?.id}`)}
+          cursor='pointer'
+        >
           <HStack
             align={{ base: "none", lg: "flex-end" }}
             spacing={{ base: "0", lg: "1" }}

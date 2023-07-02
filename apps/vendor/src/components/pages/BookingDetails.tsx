@@ -66,6 +66,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
       if (result.status) {
         setLoading({ status: false });
         toast.success(`Successful`);
+        router.reload();
         return;
       }
       setLoading({ status: false });
@@ -229,7 +230,6 @@ function BookingDetails({ data, closed }: DetailsProps) {
             h="fit-content"
             spacing={0}
             gap={{ base: "1rem", lg: "2rem" }}
-            mb="1rem !important"
             flexDir={{ base: "column", lg: "row" }}
           >
             <Button
@@ -261,6 +261,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
             bgColor="green.500"
             color="white"
             h="3rem"
+            mb="1rem !important"
             onClick={() => markAsCompleted(data.id as string)}
             isLoading={loading.status && loading.type == "complete"}
             isDisabled={response != "paid"}

@@ -78,7 +78,7 @@ export const ResponseBoxLarge = ({ response, reference }: any) => {
         : response == "paid"
         ? "now has it's payment confirmed"
         : response == "approved"
-        ? "has been accepted by vendor an is awaiting payment"
+        ? "has been accepted by vendor and is awaiting payment"
         : response == "in-progress"
         ? "is currently in progress"
         : response == "completed"

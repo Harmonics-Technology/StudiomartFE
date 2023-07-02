@@ -14,7 +14,7 @@ export const BookingInfo = ({ bookings }: { bookings: BookingView }) => {
           : response == "cancelled"
           ? "Hey there!, You have cancelled this service requested by you and no information about the studio can be visible to you. Kindly head back to our platform to book the service again"
           : response == "rejected"
-          ? `Hey there!, The service you requested has been rejected by the studio manager and the reason for rejection is "${bookings?.date}"`
+          ? `Hey there!, The service you requested has been rejected by the studio manager and the reason for rejection is "${bookings?.rejectionReason}"`
           : response == "approved"
           ? "Hey there!, Studio Details such as Address, email, phone number, social media links e.t.c will only be visble to you when your payment has been made by you and confirmed. Kindly go ahead to Make Payment now"
           : response == "paid"

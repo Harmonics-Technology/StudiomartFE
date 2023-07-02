@@ -20,54 +20,36 @@ export const RecentlyViewed = ({
 }: {
   data: RecentlyViewedView[] | undefined;
 }) => {
-  function NextArrow(props: any) {
-    const { onClick } = props;
-    return (
-      <Circle
-        onClick={onClick}
-        size="24px"
-        color="white"
-        bgColor="gray.600"
-        cursor="pointer"
-        pos="absolute"
-        top={{ base: "-21%", lg: "-15%%" }}
-        right="0%"
-      >
-        <Icon as={BsArrowRightShort} />
-      </Circle>
-    );
-  }
-  function PrevArrow(props: any) {
-    const { onClick } = props;
-    return (
-      <Circle
-        onClick={onClick}
-        size="24px"
-        color="white"
-        bgColor="gray.600"
-        cursor="pointer"
-        pos="absolute"
-        top={{ base: "-21%", lg: "-15%%" }}
-        right={{ base: "10%", lg: "3%" }}
-      >
-        <Icon as={BsArrowLeftShort} />
-      </Circle>
-    );
-  }
-
+  const [slider, setSlider] = useState<Slider | null>(null);
   return (
     <Box w="full" mx="auto" my="3rem">
       {(data?.length as any) > 0 && (
         <Box pos="relative">
-          <HStack justify="space-between" mb="2rem">
+          <HStack justify="space-between" mb="2rem" w='98%'>
             <Heading>Recently Viewed</Heading>
+            <HStack>
+              <Circle
+                onClick={() => slider?.slickPrev()}
+                size="24px"
+                color="white"
+                bgColor="gray.600"
+                cursor="pointer"
+              >
+                <Icon as={BsArrowLeftShort} />
+              </Circle>
+              <Circle
+                onClick={() => slider?.slickNext()}
+                size="24px"
+                color="white"
+                bgColor="gray.600"
+                cursor="pointer"
+              >
+                <Icon as={BsArrowRightShort} />
+              </Circle>
+            </HStack>
           </HStack>
           <Box>
-            <Slider
-              {...sliderSettings}
-              prevArrow={<PrevArrow />}
-              nextArrow={<NextArrow />}
-            >
+            <Slider {...sliderSettings} ref={(slider) => setSlider(slider)}>
               {data?.map((x, index) => (
                 <Box key={index} w="100%">
                   <PopularStudioCard key={index} service={x.service} />

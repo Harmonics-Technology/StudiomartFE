@@ -174,9 +174,7 @@ const Notification = ({ notifications }: notificationProps) => {
               </Flex>
             ))}
 
-            {/* <HStack justifyContent="center" mt="3rem"> */}
             <Pagination data={notifications} />
-            {/* </HStack> */}
           </SimpleGrid>
         ) : (
           <Flex

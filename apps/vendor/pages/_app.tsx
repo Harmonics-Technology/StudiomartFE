@@ -15,11 +15,17 @@ import { UserProvider } from "@components/Context/UserContext";
 import Cookies from "js-cookie";
 import { OpenAPI, UserView } from "src/services";
 import NextNProgress from "nextjs-progressbar";
-import { toast, ToastBar, Toaster } from "react-hot-toast";
+import { toast, ToastBar } from "react-hot-toast";
 import { AuthContextProvider } from "@components/Context/AuthContext";
 import { ChatContextProvider } from "@components/Context/ChatContext";
 import Head from "next/head";
 import Script from "next/script";
+import dynamic from "next/dynamic";
+
+const Toaster = dynamic(
+  () => import("react-hot-toast").then((mod) => mod.Toaster),
+  { ssr: false }
+);
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   OpenAPI.BASE = process.env.NEXT_PUBLIC_API_BASEURL as string;
@@ -52,6 +58,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         async
         src="https://analytics.umami.is/script.js"
         data-website-id="ab35a0b0-e974-45ec-beb9-cf41be110c17"
+        data-domains="vendor.studiomart.io"
       ></Script>
       <Script
         src="//code.tidio.co/3sbkfbeznhueuu7swpwljoaqi36fx4os.js"

@@ -40,6 +40,7 @@ const PaymentSummary = ({ bookings }: { bookings: BookingView }) => {
     id: "",
   });
   const { device } = useContext(UserContext);
+  console.log({ bookings });
   const router = useRouter();
   const date = bookings?.date;
   const newTime = `${bookings.date?.split("T")[0]}T${bookings.time}`;
@@ -63,11 +64,11 @@ const PaymentSummary = ({ bookings }: { bookings: BookingView }) => {
   const amount = bookings.amount;
   const tax = bookings.tax;
   const grandTotal = (amount as number) + (tax as number);
-  const [couponInput, setCouponInput] = useState<any>();
+  // const [couponInput, setCouponInput] = useState<any>();
   const [couponError, setCouponError] = useState<any>();
   const [isLoading, setIsLoading] = useState<any>();
   const [couponApplied, setCouponApplied] = useState<any>();
-  //   const couponInput = bookings?.
+  const couponInput = bookings?.voucher?.code;
 
   const voucherAdded =
     couponApplied?.type == "percent"
@@ -78,16 +79,17 @@ const PaymentSummary = ({ bookings }: { bookings: BookingView }) => {
       ? grandTotal - couponApplied?.maxDiscount
       : grandTotal - voucherAdded;
 
-  //   useEffect(() => {
-  //     const applyVoucher = () => {
-  //       VoucherCoupon({
-  //         setCouponError,
-  //         setCouponApplied,
-  //         setIsLoading,
-  //       });
-  //     };
-  //     applyVoucher();
-  //   }, []);
+  useEffect(() => {
+    const applyVoucher = () => {
+      VoucherCoupon({
+        setCouponError,
+        setCouponApplied,
+        setIsLoading,
+        couponInput,
+      });
+    };
+    applyVoucher();
+  }, []);
 
   const checkoutBooking = async (id: string) => {
     setLoading({ status: true, id, type: "pay" });
@@ -320,7 +322,9 @@ const PaymentSummary = ({ bookings }: { bookings: BookingView }) => {
                 h="2.6rem"
                 borderRadius="0"
                 w="full"
-                onChange={(e) => setCouponInput(e.target.value)}
+                // onChange={(e) => setCouponInput(e.target.value)}
+                value={couponInput as string}
+                readOnly
                 textTransform="uppercase"
                 fontSize=".9rem"
               />

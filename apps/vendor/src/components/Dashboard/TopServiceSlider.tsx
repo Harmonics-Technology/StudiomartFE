@@ -22,44 +22,11 @@ interface SliderProps {
 }
 
 export const TopServiceSlider = ({ data }: SliderProps) => {
-  function NextArrow(props: any) {
-    const { onClick } = props;
-    return (
-      <Circle
-        onClick={onClick}
-        size="24px"
-        color="white"
-        bgColor="gray.600"
-        cursor="pointer"
-        pos="absolute"
-        top="-15%"
-        right="0%"
-      >
-        <Icon as={BsArrowRightShort} />
-      </Circle>
-    );
-  }
-  function PrevArrow(props: any) {
-    const { onClick } = props;
-    return (
-      <Circle
-        onClick={onClick}
-        size="24px"
-        color="white"
-        bgColor="gray.600"
-        cursor="pointer"
-        pos="absolute"
-        top="-15%"
-        right={{ base: "10%", lg: "3%" }}
-      >
-        <Icon as={BsArrowLeftShort} />
-      </Circle>
-    );
-  }
   const image = useDummyImage({});
+  const [slider, setSlider] = useState<Slider | null>(null);
   return (
     <Box w={{ base: "90%", md: "unset" }} mx="auto">
-      <HStack justify="space-between">
+      <HStack justify="space-between" w="98%">
         <Text
           fontFamily="BR Firma"
           fontSize={{ base: "14px", md: "20px" }}
@@ -67,13 +34,29 @@ export const TopServiceSlider = ({ data }: SliderProps) => {
         >
           Top Services
         </Text>
+        <HStack>
+          <Circle
+            onClick={() => slider?.slickPrev()}
+            size="24px"
+            color="white"
+            bgColor="gray.600"
+            cursor="pointer"
+          >
+            <Icon as={BsArrowLeftShort} />
+          </Circle>
+          <Circle
+            onClick={() => slider?.slickNext()}
+            size="24px"
+            color="white"
+            bgColor="gray.600"
+            cursor="pointer"
+          >
+            <Icon as={BsArrowRightShort} />
+          </Circle>
+        </HStack>
       </HStack>
 
-      <Slider
-        {...sliderSettings}
-        prevArrow={<PrevArrow />}
-        nextArrow={<NextArrow />}
-      >
+      <Slider {...sliderSettings} ref={(slider) => setSlider(slider)}>
         {data?.map((x: TopServiceView, i: any) => (
           <Box
             w="9.6rem"
@@ -102,10 +85,10 @@ export const TopServiceSlider = ({ data }: SliderProps) => {
               fontSize="16px"
               spacing={".2rem"}
             >
-              <Text mb="0" fontWeight="600" fontFamily="BR Firma">
+              <Text mb="0" fontWeight="600" fontFamily="BR Firma" noOfLines={1}>
                 {x.service?.name}
               </Text>
-              <Text fontSize="14px" fontFamily="BR Firma">
+              <Text fontSize="14px" fontFamily="BR Firma" noOfLines={1}>
                 {x.orders} order(s)
               </Text>
             </VStack>

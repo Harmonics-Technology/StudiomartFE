@@ -22,11 +22,12 @@ class CustomDocument extends Document {
     return (
       <Html>
         <Head />
+        <link rel="manifest" href="/manifest.json" />
         <body>
           <Main />
           <NextScript />
           <div id="globalLoader">
-            <Image src="/stdd.gif" alt=""  />
+            <Image src="/stdd.gif" alt="" />
           </div>
         </body>
       </Html>

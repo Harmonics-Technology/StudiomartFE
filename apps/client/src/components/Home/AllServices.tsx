@@ -80,7 +80,11 @@ const AllServices = ({ allService, recentlyViewed }: ICustomerHome) => {
         ) : (
           <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
             {allService?.value?.map((service: ServiceView) => (
-              <PopularStudioCard key={service.id} service={service} />
+              <PopularStudioCard
+                key={service.id}
+                service={service}
+                isSaved={service.isSaved}
+              />
             ))}
           </SimpleGrid>
         )}

@@ -161,7 +161,7 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
           </Flex>
 
           <Text fontSize="1rem" fontFamily="BR Firma" fontWeight="700">
-            1 Day in {singleService?.studio?.name} studio
+            1 Day in {singleService?.studio?.name}&apos;s studio
           </Text>
           <HStack my="2rem" gap="1rem">
             <Square bgColor="#D5E2F9" size="5rem" borderRadius="4px">

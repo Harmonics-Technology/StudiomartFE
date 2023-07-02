@@ -89,7 +89,6 @@ const Notification = ({ notifications }: notificationProps) => {
     <Box fontFamily="DM Sans" mb="2.8rem">
       <VStack w="80%" mx="auto" mt="3rem" justify="center">
         <Heading fontSize="2rem">Notifications!</Heading>
-        {/* <Text>Never miss a things!</Text> */}
       </VStack>
       <Box
         w={{ base: "full", lg: "80%" }}
@@ -171,10 +170,7 @@ const Notification = ({ notifications }: notificationProps) => {
                 </VStack>
               </Flex>
             ))}
-
-            {/* <HStack justifyContent="center" mt="3rem"> */}
             <Pagination data={notifications} />
-            {/* </HStack> */}
           </SimpleGrid>
         ) : (
           <Flex
