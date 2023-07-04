@@ -121,7 +121,7 @@ export const Verify = ({ code }: { code: string }) => {
               <VStack mb="2rem">
                 <Text textAlign="center">
                   {success.status
-                    ? `Hi ${success.firstName}! Your account verification process was successful, you can now proceed to login to enjoy all our amazing features on studiomart`
+                    ? `Hi there! Your account verification process was successful, you can now proceed to login to enjoy all our amazing features on studiomart`
                     : success.data}
                 </Text>
                 <Button

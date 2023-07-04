@@ -171,7 +171,7 @@ export const LoginPage = () => {
             justify="center"
             mx="auto"
             mb="2rem"
-            onClick={() => router.push("/")}
+            onClick={() => (window.location.href = "/")}
           >
             <Image src="/logofav.png" w="full" alt="logo" />
           </Flex>
