@@ -24,7 +24,7 @@ import { BsBell, BsBookmarkHeart, BsSearch } from "react-icons/bs";
 import { IoIosNotifications, IoIosBookmark } from "react-icons/io";
 import CustomerSidebar from "./CustomerSidebar";
 
-const CustomerHeader = () => {
+const CustomerHeader = ({ category }: any) => {
   const router = useRouter();
   const { user, logout } = useContext(UserContext);
 
@@ -39,7 +39,7 @@ const CustomerHeader = () => {
         justify="space-between"
       >
         <HStack align="center" spacing={["5", "10"]} justify="space-between">
-          <CustomerSidebar user={user} logout={logout} />
+          <CustomerSidebar user={user} logout={logout} category={category} />
           <Link href="/" passHref>
             <HStack>
               <Box

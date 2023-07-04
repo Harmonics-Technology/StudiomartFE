@@ -24,12 +24,20 @@ import { IoMdClose } from "react-icons/io";
 import { IoStorefront } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 import NextLink from "next/link";
-import { UserView } from "src/services";
+import { ServiceView, UserView } from "src/services";
 import Menus from "@components/utils/Menus";
-import category from "../utils/category.json";
+// import category from "../utils/category.json";
 import { GlobalSearch } from "@components/Home/GlobalSearch";
 
-const CustomerSidebar = ({ user, logout }: { user: UserView; logout: any }) => {
+const CustomerSidebar = ({
+  user,
+  logout,
+  category,
+}: {
+  user: UserView;
+  logout: any;
+  category: ServiceView[];
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (

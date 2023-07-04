@@ -5,7 +5,6 @@ import { FiFilter } from "react-icons/fi";
 import { BiMessageRoundedError } from "react-icons/bi";
 import PopularStudioCard from "@components/Home/PopularStudioCard";
 import { ISingleCategory } from "src/models/schema";
-import category from "../utils/category.json";
 import { RecentlyViewed } from "@components/Home/RecentlyViewed";
 import { FilterBox } from "@components/Home/FilterBox";
 
@@ -13,6 +12,7 @@ const Category = ({
   singlecategory,
   categoryId,
   recentlyViewed,
+  category,
 }: ISingleCategory) => {
   // console.log(singlecategory);
   const { ref, isComponentVisible, setIsComponentVisible } =
@@ -50,7 +50,7 @@ const Category = ({
         fontWeight="700"
         textTransform="capitalize"
       >
-        {category?.find((x) => x.id == categoryId)?.name.toLowerCase()} studio
+        {category?.find((x) => x.id == categoryId)?.name?.toLowerCase()} studio
       </Box>
 
       <Box>

@@ -16,7 +16,6 @@ import ExploreStudioCard from "./ExploreStudioCard";
 import TextTransition, { presets } from "react-text-transition";
 import { getCityAndState, NotFound, ProcedureCard } from "ui";
 import { ICustomerHome } from "src/models/schema";
-import category from "../utils/category.json";
 import dynamic from "next/dynamic";
 import { StudioCategory } from "@components/utils/StudioCategory";
 import Cookies from "js-cookie";
@@ -38,7 +37,7 @@ const studios = [
   "podcast studio",
 ];
 
-const HomePage = ({ popularStudios }: ICustomerHome) => {
+const HomePage = ({ popularStudios, category }: ICustomerHome) => {
   const [index, setIndex] = useState(0);
 
   // console.log({ popularStudios });
