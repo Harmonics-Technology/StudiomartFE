@@ -16,9 +16,10 @@ type NavProps = {
   name: string;
   path: string;
   display?: any;
+  setIsOpened?: any;
 };
 
-const NavLink = ({ name, path, display }: NavProps) => {
+const NavLink = ({ name, path, display, setIsOpened }: NavProps) => {
   const router = useRouter();
   return (
     <NextLink href={path} passHref>
@@ -29,6 +30,7 @@ const NavLink = ({ name, path, display }: NavProps) => {
         cursor="pointer"
         fontSize={{ base: ".9rem", lg: ".9rem" }}
         _hover={{ color: "brand.100" }}
+        onClick={() => setIsOpened((prev: any) => !prev)}
       >
         {name}
       </Link>
@@ -64,12 +66,25 @@ export const Header = () => {
           direction={["column", "row"]}
           spacing={{ base: "5", md: "4", lg: "6", xl: "14" }}
         >
-          <NavLink path="/" name="Home" />
-          <NavLink path="/studio" name="Studios" />
+          <NavLink path="/" name="Home" setIsOpened={setIsOpened} />
+          <NavLink path="/studio" name="Studios" setIsOpened={setIsOpened} />
           <NavLink path="/about" name="About" />
-          <NavLink path="/#how-it-works" name="How It Works" />
-          <NavLink path="/become-a-vendor" name="Become a Vendor" />
-          <NavLink path="/login" display={["block", "none"]} name="Login" />
+          <NavLink
+            path="/#how-it-works"
+            name="How It Works"
+            setIsOpened={setIsOpened}
+          />
+          <NavLink
+            path="/become-a-vendor"
+            name="Become a Vendor"
+            setIsOpened={setIsOpened}
+          />
+          <NavLink
+            path="/login"
+            display={["block", "none"]}
+            name="Login"
+            setIsOpened={setIsOpened}
+          />
           <NextLink href="/register" passHref>
             <Button
               display={["block", "none"]}
@@ -77,6 +92,7 @@ export const Header = () => {
               fontSize={{ base: ".9rem", lg: ".9rem" }}
               color="white"
               px={["8", "4", "4", "8"]}
+              onClick={() => setIsOpened((prev) => !prev)}
             >
               Sign Up
             </Button>

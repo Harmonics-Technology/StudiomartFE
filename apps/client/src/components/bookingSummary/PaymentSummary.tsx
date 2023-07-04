@@ -327,6 +327,7 @@ const PaymentSummary = ({ bookings }: { bookings: BookingView }) => {
                 readOnly
                 textTransform="uppercase"
                 fontSize=".9rem"
+                type="search"
               />
               <Button
                 bgColor="black"
@@ -342,9 +343,9 @@ const PaymentSummary = ({ bookings }: { bookings: BookingView }) => {
                 {couponApplied?.valid ? <Icon as={BsCheck2} /> : "Apply Coupon"}
               </Button>
             </HStack>
-            {/* <Text fontSize=".8rem" color="red" w="100%" p=".2rem .5rem">
+            <Text fontSize=".8rem" color="red" w="100%" p=".2rem .5rem">
               {couponError}
-            </Text> */}
+            </Text>
           </Box>
           <VStack
             align="flex-start"

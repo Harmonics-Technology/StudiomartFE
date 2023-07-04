@@ -55,7 +55,13 @@ export const GlobalSearch = () => {
           {/* <Button h="full" w="full" bg="brand.100" color="white" size="sm">
               Search
             </Button> */}
-          <Text mb="0" fontWeight="500" fontSize=".9rem" color="gray.500">
+          <Text
+            mb="0"
+            fontWeight="500"
+            fontSize=".9rem"
+            color="gray.500"
+            display={["none", "block"]}
+          >
             Ctrl + Q
           </Text>
         </InputRightElement>

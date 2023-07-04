@@ -9,6 +9,9 @@ export default function VoucherCoupon({
   const applyCoupon = async () => {
     setCouponError("");
     setCouponApplied({});
+    if (!couponInput || couponInput == "") {
+      return;
+    }
     setIsLoading(true);
     try {
       const data = await VoucherService.getVoucher({ code: couponInput });

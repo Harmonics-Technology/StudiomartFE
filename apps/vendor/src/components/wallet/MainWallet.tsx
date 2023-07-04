@@ -133,7 +133,7 @@ const MainWallet = ({
                 w="100%"
                 mx="auto"
                 py=".7rem"
-                px="2.5rem"
+                px={{ base: "1.5rem", md: "2.5rem" }}
               >
                 <Box fontFamily="BR Firma">
                   <Text fontSize="1.5rem" fontWeight="600" mb=".2rem">
@@ -209,7 +209,7 @@ const MainWallet = ({
                         label="Enter amount to withdraw"
                       />
                       <Box w="full" pos="relative">
-                        <Box pos="relative" zIndex="890">
+                        <Box pos="relative" zIndex="500">
                           <FormLabel
                             w="100%"
                             textTransform="capitalize"

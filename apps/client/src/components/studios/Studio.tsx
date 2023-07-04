@@ -38,57 +38,10 @@ const Studio = ({ allService }: any) => {
       >
         Explore Studios For You
       </Text>
-      <Box w="60%" mx="auto">
+      <Box w={["80%", "60%"]} mx="auto">
         <GlobalSearch />
       </Box>
-      {/* <Box
-        w="full"
-        h="6rem"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        gap="6"
-      >
-        <Button
-          border="1px solid #d6d6d6"
-          fontWeight="400"
-          fontSize={[".65rem", "1.25em"]}
-          py={[".45rem", "1rem"]}
-          px={["1rem", "1rem"]}
-          color="#808080"
-          borderRadius="none"
-          bg="#fff"
-          cursor="pointer"
-        >
-          Studio type
-        </Button>
-        <Button
-          border="1px solid #d6d6d6"
-          fontWeight="400"
-          fontSize={[".65rem", "1.25em"]}
-          py={[".45rem", "1rem"]}
-          px={["1rem", "1rem"]}
-          color="#808080"
-          borderRadius="none"
-          bg="#fff"
-          cursor="pointer"
-        >
-          Pricing
-        </Button>
-        <Button
-          border="1px solid #d6d6d6"
-          fontWeight="400"
-          fontSize={[".65rem", "1.25em"]}
-          py={[".45rem", "1rem"]}
-          px={["1rem", "1rem"]}
-          color="#808080"
-          borderRadius="none"
-          bg="#fff"
-          cursor="pointer"
-        >
-          Best rating
-        </Button>
-      </Box> */}
+
       <Box>
         {allService?.value?.length == 0 ? (
           <NotFound />

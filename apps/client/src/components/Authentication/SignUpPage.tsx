@@ -15,7 +15,13 @@ import {
   Image,
   Circle,
 } from "@chakra-ui/react";
-import { PrimaryInput, SubmitButton, CustomStepper, LoginTypeBtn, sliderSets } from "ui";
+import {
+  PrimaryInput,
+  SubmitButton,
+  CustomStepper,
+  LoginTypeBtn,
+  sliderSets,
+} from "ui";
 import { VendorRegisterModel, UserService, RegisterModel } from "src/services";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -30,6 +36,7 @@ import { auth, db } from "@components/firebase/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import Slider from "react-slick";
+import { useRouter } from "next/router";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -98,6 +105,7 @@ export const SignUpPage = () => {
       return;
     }
   };
+  const router = useRouter();
 
   const onSubmitRegister = async (data: RegisterModel) => {
     if (!terms) {
@@ -211,7 +219,13 @@ export const SignUpPage = () => {
               py="1rem"
               // boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
             >
-              <Flex w="10%" justify="center" mx="auto" mb="2rem">
+              <Flex
+                w="10%"
+                justify="center"
+                mx="auto"
+                mb="2rem"
+                onClick={() => router.push("/")}
+              >
                 <Image src="/logofav.png" w="full" alt="logo" />
               </Flex>
               <VStack spacing={0} gap="1.5rem" w="100%" mb="10px">
