@@ -18,8 +18,7 @@ import YupPassword from "yup-password";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { auth } from "@components/firebase/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, signIn } from "@components/firebase/firebase";
 import Slider from "react-slick";
 
 YupPassword(yup);
