@@ -140,7 +140,13 @@ export const LoginPage = () => {
           py="1rem"
           // boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
         >
-          <Flex w="10%" justify="center" mx="auto" mb="2rem">
+          <Flex
+            w="10%"
+            justify="center"
+            mx="auto"
+            mb="2rem"
+            onClick={() => router.push("/")}
+          >
             <Image src="/logofav.png" w="full" alt="logo" />
           </Flex>
           <VStack spacing={0} gap="1.5rem" w="100%" mb="10px">
