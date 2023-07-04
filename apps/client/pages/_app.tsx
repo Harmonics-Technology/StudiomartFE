@@ -58,7 +58,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         data-website-id="ab35a0b0-e974-45ec-beb9-cf41be110c17"
         data-domains="studiomart.io"
       ></Script>
-      <Script src="/notification.js" type="text/javascript"></Script>
+      {/* <Script src="/notification.js" type="text/javascript"></Script> */}
       <UserProvider>
         <AuthContextProvider>
           <ChatContextProvider>

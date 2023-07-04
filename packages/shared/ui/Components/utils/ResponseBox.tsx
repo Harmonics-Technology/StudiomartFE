@@ -55,6 +55,7 @@ export const ResponseBoxLarge = ({ response, reference }: any) => {
       textAlign="center"
       align="center"
       justify="center"
+      px='1rem'
       bgColor={
         response == "pending"
           ? "#FDF3CA"

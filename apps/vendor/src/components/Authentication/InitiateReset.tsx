@@ -10,7 +10,7 @@ import {
   Button,
   Icon,
 } from "@chakra-ui/react";
-import { PrimaryInput, SubmitButton } from "ui";
+import { PrimaryInput, SubmitButton, sliderSets } from "ui";
 import { InitiateResetModel, LoginModel, UserService } from "src/services";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -21,6 +21,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import { useRouter } from "next/router";
 import { BsCheckCircle } from "react-icons/bs";
+import Slider from "react-slick";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -68,25 +69,14 @@ export const InitiateReset = () => {
         <Box w="30%" pos="absolute" top="2rem" left="3rem">
           <Image src="/assets/StudioMart.png" w="full" alt="logo" />
         </Box>
-        <Carousel
-          showStatus={false}
-          autoPlay
-          infiniteLoop
-          animationHandler="fade"
-          useKeyboardArrows
-          showArrows={false}
-          showThumbs={false}
-          showIndicators={false}
-          stopOnHover={false}
-          interval={5000}
-        >
+        <Slider {...sliderSets}>
           <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/003.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/004.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/005.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/001.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
-        </Carousel>
+        </Slider>
       </Box>
       <Flex w="50%" pos="relative" h="100vh" align="center">
         {success ? (

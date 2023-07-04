@@ -1,5 +1,6 @@
 import { Button, Icon } from "@chakra-ui/react";
 import React from "react";
+import BeatLoader from "react-spinners/BeatLoader";
 
 export const BookingsBtn = ({
   onClick,
@@ -9,7 +10,7 @@ export const BookingsBtn = ({
   bg,
   isLoading = false,
 }: {
-  onClick: any;
+  onClick?: any;
   isDisabled: boolean;
   text: string;
   icon: any;
@@ -25,6 +26,7 @@ export const BookingsBtn = ({
       w="full"
       isDisabled={isDisabled}
       onClick={onClick}
+      spinner={<BeatLoader color="white" size={10} />}
       isLoading={isLoading}
     >
       <Icon as={icon} mr=".5rem" />

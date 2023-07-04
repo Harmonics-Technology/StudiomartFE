@@ -19,7 +19,7 @@ import { BookingService, BookingView, MediaView } from "src/services";
 import BookingText from "src/utils/BookingText";
 import RejectBooking from "src/utils/RejectBooking";
 import { Responses } from "src/utils/Responses";
-import { ModalWrapper, Naira } from "ui";
+import { ModalWrapper, Naira, ResponseBox } from "ui";
 
 interface DetailsProps {
   data: BookingView;
@@ -94,35 +94,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
           <Text fontSize="1.4rem" mb="0">
             Booking Details
           </Text>
-          <Box
-            padding=".2rem 1rem"
-            width="fit-content"
-            h="fit-content"
-            borderRadius="8px"
-            cursor="pointer"
-            bgColor={
-              response == "pending"
-                ? "#FDF3CA"
-                : response == "approved"
-                ? "#D5E2F9"
-                : response == "in-progress"
-                ? "#FDF3CA"
-                : response == "cancelled" || response == "rejected"
-                ? "#FDC1C1"
-                : "white"
-            }
-            fontSize="10px"
-          >
-            {response == "pending"
-              ? "Pending Confirmation"
-              : response == "approved"
-              ? "Awaiting payment"
-              : response == "in-progress"
-              ? "In progress"
-              : response == "rejected"
-              ? "Rejected"
-              : "Cancelled"}
-          </Box>
+          <ResponseBox response={data.status?.toLowerCase()} />
         </Flex>
         <VStack gap="2rem">
           <Box w="full">
@@ -136,10 +108,19 @@ function BookingDetails({ data, closed }: DetailsProps) {
               p={{ base: ".8rem", lg: "2rem 1.5rem" }}
             >
               <VStack gap="1rem" align="left">
-                <BookingText top="Client ID/Email" bottom={data?.user?.email} />
+                <BookingText
+                  top="Client Full Name"
+                  bottom={data?.user?.fullName}
+                />
+                <BookingText
+                  top="Client ID/Email"
+                  bottom={response != "paid" ? "*********" : data?.user?.email}
+                />
                 <BookingText
                   top="Client Phone Number"
-                  bottom={data?.user?.phoneNumber}
+                  bottom={
+                    response != "paid" ? "*********" : data?.user?.phoneNumber
+                  }
                 />
               </VStack>
             </Box>
@@ -184,6 +165,20 @@ function BookingDetails({ data, closed }: DetailsProps) {
                   top="Service Description"
                   bottom={data?.service?.description}
                 />
+                {(data.additionalServices as any)?.length > 0 && (
+                  <>
+                    <Text fontWeight="500" mb="0">
+                      Additional Services
+                    </Text>
+                    <HStack>
+                      {data?.additionalServices?.map((b) => (
+                        <Text key={b.id} mb="0" fontSize="1rem" noOfLines={1}>
+                          {b.name}
+                        </Text>
+                      ))}
+                    </HStack>
+                  </>
+                )}
               </VStack>
             </Box>
           </Box>
@@ -218,7 +213,9 @@ function BookingDetails({ data, closed }: DetailsProps) {
                   />
                   <BookingText
                     top="Total Cost"
-                    bottom={Naira(data.totalAmount as number)}
+                    bottom={Naira(
+                      (data.amount as number) + (data.tax as number)
+                    )}
                     color="#1570FA"
                   />
                 </Grid>
@@ -270,9 +267,11 @@ function BookingDetails({ data, closed }: DetailsProps) {
           </Button>
         </VStack>
       </Box>
-      <ModalWrapper isOpen={isOpen} onClose={onClose}>
-        <RejectBooking data={data} onClose={onClose} />
-      </ModalWrapper>
+      {isOpen && (
+        <ModalWrapper isOpen={isOpen} onClose={onClose}>
+          <RejectBooking data={data} onClose={onClose} />
+        </ModalWrapper>
+      )}
     </Box>
   );
 }

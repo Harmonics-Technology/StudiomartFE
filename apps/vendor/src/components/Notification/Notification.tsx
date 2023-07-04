@@ -122,9 +122,10 @@ const Notification = ({ notifications }: notificationProps) => {
                   <Avatar
                     src={info?.user?.profilePicture as string}
                     name={info?.user?.fullName || ""}
+                    display={{ base: "none", lg: "block" }}
                   />
                   <Text
-                    pr="4rem"
+                    pr={{ base: "0", lg: "4rem" }}
                     fontWeight="400"
                     mb="0"
                     color={info.isRead ? "gray.300" : "black"}

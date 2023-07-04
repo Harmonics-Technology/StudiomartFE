@@ -19,10 +19,10 @@ import {
   Naira,
   NotFound,
   Pagination,
+  ResponseBox,
   Rating,
 } from "ui";
 import dayjs from "dayjs";
-import { ResponseBox } from "@components/utils/ResponseBox";
 import { useRouter } from "next/router";
 
 export default function BookingHistory({ bookings }: IBookingsProps) {
@@ -30,7 +30,7 @@ export default function BookingHistory({ bookings }: IBookingsProps) {
   const router = useRouter();
 
   return (
-    <Box my="3rem">
+    <Box my={["1rem", "3rem"]}>
       <Box w={{ base: "90%", lg: "90%" }} mx="auto">
         <BookingFilters />
         {bookings?.value?.length == 0 ? (

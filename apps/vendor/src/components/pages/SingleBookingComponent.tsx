@@ -2,7 +2,6 @@ import {
   Box,
   Flex,
   HStack,
-  Icon,
   Square,
   Text,
   VStack,
@@ -13,9 +12,9 @@ import {
   useDisclosure,
   Grid,
 } from "@chakra-ui/react";
-import { BookingInfo } from "@components/utils/BookingInfo";
-import { InfoBox as Infos } from "@components/utils/InfoBox";
-import { SocialWrapper } from "@components/utils/SocialWrapper";
+import data from "@components/Dashboard/data";
+import { BookingInfo } from "../../utils/BookingInfo";
+import { InfoBox as Infos } from "../../utils/InfoBox";
 import dayjs from "dayjs";
 
 import { useRouter } from "next/router";
@@ -31,13 +30,10 @@ import {
   AiOutlineClose,
 } from "react-icons/ai";
 import { ImRadioChecked2 } from "react-icons/im";
-import {
-  MdOutlineDoneAll,
-  MdOutlineRateReview,
-  MdPayments,
-} from "react-icons/md";
+import { MdOutlineDoneAll, MdPayments } from "react-icons/md";
 import { useDummyImage } from "react-simple-placeholder-image";
 import { BookingService, BookingView } from "src/services";
+import RejectBooking from "src/utils/RejectBooking";
 import {
   getReviewSummary,
   ResponseBoxLarge,
@@ -46,9 +42,9 @@ import {
   InfoBox,
   BackToPage,
   HandleSelectChat,
+  ModalWrapper,
   BookingsBtn,
 } from "ui";
-import { ReviewModal } from "./ReviewModal";
 
 const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
   const image = useDummyImage({});
@@ -62,27 +58,30 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
   const router = useRouter();
   const status = bookings.status?.toLowerCase();
 
-  const cancelBooking = async (id: string) => {
-    setLoading({ status: true, id, type: "cancel" });
+  async function acceptUserBooking(id: string) {
+    setLoading({ status: true, type: "accept" });
     try {
-      const result = await BookingService.cancelBookings({
+      const result = await BookingService.acceptBooking({
         id,
       });
       if (result.status) {
         setLoading({ status: false });
-        toast.success(`You booking has been cancelled`);
+        toast.success(
+          `You have successfully accept booking, ${bookings.user?.firstName} would be notify to make payment`
+        );
+        router.reload();
         return;
       }
       setLoading({ status: false });
       toast.error(result.message as string);
       return;
-    } catch (err: any) {
+    } catch (error: any) {
       setLoading({ status: false });
-      toast.error(err?.body?.message || err?.message, {
+      toast.error(error?.body?.message || error?.message, {
         className: "loginToast",
       });
     }
-  };
+  }
   const markAsCompleted = async (id: string) => {
     setLoading({ status: true, id, type: "complete" });
     try {
@@ -105,15 +104,17 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
       });
     }
   };
-
-  const [reviewId, setReviewId] = useState<any>();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box w={{ base: "90%", lg: "80%" }} mx="auto" my="2rem">
-      <Box mb="3rem">
-        <BackToPage name="Back" />
-      </Box>
+    <Box
+      w={{ base: "90%", lg: "95%" }}
+      mx="auto"
+      my="2rem"
+      p="2rem"
+      bgColor="white"
+      borderRadius="10px"
+    >
       <ResponseBoxLarge
         response={status}
         reference={bookings.bookingReference}
@@ -240,22 +241,22 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
               </Box>
               <Box bgColor="#f2f2f2" p="1rem" w="full">
                 <Text fontWeight="600" mb=".5rem">
-                  Your Info:
+                  Studio Info:
                 </Text>
                 <HStack justify="space-between">
                   <Text fontSize=".8rem" mb="0" fontWeight="500">
-                    Full Name:
+                    Studio Name:
                   </Text>
-                  <Text fontSize=".8rem" mb="0">
-                    {bookings?.user?.fullName}
+                  <Text fontSize=".8rem" mb="0" noOfLines={1}>
+                    {bookings?.service?.studio?.name}
                   </Text>
                 </HStack>
                 <HStack justify="space-between">
                   <Text fontSize=".8rem" mb="0" fontWeight="500">
-                    Email:
+                    Office Address:
                   </Text>
-                  <Text fontSize=".8rem" mb="0">
-                    {bookings?.user?.email}
+                  <Text fontSize=".8rem" mb="0" noOfLines={1}>
+                    {bookings?.service?.studio?.officeAddress}
                   </Text>
                 </HStack>
               </Box>
@@ -270,38 +271,8 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
           mb="2rem"
         >
           <Text fontSize="2rem" fontFamily="BR Firma" fontWeight="500" mb="0">
-            Studio Information
+            Client Information
           </Text>
-          <HStack
-            h="3rem"
-            gap="1rem"
-            pointerEvents={status !== "paid" ? "none" : "unset"}
-          >
-            <SocialWrapper
-              icon={AiFillFacebook}
-              iconName="Facebook"
-              color="#3b5998"
-              url={bookings.service?.studio?.facebook}
-            />
-            <SocialWrapper
-              icon={AiOutlineTwitter}
-              iconName="Twitter"
-              color="#00acee"
-              url={bookings.service?.studio?.twitter}
-            />
-            <SocialWrapper
-              icon={AiFillInstagram}
-              iconName="Instagram"
-              color="#d62976"
-              url={bookings.service?.studio?.instagram}
-            />
-            <SocialWrapper
-              icon={AiFillYoutube}
-              iconName="Youtube"
-              color="red"
-              url={bookings.service?.studio?.youTube}
-            />
-          </HStack>
         </Flex>
         <VStack align="flex-start" spacing="1.5rem" mb="1rem">
           <Grid
@@ -309,37 +280,25 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
             gap="1.5rem"
             w="full"
           >
-            <InfoBox
-              title="Studio Name"
-              desc={bookings.service?.studio?.name}
-            />
+            <InfoBox title="Client Name" desc={bookings.user?.fullName} />
 
             <InfoBox
-              title="Studio Email"
+              title="Client Email"
               desc={
                 status == "paid" || status == "completed"
-                  ? bookings.service?.studio?.email
+                  ? bookings.user?.email
                   : "***************"
               }
             />
             <InfoBox
-              title="Studio Phone"
+              title="Client Phone"
               desc={
                 status == "paid" || status == "completed"
-                  ? bookings.service?.studio?.phone
+                  ? bookings.user?.phoneNumber
                   : "***************"
               }
             />
           </Grid>
-          <InfoBox
-            title="Studio Address"
-            des
-            desc={
-              status == "paid" || status == "completed"
-                ? bookings.service?.studio?.address
-                : "***************"
-            }
-          />
         </VStack>
       </Box>
       <BookingInfo bookings={bookings} />
@@ -351,40 +310,31 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
         flexDir={{ base: "column", lg: "row" }}
       >
         <BookingsBtn
-          text="Cancel Booking"
+          text="Reject Booking"
           isDisabled={status !== "pending"}
-          onClick={() => cancelBooking(bookings.id as string)}
-          isLoading={
-            loading.status &&
-            loading.type == "cancel" &&
-            loading.id == bookings.id
-          }
+          onClick={onOpen}
           bg="red"
           icon={AiOutlineClose}
         />
         <BookingsBtn
-          text="Make payment"
-          isDisabled={status !== "approved"}
-          onClick={() =>
-            router.push(`/customer/checkout/${bookings.id as string}`)
-          }
-          isLoading={
-            loading.status && loading.type == "pay" && loading.id == bookings.id
-          }
+          text="Approve Booking"
+          isDisabled={status !== "pending"}
+          onClick={() => acceptUserBooking(bookings.id as string)}
+          isLoading={loading.status && loading.type == "accept"}
           icon={MdPayments}
           bg="brand.100"
         />
         <HandleSelectChat
           chatUser={{
-            uid: bookings?.service?.user?.id,
-            displayName: bookings?.service?.user?.firstName,
-            photoURL: bookings.service?.user?.profilePicture,
+            uid: bookings?.user?.id,
+            displayName: bookings?.user?.firstName,
+            photoURL: bookings.user?.profilePicture,
           }}
-          url="/customer/message"
+          url="/message"
           setLoading={setIsLoading}
         >
           <BookingsBtn
-            text="Chat with vendor"
+            text="Chat with Client"
             isDisabled={status !== "paid"}
             icon={AiFillWechat}
             bg="yellow.500"
@@ -392,16 +342,6 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
           />
         </HandleSelectChat>
 
-        <BookingsBtn
-          text="Rate this service"
-          isDisabled={status !== "completed"}
-          onClick={() => {
-            setReviewId(bookings.serviceId);
-            onOpen();
-          }}
-          icon={MdOutlineRateReview}
-          bg="gray.500"
-        />
         <BookingsBtn
           text="Mark as Completed"
           isDisabled={status !== "paid"}
@@ -416,7 +356,9 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
         />
       </HStack>
       {isOpen && (
-        <ReviewModal id={reviewId} isOpen={isOpen} onClose={onClose} />
+        <ModalWrapper isOpen={isOpen} onClose={onClose}>
+          <RejectBooking data={bookings} onClose={onClose} />
+        </ModalWrapper>
       )}
     </Box>
   );

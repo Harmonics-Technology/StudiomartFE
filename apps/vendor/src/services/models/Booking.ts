@@ -27,7 +27,7 @@ export type Booking = {
     status?: Status;
     statusId?: number;
     amountBeforeDiscount?: number;
-    voucherId?: number | null;
+    voucherId?: string | null;
     voucher?: Voucher;
     additionalServices?: Array<AdditionalService> | null;
 };

@@ -19,12 +19,15 @@ export const Responses = ({ response }: responseProp) => {
             ? "#D5E2F9"
             : response == "in-progress"
             ? "#FDF3CA"
-            : response == "rejected" || response == "cancelled"
+            : response == "completed"
+            ? "#bcf8dc"
+            : response == "cancelled" || response == "rejected"
             ? "#FDC1C1"
-            : "#FDF3CA"
+            : "#7cbcf2"
         }
         justify="center"
         py=".8rem"
+        px='1rem'
       >
         {response == "pending" ? (
           <BsExclamationCircleFill color="#FACC15" fontSize="2rem" />
@@ -35,7 +38,7 @@ export const Responses = ({ response }: responseProp) => {
         ) : response == "rejected" || response == "cancelled" ? (
           <BsExclamationCircleFill color="#DC2626" fontSize="2rem" />
         ) : (
-          <BsExclamationCircleFill color="#FDC1C1" fontSize="2rem" />
+          <BsExclamationCircleFill color="#1580fa" fontSize="2rem" />
         )}
         <Text
           ml="1rem"
@@ -58,7 +61,11 @@ export const Responses = ({ response }: responseProp) => {
             ? "Booking has been rejected"
             : response == "cancelled"
             ? "Booking has been cancelled"
-            : "Books"}
+            : response == "paid"
+            ? "Booking payment confirmed"
+            : response == "completed"
+            ? "Booking has been completed. Thank you for using studiomart"
+            : "Booking is undefined"}
         </Text>
       </Flex>
       {/* ) : null} */}

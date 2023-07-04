@@ -37,9 +37,9 @@ const RecentTransaction = ({
             {message}
           </Text>
           <HStack textColor="#AFAFAF" fontSize="10px">
-            <Text mb="0">{moment(date).format("Do, DD MMM YYYY")}</Text>
+            <Text mb="0">{moment(date).format("ddd, DD MMM YYYY")}</Text>
             <Box>
-              <Text mb="0">{moment(time).format("LT A")}</Text>
+              <Text mb="0">{moment(time).format("LT")}</Text>
             </Box>
           </HStack>
         </VStack>

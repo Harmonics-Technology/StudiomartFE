@@ -9,7 +9,7 @@ import {
   Link,
   Image,
 } from "@chakra-ui/react";
-import { PrimaryInput, SubmitButton, LoginTypeBtn } from "ui";
+import { PrimaryInput, SubmitButton, LoginTypeBtn, sliderSets } from "ui";
 import { LoginModel, OpenAPI, StudioService, UserService } from "src/services";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -23,6 +23,7 @@ import { useRouter } from "next/router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@components/firebase/firebase";
 import { UserContext } from "@components/Context/UserContext";
+import Slider from "react-slick";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -53,6 +54,7 @@ export const LoginPage = () => {
 
   const onSubmitVendor = async (data: LoginModel) => {
     // console.log({ data });
+    data.isVendor = true;
     try {
       const result = await UserService.loginUser({ requestBody: data, device });
       // console.log({ result });
@@ -139,25 +141,14 @@ export const LoginPage = () => {
         {/* <Box w="30%" pos="absolute" top="2rem" left="3rem">
           <Image src="/assets/StudioMart.png" w="full" alt="logo" />
         </Box> */}
-        <Carousel
-          showStatus={false}
-          autoPlay
-          infiniteLoop
-          animationHandler="fade"
-          useKeyboardArrows
-          showArrows={false}
-          showThumbs={false}
-          showIndicators={false}
-          stopOnHover={false}
-          interval={5000}
-        >
+        <Slider {...sliderSets}>
           <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/003.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/004.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/005.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/001.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
-        </Carousel>
+        </Slider>
       </Box>
       <Flex
         w={{ base: "100%", md: "80%", lg: "50%" }}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -7,21 +7,20 @@ import {
   VStack,
   Checkbox,
   Image,
+  Link,
 } from "@chakra-ui/react";
-import { PrimaryInput, SubmitButton, LoginTypeBtn } from "ui";
+import { PrimaryInput, SubmitButton, LoginTypeBtn, sliderSets } from "ui";
 import { LoginModel, OpenAPI, UserService } from "src/services";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import YupPassword from "yup-password";
 import toast from "react-hot-toast";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { auth } from "@components/firebase/firebase";
-import Link from "next/link";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import Slider from "react-slick";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -42,8 +41,8 @@ export const LoginPage = () => {
 
   const {
     handleSubmit,
-    handleSubmit: VendorSubmit,
     register,
+    reset,
     formState: { errors, isSubmitting, isValid },
   } = useForm<LoginModel>({
     resolver: yupResolver(validation),
@@ -56,7 +55,14 @@ export const LoginPage = () => {
       console.log({ result });
       if (result.status) {
         if (terms) {
-          Cookies.set("isCustomer", JSON.stringify(data));
+          Cookies.set(
+            "isCustomer",
+            JSON.stringify({
+              email: data.email,
+              pass: data.password,
+              rememberMe: terms,
+            })
+          );
         }
         await signInWithEmailAndPassword(
           auth,
@@ -85,6 +91,18 @@ export const LoginPage = () => {
     }
   };
 
+  useEffect(() => {
+    const isUser = Cookies.get("isCustomer");
+    if (isUser !== undefined) {
+      const userDetails = JSON.parse(isUser as unknown as string);
+      setTerms(userDetails.rememberMe);
+      reset({
+        email: userDetails.email,
+        password: userDetails.pass,
+      });
+    }
+  }, []);
+
   return (
     <Flex
       border="2px hidden red"
@@ -100,24 +118,14 @@ export const LoginPage = () => {
         overflow="hidden"
         display={{ base: "none", lg: "block" }}
       >
-        <Carousel
-          showStatus={false}
-          autoPlay
-          infiniteLoop
-          animationHandler="fade"
-          useKeyboardArrows
-          showArrows={false}
-          showThumbs={false}
-          showIndicators={false}
-          stopOnHover={false}
-          interval={5000}
-        >
+        <Slider {...sliderSets}>
           <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/003.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/004.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/005.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/001.jpg" alt="any" w="full" objectFit="cover" />
-        </Carousel>
+          <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
+        </Slider>
         {/* <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" /> */}
       </Box>
       <Flex
@@ -227,6 +235,7 @@ export const LoginPage = () => {
                     borderRadius="5px"
                     size="md"
                     onChange={() => setTerms(!terms)}
+                    isChecked={terms}
                   >
                     Remember me
                   </Checkbox>

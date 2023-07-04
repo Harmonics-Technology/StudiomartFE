@@ -195,7 +195,7 @@ const ServiceDetails = ({
           Service Details
         </Text>
         <Text fontSize="16px" lineHeight="27px" color="#3d3d3d">
-          Here are the specifics of this service from Lensboy photography.
+          Here are the specifics of this service from {service?.studio?.name}.
         </Text>
         <Box mt={["2rem", "3rem"]}>
           <HStack

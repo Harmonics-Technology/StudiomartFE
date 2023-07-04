@@ -20,6 +20,7 @@ import { FaAngleDown, FaRegCalendarAlt } from "react-icons/fa";
 import { RiSearch2Fill } from "react-icons/ri";
 import {
   BsCheckAll,
+  BsFillChatRightTextFill,
   BsFillTrashFill,
   BsFilter,
   BsSortAlphaDownAlt,
@@ -34,6 +35,7 @@ import {
   BookingFilters,
   CustomTable,
   DrawerWrapper,
+  HandleSelectChat,
   Naira,
   Pagination,
   TableData,
@@ -43,6 +45,7 @@ import { BookingView, BookingViewPagedCollection } from "src/services";
 import moment from "moment";
 import { useDebouncedCallback } from "use-debounce";
 import { useRouter } from "next/router";
+import BeatLoader from "react-spinners/BeatLoader";
 
 interface BookingProps {
   allBookings: BookingViewPagedCollection;
@@ -51,8 +54,18 @@ interface BookingProps {
 function BookingsHome({ allBookings }: BookingProps) {
   // console.log({ allBookings });
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const thead = ["Booking ID", "Clients", "Amount", "Date", "Status", ""];
+  const thead = [
+    "Booking ID",
+    "Clients",
+    "Amount",
+    "Date",
+    "Status",
+    "Chat",
+    "",
+  ];
   const [data, setData] = useState<BookingView>();
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const openDrawer = (value: any) => {
     setData(value);
     onOpen();
@@ -71,7 +84,11 @@ function BookingsHome({ allBookings }: BookingProps) {
             <>
               {allBookings?.value?.map((info: BookingView) => (
                 <Tr key={info.id}>
-                  <TableData name={info.bookingReference} full />
+                  <TableData
+                    name={info.bookingReference}
+                    full
+                    onClick={() => router.push(`/bookings/${info?.id}`)}
+                  />
                   <TableData name={info.user?.fullName} full />
                   <TableData name={Naira(info.amount as number)} full />
                   <TableData
@@ -79,6 +96,29 @@ function BookingsHome({ allBookings }: BookingProps) {
                     full
                   />
                   <TableStatus name={info.status as string} />
+                  {info.status?.toLowerCase() !== "paid" ? (
+                    <Td>
+                      <BsFillChatRightTextFill />
+                    </Td>
+                  ) : (
+                    <HandleSelectChat
+                      chatUser={{
+                        uid: info.user?.id,
+                        displayName: info?.user?.firstName,
+                        photoURL: info.user?.profilePicture,
+                      }}
+                      url="/message"
+                      setLoading={setLoading}
+                    >
+                      <Td>
+                        {loading ? (
+                          <BeatLoader size={8} />
+                        ) : (
+                          <BsFillChatRightTextFill />
+                        )}
+                      </Td>
+                    </HandleSelectChat>
+                  )}
                   <Td
                     onClick={() => {
                       openDrawer(info);
@@ -97,9 +137,11 @@ function BookingsHome({ allBookings }: BookingProps) {
             <Pagination data={allBookings} />
           </HStack>
         </Box>
-        <DrawerWrapper isOpen={isOpen} onClose={onClose}>
-          <BookingDetails closed={onClose} data={data as BookingView} />
-        </DrawerWrapper>
+        {isOpen && (
+          <DrawerWrapper isOpen={isOpen} onClose={onClose}>
+            <BookingDetails closed={onClose} data={data as BookingView} />
+          </DrawerWrapper>
+        )}
       </Box>
     </Box>
   );

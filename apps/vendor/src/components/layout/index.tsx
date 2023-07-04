@@ -7,7 +7,6 @@ import { Footer, Header } from "..";
 import Notice from "@components/Dashboard/Notice";
 import { UserContext } from "@components/Context/UserContext";
 import { StudioView, UserView } from "src/services";
-import NoSSR from "react-no-ssr";
 
 export const Layout: React.FC = ({ children }) => {
   const router = useRouter();
@@ -28,18 +27,15 @@ export const Layout: React.FC = ({ children }) => {
           <VendorSideNav showSide={showSide} setShowSide={setShowSide} />
           <Box w={{ base: "full", lg: "82%" }} as="main" ml="auto" minH="95vh">
             <VendorHeader showSide={showSide} setShowSide={setShowSide} />
-            <NoSSR>
-              <Box as="div" w="100%" mb="1rem" minH="80vh">
-                {notDone?.meansOfIdentification ||
-                notDone?.cacDocumentReference ||
-                router.pathname.startsWith("/account") ? (
-                  <Box>{children}</Box>
-                ) : (
-                  <Notice />
-                )}
-                {/* <Box>{children}</Box> */}
-              </Box>
-            </NoSSR>
+            <Box as="div" w="100%" mb="1rem" minH="80vh">
+              {notDone?.meansOfIdentification ||
+              notDone?.cacDocumentReference ||
+              router.pathname.startsWith("/account") ? (
+                <Box>{children}</Box>
+              ) : (
+                <Notice />
+              )}
+            </Box>
           </Box>
           <Footer />
         </Flex>

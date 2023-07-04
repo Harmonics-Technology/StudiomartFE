@@ -55,7 +55,7 @@ export const BankCard = ({
       fontFamily="'Orbitron', sans-serif"
       color="white"
       w="3.37in"
-      h="1.125in"
+      h={{ base: ".8in", lg: "1.125in" }}
       p=".5rem 1rem"
       pos="relative"
       role="group"
@@ -66,7 +66,12 @@ export const BankCard = ({
           {bankName}
         </Text>
       </Flex>
-      <HStack justify="space-between" align="center" my=".3rem">
+      <HStack
+        justify="space-between"
+        align="center"
+        my=".3rem"
+        display={{ base: "none", lg: "flex" }}
+      >
         <Box>
           <Image src="/assets/chip.png" alt="" w="1.5rem" />
         </Box>

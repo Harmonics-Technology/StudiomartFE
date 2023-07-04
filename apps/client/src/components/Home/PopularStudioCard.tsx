@@ -89,7 +89,7 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
           w="full"
           objectFit="cover"
           src={(service?.bannerImageURL as string) || image}
-          alt=""
+          alt={`${service?.name}'s image`}
           borderRadius={{ base: "8px", lg: "0" }}
         />
         <Box pos="absolute" top="5%" right="3%">
@@ -128,7 +128,7 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
         <VStack
           align="flex-start"
           onClick={() => router.push(`/customer/details/${service?.id}`)}
-          cursor='pointer'
+          cursor="pointer"
         >
           <HStack
             align={{ base: "none", lg: "flex-end" }}

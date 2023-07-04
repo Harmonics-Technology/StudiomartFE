@@ -1,9 +1,16 @@
-import AllStudios from "@components/Home/AllStudios";
-import SingleStudioPages from "@components/Home/SingleStudioPages";
 import { GetServerSideProps } from "next";
 import React from "react";
+import { toast } from "react-hot-toast";
 import { OpenAPI, StudioService } from "src/services";
 import { FilterPagingOptions } from "ui";
+import dynamic from "next/dynamic";
+
+const SingleStudioPages = dynamic(
+  () => import("@components/Home/SingleStudioPages"),
+  {
+    ssr: false,
+  }
+);
 
 const SingleStudio = ({ allService, studio }: any) => {
   return <SingleStudioPages allService={allService} studio={studio} />;

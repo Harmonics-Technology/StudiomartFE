@@ -3,6 +3,7 @@ import DashboardBanner from "./DashboardBanner";
 import {
   CustomTable,
   DrawerWrapper,
+  HandleSelectChat,
   Naira,
   TableStatus,
   TableWithSub,
@@ -10,7 +11,6 @@ import {
 import React, { useContext, useState } from "react";
 import { OrderCounts } from "./OrderCounts";
 import { TopServiceSlider } from "./TopServiceSlider";
-import { useRouter } from "next/router";
 import { ServiceSlider } from "./ServicesSlider";
 import { UserContext } from "@components/Context/UserContext";
 import TopPage from "../../utils/TopPage";
@@ -22,17 +22,10 @@ import {
   VendorDashboardView,
 } from "src/services";
 import moment from "moment";
-import { ChatContext } from "@components/Context/ChatContext";
-import { AuthContext } from "@components/Context/AuthContext";
-import { db } from "@components/firebase/firebase";
-import {
-  doc,
-  getDoc,
-  serverTimestamp,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
+
 import BookingDetails from "@components/pages/BookingDetails";
+import BeatLoader from "react-spinners/BeatLoader";
+import { useRouter } from "next/router";
 
 interface DashboardProps {
   serviceTypes: ServiceTypeViewListStandardResponse;
@@ -46,9 +39,11 @@ const MainDashboard = ({
   services,
 }: DashboardProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const router = useRouter();
   const { user } = useContext(UserContext);
   const [data, setData] = useState<BookingView>();
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   const openDrawer = (value: any) => {
     setData(value);
     onOpen();
@@ -65,45 +60,6 @@ const MainDashboard = ({
     "Action",
   ];
   // console.log({ services });
-  const { dispatch } = useContext(ChatContext);
-
-  const { currentUser } = useContext(AuthContext);
-
-  const handleSelect = async (chatUser: any) => {
-    const combinedId =
-      currentUser?.uid > chatUser.uid
-        ? currentUser?.uid + chatUser.uid
-        : chatUser.uid + currentUser?.uid;
-    try {
-      const res = await getDoc(doc(db, "chats", combinedId));
-      console.log({ res: res.exists() });
-      if (!res.exists()) {
-        await setDoc(doc(db, "chats", combinedId), {
-          messages: [],
-        });
-        await updateDoc(doc(db, "userChats", currentUser?.uid), {
-          [combinedId + ".userInfo"]: {
-            uid: chatUser.uid,
-            displayName: chatUser.displayName,
-            photoURL: chatUser.photoURL,
-          },
-          [combinedId + ".date"]: serverTimestamp(),
-        });
-        await updateDoc(doc(db, "userChats", chatUser.uid), {
-          [combinedId + ".userInfo"]: {
-            uid: currentUser?.uid,
-            displayName: currentUser?.displayName,
-            photoURL: currentUser?.photoURL,
-          },
-          [combinedId + ".date"]: serverTimestamp(),
-        });
-        router.push("/message");
-      } else {
-        dispatch({ type: "CHANGE_USER", payload: chatUser });
-        router.push("/message");
-      }
-    } catch (error) {}
-  };
 
   console.log({ dashboardMetrics });
 
@@ -123,8 +79,11 @@ const MainDashboard = ({
 
         <Box w={{ base: "full", md: "94%" }} mx="auto">
           <Grid
-            templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
+            templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
             gap={{ base: "1rem", md: "2rem" }}
+            w="full"
+            display={["flex", "grid"]}
+            flexDir={["column", "row"]}
           >
             <Box w={{ base: "90%", md: "100%" }} mx="auto">
               <Text
@@ -160,7 +119,7 @@ const MainDashboard = ({
                 />
               </Grid>
             </Box>
-            <Box display={{ base: "80%", md: "full" }}>
+            <Box w={{ base: "full", md: "full" }}>
               <TopServiceSlider data={dashboardMetrics.topServices} />
             </Box>
           </Grid>
@@ -187,7 +146,11 @@ const MainDashboard = ({
                   {dashboardMetrics?.recentBookings?.map(
                     (info: BookingView, i) => (
                       <Tr key={i}>
-                        <TableWithSub top={info?.service?.name} sub={""} />
+                        <TableWithSub
+                          top={info?.service?.name}
+                          sub={""}
+                          onClick={() => router.push(`/bookings/${info?.id}`)}
+                        />
                         <TableWithSub
                           top={Naira(info?.totalAmount as number)}
                           sub={""}
@@ -199,18 +162,31 @@ const MainDashboard = ({
 
                         <TableWithSub top={info?.user?.fullName} sub={""} />
                         <TableStatus name={info?.status as string} />
-                        <Td
-                          onClick={() =>
-                            handleSelect({
+
+                        {info.status?.toLowerCase() !== "paid" ? (
+                          <Td>
+                            <BsFillChatRightTextFill />
+                          </Td>
+                        ) : (
+                          <HandleSelectChat
+                            chatUser={{
                               uid: info.user?.id,
                               displayName: info?.user?.firstName,
                               photoURL: info.user?.profilePicture,
-                            })
-                          }
-                          cursor="pointer"
-                        >
-                          <BsFillChatRightTextFill />
-                        </Td>
+                            }}
+                            url="/message"
+                            setLoading={setLoading}
+                          >
+                            <Td>
+                              {loading ? (
+                                <BeatLoader size={8} />
+                              ) : (
+                                <BsFillChatRightTextFill />
+                              )}
+                            </Td>
+                          </HandleSelectChat>
+                        )}
+
                         <Td
                           onClick={() => {
                             // setId(3);

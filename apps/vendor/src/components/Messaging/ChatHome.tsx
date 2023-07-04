@@ -23,6 +23,7 @@ export const ChatHome = () => {
           gap="2rem"
           h="78vh"
           overflow="hidden"
+          pos="relative"
         >
           <SideBar showChat={showChat} setShowChat={setShowChat} />
           <Chat showChat={showChat} setShowChat={setShowChat} />

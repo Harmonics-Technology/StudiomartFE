@@ -15,7 +15,13 @@ import {
   Image,
   Circle,
 } from "@chakra-ui/react";
-import { PrimaryInput, SubmitButton, CustomStepper, LoginTypeBtn } from "ui";
+import {
+  PrimaryInput,
+  SubmitButton,
+  CustomStepper,
+  LoginTypeBtn,
+  sliderSets,
+} from "ui";
 import { VendorRegisterModel, UserService, RegisterModel } from "src/services";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -30,6 +36,7 @@ import { auth, db } from "@components/firebase/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { UserContext } from "@components/Context/UserContext";
+import Slider from "react-slick";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -175,24 +182,14 @@ export const SignUpPage = () => {
         overflow="hidden"
         display={{ base: "none", lg: "unset" }}
       >
-        <Carousel
-          showStatus={false}
-          autoPlay
-          infiniteLoop
-          animationHandler="fade"
-          useKeyboardArrows
-          showArrows={false}
-          showIndicators={false}
-          stopOnHover={false}
-          interval={5000}
-        >
+        <Slider {...sliderSets}>
           <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/003.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/004.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/005.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/001.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
-        </Carousel>
+        </Slider>
       </Box>
       <Flex
         w={{ base: "100%", md: "80%", lg: "50%" }}

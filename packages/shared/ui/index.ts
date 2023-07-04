@@ -1,3 +1,5 @@
+import { BookingsBtn } from "./Components/utils/BookingsBtn";
+import { ResponseBox, ResponseBoxLarge } from "./Components/utils/ResponseBox";
 import { ProcedureCard } from "./Components/utils/ProcedureCard";
 import { useNonInitialEffect } from "./Components/utils/useNonInitialEffect";
 import { NotFound } from "./Components/utils/NotFound";
@@ -50,9 +52,10 @@ import CustomTable from "./Components/utils/CustomTable";
 import getUrlRoute from "./Components/Helper/GetUrl";
 import CalculatePercent from "./Components/utils/CalculatePercent";
 import { getCityAndState } from "./Components/utils/Geocode";
-import { sliderSettings } from "./Components/utils/SlickSettings";
+import { sliderSettings, sliderSets } from "./Components/utils/SlickSettings";
 import CustomCheckbox from "./Components/utils/CustomCheckbox";
 import NotFoundPage from "./Components/utils/NotFoundPage";
+import HandleSelectChat from "./Components/utils/HandleSelectChat";
 
 export {
   ExploreStudioCard,
@@ -105,6 +108,11 @@ export {
   useNonInitialEffect,
   ProcedureCard,
   sliderSettings,
+  sliderSets,
   CustomCheckbox,
   NotFoundPage,
+  HandleSelectChat,
+  ResponseBox,
+  ResponseBoxLarge,
+  BookingsBtn,
 };

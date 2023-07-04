@@ -39,6 +39,6 @@
     "**/*.ts",
     "**/*.tsx",
     "src/components/homeandcategory/Component/Navbar.js"
-  ],
+, "../../packages/shared/ui/Components/utils/ResponseBox.tsx", "../../packages/shared/ui/Components/utils/BookingsBtn.tsx"  ],
   "exclude": ["node_modules", "test/*"]
 }

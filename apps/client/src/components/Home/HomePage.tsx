@@ -331,7 +331,7 @@ const HomePage = ({ popularStudios }: ICustomerHome) => {
             </Text>
           </Link>
         </HStack>
-        {studiosNearMe?.value.length == 0 ? (
+        {(popularStudios?.value as any)?.length == 0 ? (
           <NotFound />
         ) : (
           <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>

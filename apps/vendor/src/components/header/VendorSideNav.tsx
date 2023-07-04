@@ -17,7 +17,7 @@ import { FiLogOut } from "react-icons/fi";
 import { FaBook, FaHome } from "react-icons/fa";
 import { BiMessageDots } from "react-icons/bi";
 import { BsPersonFill, BsWalletFill } from "react-icons/bs";
-import { RiRemoteControlFill } from "react-icons/ri";
+import { AiFillProfile } from "react-icons/ai";
 import { MenuItem } from "ui";
 import { UserContext } from "@components/Context/UserContext";
 
@@ -101,12 +101,12 @@ function VendorSideNav({ setShowSide, showSide }: Side) {
           />
           <MenuItem
             menuTitle="studio/profile"
-            icon={<RiRemoteControlFill cursor="default" />}
+            icon={<AiFillProfile cursor="default" />}
             close={closeSide}
           />
         </VStack>
         <Box w="100%">
-          <Flex
+          <Box
             overflow="hidden"
             cursor="pointer"
             // p=".2rem 2rem"
@@ -138,7 +138,7 @@ function VendorSideNav({ setShowSide, showSide }: Side) {
                 Logout
               </Text>
             </HStack>
-          </Flex>
+          </Box>
         </Box>
       </VStack>
     </VStack>

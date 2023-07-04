@@ -5,28 +5,20 @@ import {
   Text,
   DrawerOverlay,
   Box,
-  Flex,
   DrawerHeader,
   HStack,
   Link,
   useDisclosure,
-  Collapse,
   VStack,
   Button,
   Image,
-  Icon,
-  Input,
-  InputGroup,
-  InputLeftElement,
 } from "@chakra-ui/react";
 import React from "react";
 import {
-  BsFillCaretDownFill,
-  BsFillCaretUpFill,
+  BsFillChatRightTextFill,
   BsFillPersonFill,
   BsFillClockFill,
   BsBorderWidth,
-  BsSearch,
 } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { IoStorefront } from "react-icons/io5";
@@ -35,42 +27,9 @@ import NextLink from "next/link";
 import { UserView } from "src/services";
 import Menus from "@components/utils/Menus";
 import category from "../utils/category.json";
+import { GlobalSearch } from "@components/Home/GlobalSearch";
 
-const NavLinks = ({
-  name,
-  path,
-  onClick,
-}: {
-  name: string;
-  path: string;
-  onClick: any;
-}) => {
-  return (
-    <NextLink href={path} passHref>
-      <Link
-        onClick={onClick}
-        borderBottom="1px solid #F5F5F5"
-        w="full"
-        display="inline-block"
-        px="7"
-        py="3"
-        _hover={{ bgColor: "brand.100", color: "white" }}
-      >
-        {name}
-      </Link>
-    </NextLink>
-  );
-};
-
-const CustomerSidebar = ({
-  user,
-  logout,
-  opens,
-}: {
-  user: UserView;
-  logout: any;
-  opens: any;
-}) => {
+const CustomerSidebar = ({ user, logout }: { user: UserView; logout: any }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -128,30 +87,7 @@ const CustomerSidebar = ({
                   mb="1rem !important"
                   display={{ base: "block", lg: "none" }}
                 >
-                  <InputGroup
-                    alignSelf="center"
-                    py={{ base: "0", lg: "1" }}
-                    size="lg"
-                    boxShadow="sm"
-                    borderRadius="4px"
-                    border="0.5px solid #E8E8E8"
-                    // borderColor="brand.100"
-                    pl="2"
-                    onClick={opens}
-                  >
-                    <InputLeftElement pointerEvents="none" h="full">
-                      <Icon as={BsSearch} color="#AFAFAF" />
-                    </InputLeftElement>
-                    <Input
-                      type="text"
-                      border="none"
-                      _focusVisible={{ outline: "none" }}
-                      _placeholder={{ fontSize: "1rem" }}
-                      placeholder="Search studio by name, category"
-                      overflow="hidden"
-                      pointerEvents="none"
-                    />
-                  </InputGroup>
+                  <GlobalSearch />
                 </Box>
                 <Menus
                   linkName=""
@@ -176,15 +112,6 @@ const CustomerSidebar = ({
                       name: "customer support",
                     },
                   ]}
-                  onClose={onClose}
-                />
-
-                <Menus
-                  linkName="customer/history"
-                  menuTitle={`History`}
-                  icon={<BsFillClockFill opacity=".8" />}
-                  option={false}
-                  dropDown={[]}
                   onClose={onClose}
                 />
                 <Menus
@@ -226,6 +153,24 @@ const CustomerSidebar = ({
                   ]}
                   onClose={onClose}
                 />
+
+                <Menus
+                  linkName="customer/history"
+                  menuTitle={`History`}
+                  icon={<BsFillClockFill opacity=".8" />}
+                  option={false}
+                  dropDown={[]}
+                  onClose={onClose}
+                />
+                <Menus
+                  linkName="customer/message"
+                  menuTitle={`Messages`}
+                  icon={<BsFillChatRightTextFill opacity=".8" />}
+                  option={false}
+                  dropDown={[]}
+                  onClose={onClose}
+                />
+
                 <Button
                   h="3rem"
                   w="80%"

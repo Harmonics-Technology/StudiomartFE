@@ -19,7 +19,7 @@ const Category = ({
     useComponentVisible(false);
   return (
     <Box w="90%" mx="auto" mb="5rem">
-      <Flex justify="space-between" px="1rem" my="1rem">
+      <Flex justify="space-between" px={{ base: "0", lg: "1rem" }} my="1rem">
         <Box w="100%" mx="auto" py="1rem" pb="7">
           <BackToPage name="Back" />
         </Box>

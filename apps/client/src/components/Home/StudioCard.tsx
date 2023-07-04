@@ -40,7 +40,7 @@ const StudiCard = ({ service }: IStudios) => {
           w="full"
           objectFit="cover"
           src={(service?.coverPhoto as string) || image}
-          alt=""
+          alt={`${service?.name}'s image`}
           borderRadius={{ base: "8px", lg: "0" }}
         />
       </Box>
@@ -51,7 +51,10 @@ const StudiCard = ({ service }: IStudios) => {
         fontWeight="600"
         p={{ base: "1rem .5rem", lg: "1rem" }}
       >
-        <VStack align="flex-start">
+        <VStack
+          align="flex-start"
+          onClick={() => router.push(`/all-studios/${service?.id}`)}
+        >
           <HStack align="flex-end">
             <Text
               fontSize={["1rem", "20px"]}
