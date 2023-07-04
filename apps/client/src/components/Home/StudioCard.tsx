@@ -15,7 +15,6 @@ import { IPopularStudios, IStudios } from "src/models/schema";
 import { getReviewSummary, MenuDropdown, Naira, Rating } from "ui";
 import NoSSR from "react-no-ssr";
 import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { useRouter } from "next/router";
 
 const StudiCard = ({ service }: IStudios) => {

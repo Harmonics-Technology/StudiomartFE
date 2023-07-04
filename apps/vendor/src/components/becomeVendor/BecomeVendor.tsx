@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
-import { GoPrimitiveDot } from "react-icons/go";
+// import { PiDotFill } from "react-icons/pi";
 import Fqa from "./Fqa";
 
 const BecomeVendor = () => {
@@ -192,9 +192,7 @@ const BecomeVendor = () => {
                 spacing="7"
                 w={["full", "90%"]}
               >
-                <Box fontSize={["1.2rem", "1.5rem"]}>
-                  <GoPrimitiveDot />
-                </Box>
+                <Box fontSize={["1.2rem", "1.5rem"]}>{/* <PiDotFill /> */}</Box>
                 <VStack align="start">
                   <Text
                     mb="0"

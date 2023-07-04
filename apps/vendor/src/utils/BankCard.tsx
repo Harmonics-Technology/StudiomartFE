@@ -10,7 +10,7 @@ import {
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { AiFillDelete } from "react-icons/ai";
 import { StudioService } from "src/services";
 
 interface BankCardProps {
@@ -109,7 +109,7 @@ export const BankCard = ({
           <Spinner />
         ) : (
           <Icon
-            as={RiDeleteBin6Line}
+            as={AiFillDelete}
             fontSize="1.3rem"
             cursor="pointer"
             ml="1rem"

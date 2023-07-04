@@ -1,36 +1,9 @@
-import {
-  Box,
-  Flex,
-  Text,
-  HStack,
-  InputGroup,
-  InputLeftElement,
-  Input,
-  Tr,
-  Td,
-  useDisclosure,
-  Icon,
-  Menu,
-  MenuItem,
-  MenuButton,
-  MenuList,
-} from "@chakra-ui/react";
+import { Box, HStack, Tr, Td, useDisclosure, Icon } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { FaAngleDown, FaRegCalendarAlt } from "react-icons/fa";
-import { RiSearch2Fill } from "react-icons/ri";
-import {
-  BsCheckAll,
-  BsFillChatRightTextFill,
-  BsFillTrashFill,
-  BsFilter,
-  BsSortAlphaDownAlt,
-  BsSortAlphaUp,
-} from "react-icons/bs";
-import { GoSettings } from "react-icons/go";
+import { BsFillChatRightTextFill } from "react-icons/bs";
 import TopPage from "src/utils/TopPage";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import BookingDetails from "./BookingDetails";
-import DatePicker, { DateObject } from "react-multi-date-picker";
 import {
   BookingFilters,
   CustomTable,
@@ -43,7 +16,6 @@ import {
 } from "ui";
 import { BookingView, BookingViewPagedCollection } from "src/services";
 import moment from "moment";
-import { useDebouncedCallback } from "use-debounce";
 import { useRouter } from "next/router";
 import BeatLoader from "react-spinners/BeatLoader";
 

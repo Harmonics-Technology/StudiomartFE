@@ -14,7 +14,7 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { FaAngleDown, FaRegCalendarAlt } from "react-icons/fa";
-import { RiSearch2Fill } from "react-icons/ri";
+import { BiSolidSearch } from "react-icons/bi";
 import {
   BsCheckAll,
   BsFillTrashFill,
@@ -22,7 +22,7 @@ import {
   BsSortAlphaDownAlt,
   BsSortAlphaUp,
 } from "react-icons/bs";
-import { RiListSettingsLine } from "react-icons/ri";
+import { GiSettingsKnobs } from "react-icons/gi";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import { useDebouncedCallback } from "use-debounce";
 import { useRouter } from "next/router";
@@ -111,7 +111,7 @@ const BookingFilters = ({ w }: { w?: any }) => {
         <Text mb="0">Showing {filterLabel}</Text>
         <InputGroup w={{ base: "60%", lg: "30%" }}>
           <InputLeftElement top=".2rem" color="gray.400" fontSize=".8rem">
-            <RiSearch2Fill />
+            <BiSolidSearch />
           </InputLeftElement>
           <Input
             type="search"
@@ -200,7 +200,7 @@ const BookingFilters = ({ w }: { w?: any }) => {
         <HStack spacing="1rem" w={["full", "auto"]}>
           <HStack w="full" align="center">
             <Icon
-              as={RiListSettingsLine}
+              as={GiSettingsKnobs}
               transform="rotate(90deg)"
               fontWeight="bold"
               fontSize="1rem"

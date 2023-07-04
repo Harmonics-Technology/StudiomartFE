@@ -99,7 +99,7 @@ export const Verify = ({ code }: { code: string }) => {
               mx="auto"
               w="80%"
             >
-              Verfication!
+              Account Verfication!
             </Heading>
           </VStack>
           <Box

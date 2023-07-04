@@ -108,12 +108,13 @@ const CustomerSidebar = ({ user, logout }: { user: UserView; logout: any }) => {
                       name: "my profile",
                     },
                     {
-                      id: "customer-support",
+                      id: "javascript:;",
                       name: "customer support",
                     },
                   ]}
                   onClose={onClose}
                 />
+
                 <Menus
                   linkName="category"
                   menuTitle={`Studios`}

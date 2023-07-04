@@ -1,12 +1,12 @@
 import { HStack, VStack, Box, Text } from "@chakra-ui/react";
 import React from "react";
-import { GoPrimitiveDot } from "react-icons/go";
+import { PiDotFill } from "react-icons/pi";
 
 export const BecomeVendorInfo = ({ content, title }: any) => {
   return (
     <HStack align="baseline" spacing="7" w={["full", "90%"]}>
       <Box fontSize={["1.2rem", "1.5rem"]}>
-        <GoPrimitiveDot />
+        <PiDotFill />
       </Box>
       <VStack align="start">
         <Text

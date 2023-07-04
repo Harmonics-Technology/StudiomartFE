@@ -15,7 +15,6 @@ import { IPopularStudios } from "src/models/schema";
 import { Cur, getReviewSummary, MenuDropdown, Naira, Rating } from "ui";
 import NoSSR from "react-no-ssr";
 import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { StudioService } from "src/services";

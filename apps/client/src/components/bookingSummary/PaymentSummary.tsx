@@ -23,7 +23,7 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { BsCheck2 } from "react-icons/bs";
 import { FaPersonBooth } from "react-icons/fa";
 import { GiBeastEye, GiEdgedShield } from "react-icons/gi";
-import { RiSecurePaymentFill } from "react-icons/ri";
+import { GrSecure } from "react-icons/gr";
 import { useDummyImage } from "react-simple-placeholder-image";
 import { BeatLoader } from "react-spinners";
 import {
@@ -139,7 +139,7 @@ const PaymentSummary = ({ bookings }: { bookings: BookingView }) => {
             m="2rem 0 2rem"
             align="center"
           >
-            <Icon as={RiSecurePaymentFill} color="brand.100" />
+            <Icon as={GrSecure} color="brand.100" />
             <Text mb="0" color="brand.100">
               Your Payment on Studiomart is 100% fast, safe and secured
             </Text>
