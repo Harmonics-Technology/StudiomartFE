@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import { auth } from "@components/firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Slider from "react-slick";
+
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -64,11 +65,7 @@ export const LoginPage = () => {
             })
           );
         }
-        await signInWithEmailAndPassword(
-          auth,
-          data.email as string,
-          data.password as string
-        );
+        await signIn(auth, data.email as string, data.password as string);
         Cookies.set("customer", JSON.stringify(result.data));
         Cookies.set("user", "Customer");
         OpenAPI.TOKEN = result?.data?.token as string;
