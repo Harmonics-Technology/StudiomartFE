@@ -7,6 +7,7 @@ import type { Service } from './Service';
 import type { Status } from './Status';
 import type { TimeOnly } from './TimeOnly';
 import type { User } from './User';
+import type { Voucher } from './Voucher';
 
 export type Booking = {
     id?: string;
@@ -23,7 +24,10 @@ export type Booking = {
     tax?: number;
     totalAmount?: number;
     rejectionReason?: string | null;
-    statusId?: number;
     status?: Status;
+    statusId?: number;
+    amountBeforeDiscount?: number;
+    voucherId?: number | null;
+    voucher?: Voucher;
     additionalServices?: Array<AdditionalService> | null;
 };

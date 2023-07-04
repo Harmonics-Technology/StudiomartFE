@@ -6,6 +6,7 @@ import type { AdditionalServiceView } from './AdditionalServiceView';
 import type { ServiceView } from './ServiceView';
 import type { TimeOnly } from './TimeOnly';
 import type { UserView } from './UserView';
+import type { Voucher } from './Voucher';
 
 export type BookingView = {
     id?: string;
@@ -20,5 +21,7 @@ export type BookingView = {
     tax?: number;
     totalAmount?: number;
     status?: string | null;
+    voucher?: Voucher;
+    rejectionReason?: string | null;
     additionalServices?: Array<AdditionalServiceView> | null;
 };

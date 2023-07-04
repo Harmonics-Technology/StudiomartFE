@@ -1,10 +1,7 @@
 import {
   Flex,
   Box,
-  Input,
-  InputGroup,
-  Image,
-  InputLeftElement,
+  Icon,
   Circle,
   HStack,
   Divider,
@@ -18,17 +15,18 @@ import {
   Heading,
   Avatar,
 } from "@chakra-ui/react";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
-import { GoSettings } from "react-icons/go";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Link from "next/link";
-import { RiNotification3Fill, RiSearch2Fill } from "react-icons/ri";
+import { MdNotifications } from "react-icons/md";
 import { UserContext } from "@components/Context/UserContext";
 import { StudioView } from "src/services";
 import { useRouter } from "next/router";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { BsChevronDown, BsChevronExpand } from "react-icons/bs";
+import { PiUserSwitchFill } from "react-icons/pi";
 import Cookies from "js-cookie";
+import { useComponentVisible } from "ui";
 
 type Side = {
   setShowSide: any;
@@ -40,7 +38,11 @@ function VendorHeader({ setShowSide, showSide }: Side) {
     useContext(UserContext);
   const router = useRouter();
   const messageCount = notifys?.size;
+
+  const { ref, isComponentVisible, setIsComponentVisible } =
+    useComponentVisible(false);
   const changeStudio = (value: any) => {
+    setIsComponentVisible(false);
     router.push({
       query: {
         ...router.query,
@@ -52,22 +54,25 @@ function VendorHeader({ setShowSide, showSide }: Side) {
   };
   // console.log({ notifys });
   // console.log(userStudios?.filter((x: any) => x.id == currentStudioId)[0].name);
+
   return (
     <Box w="full" bgColor="white">
       <Box w="100%" ml="auto">
-        <Box w="90%" mx="auto" pt="1rem" display={{ base: "", lg: "none" }}>
+        <Box w="90%" mx="auto" py="1rem" display={{ base: "", lg: "none" }}>
           <GiHamburgerMenu
             size="25px"
             onClick={() => setShowSide((prev: any) => !prev)}
           />
         </Box>
         <Flex
-          h="5.5rem"
+          h={["fit-content", "5.5rem"]}
           align="center"
           justify="space-between"
           mx="auto"
           w="95%"
           // ml="auto"
+          flexWrap="wrap"
+          gap="1rem"
         >
           <Avatar
             src={user?.profilePicture}
@@ -75,45 +80,95 @@ function VendorHeader({ setShowSide, showSide }: Side) {
             size="md"
             border="1px solid gray"
           />
-          <Box w="fit-content">
-            <Select
-              borderRadius="25px"
-              // border="2px"
-              height="2.8rem"
-              color="brand.100"
-              fontWeight="600"
-              fontFamily="BR Firma"
-              border="0"
-              // value={
-              //   userStudios?.filter((x: any) => x.id == currentStudioId)[0]
-              //     ?.name
-              // }
-              onChange={(e) => changeStudio(e.target.value)}
-              _focusVisible={{
-                border: 0,
-              }}
-            >
-              <option selected hidden disabled>
-                {
-                  userStudios?.filter((x: any) => x.id == currentStudioId)[0]
-                    ?.name
-                }
-              </option>
-              {userStudios?.map((x: StudioView) => (
-                <option value={x.id} key={x.id}>
-                  {x.name}
-                </option>
-              ))}
-            </Select>
+          <Box w={{ base: "100%", lg: "35%" }} order={[2, 1]}>
+            <Box pos="relative" w="full" ref={ref}>
+              <HStack
+                border="1px solid"
+                borderColor="gray.400"
+                h="3rem"
+                borderRadius="4px"
+                gap="2rem"
+                onClick={() => setIsComponentVisible((prev: boolean) => !prev)}
+              >
+                <HStack
+                  bgColor="brand.100"
+                  color="white"
+                  px=".8rem"
+                  h="full"
+                  cursor="pointer"
+                >
+                  <Icon as={PiUserSwitchFill} />
+                  <Text mb="0" fontWeight="600" fontSize=".9rem">
+                    Switch Studio
+                  </Text>
+                </HStack>
+                <Text
+                  mb="0"
+                  fontSize="1rem"
+                  fontWeight="600"
+                  pointerEvents="none"
+                >
+                  {
+                    userStudios?.filter((x: any) => x.id == currentStudioId)[0]
+                      ?.name
+                  }
+                </Text>
+                <Icon as={BsChevronExpand} m="0 1rem 0 auto" cursor="pointer" />
+              </HStack>
+              {isComponentVisible && (
+                <Box
+                  w="full"
+                  bgColor="white"
+                  borderRadius="4px"
+                  pos="absolute"
+                  zIndex="888"
+                  top="100%"
+                  mt=".5rem"
+                  border="1px solid"
+                  borderColor="gray.400"
+                >
+                  <Box>
+                    {userStudios
+                      .filter((x: StudioView) => x.id !== currentStudioId)
+                      .map((x: StudioView) => (
+                        <Flex
+                          key={x.id}
+                          px="1rem"
+                          cursor="pointer"
+                          h="3rem"
+                          align="center"
+                          w="full"
+                          borderBottom="1px solid"
+                          borderColor="gray.100"
+                          onClick={() => changeStudio(x.id)}
+                          _hover={{
+                            bgColor: "brand.100",
+                            color: "white",
+                          }}
+                        >
+                          <Text mb="0" noOfLines={1}>
+                            {x.name}
+                          </Text>
+                        </Flex>
+                      ))}
+                  </Box>
+                </Box>
+              )}
+            </Box>
           </Box>
-          <HStack>
-            <Box mr="0rem" pos="relative" cursor="pointer">
-              <Box onClick={() => router.push("/notification")}>
-                <RiNotification3Fill />
+          <HStack order={[1, 2]}>
+            <Box
+              mr="0rem"
+              pos="relative"
+              cursor="pointer"
+              onClick={() => router.push("/notification")}
+            >
+              <Box>
+                <MdNotifications />
               </Box>
               <Circle
                 bgColor={"brand.100"}
-                size=".8rem"
+                size="1rem"
                 display={messageCount <= 0 ? "none" : "flex"}
                 fontSize=".5rem"
                 color="white"
@@ -125,7 +180,6 @@ function VendorHeader({ setShowSide, showSide }: Side) {
                 border="1px solid white"
               >
                 {messageCount}
-                {/* <sup>+</sup> */}
               </Circle>
             </Box>
 

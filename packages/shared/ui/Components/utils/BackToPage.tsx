@@ -19,6 +19,7 @@ const BackToPage = ({ name }: Props) => {
       _hover={{ color: "brand.100" }}
       onClick={() => router.back()}
       fontFamily="DM Sans"
+      textTransform="capitalize"
     >
       <BsChevronLeft fontSize="1.3rem" />
       {name}

@@ -23,45 +23,10 @@ interface SliderProps {
 export const ServiceSlider = ({ data }: SliderProps) => {
   const router = useRouter();
   const image = useDummyImage({});
-
-  function NextArrow(props: any) {
-    const { onClick } = props;
-    return (
-      <Circle
-        onClick={onClick}
-        size="24px"
-        color="white"
-        bgColor="gray.600"
-        cursor="pointer"
-        pos="absolute"
-        top="-17%"
-        right="0%"
-      >
-        <Icon as={BsArrowRightShort} />
-      </Circle>
-    );
-  }
-  function PrevArrow(props: any) {
-    const { onClick } = props;
-    return (
-      <Circle
-        onClick={onClick}
-        size="24px"
-        color="white"
-        bgColor="gray.600"
-        cursor="pointer"
-        pos="absolute"
-        top="-17%"
-        right={{ base: "10%", lg: "3%" }}
-      >
-        <Icon as={BsArrowLeftShort} />
-      </Circle>
-    );
-  }
-
+  const [slider, setSlider] = useState<Slider | null>(null);
   return (
     <Box w={{ base: "94%", md: "full" }} mx="auto">
-      <HStack justify="space-between">
+      <HStack justify="space-between" w="98%">
         <HStack
           align="center"
           fontFamily="BR Firma"
@@ -84,13 +49,29 @@ export const ServiceSlider = ({ data }: SliderProps) => {
             view all
           </Text>
         </HStack>
+        <HStack>
+          <Circle
+            onClick={() => slider?.slickPrev()}
+            size="24px"
+            color="white"
+            bgColor="gray.600"
+            cursor="pointer"
+          >
+            <Icon as={BsArrowLeftShort} />
+          </Circle>
+          <Circle
+            onClick={() => slider?.slickNext()}
+            size="24px"
+            color="white"
+            bgColor="gray.600"
+            cursor="pointer"
+          >
+            <Icon as={BsArrowRightShort} />
+          </Circle>
+        </HStack>
       </HStack>
 
-      <Slider
-        {...sliderSettings}
-        prevArrow={<PrevArrow />}
-        nextArrow={<NextArrow />}
-      >
+      <Slider {...sliderSettings} ref={(slider) => setSlider(slider)}>
         {data?.map((x: ServiceView, i: any) => (
           <Box
             minH={{ base: "8rem", md: "14rem" }}

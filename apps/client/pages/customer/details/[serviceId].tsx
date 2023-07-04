@@ -10,6 +10,7 @@ import {
 } from "src/services";
 
 import dynamic from "next/dynamic";
+import { toast } from "react-hot-toast";
 
 const ServiceDetails = dynamic(
   () => import("@components/details/ServiceDetails"),
@@ -63,6 +64,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
       };
     } catch (error: any) {
       console.log({ error });
+      toast(error?.statusText);
       return {
         props: {
           popularStudios: [],

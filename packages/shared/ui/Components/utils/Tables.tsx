@@ -72,6 +72,7 @@ export function TableData({
   borderColor,
   classes,
   full,
+  onClick,
 }: {
   name: any;
   border?: boolean | undefined;
@@ -79,6 +80,7 @@ export function TableData({
   borderColor?: string;
   classes?: any;
   full?: boolean;
+  onClick?: any;
 }) {
   return (
     <Td
@@ -89,6 +91,7 @@ export function TableData({
       className={classes}
       fontFamily="DM Sans"
       fontSize=".9rem"
+      cursor="pointer"
       color={
         name == "OFFSHORE"
           ? "brand.700"
@@ -96,6 +99,7 @@ export function TableData({
           ? "brand.400"
           : "black"
       }
+      onClick={onClick}
     >
       <Tooltip label={name} hasArrow>
         {full ? name : name?.toString()?.substring(0, 20) || ""}
@@ -112,6 +116,7 @@ export function TableWithSub({
   borderColor,
   classes,
   full,
+  onClick,
 }: {
   top: any;
   sub: any;
@@ -120,6 +125,7 @@ export function TableWithSub({
   borderColor?: string;
   classes?: any;
   full?: boolean;
+  onClick?: any;
 }) {
   return (
     <Td
@@ -130,6 +136,7 @@ export function TableWithSub({
       className={classes}
       color={"black"}
       fontFamily="BR Firma"
+      onClick={onClick}
     >
       <Tooltip label={top} hasArrow>
         <Box>

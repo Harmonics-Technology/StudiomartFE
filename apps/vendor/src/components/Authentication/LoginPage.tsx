@@ -9,7 +9,7 @@ import {
   Link,
   Image,
 } from "@chakra-ui/react";
-import { PrimaryInput, SubmitButton, LoginTypeBtn } from "ui";
+import { PrimaryInput, SubmitButton, LoginTypeBtn, sliderSets } from "ui";
 import { LoginModel, OpenAPI, StudioService, UserService } from "src/services";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -23,11 +23,12 @@ import { useRouter } from "next/router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@components/firebase/firebase";
 import { UserContext } from "@components/Context/UserContext";
+import Slider from "react-slick";
 YupPassword(yup);
 
 const validation = yup.object().shape({
   email: yup.string().email().required(),
-  password: yup.string().password(),
+  password: yup.string().required(),
 });
 
 export const LoginPage = () => {
@@ -53,6 +54,7 @@ export const LoginPage = () => {
 
   const onSubmitVendor = async (data: LoginModel) => {
     // console.log({ data });
+    data.isVendor = true;
     try {
       const result = await UserService.loginUser({ requestBody: data, device });
       // console.log({ result });
@@ -125,7 +127,7 @@ export const LoginPage = () => {
     <Flex
       border="2px hidden red"
       w="100%"
-      minH="100vh"
+      minH={{ base: "80vh", lg: "100vh" }}
       justify={{ base: "none", md: "space-between" }}
       align="center"
       // bgColor="#e0edff"
@@ -137,32 +139,21 @@ export const LoginPage = () => {
         display={{ base: "none", lg: "unset" }}
       >
         {/* <Box w="30%" pos="absolute" top="2rem" left="3rem">
-          <Image src="/assets/studiomart.png" w="full" alt="logo" />
+          <Image src="/assets/StudioMart.png" w="full" alt="logo" />
         </Box> */}
-        <Carousel
-          showStatus={false}
-          autoPlay
-          infiniteLoop
-          animationHandler="fade"
-          useKeyboardArrows
-          showArrows={false}
-          showThumbs={false}
-          showIndicators={false}
-          stopOnHover={false}
-          interval={5000}
-        >
+        <Slider {...sliderSets}>
           <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/003.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/004.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/005.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/001.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
-        </Carousel>
+        </Slider>
       </Box>
       <Flex
         w={{ base: "100%", md: "80%", lg: "50%" }}
         pos="relative"
-        h="100vh"
+        h="100%"
         align="center"
         mx="auto"
       >
@@ -170,12 +161,18 @@ export const LoginPage = () => {
           w="full"
           bgColor="white"
           // borderRadius="30px"
-          px="4rem"
+          px={{ base: "2rem", md: "3rem", lg: "4rem" }}
           mt=".5rem"
           py="1rem"
           // boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
         >
-          <Flex w="10%" justify="center" mx="auto" mb="2rem">
+          <Flex
+            w="10%"
+            justify="center"
+            mx="auto"
+            mb="2rem"
+            onClick={() => (window.location.href = "/")}
+          >
             <Image src="/logofav.png" w="full" alt="logo" />
           </Flex>
           <VStack spacing={0} gap="1.5rem" w="100%" mb="10px">
@@ -268,7 +265,7 @@ export const LoginPage = () => {
                   >
                     Remember me
                   </Checkbox>
-                  <Link href="/login/reset">Forgot password</Link>
+                  <Link href="/password/reset">Forgot password</Link>
                 </Flex>
 
                 <SubmitButton

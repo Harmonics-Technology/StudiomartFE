@@ -5,6 +5,7 @@ export const sliderSettings = {
   slidesToShow: 3,
   slidesToScroll: 3,
   initialSlide: 0,
+  arrows: false,
   responsive: [
     {
       breakpoint: 1024,
@@ -29,4 +30,18 @@ export const sliderSettings = {
       },
     },
   ],
+};
+
+export const sliderSets = {
+  dots: true,
+  className: "service-slick",
+  infinite: true,
+  speed: 500,
+  autoplaySpeed: 4000,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  dotsClass: "slick-dots",
+  arrows: false,
+  fade: true
 };

@@ -11,6 +11,7 @@ import {
   Button,
   Input,
 } from "@chakra-ui/react";
+import VoucherCoupon from "@components/utils/VoucherCoupon";
 import dayjs from "dayjs";
 import Cookies from "js-cookie";
 import Link from "next/link";
@@ -50,6 +51,48 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
   };
 
   const newTime = (time as string)?.split(" ");
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    autoplaySpeed: 4000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    className: "service-slick",
+  };
+  const image = useDummyImage({});
+
+  const amount =
+    selectedAddon?.reduce((a, b) => a + (b.price as number), 0) +
+    (singleService?.price as number);
+  const tax = (amount / 100) * 7.5;
+  const grandTotal = amount + tax;
+  const [couponInput, setCouponInput] = useState<any>();
+  const [couponError, setCouponError] = useState<any>();
+  const [isLoading, setIsLoading] = useState<any>();
+  const [couponApplied, setCouponApplied] = useState<any>();
+  const [viewers, setViewers] = useState<any>();
+
+  const applyVoucher = () => {
+    VoucherCoupon({
+      setCouponError,
+      setCouponApplied,
+      setIsLoading,
+      couponInput,
+    });
+  };
+
+  const voucherAdded =
+    couponApplied?.type == "percent"
+      ? (grandTotal / 100) * couponApplied?.discount
+      : grandTotal - couponApplied?.discount;
+  const couponGrandTotal =
+    voucherAdded > couponApplied?.maxDiscount
+      ? grandTotal - couponApplied?.maxDiscount
+      : grandTotal - voucherAdded;
+
   const CreateBooking = async () => {
     const data: BookingModel = {
       date: date as string,
@@ -59,6 +102,7 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
       },
       serviceId: id,
       additionalServices: selectedAddon.map((x) => x.id as string),
+      voucherId: couponApplied.id,
     };
     setLoading(true);
     try {
@@ -81,48 +125,6 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
       });
     }
   };
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    autoplaySpeed: 4000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    className: "service-slick",
-  };
-  const image = useDummyImage({});
-
-  const [couponInput, setCouponInput] = useState<any>();
-  const [couponError, setCouponError] = useState<any>();
-  const [isLoading, setIsLoading] = useState<any>();
-  const [couponApplied, setCouponApplied] = useState<any>();
-  const [viewers, setViewers] = useState<any>();
-  const applyCoupon = async () => {
-    setCouponError("");
-    setCouponApplied({});
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      if (couponInput.toLowerCase().trim() == "welcomelaunch") {
-        setCouponApplied({ discount: 10, type: "percent", valid: true });
-        return;
-      }
-      setCouponError(
-        "Sorry the discount code you added is either incorrect or has expired"
-      );
-      setIsLoading(false);
-    }, 3000);
-  };
-  const tax = ((singleService?.price as number) / 100) * 10;
-  const grandTotal =
-    selectedAddon?.reduce((a, b) => a + (b.price as number), 0) +
-    (singleService?.price as number) +
-    tax;
-  const couponGrandTotal =
-    couponApplied?.type == "percent"
-      ? grandTotal - (grandTotal / 100) * couponApplied?.discount
-      : grandTotal - couponApplied?.discount;
 
   useEffect(() => {
     setViewers(Math.floor(Math.random() * 20) + 1);
@@ -154,12 +156,12 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
               <span style={{ fontWeight: "600" }}>
                 People are eyeing this service.
               </span>{" "}
-              {viewers} others are looking at it to book
+              {viewers} others are looking at this time and date to book it.
             </Text>
           </Flex>
 
           <Text fontSize="1rem" fontFamily="BR Firma" fontWeight="700">
-            1 Day in {singleService?.studio?.name} studio
+            1 Day in {singleService?.studio?.name}&apos;s studio
           </Text>
           <HStack my="2rem" gap="1rem">
             <Square bgColor="#D5E2F9" size="5rem" borderRadius="4px">
@@ -235,7 +237,7 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
               <Text mb="0">
                 Only bookings cancelled before the vendor accepts your booking
                 gurantees a full refund.{" "}
-                <Link href="/policy" passHref>
+                <Link href="/terms" passHref>
                   <span style={{ color: "#1570fa", cursor: "pointer" }}>
                     More details
                   </span>
@@ -335,6 +337,7 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
                 w="full"
                 onChange={(e) => setCouponInput(e.target.value)}
                 textTransform="uppercase"
+                fontSize=".9rem"
               />
               <Button
                 bgColor="black"
@@ -342,7 +345,7 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
                 borderRadius="0"
                 h="2.6rem"
                 px="2rem"
-                onClick={() => applyCoupon()}
+                onClick={() => applyVoucher()}
                 isLoading={isLoading}
                 spinner={<BeatLoader color="white" size={10} />}
               >

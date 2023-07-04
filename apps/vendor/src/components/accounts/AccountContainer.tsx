@@ -32,7 +32,7 @@ const AccountContainer = ({
           {bankAccounts?.length > 0 && (
             <Box p="2rem">
               <Text fontWeight="600">Saved Banks</Text>
-              <HStack gap="1rem">
+              <HStack gap="1rem" flexDir={{ base: "column", lg: "row" }}>
                 {bankAccounts?.map((x: any) => (
                   <BankCard
                     key={x.id}

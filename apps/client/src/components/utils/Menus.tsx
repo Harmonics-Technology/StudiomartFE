@@ -6,9 +6,10 @@ import {
   ListItem,
   Square,
   Text,
+  Link,
   UnorderedList,
 } from "@chakra-ui/react";
-import Link from "next/link";
+import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { AiFillMinusCircle } from "react-icons/ai";
@@ -34,6 +35,7 @@ function Menus({
   const [openMenu, setOpenMenu] = useState(false);
   const url = `/${linkName}`;
   // console.log({ url });
+
   return (
     <>
       {option ? (
@@ -111,13 +113,30 @@ function Menus({
                 borderColor="gray.300"
               >
                 <ListIcon as={AiFillMinusCircle} color="black" />
-                <Link href={`${url}/${x.id}`}>{x.name}</Link>
+                {x.id == "javascript:;" ? (
+                  <Link
+                    href={x.id}
+                    _hover={{
+                      textDecor: "none",
+                    }}
+                    onClick={() => {
+                      // @ts-ignore
+                      tidioChatApi.display(true);
+                      //@ts-ignore
+                      tidioChatApi.open();
+                    }}
+                  >
+                    {x.name}
+                  </Link>
+                ) : (
+                  <NextLink href={`${url}/${x.id}`}>{x.name}</NextLink>
+                )}
               </ListItem>
             ))}
           </UnorderedList>
         </Box>
       ) : (
-        <Link href={url} passHref>
+        <NextLink href={url} passHref>
           <Box overflow="hidden" cursor="pointer" onClick={() => onClose()}>
             <Flex
               pl="1rem"
@@ -155,7 +174,7 @@ function Menus({
               </HStack>
             </Flex>
           </Box>
-        </Link>
+        </NextLink>
       )}
     </>
   );

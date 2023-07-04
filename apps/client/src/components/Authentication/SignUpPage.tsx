@@ -15,7 +15,13 @@ import {
   Image,
   Circle,
 } from "@chakra-ui/react";
-import { PrimaryInput, SubmitButton, CustomStepper, LoginTypeBtn } from "ui";
+import {
+  PrimaryInput,
+  SubmitButton,
+  CustomStepper,
+  LoginTypeBtn,
+  sliderSets,
+} from "ui";
 import { VendorRegisterModel, UserService, RegisterModel } from "src/services";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -29,6 +35,8 @@ import { BsCheckCircle } from "react-icons/bs";
 import { auth, db } from "@components/firebase/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
+import Slider from "react-slick";
+import { useRouter } from "next/router";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -97,6 +105,7 @@ export const SignUpPage = () => {
       return;
     }
   };
+  const router = useRouter();
 
   const onSubmitRegister = async (data: RegisterModel) => {
     if (!terms) {
@@ -168,23 +177,14 @@ export const SignUpPage = () => {
         overflow="hidden"
         display={{ base: "none", lg: "unset" }}
       >
-        <Carousel
-          showStatus={false}
-          autoPlay
-          infiniteLoop
-          animationHandler="fade"
-          useKeyboardArrows
-          showArrows={false}
-          showIndicators={false}
-          stopOnHover={false}
-          interval={5000}
-        >
+        <Slider {...sliderSets}>
           <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/003.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/004.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/005.jpg" alt="any" w="full" objectFit="cover" />
           <Image src="/assets/001.jpg" alt="any" w="full" objectFit="cover" />
-        </Carousel>
+          <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
+        </Slider>
         {/* <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" /> */}
       </Box>
 
@@ -219,7 +219,13 @@ export const SignUpPage = () => {
               py="1rem"
               // boxShadow="0px 20px 26px rgba(186, 182, 182, 0.16)"
             >
-              <Flex w="10%" justify="center" mx="auto" mb="2rem">
+              <Flex
+                w="10%"
+                justify="center"
+                mx="auto"
+                mb="2rem"
+                onClick={() => router.push("/")}
+              >
                 <Image src="/logofav.png" w="full" alt="logo" />
               </Flex>
               <VStack spacing={0} gap="1.5rem" w="100%" mb="10px">

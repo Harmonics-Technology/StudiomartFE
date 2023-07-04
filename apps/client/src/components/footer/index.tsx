@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 
 import NextLink from "next/link";
-import category from "../utils/category.json";
 import {
   FaFacebookF,
   FaTwitter,
@@ -21,6 +20,7 @@ import {
 } from "react-icons/fa";
 import { getUrlRoute } from "ui";
 import { AiFillMail } from "react-icons/ai";
+import { ServiceTypeView } from "src/services";
 
 type Props = {
   name: string;
@@ -40,21 +40,13 @@ const NavLink = ({ name, path }: Props) => {
       </Link>
     </NextLink>
   );
-  return (
-    <NextLink href={path} passHref>
-      <Link
-        fontSize={["14px", "16px"]}
-        color="whiteAlpha.700"
-        cursor="pointer"
-        _hover={{ color: "white" }}
-      >
-        {name}
-      </Link>
-    </NextLink>
-  );
 };
 
-export const Footer: React.FC = () => {
+export const Footer = ({
+  category,
+}: {
+  category: ServiceTypeView[] | null | undefined;
+}) => {
   return (
     <Box bg="black" pt={[10, 16]} pb={["10", "5"]}>
       <Box w="85%" mx="auto">
@@ -179,7 +171,10 @@ export const Footer: React.FC = () => {
             <Link href="https://twitter.com/studiomart_io" target="_blank">
               <FaTwitter />
             </Link>
-            <Link href="https://linkedin.com/studiomart_io" target="_blank">
+            <Link
+              href="https://www.linkedin.com/company/studiomart.io/"
+              target="_blank"
+            >
               <FaLinkedinIn />
             </Link>
             <Link href="mailto:hello@studiomart.io" target="_blank">

@@ -9,11 +9,17 @@ import { UserProvider } from "@components/Context/UserContext";
 import Cookies from "js-cookie";
 import { OpenAPI, UserView } from "src/services";
 import NextNProgress from "nextjs-progressbar";
-import toast, { ToastBar, Toaster } from "react-hot-toast";
+import toast, { ToastBar } from "react-hot-toast";
 import { AuthContextProvider } from "@components/Context/AuthContext";
 import { ChatContextProvider } from "@components/Context/ChatContext";
 import Script from "next/script";
 import Head from "next/head";
+import dynamic from "next/dynamic";
+
+const Toaster = dynamic(
+  () => import("react-hot-toast").then((mod) => mod.Toaster),
+  { ssr: false }
+);
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   OpenAPI.BASE = process.env.NEXT_PUBLIC_API_BASEURL as string;
@@ -42,6 +48,17 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <Script
         src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}
       ></Script>
+      <Script
+        src="//code.tidio.co/3sbkfbeznhueuu7swpwljoaqi36fx4os.js"
+        async
+      ></Script>
+      <Script
+        async
+        src="https://analytics.umami.is/script.js"
+        data-website-id="ab35a0b0-e974-45ec-beb9-cf41be110c17"
+        data-domains="studiomart.io"
+      ></Script>
+      {/* <Script src="/notification.js" type="text/javascript"></Script> */}
       <UserProvider>
         <AuthContextProvider>
           <ChatContextProvider>

@@ -19,7 +19,7 @@ export const InfoBox = ({ title, desc, des }: InfoProps) => {
         p="1rem"
         borderRadius="8px"
         w="full"
-        minH={des ? "11.2rem" : "3.5rem"}
+        minH={des ? "8rem" : "3.5rem"}
       >
         {desc}
       </Text>

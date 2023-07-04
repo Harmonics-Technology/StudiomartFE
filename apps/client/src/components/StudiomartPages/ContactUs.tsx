@@ -14,7 +14,7 @@ import { FaMailBulk, FaLocationArrow, FaPhone } from "react-icons/fa";
 
 export const ContactUs = () => {
   return (
-    <Box my={["7rem", "7rem"]} w={{ base: "80%", lg: "80%" }} mx="auto">
+    <Box my={["4rem", "7rem"]} w={{ base: "90%", lg: "80%" }} mx="auto">
       <Box
         pos="relative"
         display={["flex", "block"]}
@@ -80,9 +80,9 @@ export const ContactUs = () => {
           pos={["relative", "absolute"]}
           right="0"
           top="50%"
-          order="0"
+          // order="0"
           color="white"
-          transform={["0", "translate(50%)"]}
+          transform={["0", "translateY(-50%)"]}
         >
           <Text
             fontSize={["1.5rem", "2rem"]}
@@ -95,13 +95,16 @@ export const ContactUs = () => {
           <VStack align="flex-start" spacing="2.2rem">
             <IconText
               icon={FaMailBulk}
-              text="hi@studiomart.io, info@studiomart.io"
+              text="hello@studiomart.io, info@studiomart.io"
             />
             <IconText
               icon={FaLocationArrow}
-              text="10, Kayode Street, Ikeja, Lagos."
+              text="Harmonics Technology Building, Isolo, Lagos."
             />
-            <IconText icon={FaPhone} text="+2348031363759, +2347031363759 " />
+            <IconText
+              icon={FaPhone}
+              text="+234 818 004 1801, +234 803 604 4563 "
+            />
           </VStack>
         </Box>
       </Box>

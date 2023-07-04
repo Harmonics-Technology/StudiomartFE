@@ -7,7 +7,7 @@ export async function getCityAndState(latitude: any, longitude: any) {
     );
 
     const { results } = response.data;
-    console.log(response.data);
+    // console.log(response.data);
 
     if (results.length > 0) {
       for (let i = 0; i < results.length; i++) {
@@ -21,7 +21,8 @@ export async function getCityAndState(latitude: any, longitude: any) {
           if (types.includes("locality")) {
             const city = long_name;
             const state = address_components[j + 1].long_name;
-            return { city, state };
+            const country = address_components[j + 3].long_name;
+            return { city, state, country };
           }
         }
       }

@@ -13,7 +13,6 @@ import {
 import { BecomeVendorInfo } from "@components/utils/BecomeVendorInfo";
 import Link from "next/link";
 import React from "react";
-import { GoPrimitiveDot } from "react-icons/go";
 import { getUrlRoute, ProcedureCard } from "ui";
 import Fqa from "./Fqa";
 

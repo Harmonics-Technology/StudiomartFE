@@ -15,12 +15,12 @@ import { IPopularStudios } from "src/models/schema";
 import { Cur, getReviewSummary, MenuDropdown, Naira, Rating } from "ui";
 import NoSSR from "react-no-ssr";
 import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { StudioService } from "src/services";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { BsBookmarkHeartFill, BsBookmarkHeart } from "react-icons/bs";
 
 const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
   const image = useDummyImage({});
@@ -88,7 +88,7 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
           w="full"
           objectFit="cover"
           src={(service?.bannerImageURL as string) || image}
-          alt=""
+          alt={`${service?.name}'s image`}
           borderRadius={{ base: "8px", lg: "0" }}
         />
         <Box pos="absolute" top="5%" right="3%">
@@ -96,18 +96,22 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
             <Spinner size="sm" />
           ) : (
             <>
-              {service?.isSaved ? (
+              {isSaved ? (
                 <Icon
-                  as={AiFillHeart}
+                  as={BsBookmarkHeartFill}
                   onClick={removeSaved}
                   fontSize="1.3rem"
                   color="red"
+                  bgColor="white"
+                  p=".1rem"
                 />
               ) : (
                 <Icon
-                  as={AiOutlineHeart}
+                  as={BsBookmarkHeart}
                   onClick={saveServiceForLater}
                   fontSize="1.3rem"
+                  bgColor="white"
+                  p=".1rem"
                 />
               )}
             </>
@@ -120,7 +124,11 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
         fontWeight="600"
         p={{ base: "1rem .5rem", lg: "1rem" }}
       >
-        <VStack align="flex-start">
+        <VStack
+          align="flex-start"
+          onClick={() => router.push(`/customer/details/${service?.id}`)}
+          cursor="pointer"
+        >
           <HStack
             align={{ base: "none", lg: "flex-end" }}
             spacing={{ base: "0", lg: "1" }}

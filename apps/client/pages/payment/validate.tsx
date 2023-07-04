@@ -12,7 +12,7 @@ export default validate;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { tx_ref, transaction_id, status } = ctx.query;
-  console.log({ status });
+  // console.log({ status });
 
   if (status == "cancelled") {
     return {

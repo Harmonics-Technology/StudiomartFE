@@ -3,6 +3,7 @@ import {
   RecentlyViewedView,
   ReviewViewPagedCollection,
   SavedServiceViewPagedCollection,
+  ServiceTypeView,
   ServiceView,
   ServiceViewPagedCollection,
   StudioView,
@@ -20,6 +21,7 @@ export interface ICustomerHome {
   studiosNearMe?: ServiceViewPagedCollection;
   studios?: ServiceViewPagedCollection;
   addons?: any;
+  category?: ServiceTypeView[];
 }
 export interface IPopularStudios {
   service?: ServiceView;
@@ -34,6 +36,7 @@ export interface ISingleCategory {
   // singleService?: ServiceView;
   singlecategory?: ServiceViewPagedCollection;
   recentlyViewed?: RecentlyViewedView[];
+  category?: ServiceTypeView[];
 }
 
 export interface IStudios {

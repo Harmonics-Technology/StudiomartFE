@@ -3,12 +3,11 @@ import HomePage from "@components/Home/HomePage";
 import { GetServerSideProps } from "next";
 import { OpenAPI, StudioService } from "src/services";
 import { ICustomerHome } from "src/models/schema";
-import axios from "axios";
 
-const Home = ({ popularStudios }: ICustomerHome) => {
+const Home = ({ popularStudios, category }: ICustomerHome) => {
   return (
     <>
-      <HomePage popularStudios={popularStudios} />
+      <HomePage popularStudios={popularStudios} category={category} />
     </>
   );
 };
@@ -24,10 +23,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
       offset: 0,
       limit: 9,
     });
+    const category = await StudioService.getServiceTypes({});
 
     return {
       props: {
         popularStudios: popularStudios.data,
+        category: category.data,
       },
     };
   } catch (error: any) {

@@ -34,6 +34,7 @@ import { useComponentVisible } from "ui";
 export const Inputs = () => {
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
+  console.log({ data });
 
   const [text, setText] = useState("");
   const [file, setFile] = useState<any>(null);

@@ -20,7 +20,10 @@ function Pagination({ data }: pageOptions) {
   const next = data?.next?.href;
   const previous = data?.previous?.href;
 
-  const paginate = (direction: "next" | "previous" | "last") => {
+  const paginate = (
+    direction: "next" | "previous" | "last" | "sub",
+    pageNumber?: number
+  ) => {
     let link = "";
     if (direction == "previous" && previous != null) {
       link = previous?.split("?")[1] ?? false;
@@ -39,6 +42,24 @@ function Pagination({ data }: pageOptions) {
           ...router.query,
           limit: data.limit,
           offset: data.nextOffset,
+        },
+      });
+    }
+    if (direction == "sub") {
+      router.push({
+        query: {
+          ...router.query,
+          limit: data.limit,
+          offset: (pageNumber as number) * data.limit,
+        },
+      });
+    }
+    if (direction == "last") {
+      router.push({
+        query: {
+          ...router.query,
+          limit: data.limit,
+          offset: (totalPages - 1) * data.limit,
         },
       });
     }
@@ -74,6 +95,7 @@ function Pagination({ data }: pageOptions) {
                   borderRadius="3px"
                   borderColor={current == x + 1 ? "brand.100" : "gray.300"}
                   key={x}
+                  onClick={() => paginate("sub", x)}
                 >
                   {x + 1}
                 </Button>
@@ -85,7 +107,8 @@ function Pagination({ data }: pageOptions) {
                   bgColor="inherit"
                   border="1px solid"
                   borderRadius="3px"
-                  borderColor="gray.500"
+                  borderColor={current == totalPages ? "brand.100" : "gray.300"}
+                  onClick={() => paginate("last")}
                 >
                   {totalPages}
                 </Button>

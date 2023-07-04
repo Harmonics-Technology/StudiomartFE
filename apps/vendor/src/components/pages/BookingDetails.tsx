@@ -19,7 +19,7 @@ import { BookingService, BookingView, MediaView } from "src/services";
 import BookingText from "src/utils/BookingText";
 import RejectBooking from "src/utils/RejectBooking";
 import { Responses } from "src/utils/Responses";
-import { ModalWrapper, Naira } from "ui";
+import { ModalWrapper, Naira, ResponseBox } from "ui";
 
 interface DetailsProps {
   data: BookingView;
@@ -27,19 +27,19 @@ interface DetailsProps {
 }
 function BookingDetails({ data, closed }: DetailsProps) {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<any>({ status: false });
 
   const response = data.status?.toLowerCase();
   const id = data.id;
   const router = useRouter();
   async function acceptUserBooking(id: string) {
-    setLoading(true);
+    setLoading({ status: true, type: "accept" });
     try {
       const result = await BookingService.acceptBooking({
         id,
       });
       if (result.status) {
-        setLoading(false);
+        setLoading({ status: false });
         closed();
         toast.success(
           `You have successfully accept booking, ${data.user?.firstName} would be notify to make payment`
@@ -47,16 +47,38 @@ function BookingDetails({ data, closed }: DetailsProps) {
         router.reload();
         return;
       }
-      setLoading(false);
+      setLoading({ status: false });
       toast.error(result.message as string);
       return;
     } catch (error: any) {
-      setLoading(false);
+      setLoading({ status: false });
       toast.error(error?.body?.message || error?.message, {
         className: "loginToast",
       });
     }
   }
+  const markAsCompleted = async (id: string) => {
+    setLoading({ status: true, type: "complete" });
+    try {
+      const result = await BookingService.completeBooking({
+        bookingId: id,
+      });
+      if (result.status) {
+        setLoading({ status: false });
+        toast.success(`Successful`);
+        router.reload();
+        return;
+      }
+      setLoading({ status: false });
+      toast.error(result.message as string);
+      return;
+    } catch (err: any) {
+      setLoading({ status: false });
+      toast.error(err?.body?.message || err?.message, {
+        className: "loginToast",
+      });
+    }
+  };
 
   return (
     <Box
@@ -72,35 +94,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
           <Text fontSize="1.4rem" mb="0">
             Booking Details
           </Text>
-          <Box
-            padding=".2rem 1rem"
-            width="fit-content"
-            h="fit-content"
-            borderRadius="8px"
-            cursor="pointer"
-            bgColor={
-              response == "pending"
-                ? "#FDF3CA"
-                : response == "approved"
-                ? "#D5E2F9"
-                : response == "in-progress"
-                ? "#FDF3CA"
-                : response == "cancelled" || response == "rejected"
-                ? "#FDC1C1"
-                : "white"
-            }
-            fontSize="10px"
-          >
-            {response == "pending"
-              ? "Pending Confirmation"
-              : response == "approved"
-              ? "Awaiting payment"
-              : response == "in-progress"
-              ? "In progress"
-              : response == "rejected"
-              ? "Rejected"
-              : "Cancelled"}
-          </Box>
+          <ResponseBox response={data.status?.toLowerCase()} />
         </Flex>
         <VStack gap="2rem">
           <Box w="full">
@@ -114,10 +108,19 @@ function BookingDetails({ data, closed }: DetailsProps) {
               p={{ base: ".8rem", lg: "2rem 1.5rem" }}
             >
               <VStack gap="1rem" align="left">
-                <BookingText top="Client ID/Email" bottom={data?.user?.email} />
+                <BookingText
+                  top="Client Full Name"
+                  bottom={data?.user?.fullName}
+                />
+                <BookingText
+                  top="Client ID/Email"
+                  bottom={response != "paid" ? "*********" : data?.user?.email}
+                />
                 <BookingText
                   top="Client Phone Number"
-                  bottom={data?.user?.phoneNumber}
+                  bottom={
+                    response != "paid" ? "*********" : data?.user?.phoneNumber
+                  }
                 />
               </VStack>
             </Box>
@@ -162,6 +165,20 @@ function BookingDetails({ data, closed }: DetailsProps) {
                   top="Service Description"
                   bottom={data?.service?.description}
                 />
+                {(data.additionalServices as any)?.length > 0 && (
+                  <>
+                    <Text fontWeight="500" mb="0">
+                      Additional Services
+                    </Text>
+                    <HStack>
+                      {data?.additionalServices?.map((b) => (
+                        <Text key={b.id} mb="0" fontSize="1rem" noOfLines={1}>
+                          {b.name}
+                        </Text>
+                      ))}
+                    </HStack>
+                  </>
+                )}
               </VStack>
             </Box>
           </Box>
@@ -196,7 +213,9 @@ function BookingDetails({ data, closed }: DetailsProps) {
                   />
                   <BookingText
                     top="Total Cost"
-                    bottom={Naira(data.totalAmount as number)}
+                    bottom={Naira(
+                      (data.amount as number) + (data.tax as number)
+                    )}
                     color="#1570FA"
                   />
                 </Grid>
@@ -208,9 +227,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
             h="fit-content"
             spacing={0}
             gap={{ base: "1rem", lg: "2rem" }}
-            mb="1rem !important"
             flexDir={{ base: "column", lg: "row" }}
-            display={response == "pending" ? "flex" : "none"}
           >
             <Button
               variant="outline"
@@ -218,6 +235,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
               border="2px solid"
               h="3rem"
               onClick={onOpen}
+              isDisabled={response !== "pending"}
             >
               Reject Booking
             </Button>
@@ -228,16 +246,32 @@ function BookingDetails({ data, closed }: DetailsProps) {
               color="white"
               h="3rem"
               onClick={() => acceptUserBooking(data.id as string)}
-              isLoading={loading}
+              isLoading={loading.status && loading.type == "accept"}
+              isDisabled={response !== "pending"}
             >
               Accept Booking
             </Button>
           </HStack>
+          <Button
+            variant="outline"
+            w="full"
+            bgColor="green.500"
+            color="white"
+            h="3rem"
+            mb="1rem !important"
+            onClick={() => markAsCompleted(data.id as string)}
+            isLoading={loading.status && loading.type == "complete"}
+            isDisabled={response != "paid"}
+          >
+            Mark as completed
+          </Button>
         </VStack>
       </Box>
-      <ModalWrapper isOpen={isOpen} onClose={onClose}>
-        <RejectBooking data={data} onClose={onClose} />
-      </ModalWrapper>
+      {isOpen && (
+        <ModalWrapper isOpen={isOpen} onClose={onClose}>
+          <RejectBooking data={data} onClose={onClose} />
+        </ModalWrapper>
+      )}
     </Box>
   );
 }

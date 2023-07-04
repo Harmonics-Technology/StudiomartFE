@@ -14,7 +14,7 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { FaAngleDown, FaRegCalendarAlt } from "react-icons/fa";
-import { RiSearch2Fill } from "react-icons/ri";
+import { BiSolidSearch } from "react-icons/bi";
 import {
   BsCheckAll,
   BsFillTrashFill,
@@ -22,7 +22,7 @@ import {
   BsSortAlphaDownAlt,
   BsSortAlphaUp,
 } from "react-icons/bs";
-import { GoSettings } from "react-icons/go";
+import { GiSettingsKnobs } from "react-icons/gi";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import { useDebouncedCallback } from "use-debounce";
 import { useRouter } from "next/router";
@@ -111,7 +111,7 @@ const BookingFilters = ({ w }: { w?: any }) => {
         <Text mb="0">Showing {filterLabel}</Text>
         <InputGroup w={{ base: "60%", lg: "30%" }}>
           <InputLeftElement top=".2rem" color="gray.400" fontSize=".8rem">
-            <RiSearch2Fill />
+            <BiSolidSearch />
           </InputLeftElement>
           <Input
             type="search"
@@ -124,12 +124,13 @@ const BookingFilters = ({ w }: { w?: any }) => {
             onChange={(e: any) => searchFn(e.target.value)}
           />
         </InputGroup>
-        <HStack>
+        <HStack w={["full", "auto"]}>
           <DatePicker
             value={date}
             onChange={setDate}
             range
             format="MMM DD, YYYY"
+            containerStyle={{ width: "100%" }}
             render={(stringDates: any, openCalendar: any) => {
               if (!Array.isArray(stringDates)) {
                 stringDates = stringDates.split("~");
@@ -141,9 +142,9 @@ const BookingFilters = ({ w }: { w?: any }) => {
                 <HStack
                   w={{ base: "full", lg: "fit-content" }}
                   px="1rem"
-                  minW={"30%"}
+                  minW={{ base: "100%", lg: "30%" }}
                   h="2.5rem"
-                  justifyContent="center"
+                  justifyContent={"space-between"}
                   alignItems="center"
                   border="1px solid"
                   borderColor="gray.300"
@@ -196,17 +197,17 @@ const BookingFilters = ({ w }: { w?: any }) => {
             </MenuList>
           </Menu>
         </HStack>
-        <HStack>
+        <HStack spacing="1rem" w={["full", "auto"]}>
           <HStack w="full" align="center">
             <Icon
-              as={GoSettings}
+              as={GiSettingsKnobs}
               transform="rotate(90deg)"
               fontWeight="bold"
               fontSize="1rem"
             />
             <Text mb="0">Filter By:</Text>
           </HStack>
-          <Flex h="2rem" minW="6rem" pos="relative">
+          <Flex h="2rem" minW={["40%", "6rem"]} pos="relative">
             <HStack
               justify="space-between"
               align="center"
