@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Slider from "react-slick";
-import { sliderSets } from "ui";
+import { slickImages, sliderSets } from "ui";
 import { UserService, UserView } from "src/services";
 import { BeatLoader } from "react-spinners";
 
@@ -62,12 +62,17 @@ export const Verify = ({ code }: { code: string }) => {
         display={{ base: "none", lg: "block" }}
       >
         <Slider {...sliderSets}>
-          <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
-          <Image src="/assets/003.jpg" alt="any" w="full" objectFit="cover" />
-          <Image src="/assets/004.jpg" alt="any" w="full" objectFit="cover" />
-          <Image src="/assets/005.jpg" alt="any" w="full" objectFit="cover" />
-          <Image src="/assets/001.jpg" alt="any" w="full" objectFit="cover" />
-          <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
+          {slickImages.map((x: any) => (
+            <Box w="full" h="100vh" key={x.id}>
+              <Image
+                src={x.url}
+                alt="any"
+                w="full"
+                h="full"
+                objectFit="cover"
+              />
+            </Box>
+          ))}
         </Slider>
       </Box>
       <Flex

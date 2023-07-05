@@ -52,7 +52,11 @@ import CustomTable from "./Components/utils/CustomTable";
 import getUrlRoute from "./Components/Helper/GetUrl";
 import CalculatePercent from "./Components/utils/CalculatePercent";
 import { getCityAndState } from "./Components/utils/Geocode";
-import { sliderSettings, sliderSets } from "./Components/utils/SlickSettings";
+import {
+  sliderSettings,
+  sliderSets,
+  slickImages,
+} from "./Components/utils/SlickSettings";
 import CustomCheckbox from "./Components/utils/CustomCheckbox";
 import NotFoundPage from "./Components/utils/NotFoundPage";
 import HandleSelectChat from "./Components/utils/HandleSelectChat";
@@ -115,4 +119,5 @@ export {
   ResponseBox,
   ResponseBoxLarge,
   BookingsBtn,
+  slickImages,
 };

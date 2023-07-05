@@ -104,7 +104,7 @@ export const Header = () => {
           align={["center"]}
           spacing={{ base: "5", md: "4", lg: "6", xl: "14" }}
         >
-          <NavLink path="/login" name="Login" />
+          <NavLink path="/login" name="Login" setIsOpened={setIsOpened} />
           <NextLink href="/register">
             <Button
               bgColor="brand.100"

@@ -28,12 +28,13 @@ export const Layout: React.FC = ({ children }) => {
           <Box w={{ base: "full", lg: "82%" }} as="main" ml="auto" minH="95vh">
             <VendorHeader showSide={showSide} setShowSide={setShowSide} />
             <Box as="div" w="100%" mb="1rem" minH="80vh">
-              {notDone?.meansOfIdentification ||
+              {/* {notDone?.meansOfIdentification ||
               router.asPath.startsWith("/account") ? (
                 <Box>{children}</Box>
               ) : (
                 <Notice />
-              )}
+              )} */}
+              <Box>{children}</Box>
             </Box>
           </Box>
           <Footer />

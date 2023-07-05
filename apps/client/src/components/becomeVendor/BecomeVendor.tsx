@@ -16,7 +16,7 @@ import React from "react";
 import { getUrlRoute, ProcedureCard } from "ui";
 import Fqa from "./Fqa";
 
-const BecomeVendor = () => {
+const BecomeVendor = ({ isLoggedIn }: any) => {
   return (
     <Box>
       <VStack
@@ -49,7 +49,13 @@ const BecomeVendor = () => {
           <Text fontSize={[".9rem", "1.4rem"]} pb="9" fontWeight="500">
             List your studio and start earning from bookings.
           </Text>
-          <Link href={`${getUrlRoute().vendorUrl}/register`}>
+          <Link
+            href={
+              isLoggedIn
+                ? "/register/vendor"
+                : `${getUrlRoute().vendorUrl}/register`
+            }
+          >
             <a target="_blank" rel="noopener noreferrer">
               <Button
                 w="170px"

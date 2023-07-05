@@ -10,7 +10,13 @@ import {
   Button,
   Icon,
 } from "@chakra-ui/react";
-import { DisabledInput, PrimaryInput, sliderSets, SubmitButton } from "ui";
+import {
+  DisabledInput,
+  PrimaryInput,
+  slickImages,
+  sliderSets,
+  SubmitButton,
+} from "ui";
 import {
   InitiateResetModel,
   LoginModel,
@@ -97,12 +103,17 @@ export const CompleteReset = ({ code }: { code: any }) => {
           <Image src="/assets/StudioMart.png" w="full" alt="logo" />
         </Box>
         <Slider {...sliderSets}>
-          <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
-          <Image src="/assets/003.jpg" alt="any" w="full" objectFit="cover" />
-          <Image src="/assets/004.jpg" alt="any" w="full" objectFit="cover" />
-          <Image src="/assets/005.jpg" alt="any" w="full" objectFit="cover" />
-          <Image src="/assets/001.jpg" alt="any" w="full" objectFit="cover" />
-          <Image src="/assets/007.jpg" alt="any" w="full" objectFit="cover" />
+          {slickImages.map((x: any) => (
+            <Box w="full" h="100vh" key={x.id}>
+              <Image
+                src={x.url}
+                alt="any"
+                w="full"
+                h="full"
+                objectFit="cover"
+              />
+            </Box>
+          ))}
         </Slider>
       </Box>
       <Flex

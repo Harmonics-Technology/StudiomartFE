@@ -29,7 +29,7 @@ const CustomerHeader = ({ category }: any) => {
   const { user, logout } = useContext(UserContext);
 
   return (
-    <>
+    <Box bgColor="white" pos="sticky" top="0" zIndex={900}>
       <Flex
         w="90%"
         mx="auto"
@@ -37,9 +37,6 @@ const CustomerHeader = ({ category }: any) => {
         gap={{ base: 10, lg: 24 }}
         align="center"
         justify="space-between"
-        pos="sticky"
-        top="0"
-        zIndex={900}
       >
         <HStack align="center" spacing={["5", "10"]} justify="space-between">
           <CustomerSidebar user={user} logout={logout} category={category} />
@@ -118,7 +115,7 @@ const CustomerHeader = ({ category }: any) => {
           </Button>
         </HStack>
       </Flex>
-    </>
+    </Box>
   );
 };
 

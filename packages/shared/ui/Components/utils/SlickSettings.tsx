@@ -33,7 +33,7 @@ export const sliderSettings = {
 };
 
 export const sliderSets = {
-  dots: true,
+  dots: false,
   className: "service-slick",
   infinite: true,
   speed: 500,
@@ -43,5 +43,14 @@ export const sliderSets = {
   autoplay: true,
   dotsClass: "slick-dots",
   arrows: false,
-  fade: true
+  fade: true,
+  pauseOnHover: false,
 };
+
+export const slickImages = [
+  { id: 1, url: "/assets/007.jpg" },
+  { id: 2, url: "/assets/003.jpg" },
+  { id: 3, url: "/assets/004.jpg" },
+  { id: 4, url: "/assets/005.jpg" },
+  { id: 5, url: "/assets/006.jpg" },
+];
