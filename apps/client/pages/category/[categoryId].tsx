@@ -31,40 +31,42 @@ const singleStudioView = ({
 
 export default singleStudioView;
 
-export const getServerSideProps: GetServerSideProps = withPageAuth(
-  async (ctx: any) => {
-    const pagingOptions = FilterPagingOptions(ctx);
-    const { categoryId } = ctx.query;
-    try {
-      const singlecategory = await StudioService.listServices({
-        offset: pagingOptions.offset,
-        limit: pagingOptions.limit || 9,
-        serviceTypeId: categoryId,
+export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
+  OpenAPI.BASE = process.env.NEXT_PUBLIC_API_BASEURL as string;
+  OpenAPI.TOKEN = ctx.req.cookies.customerToken;
+  const pagingOptions = FilterPagingOptions(ctx);
+  const { categoryId } = ctx.query;
+  try {
+    const singlecategory = await StudioService.listServices({
+      offset: pagingOptions.offset,
+      limit: pagingOptions.limit || 9,
+      serviceTypeId: categoryId,
+    });
+    let recentlyViewed;
+    if (OpenAPI.TOKEN !== undefined) {
+      recentlyViewed = await RecentlyViewedService.getRecentlyViewedItems({
+        type: "service",
       });
-
-      const recentlyViewed = await RecentlyViewedService.getRecentlyViewedItems(
-        { type: "service" }
-      );
-      const category = await StudioService.getServiceTypes({});
-      return {
-        props: {
-          singlecategory: singlecategory.data,
-          recentlyViewed: recentlyViewed.data,
-          categoryId,
-          category: category.data,
-        },
-      };
-    } catch (error: any) {
-      console.log({ error });
-      // if (error.status == 401) {
-      //   toast.error("error?.statusText");
-      //   return;
-      // }
-      return {
-        props: {
-          singlecategory: [],
-        },
-      };
     }
+    const category = await StudioService.getServiceTypes({});
+    return {
+      props: {
+        singlecategory: singlecategory.data,
+        recentlyViewed: recentlyViewed?.data || [],
+        categoryId,
+        category: category.data,
+      },
+    };
+  } catch (error: any) {
+    console.log({ error });
+    // if (error.status == 401) {
+    //   toast.error("error?.statusText");
+    //   return;
+    // }
+    return {
+      props: {
+        singlecategory: [],
+      },
+    };
   }
-);
+};

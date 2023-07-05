@@ -52,10 +52,10 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
     const pagingOption = FilterPagingOptions(ctx);
     console.log({ currentStudioId, userId });
     try {
-      // const banks = await UtilityService.getApiUtilityBanks({});
-      const banks = await axios.get(
-        "https://maylancer.org/api/nuban/banklist.php"
-      );
+      const banks = await UtilityService.getApiUtilityBanks({});
+      // const banks = await axios.get(
+      //   "https://maylancer.org/api/nuban/banklist.php"
+      // );
       const bankAccounts = await StudioService.getBankAccounts({
         id: currentStudioId,
       });
@@ -88,6 +88,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
         },
       };
     } catch (error: any) {
+      console.log({ error });
       return {
         props: {
           banks: [],

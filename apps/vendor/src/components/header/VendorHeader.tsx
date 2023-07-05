@@ -56,7 +56,7 @@ function VendorHeader({ setShowSide, showSide }: Side) {
   // console.log(userStudios?.filter((x: any) => x.id == currentStudioId)[0].name);
 
   return (
-    <Box w="full" bgColor="white">
+    <Box w="full" bgColor="white" pos="sticky" top="0" zIndex={900}>
       <Box w="100%" ml="auto">
         <Box w="90%" mx="auto" py="1rem" display={{ base: "", lg: "none" }}>
           <GiHamburgerMenu

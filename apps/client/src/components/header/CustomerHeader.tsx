@@ -37,6 +37,9 @@ const CustomerHeader = ({ category }: any) => {
         gap={{ base: 10, lg: 24 }}
         align="center"
         justify="space-between"
+        pos="sticky"
+        top="0"
+        zIndex={900}
       >
         <HStack align="center" spacing={["5", "10"]} justify="space-between">
           <CustomerSidebar user={user} logout={logout} category={category} />

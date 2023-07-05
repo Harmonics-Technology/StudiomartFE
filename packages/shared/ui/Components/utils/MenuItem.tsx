@@ -16,7 +16,7 @@ function MenuItem({ menuTitle, icon, close }: MenuProps) {
   };
   return (
     // <Link href={url} passHref>
-    <Box
+    <Flex
       onClick={goToPage}
       overflow="hidden"
       cursor="pointer"
@@ -25,6 +25,7 @@ function MenuItem({ menuTitle, icon, close }: MenuProps) {
       w="full"
       borderRadius="10px"
       h="3rem"
+      align="center"
       color={router.pathname.startsWith(url) ? "white" : "brand.700"}
     >
       <HStack pl=".5rem">
@@ -41,7 +42,7 @@ function MenuItem({ menuTitle, icon, close }: MenuProps) {
           {menuTitle.replaceAll(/[-/]/g, " ")}
         </Text>
       </HStack>
-    </Box>
+    </Flex>
     // </Link>
   );
 }

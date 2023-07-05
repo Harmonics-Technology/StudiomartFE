@@ -40,9 +40,9 @@ function VendorSideNav({ setShowSide, showSide }: Side) {
         lg: "18%",
       }}
       pos="fixed"
-      pl={{ base: showSide ? "2rem" : "0", lg: "2rem" }}
+      pl={{ base: showSide ? ".8rem" : "0", lg: "2rem" }}
       pt="2rem"
-      zIndex="1"
+      zIndex="200"
       align="flex-start"
       boxShadow="0 20px 27px 0 rgb(0 0 0 / 5%)"
       transition="all .2s ease-in"

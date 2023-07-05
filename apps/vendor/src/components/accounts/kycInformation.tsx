@@ -122,6 +122,8 @@ export default function KycInformation({ singleStudio }: StudioProps) {
     }
   };
 
+  console.log({ logoLoading, imageLoading });
+
   return (
     <AccountContainer>
       <form onSubmit={handleSubmit(onSubmit)}>

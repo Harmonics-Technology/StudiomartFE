@@ -302,59 +302,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
         </VStack>
       </Box>
       <BookingInfo bookings={bookings} />
-      <HStack
-        w="full"
-        justify="space-between"
-        m="2rem auto 5rem"
-        gap={{ base: "1rem", lg: "1rem" }}
-        flexDir={{ base: "column", lg: "row" }}
-      >
-        <BookingsBtn
-          text="Reject Booking"
-          isDisabled={status !== "pending"}
-          onClick={onOpen}
-          bg="red"
-          icon={AiOutlineClose}
-        />
-        <BookingsBtn
-          text="Approve Booking"
-          isDisabled={status !== "pending"}
-          onClick={() => acceptUserBooking(bookings.id as string)}
-          isLoading={loading.status && loading.type == "accept"}
-          icon={MdPayments}
-          bg="brand.100"
-        />
-        <HandleSelectChat
-          chatUser={{
-            uid: bookings?.user?.id,
-            displayName: bookings?.user?.firstName,
-            photoURL: bookings.user?.profilePicture,
-          }}
-          url="/message"
-          setLoading={setIsLoading}
-        >
-          <BookingsBtn
-            text="Chat with Client"
-            isDisabled={status !== "paid"}
-            icon={AiFillWechat}
-            bg="yellow.500"
-            isLoading={isLoading}
-          />
-        </HandleSelectChat>
-
-        <BookingsBtn
-          text="Mark as Completed"
-          isDisabled={status !== "paid"}
-          onClick={() => markAsCompleted(bookings.id as string)}
-          isLoading={
-            loading.status &&
-            loading.type == "complete" &&
-            loading.id == bookings.id
-          }
-          icon={MdOutlineDoneAll}
-          bg="green.500"
-        />
-      </HStack>
+      
       {isOpen && (
         <ModalWrapper isOpen={isOpen} onClose={onClose}>
           <RejectBooking data={bookings} onClose={onClose} />

@@ -14,7 +14,7 @@ export const Layout: React.FC = ({ children }) => {
   const notDone: StudioView = userStudios?.find(
     (x: any) => x.id == currentStudioId
   );
-  // console.log({ notDone, userStudios, currentStudioId });
+  console.log({ notDone, userStudios, currentStudioId });
   const noNav =
     router.asPath.startsWith("/login") || router.asPath.startsWith("/register");
   const [showSide, setShowSide] = useState<boolean>(false);
@@ -29,8 +29,7 @@ export const Layout: React.FC = ({ children }) => {
             <VendorHeader showSide={showSide} setShowSide={setShowSide} />
             <Box as="div" w="100%" mb="1rem" minH="80vh">
               {notDone?.meansOfIdentification ||
-              notDone?.cacDocumentReference ||
-              router.pathname.startsWith("/account") ? (
+              router.asPath.startsWith("/account") ? (
                 <Box>{children}</Box>
               ) : (
                 <Notice />

@@ -209,7 +209,7 @@ const MainWallet = ({
                         label="Enter amount to withdraw"
                       />
                       <Box w="full" pos="relative">
-                        <Box pos="relative" zIndex="500">
+                        <Box pos="relative" zIndex="100">
                           <FormLabel
                             w="100%"
                             textTransform="capitalize"
@@ -259,7 +259,7 @@ const MainWallet = ({
                             // borderRadius="8px"
                             boxShadow="md"
                             pos="absolute"
-                            zIndex="888"
+                            zIndex="90"
                             top="10%"
                           >
                             <Box p="4rem 0 0rem">

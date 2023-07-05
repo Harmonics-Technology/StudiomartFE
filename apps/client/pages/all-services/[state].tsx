@@ -29,13 +29,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
       state: pagingOptions.state || state,
       studioId: pagingOptions.studioId,
     });
-    const recentlyViewed = await RecentlyViewedService.getRecentlyViewedItems({
-      type: "service",
-    });
+    let recentlyViewed;
+    if (OpenAPI.TOKEN !== undefined) {
+      recentlyViewed = await RecentlyViewedService.getRecentlyViewedItems({
+        type: "service",
+      });
+    }
     return {
       props: {
         allService: allService.data,
-        recentlyViewed: recentlyViewed.data,
+        recentlyViewed: recentlyViewed?.data || [],
       },
     };
   } catch (error: any) {
