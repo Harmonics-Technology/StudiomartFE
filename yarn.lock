@@ -3850,7 +3850,7 @@
   resolved "https://registry.yarnpkg.com/@types/jquery-deferred/-/jquery-deferred-0.3.0.tgz#d1cec125dac971e523e75771d71c9a3d6befa529"
   integrity sha512-QpOMjSm4rI4Kc57LRDAWlNtwze4KrD8niPqaYuxVnFREAKrKSrrP0vtE9hew1Kr9KB3xjc/Uq1/gfSHGCuce7Q==
 
-"@types/jquery@^3.5.16":
+"@types/jquery@^3.5.14":
   version "3.5.16"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.16.tgz#632131baf30951915b0317d48c98e9890bdf051d"
   integrity sha512-bsI7y4ZgeMkmpG9OM710RRzDFp+w4P1RGiIt30C1mSBT+ExCleeh4HObwgArnDFELmRrOpXgSYN9VF1hj+f1lw==
@@ -4189,15 +4189,21 @@
     "@typescript-eslint/types" "5.59.9"
     eslint-visitor-keys "^3.3.0"
 
-"@uploadcare/react-widget@^2.4.3":
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/@uploadcare/react-widget/-/react-widget-2.4.3.tgz#e6186eb6351a7c89af9762e2fa4b050d497753ed"
-  integrity sha512-0oZrqTNi7bxq0HTcLrRabTQRp5l9dlLGG0wLq796D9B+AKgLKIS3q6HneaO76yFMtG33galSrPy0ycJaYsCWRA==
+"@uploadcare/client-suspense@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@uploadcare/client-suspense/-/client-suspense-1.1.0.tgz#33334401c24138947a3751b54e6c698dd461cbe3"
+  integrity sha512-ijI2KMHWe3KU5EwW5s2bbKl2APJHa8jAS/uLVvumhUzGv/R9eQk27CpuMl3sr3GpoevjGVl+MKu/tk4SfJVPXg==
+
+"@uploadcare/react-widget@2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@uploadcare/react-widget/-/react-widget-2.4.0.tgz#6761e0ee7a0f04ed1e400deca39fedd99b0a9eb1"
+  integrity sha512-wLfgGvs3hmRZwHE7YEI/3VURO4QPDixnAeYVa8NrTvNkBTUvMabo/3QINaqx7anp8ckHf4BY9PxSeDdI5IwrnA==
   dependencies:
-    "@types/jquery" "^3.5.16"
+    "@types/jquery" "^3.5.14"
     "@types/jquery-deferred" "^0.3.0"
-    react-fast-compare "^3.2.1"
-    uploadcare-widget "^3.21.0"
+    "@uploadcare/client-suspense" "^1.1.0"
+    react-fast-compare "^3.2.0"
+    uploadcare-widget "^3.20.1"
 
 "@zag-js/element-size@0.3.2":
   version "0.3.2"
@@ -11560,7 +11566,7 @@ react-fast-compare@3.2.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.1.tgz#53933d9e14f364281d6cba24bfed7a4afb808b5f"
   integrity sha512-xTYf9zFim2pEif/Fw16dBiXpe0hoy5PxcD8+OwBnTtNLfIm3g6WxhKNurY+6OmdH1u6Ta/W/Vl6vjbYP1MFnDg==
 
-react-fast-compare@^3.0.1, react-fast-compare@^3.2.1:
+react-fast-compare@^3.0.1, react-fast-compare@^3.2.0:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.2.tgz#929a97a532304ce9fee4bcae44234f1ce2c21d49"
   integrity sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==
@@ -13593,10 +13599,10 @@ update-notifier-cjs@^5.1.6:
     semver-diff "^3.1.1"
     xdg-basedir "^4.0.0"
 
-uploadcare-widget@^3.21.0:
-  version "3.21.0"
-  resolved "https://registry.yarnpkg.com/uploadcare-widget/-/uploadcare-widget-3.21.0.tgz#db67e7f97d257c3ab8da65328121502f8ab6b1f8"
-  integrity sha512-9C/WLwK3Anx+76rDzg/pe1vBv41j4HapgxfbyVLS+3oolB3bd9NvURAkvfyEif8QUnt7MwK2Ubw3f7UP/a3v9w==
+uploadcare-widget@^3.20.1:
+  version "3.21.2"
+  resolved "https://registry.yarnpkg.com/uploadcare-widget/-/uploadcare-widget-3.21.2.tgz#50c1fb46209dcf21c55b4ebdb9c6c967f80dac2d"
+  integrity sha512-vJ5lS9dKQFMgU9pg+SehcA+iGiGLnhtlok8rY3qVZN9gSo35m4mtt8kRwJuyh/SxJr3g/5wy12sLYeA/qLVoJA==
   dependencies:
     escape-html "^1.0.3"
     jquery "^3.6.0"
