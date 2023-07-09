@@ -122,7 +122,7 @@ export default function KycInformation({ singleStudio }: StudioProps) {
     }
   };
 
-  console.log({ logoLoading, imageLoading });
+  console.log({ logoLoading, imageLoading, cacDocument, idUrl });
 
   return (
     <AccountContainer>
