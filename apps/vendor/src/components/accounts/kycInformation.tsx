@@ -156,7 +156,7 @@ export default function KycInformation({ singleStudio }: StudioProps) {
               imagesOnly
               onFileSelect={onChangeLogoImage}
               ref={widgetLogoApi}
-              inputAcceptTypes={".jpeg,.jpg, .png"}
+              // inputAcceptTypes={".jpeg,.jpg, .png"}
             />
           </Box>
           <Button
@@ -198,7 +198,7 @@ export default function KycInformation({ singleStudio }: StudioProps) {
               imagesOnly
               onFileSelect={onChangeImg}
               ref={widgetApi}
-              inputAcceptTypes={".jpeg,.jpg, .png"}
+              // inputAcceptTypes={".jpeg,.jpg, .png"}
             />
           </Box>
           <Button
