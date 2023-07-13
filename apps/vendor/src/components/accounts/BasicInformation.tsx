@@ -77,10 +77,21 @@ export default function BasicInformation({ user }: { user: UserView }) {
         setImageLoading({ status: true, total: info.progress });
         console.log(info);
       });
+      console.info(file)
       file.done((info: any) => {
-        setImageLoading({ status: false, total: "" }),
-          setImageUrl(info.originalUrl);
-        setSaveImagePrompt(true);
+        console.info({info})
+        if(info)
+        {
+          try{
+            setImageLoading({ status: false, total: "" }),
+            setImageUrl(info.originalUrl);
+            setSaveImagePrompt(true);
+          }
+          catch(error: any)
+          {
+              console.error({error})
+          }
+        }
       });
     }
   };
