@@ -71,28 +71,35 @@ export default function BasicInformation({ user }: { user: UserView }) {
   });
   const router = useRouter();
 
-  const onChangeImg = (file: any) => {
+  const onChangeImg = async (file: any) => {
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
         console.log(info);
       });
       console.info(file)
-      file.done((info: any) => {
-        console.info({info})
-        if(info)
-        {
-          try{
-            setImageLoading({ status: false, total: "" }),
-            setImageUrl(info.originalUrl);
-            setSaveImagePrompt(true);
-          }
-          catch(error: any)
-          {
-              console.error({error})
-          }
-        }
-      });
+      let thenResult = await file.then();
+      console.info(thenResult) 
+      // let uploadDetails = await file.done();
+      // console.info({uploadDetails})
+      setImageLoading({ status: false, total: "" }),
+      setImageUrl(thenResult.originalUrl);
+      setSaveImagePrompt(true);
+      // file.done((info: any) => {
+      //   console.info({info})
+      //   if(info)
+      //   {
+      //     try{
+      //       setImageLoading({ status: false, total: "" }),
+      //       setImageUrl(info.originalUrl);
+      //       setSaveImagePrompt(true);
+      //     }
+      //     catch(error: any)
+      //     {
+      //         console.error({error})
+      //     }
+      //   }
+      // });
     }
   };
 
