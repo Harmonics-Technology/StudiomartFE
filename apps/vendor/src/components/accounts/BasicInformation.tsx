@@ -71,7 +71,7 @@ export default function BasicInformation({ user }: { user: UserView }) {
   });
   const router = useRouter();
 
-  const onChangeImg = (file: any) => {
+  const onChangeImg = async (file: any) => {
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
