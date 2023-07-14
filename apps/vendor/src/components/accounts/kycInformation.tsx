@@ -67,7 +67,7 @@ export default function KycInformation({ singleStudio }: StudioProps) {
     if (file) {
       file.progress((info: any) => {
         setLogoLoading({ status: true, total: info.progress });
-        if (file.state == "ready") {
+        if (info.state == "ready") {
           setLogoLoading({ status: false, total: "" }),
             setCacDocument({
               url: info.incompleteFileInfo.originalUrl,
@@ -88,7 +88,7 @@ export default function KycInformation({ singleStudio }: StudioProps) {
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
-        if (file.state == "ready") {
+        if (info.state == "ready") {
           setImageLoading({ status: false, total: "" }),
             setIdUrl({
               url: info.incompleteFileInfo.originalUrl,

@@ -98,7 +98,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
     if (file) {
       file.progress((info: any) => {
         setLogoLoading({ status: true, total: info.progress });
-        if (file.state == "ready") {
+        if (info.state == "ready") {
           setLogoLoading({ status: false, total: "" }),
             setLogoUrl(info.incompleteFileInfo.originalUrl);
         }
@@ -116,7 +116,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
-        if (file.state == "ready") {
+        if (info.state == "ready") {
           setImageLoading({ status: false, total: "" }),
             setBannerUrl(info.incompleteFileInfo.originalUrl);
         }

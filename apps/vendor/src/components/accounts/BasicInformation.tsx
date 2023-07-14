@@ -75,7 +75,7 @@ export default function BasicInformation({ user }: { user: UserView }) {
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
-        if (file.state == "ready") {
+        if (info.state == "ready") {
           setImageLoading({ status: false, total: "" }),
             setImageUrl(info.incompleteFileInfo.originalUrl);
           setSaveImagePrompt(true);

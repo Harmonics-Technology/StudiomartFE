@@ -18,16 +18,16 @@ import {
   Tr,
   Th,
   Td,
-} from '@chakra-ui/react';
-import { ServiceSlider } from '@components/Dashboard/ServicesSlider';
-import React, { useContext, useRef, useState } from 'react';
+} from "@chakra-ui/react";
+import { ServiceSlider } from "@components/Dashboard/ServicesSlider";
+import React, { useContext, useRef, useState } from "react";
 import {
   ServiceModel,
   ServiceTypeView,
   ServiceTypeViewListStandardResponse,
   StudioService,
   StudioView,
-} from 'src/services';
+} from "src/services";
 import {
   CurrencyField,
   DisabledInput,
@@ -35,21 +35,21 @@ import {
   PrimaryInput,
   PrimarySelect,
   PrimaryTextarea,
-} from 'ui';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import YupPassword from 'yup-password';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/router';
-import { FaTrash } from 'react-icons/fa';
-import { Widget } from '@uploadcare/react-widget';
-import { AiFillDelete, AiFillEdit, AiOutlinePlus } from 'react-icons/ai';
-import { UserContext } from '@components/Context/UserContext';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import { FiUpload } from 'react-icons/fi';
-import { HiInformationCircle } from 'react-icons/hi';
+} from "ui";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import YupPassword from "yup-password";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
+import { FaTrash } from "react-icons/fa";
+import { Widget } from "@uploadcare/react-widget";
+import { AiFillDelete, AiFillEdit, AiOutlinePlus } from "react-icons/ai";
+import { UserContext } from "@components/Context/UserContext";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import { FiUpload } from "react-icons/fi";
+import { HiInformationCircle } from "react-icons/hi";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -82,7 +82,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
     formState: { errors, isSubmitting, isValid },
   } = useForm<ServiceModel>({
     resolver: yupResolver(validation),
-    mode: 'all',
+    mode: "all",
   });
 
   const onChangeImg = (info: any, id: number) => {
@@ -96,14 +96,14 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
     // console.log({ uploadedMedia });
   };
 
-  const [addon, setAddon] = useState({ id: '', name: '', price: '' });
+  const [addon, setAddon] = useState({ id: "", name: "", price: "" });
   const [populatedItem, setPopulatedItem] = useState<any[]>([]);
   const [editing, setEditing] = useState(false);
 
   const additionServicesFn = () => {
     setEditing(false);
-    if (addon.name == '' || addon.price == '') {
-      toast.error('One or more field is empty', { className: 'loginToast' });
+    if (addon.name == "" || addon.price == "") {
+      toast.error("One or more field is empty", { className: "loginToast" });
       return;
     }
     const newSubmittedItem = {
@@ -112,9 +112,9 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
       price: addon.price,
     };
     setAddon({
-      id: '',
-      name: '',
-      price: '',
+      id: "",
+      name: "",
+      price: "",
     });
     setPopulatedItem([...populatedItem, newSubmittedItem]);
   };
@@ -137,19 +137,18 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
   const [bannerUrl, setBannerUrl] = useState();
   const [imageLoading, setImageLoading] = useState<any>({
     status: false,
-    total: '',
+    total: "",
   });
   const widgetApi = useRef<any>(null);
   const uploadBannerUrl = (file: any) => {
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
-        if (file.state == "ready") {
+        if (info.state == "ready") {
           setImageLoading({ status: false, total: "" }),
             setBannerUrl(info.incompleteFileInfo.originalUrl);
         }
       });
-    
     }
   };
 
@@ -200,7 +199,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
             register={register}
           />
           <Grid
-            templateColumns={{ base: 'repeat(1,1fr)', md: 'repeat(2,1fr)' }}
+            templateColumns={{ base: "repeat(1,1fr)", md: "repeat(2,1fr)" }}
             gap="1.5rem"
             mt="1.5rem"
           >
@@ -209,7 +208,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
               defaultValue=""
               register={register}
               error={errors.price}
-              name={'price'}
+              name={"price"}
               control={control}
               label="Service Price (NGN)"
             />
@@ -235,7 +234,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
                 imagesOnly
                 onFileSelect={uploadBannerUrl}
                 ref={widgetApi}
-                inputAcceptTypes={'.jpeg,.jpg, .png'}
+                inputAcceptTypes={".jpeg,.jpg, .png"}
               />
             </Box>
             <FormLabel fontSize=".8rem">Upload Cover Image</FormLabel>
@@ -276,7 +275,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
                     transition=".5s all ease"
                     onClick={() => widgetApi.current.openDialog()}
                     _groupHover={{
-                      bottom: '0',
+                      bottom: "0",
                     }}
                   >
                     Change Photo
@@ -305,7 +304,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
             </Flex>
           </Box>
           <Grid
-            templateColumns={{ base: 'repeat(1,1fr)', md: 'repeat(2,1fr)' }}
+            templateColumns={{ base: "repeat(1,1fr)", md: "repeat(2,1fr)" }}
             gap="1.5rem"
           >
             <Box minW="0">
@@ -315,7 +314,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
                 name="description"
                 error={errors.description}
                 register={register}
-                defaultValue={''}
+                defaultValue={""}
               />
             </Box>
             <Box minW="0">
@@ -378,7 +377,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
                           transform="translate(-50%, -50%)"
                           _groupHover={{
                             opacity: 1,
-                            bgColor: 'rgba(0,0,0,.5)',
+                            bgColor: "rgba(0,0,0,.5)",
                           }}
                         >
                           <FaTrash
@@ -433,7 +432,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
                 <TableContainer>
                   <Table>
                     <Thead>
-                      <Tr bgColor={'gray.100'}>
+                      <Tr bgColor={"gray.100"}>
                         <Th minW="300px">Addon Name</Th>
                         <Th>Price</Th>
                         <Th></Th>
@@ -472,7 +471,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
               </Box>
             )}
             <Grid
-              templateColumns={{ base: 'repeat(1,1fr)', md: 'repeat(2,1fr)' }}
+              templateColumns={{ base: "repeat(1,1fr)", md: "repeat(2,1fr)" }}
               gap="1.5rem"
               mt=".5rem"
             >
@@ -500,17 +499,17 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
               mt="1rem"
               onClick={additionServicesFn}
               _hover={{
-                bgColor: 'brand.100',
+                bgColor: "brand.100",
               }}
             >
-              {editing ? '- Confirm edit' : ' + Add a service'}
+              {editing ? "- Confirm edit" : " + Add a service"}
             </Button>
           </Box>
           <HStack
             mt="1.5rem"
-            gap={{ base: '.5rem', md: '2rem' }}
-            display={{ base: 'flex', md: '' }}
-            flexDir={{ base: 'column', md: 'row' }}
+            gap={{ base: ".5rem", md: "2rem" }}
+            display={{ base: "flex", md: "" }}
+            flexDir={{ base: "column", md: "row" }}
           >
             <Button
               variant="outline"

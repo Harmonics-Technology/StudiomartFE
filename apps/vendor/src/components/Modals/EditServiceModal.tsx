@@ -129,7 +129,7 @@ const EditServiceModal = ({
     if (file) {
       file.progress((info: any) => {
         setLoading({ status: true, id: "imageLoad" });
-        if (file.state == "ready") {
+        if (info.state == "ready") {
           setLoading({ status: false, total: "" }),
             AddServiceImage(info.incompleteFileInfo.originalUrl);
         }
@@ -283,7 +283,7 @@ const EditServiceModal = ({
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
-        if (file.state == "ready") {
+        if (info.state == "ready") {
           setImageLoading({ status: false, total: "" }),
             setBannerUrl(info.incompleteFileInfo.originalUrl);
         }
