@@ -365,8 +365,8 @@ const MainWallet = ({
                           mode={info.type == 5 ? "payment" : "withdrawal"}
                           message={`${info.description}`}
                           amount={info.amount as unknown as number}
-                          date={info.booking?.date}
-                          time={info.booking?.time}
+                          date={info.dateCreated}
+                          time={info.dateCreated}
                         />
                       ))}
                     </VStack>

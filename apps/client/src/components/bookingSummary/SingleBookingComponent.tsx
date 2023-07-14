@@ -125,7 +125,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
         flexDir={{ base: "column", lg: "row" }}
       >
         <Square
-          size={{ base: "100%", lg: "25rem" }}
+          size={{ base: "20rem", lg: "25rem" }}
           overflow="hidden"
           borderRadius="10px"
           bgColor="red"
@@ -263,6 +263,78 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
           </HStack>
         </Box>
       </Flex>
+      <HStack
+        w="full"
+        justify="space-between"
+        m="2rem auto 5rem"
+        gap={{ base: "1rem", lg: "1rem" }}
+        flexDir={{ base: "column", lg: "row" }}
+      >
+        <BookingsBtn
+          text="Cancel Booking"
+          isDisabled={status !== "pending"}
+          onClick={() => cancelBooking(bookings.id as string)}
+          isLoading={
+            loading.status &&
+            loading.type == "cancel" &&
+            loading.id == bookings.id
+          }
+          bg="red"
+          icon={AiOutlineClose}
+        />
+        <BookingsBtn
+          text="Make payment"
+          isDisabled={status !== "approved"}
+          onClick={() =>
+            router.push(`/customer/checkout/${bookings.id as string}`)
+          }
+          isLoading={
+            loading.status && loading.type == "pay" && loading.id == bookings.id
+          }
+          icon={MdPayments}
+          bg="brand.100"
+        />
+        <HandleSelectChat
+          chatUser={{
+            uid: bookings?.service?.user?.id,
+            displayName: bookings?.service?.user?.firstName,
+            photoURL: bookings.service?.user?.profilePicture,
+          }}
+          url="/customer/message"
+          setLoading={setIsLoading}
+        >
+          <BookingsBtn
+            text="Chat with vendor"
+            isDisabled={status !== "paid"}
+            icon={AiFillWechat}
+            bg="yellow.500"
+            isLoading={isLoading}
+          />
+        </HandleSelectChat>
+
+        <BookingsBtn
+          text="Rate this service"
+          isDisabled={status !== "completed"}
+          onClick={() => {
+            setReviewId(bookings.serviceId);
+            onOpen();
+          }}
+          icon={MdOutlineRateReview}
+          bg="gray.500"
+        />
+        <BookingsBtn
+          text="Mark as Completed"
+          isDisabled={status !== "paid"}
+          onClick={() => markAsCompleted(bookings.id as string)}
+          isLoading={
+            loading.status &&
+            loading.type == "complete" &&
+            loading.id == bookings.id
+          }
+          icon={MdOutlineDoneAll}
+          bg="green.500"
+        />
+      </HStack>
       <Box mt="3rem">
         <Flex
           justify={"space-between"}
@@ -343,78 +415,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
         </VStack>
       </Box>
       <BookingInfo bookings={bookings} />
-      <HStack
-        w="full"
-        justify="space-between"
-        m="2rem auto 5rem"
-        gap={{ base: "1rem", lg: "1rem" }}
-        flexDir={{ base: "column", lg: "row" }}
-      >
-        <BookingsBtn
-          text="Cancel Booking"
-          isDisabled={status !== "pending"}
-          onClick={() => cancelBooking(bookings.id as string)}
-          isLoading={
-            loading.status &&
-            loading.type == "cancel" &&
-            loading.id == bookings.id
-          }
-          bg="red"
-          icon={AiOutlineClose}
-        />
-        <BookingsBtn
-          text="Make payment"
-          isDisabled={status !== "approved"}
-          onClick={() =>
-            router.push(`/customer/checkout/${bookings.id as string}`)
-          }
-          isLoading={
-            loading.status && loading.type == "pay" && loading.id == bookings.id
-          }
-          icon={MdPayments}
-          bg="brand.100"
-        />
-        <HandleSelectChat
-          chatUser={{
-            uid: bookings?.service?.user?.id,
-            displayName: bookings?.service?.user?.firstName,
-            photoURL: bookings.service?.user?.profilePicture,
-          }}
-          url="/customer/message"
-          setLoading={setIsLoading}
-        >
-          <BookingsBtn
-            text="Chat with vendor"
-            isDisabled={status !== "paid"}
-            icon={AiFillWechat}
-            bg="yellow.500"
-            isLoading={isLoading}
-          />
-        </HandleSelectChat>
 
-        <BookingsBtn
-          text="Rate this service"
-          isDisabled={status !== "completed"}
-          onClick={() => {
-            setReviewId(bookings.serviceId);
-            onOpen();
-          }}
-          icon={MdOutlineRateReview}
-          bg="gray.500"
-        />
-        <BookingsBtn
-          text="Mark as Completed"
-          isDisabled={status !== "paid"}
-          onClick={() => markAsCompleted(bookings.id as string)}
-          isLoading={
-            loading.status &&
-            loading.type == "complete" &&
-            loading.id == bookings.id
-          }
-          icon={MdOutlineDoneAll}
-          bg="green.500"
-        />
-      </HStack>
       {isOpen && (
         <ReviewModal id={reviewId} isOpen={isOpen} onClose={onClose} />
       )}

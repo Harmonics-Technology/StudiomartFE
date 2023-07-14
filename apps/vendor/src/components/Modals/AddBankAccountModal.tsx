@@ -46,8 +46,8 @@ export default function AddBankAccountModal({
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { currentStudioId } = useContext(UserContext);
-  // let bankCode = watch("bankCode");
-  // let accountNumber = watch("accountNumber");
+  let bankCode = watch("bankCode");
+  let accountNumber = watch("accountNumber");
 
   // console.log({ bankCode, accountNumber, accountName: watch("accountName") });
 
@@ -72,31 +72,31 @@ export default function AddBankAccountModal({
     }
   };
 
-  // const getBankDetails = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "https://maylancer.org/api/nuban/api.php",
-  //       {
-  //         params: {
-  //           account_number: accountNumber,
-  //           bank_code: bankCode,
-  //         },
-  //       }
-  //     );
-  //     // console.log(response);
-  //     if (response.status == 200) {
-  //       setValue("accountName", response.data.account_name);
-  //       return;
-  //     }
-  //     toast.error(response.data.message, { className: "loginToast" });
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error("An error occured", { className: "loginToast" });
-  //   }
-  // };
-  // useNonInitialEffect(() => {
-  //   getBankDetails();
-  // }, [bankCode && accountNumber?.length == 10]);
+  const getBankDetails = async () => {
+    try {
+      const response = await axios.get(
+        "https://maylancer.org/api/nuban/api.php",
+        {
+          params: {
+            account_number: accountNumber,
+            bank_code: bankCode,
+          },
+        }
+      );
+      // console.log(response);
+      if (response.status == 200) {
+        setValue("accountName", response.data.account_name);
+        return;
+      }
+      toast.error(response.data.message, { className: "loginToast" });
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occured", { className: "loginToast" });
+    }
+  };
+  useNonInitialEffect(() => {
+    getBankDetails();
+  }, [bankCode && accountNumber?.length == 10]);
 
   return (
     <ModalWrapper
@@ -128,7 +128,7 @@ export default function AddBankAccountModal({
               register={register}
               defaultValue={""}
             />
-            <PrimaryInput<BankAccountModel>
+            {/* <PrimaryInput<BankAccountModel>
               label="Account Name"
               type="text"
               placeholder="Enter your account name"
@@ -136,14 +136,14 @@ export default function AddBankAccountModal({
               error={errors.accountName}
               register={register}
               defaultValue={""}
-            />
-            {/* <DisabledInput<BankAccountModel>
+            /> */}
+            <DisabledInput<BankAccountModel>
               label="Account Name"
               type="text"
               placeholder="Enter your account name"
               value={watch("accountName") || ""}
               readonly={true}
-            /> */}
+            />
             <Flex justifyContent="flex-end" w="full">
               <Button
                 isDisabled={!isValid}

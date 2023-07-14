@@ -57,7 +57,7 @@ export default function BankDetails({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bankCode = watch("bankCode");
   const accountNumber = watch("accountNumber");
-  console.log({ bankCode, accountNumber, accountName: watch("accountName") });
+  // console.log({ bankCode, accountNumber, accountName: watch("accountName") });
 
   const getBankDetails = async () => {
     try {

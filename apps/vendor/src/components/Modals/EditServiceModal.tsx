@@ -129,10 +129,10 @@ const EditServiceModal = ({
     if (file) {
       file.progress((info: any) => {
         setLoading({ status: true, id: "imageLoad" });
-      });
-      file.done((info: any) => {
-        // setUploadedMedia(info.originalUrl);
-        AddServiceImage(info.originalUrl);
+        if (file.state == "ready") {
+          setLoading({ status: false, total: "" }),
+            AddServiceImage(info.incompleteFileInfo.originalUrl);
+        }
       });
     }
   };
@@ -283,10 +283,10 @@ const EditServiceModal = ({
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
-      });
-      file.done((info: any) => {
-        setImageLoading({ status: false, total: "" });
-        setBannerUrl(info.originalUrl);
+        if (file.state == "ready") {
+          setImageLoading({ status: false, total: "" }),
+            setBannerUrl(info.incompleteFileInfo.originalUrl);
+        }
       });
     }
   };

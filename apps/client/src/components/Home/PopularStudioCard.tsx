@@ -90,6 +90,7 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
           src={(service?.bannerImageURL as string) || image}
           alt={`${service?.name}'s image`}
           borderRadius={{ base: "8px", lg: "0" }}
+          onClick={() => router.push(`/customer/details/${service?.id}`)}
         />
         <Box pos="absolute" top="5%" right="3%">
           {loading ? (

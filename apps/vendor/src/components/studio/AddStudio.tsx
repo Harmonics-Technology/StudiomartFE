@@ -82,10 +82,10 @@ const AddStudio = () => {
     if (file) {
       file.progress((info: any) => {
         setLogoLoading({ status: true, total: info.progress });
-      });
-      file.done((info: any) => {
-        setLogoLoading({ status: false, total: "" }),
-          setLogoUrl(info.originalUrl);
+        if (file.state == "ready") {
+          setLogoLoading({ status: false, total: "" }),
+            setLogoUrl(info.incompleteFileInfo.originalUrl);
+        }
       });
     }
   };
@@ -100,10 +100,10 @@ const AddStudio = () => {
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
-      });
-      file.done((info: any) => {
-        setImageLoading({ status: false, total: "" }),
-          setBannerUrl(info.originalUrl);
+        if (file.state == "ready") {
+          setImageLoading({ status: false, total: "" }),
+            setBannerUrl(info.incompleteFileInfo.originalUrl);
+        }
       });
     }
   };

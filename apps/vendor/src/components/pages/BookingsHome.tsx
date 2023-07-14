@@ -61,11 +61,20 @@ function BookingsHome({ allBookings }: BookingProps) {
                     full
                     onClick={() => router.push(`/bookings/${info?.id}`)}
                   />
-                  <TableData name={info.user?.fullName} full />
-                  <TableData name={Naira(info.amount as number)} full />
+                  <TableData
+                    name={info.user?.fullName}
+                    full
+                    onClick={() => router.push(`/bookings/${info?.id}`)}
+                  />
+                  <TableData
+                    name={Naira(info.amount as number)}
+                    full
+                    onClick={() => router.push(`/bookings/${info?.id}`)}
+                  />
                   <TableData
                     name={moment(info.date).format("DD MMM, YYYY")}
                     full
+                    onClick={() => router.push(`/bookings/${info?.id}`)}
                   />
                   <TableStatus name={info.status as string} />
                   {info.status?.toLowerCase() !== "paid" ? (

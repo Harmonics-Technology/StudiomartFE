@@ -67,12 +67,11 @@ const CustomerProfile = ({ user }: IProfileProps) => {
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
-      });
-      file.done((info: any) => {
-        console.log(info);
-        setImageLoading({ status: false, total: "" }),
-          setImageUrl(info.originalUrl);
-        setSaveImagePrompt(true);
+        if (file.state == "ready") {
+          setImageLoading({ status: false, total: "" }),
+            setImageUrl(info.incompleteFileInfo.originalUrl);
+          setSaveImagePrompt(true);
+        }
       });
     }
   };

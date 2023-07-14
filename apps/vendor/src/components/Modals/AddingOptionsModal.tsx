@@ -144,11 +144,12 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
+        if (file.state == "ready") {
+          setImageLoading({ status: false, total: "" }),
+            setBannerUrl(info.incompleteFileInfo.originalUrl);
+        }
       });
-      file.done((info: any) => {
-        setImageLoading({ status: false, total: '' }),
-          setBannerUrl(info.originalUrl);
-      });
+    
     }
   };
 

@@ -126,7 +126,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
         flexDir={{ base: "column", lg: "row" }}
       >
         <Square
-          size={{ base: "100%", lg: "25rem" }}
+          size={{ base: "20rem", lg: "25rem" }}
           overflow="hidden"
           borderRadius="10px"
           bgColor="red"

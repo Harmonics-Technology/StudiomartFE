@@ -67,10 +67,13 @@ export default function KycInformation({ singleStudio }: StudioProps) {
     if (file) {
       file.progress((info: any) => {
         setLogoLoading({ status: true, total: info.progress });
-      });
-      file.done((info: any) => {
-        setLogoLoading({ status: false, total: "" }),
-          setCacDocument({ url: info.originalUrl, name: info.name });
+        if (file.state == "ready") {
+          setLogoLoading({ status: false, total: "" }),
+            setCacDocument({
+              url: info.incompleteFileInfo.originalUrl,
+              name: info.incompleteFileInfo.name,
+            });
+        }
       });
     }
   };
@@ -85,10 +88,13 @@ export default function KycInformation({ singleStudio }: StudioProps) {
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
-      });
-      file.done((info: any) => {
-        setImageLoading({ status: false, total: "" }),
-          setIdUrl({ url: info.originalUrl, name: info.name });
+        if (file.state == "ready") {
+          setImageLoading({ status: false, total: "" }),
+            setIdUrl({
+              url: info.incompleteFileInfo.originalUrl,
+              name: info.incompleteFileInfo.name,
+            });
+        }
       });
     }
   };

@@ -11,30 +11,30 @@ import {
   Grid,
   HStack,
   Button,
-} from '@chakra-ui/react';
-import { Widget } from '@uploadcare/react-widget';
-import React, { useRef, useState } from 'react';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import { FiUpload } from 'react-icons/fi';
-import TopPage from 'src/utils/TopPage';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/router';
-import { StudioModel, StudioService, StudioView } from 'src/services';
-import { PrimaryInput, PrimarySelect, PrimaryTextarea } from 'ui';
+} from "@chakra-ui/react";
+import { Widget } from "@uploadcare/react-widget";
+import React, { useRef, useState } from "react";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import { FiUpload } from "react-icons/fi";
+import TopPage from "src/utils/TopPage";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
+import { StudioModel, StudioService, StudioView } from "src/services";
+import { PrimaryInput, PrimarySelect, PrimaryTextarea } from "ui";
 //@ts-ignore
-import NaijaStates from 'naija-state-local-government';
+import NaijaStates from "naija-state-local-government";
 import {
   AiFillFacebook,
   AiFillLinkedin,
   AiFillTwitterCircle,
   AiFillYoutube,
-} from 'react-icons/ai';
-import Cookies from 'js-cookie';
-import NoSSR from 'react-no-ssr';
+} from "react-icons/ai";
+import Cookies from "js-cookie";
+import NoSSR from "react-no-ssr";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -61,7 +61,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
     formState: { errors, isSubmitting, isValid },
   } = useForm<StudioModel>({
     resolver: yupResolver(schema),
-    mode: 'all',
+    mode: "all",
     defaultValues: {
       address: singleStudio.address,
       city: singleStudio.city,
@@ -84,24 +84,24 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
     },
   });
   const allStates = NaijaStates.states();
-  const selectedLga = NaijaStates.lgas(watch('state') || 'lagos');
+  const selectedLga = NaijaStates.lgas(watch("state") || "lagos");
   // console.log({ selectedLga });
   const router = useRouter();
   //Logo upload
   const [logoUrl, setLogoUrl] = useState();
   const [logoLoading, setLogoLoading] = useState<any>({
     status: false,
-    total: '',
+    total: "",
   });
   const widgetLogoApi = useRef<any>(null);
   const onChangeLogoImage = (file: any) => {
     if (file) {
       file.progress((info: any) => {
         setLogoLoading({ status: true, total: info.progress });
-      });
-      file.done((info: any) => {
-        setLogoLoading({ status: false, total: '' }),
-          setLogoUrl(info.originalUrl);
+        if (file.state == "ready") {
+          setLogoLoading({ status: false, total: "" }),
+            setLogoUrl(info.incompleteFileInfo.originalUrl);
+        }
       });
     }
   };
@@ -109,17 +109,17 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
   const [bannerUrl, setBannerUrl] = useState();
   const [imageLoading, setImageLoading] = useState<any>({
     status: false,
-    total: '',
+    total: "",
   });
   const widgetApi = useRef<any>(null);
   const onChangeImg = (file: any) => {
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
-      });
-      file.done((info: any) => {
-        setImageLoading({ status: false, total: '' }),
-          setBannerUrl(info.originalUrl);
+        if (file.state == "ready") {
+          setImageLoading({ status: false, total: "" }),
+            setBannerUrl(info.incompleteFileInfo.originalUrl);
+        }
       });
     }
   };
@@ -138,16 +138,16 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
           limit: 10,
         });
         studios.status &&
-          Cookies.set('vendorStudios', JSON.stringify(studios.data?.value));
-        toast.success('Studio successfully created, will reload shortly');
-        router.push('/studio/profile');
+          Cookies.set("vendorStudios", JSON.stringify(studios.data?.value));
+        toast.success("Studio successfully created, will reload shortly");
+        router.push("/studio/profile");
         return;
       }
       toast.error(result.message as string);
       return;
     } catch (error: any) {
       toast.error(error?.body?.message || error?.message, {
-        className: 'loginToast',
+        className: "loginToast",
       });
     }
   };
@@ -155,7 +155,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
     <Box>
       <TopPage
         page={singleStudio.name as string}
-        details={'Currently making changes to look better'}
+        details={"Currently making changes to look better"}
         right={false}
       />
 
@@ -178,7 +178,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
                   imagesOnly
                   onFileSelect={onChangeLogoImage}
                   ref={widgetLogoApi}
-                  inputAcceptTypes={'.jpeg,.jpg, .png'}
+                  inputAcceptTypes={".jpeg,.jpg, .png"}
                 />
               </Box>
             </NoSSR>
@@ -214,7 +214,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
                     opacity="0"
                     onClick={() => widgetLogoApi.current.openDialog()}
                     _groupHover={{
-                      opacity: '1',
+                      opacity: "1",
                     }}
                   >
                     Change Photo
@@ -251,7 +251,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
           <VStack gap="1.5rem" w="full">
             <Grid
               gap="1.5rem"
-              templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
+              templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
               w="full"
             >
               <PrimaryInput<StudioModel>
@@ -287,7 +287,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
                 register={register}
               />
             </Grid>
-            <Grid gap="1.5rem" templateColumns={['repeat(2, 1fr)']} w="full">
+            <Grid gap="1.5rem" templateColumns={["repeat(2, 1fr)"]} w="full">
               <PrimarySelect<StudioModel>
                 label="Studio Country"
                 name="country"
@@ -324,9 +324,9 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
             <Grid
               gap="1.5rem"
               templateColumns={{
-                base: 'repeat(1, 1fr)',
-                md: 'repeat(2, 1fr)',
-                lg: 'repeat(3, 1fr)',
+                base: "repeat(1, 1fr)",
+                md: "repeat(2, 1fr)",
+                lg: "repeat(3, 1fr)",
               }}
               w="full"
             >
@@ -376,7 +376,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
                   imagesOnly
                   onFileSelect={onChangeImg}
                   ref={widgetApi}
-                  inputAcceptTypes={'.jpeg,.jpg, .png'}
+                  inputAcceptTypes={".jpeg,.jpg, .png"}
                 />
               </Box>
             </NoSSR>
@@ -418,7 +418,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
                     transition=".5s all ease"
                     onClick={() => widgetApi.current.openDialog()}
                     _groupHover={{
-                      bottom: '0',
+                      bottom: "0",
                     }}
                   >
                     Change Photo
@@ -452,7 +452,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
           <VStack gap="1.5rem" w="full">
             <Grid
               gap="1.5rem"
-              templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
+              templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
               w="full"
             >
               <PrimaryInput<StudioModel>
@@ -496,13 +496,13 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
                 value={AiFillYoutube}
               />
             </Grid>
-            <Grid gap="1.5rem" templateColumns={['repeat(1, 1fr)']} w="full">
+            <Grid gap="1.5rem" templateColumns={["repeat(1, 1fr)"]} w="full">
               <PrimaryTextarea<StudioModel>
                 label="Studio Description"
                 name="description"
                 error={errors.description}
                 register={register}
-                defaultValue={''}
+                defaultValue={""}
                 placeholder="Give a brief description about your studio"
               />
             </Grid>
@@ -521,7 +521,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
               isDisabled={!isValid}
               isLoading={isSubmitting}
               _hover={{
-                bgColor: 'gray.600',
+                bgColor: "gray.600",
               }}
             >
               Submit
