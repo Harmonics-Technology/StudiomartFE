@@ -1,9 +1,11 @@
-import { Box, HStack, Tr, Td, useDisclosure, Icon } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { BsFillChatRightTextFill } from "react-icons/bs";
+import { Box, HStack, Icon, Td, Tr, useDisclosure } from "@chakra-ui/react";
+import moment from "moment";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { BsFillChatRightTextFill, BsThreeDotsVertical } from "react-icons/bs";
+import BeatLoader from "react-spinners/BeatLoader";
+import { BookingView, BookingViewPagedCollection } from "src/services";
 import TopPage from "src/utils/TopPage";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import BookingDetails from "./BookingDetails";
 import {
   BookingFilters,
   CustomTable,
@@ -12,19 +14,16 @@ import {
   Naira,
   Pagination,
   TableData,
-  TableStatus,
+  TableStatus
 } from "ui";
-import { BookingView, BookingViewPagedCollection } from "src/services";
-import moment from "moment";
-import { useRouter } from "next/router";
-import BeatLoader from "react-spinners/BeatLoader";
+import BookingDetails from "./BookingDetails";
 
 interface BookingProps {
   allBookings: BookingViewPagedCollection;
 }
 
 function BookingsHome({ allBookings }: BookingProps) {
-  // console.log({ allBookings });
+  //
   const { isOpen, onOpen, onClose } = useDisclosure();
   const thead = [
     "Booking ID",

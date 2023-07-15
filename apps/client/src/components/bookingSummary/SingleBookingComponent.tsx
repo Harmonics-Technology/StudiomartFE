@@ -1,17 +1,10 @@
 import {
   Box,
-  Flex,
-  HStack,
-  Icon,
-  Square,
-  Text,
-  VStack,
-  Image,
+  Flex, Grid, HStack, Image,
   List,
   ListIcon,
-  ListItem,
-  useDisclosure,
-  Grid,
+  ListItem, Square,
+  Text, useDisclosure, VStack
 } from "@chakra-ui/react";
 import { BookingInfo } from "@components/utils/BookingInfo";
 import { InfoBox as Infos } from "@components/utils/InfoBox";
@@ -19,34 +12,22 @@ import { SocialWrapper } from "@components/utils/SocialWrapper";
 import dayjs from "dayjs";
 
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import {
-  AiFillFacebook,
-  AiOutlineTwitter,
-  AiFillInstagram,
-  AiFillYoutube,
-  AiFillHeart,
-  AiFillWechat,
-  AiOutlineClose,
+  AiFillFacebook, AiFillInstagram, AiFillWechat, AiFillYoutube, AiOutlineClose, AiOutlineTwitter
 } from "react-icons/ai";
 import { ImRadioChecked2 } from "react-icons/im";
 import {
   MdOutlineDoneAll,
   MdOutlineRateReview,
-  MdPayments,
+  MdPayments
 } from "react-icons/md";
 import { useDummyImage } from "react-simple-placeholder-image";
 import { BookingService, BookingView } from "src/services";
 import {
-  getReviewSummary,
-  ResponseBoxLarge,
-  Naira,
-  Rating,
-  InfoBox,
-  BackToPage,
-  HandleSelectChat,
-  BookingsBtn,
+  BackToPage, BookingsBtn, getReviewSummary, HandleSelectChat, InfoBox, Naira,
+  Rating, ResponseBoxLarge
 } from "ui";
 import { ReviewModal } from "./ReviewModal";
 
@@ -58,7 +39,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
     id: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  // console.log({ bookings });
+  //
   const router = useRouter();
   const status = bookings.status?.toLowerCase();
 

@@ -1,4 +1,4 @@
-import { Box, Heading, Stack, Image, Text } from "@chakra-ui/react";
+import { Box, Heading, Image, Stack, Text } from "@chakra-ui/react";
 import { BookNowLink } from "ui";
 
 interface ICatProps {

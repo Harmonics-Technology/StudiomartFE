@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
   async (ctx: any) => {
     const studioId = JSON.parse(ctx.req.cookies.vendorStudios)[0].id;
     const currentStudioId = ctx.req.cookies.currentStudioId;
-    // console.log({ currentStudioId });
+    //
     try {
       const studioServices = await StudioService.listStudioServices({
         offset: 0,
@@ -60,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
         });
       const serviceTypes = await StudioService.getServiceTypes({});
 
-      // console.log({ dashboardMetrics });
+      //
 
       return {
         props: {
@@ -70,7 +70,6 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
         },
       };
     } catch (error: any) {
-      console.log({ error });
       return {
         props: {
           data: [],

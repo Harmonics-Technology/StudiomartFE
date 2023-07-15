@@ -1,15 +1,15 @@
-import { Box, Text, Image, Button, Grid } from '@chakra-ui/react';
-import React, { useContext } from 'react';
-import { useRouter } from 'next/router';
-import { UserContext } from '@components/Context/UserContext';
-import TopPage from '../../utils/TopPage';
+import { Box, Button, Grid, Image, Text } from "@chakra-ui/react";
+import { UserContext } from "@components/Context/UserContext";
+import { useRouter } from "next/router";
+import { useContext } from "react";
+import NoSSR from "react-no-ssr";
+import { DummyImage } from "react-simple-placeholder-image";
 import {
   ServiceTypeViewListStandardResponse,
   ServiceView,
-  ServiceViewPagedCollectionStandardResponse,
-} from 'src/services';
-import { DummyImage } from 'react-simple-placeholder-image';
-import NoSSR from 'react-no-ssr';
+  ServiceViewPagedCollectionStandardResponse
+} from "src/services";
+import TopPage from "../../utils/TopPage";
 
 interface StudioProps {
   studios: ServiceViewPagedCollectionStandardResponse;
@@ -17,7 +17,6 @@ interface StudioProps {
 }
 
 export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
-  console.log({ studios });
   const router = useRouter();
   const { user } = useContext(UserContext);
 
@@ -27,7 +26,7 @@ export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
         <Box>
           <TopPage
             page={`${user?.lastName}!`}
-            details={'Welcome to your dashboard'}
+            details={"Welcome to your dashboard"}
             right={true}
             serviceTypes={serviceTypes}
           />
@@ -35,7 +34,7 @@ export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
         <Grid
           px="2rem"
           my="2rem"
-          templateColumns={['repeat(1,1fr)', 'repeat(3,1fr)']}
+          templateColumns={["repeat(1,1fr)", "repeat(3,1fr)"]}
           gap="2rem"
         >
           {studios?.data?.value?.map((x: ServiceView, i: any) => (
@@ -44,7 +43,7 @@ export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
               w="full"
               bg="white"
               mb="1rem"
-              mx={{ base: '0', md: '1rem' }}
+              mx={{ base: "0", md: "1rem" }}
               borderRadius="10px"
               key={i}
               overflow="hidden"
@@ -87,7 +86,7 @@ export const MainStudio = ({ studios, serviceTypes }: StudioProps) => {
                   border="1px solid"
                   borderColor="brand.100"
                   color="brand.100"
-                  fontSize={{ base: '12px', md: '15px' }}
+                  fontSize={{ base: "12px", md: "15px" }}
                   // onClick={() => deactivateService(x.id)}
                 >
                   View Service

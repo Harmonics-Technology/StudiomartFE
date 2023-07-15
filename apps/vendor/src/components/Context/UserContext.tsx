@@ -1,8 +1,8 @@
-import React, { ReactNode, createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { NotificationService } from "src/services";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { NotificationService } from "src/services";
 import { getDeviceFromUserAgent } from "ui";
 
 export const UserContext = createContext<any>(null);
@@ -36,7 +36,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       if (notifications.status) {
         // Cookies.set("notify", JSON.stringify(notifications.data?.value));
         setNotifiys(notifications.data);
-        console.log(notifications);
+
         return;
       }
       toast.error(notifications.message as string, {

@@ -1,13 +1,10 @@
 /* eslint-disable no-restricted-globals */
 
 const installEvent = () => {
-  self.addEventListener("install", () => {
-    console.log("service worker installed");
-  });
+  self.addEventListener("install", () => {});
 };
 installEvent();
 
-console.log("Hello from service worker!");
 const xmlhttp = new XMLHttpRequest();
 let baseUrl = "";
 xmlhttp.onreadystatechange = function () {
@@ -19,12 +16,10 @@ xmlhttp.onreadystatechange = function () {
 let envSuffix = "";
 if (!window.location.hostname.includes("localhost")) {
   envSuffix = ".production";
-  //disable console.log in production
-  console.log = () => {};
+  //disable
 }
 xmlhttp.open("GET", `/config${envSuffix}.json`, false);
 xmlhttp.send();
-console.log(`service worker baseUrl`, baseUrl);
 
 const urlB64ToUint8Array = (base64String) => {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -47,13 +42,13 @@ const activateEvent = () => {
         "BJeL8FRs64C6TJbF4C6p9tUmSOqsx8D10GG_UrNCo-xGiFkOMlmju0GZb1WdEQSN2MEOxW943TsiGDrVkIhQ1ok"
       );
       const options = { applicationServerKey, userVisibleOnly: true };
-      console.log("about to subscribe");
+
       const subscription = await self.registration.pushManager.subscribe(
         options
       );
 
       const sub = JSON.stringify(subscription);
-      console.log(sub);
+
       const requestOption = { subscription: sub };
       const value = await fetch(baseUrl, {
         method: "POST",
@@ -63,24 +58,19 @@ const activateEvent = () => {
         body: JSON.stringify(requestOption),
       });
       if (value.status === 200) {
-        console.log("Ok");
       }
-    } catch (err) {
-      console.log("Error", err);
-    }
+    } catch (err) {}
   });
 };
 activateEvent();
 
 self.addEventListener("push", function (event) {
   if (event.data) {
-    console.log("Push event!! ", event.data.text());
     var data = event.data.text();
     var result = JSON.parse(data);
-    console.log(JSON.parse(data));
+
     showLocalNotification(result.Title, result.Body, self.registration);
   } else {
-    console.log("Push event but no data");
   }
 });
 

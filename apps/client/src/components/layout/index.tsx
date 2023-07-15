@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import CustomerHeader from "@components/header/CustomerHeader";
 import { useRouter } from "next/router";
@@ -19,9 +19,7 @@ export const Layout: React.FC = ({ children }) => {
         return;
       }
       toast.error(result.message as string);
-    } catch (error: any) {
-      console.log({ error });
-    }
+    } catch (error: any) {}
   };
   useEffect(() => {
     getCategory();

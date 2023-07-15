@@ -3,34 +3,27 @@ import {
   Circle,
   Flex,
   Heading,
-  Icon,
-  Square,
-  VStack,
-  Text,
-  Image,
+  Icon, Image, Square, Text, VStack
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import {
-  PrimaryInput,
-  SubmitButton,
-  PrimarySelect,
-  BackToPage,
-  DisabledInput,
-} from "ui";
-import { useForm } from "react-hook-form";
-import { IProfileProps } from "src/models/schema";
-import { FiUpload } from "react-icons/fi";
-import { Widget } from "@uploadcare/react-widget";
-import { CircularProgressbar } from "react-circular-progressbar";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import toast from "react-hot-toast";
-import { useRouter } from "next/router";
-import Cookies from "js-cookie";
-import { UpdateUserModel, UserService } from "src/services";
-import { updateProfile } from "firebase/auth";
 import { AuthContext } from "@components/Context/AuthContext";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Widget } from "@uploadcare/react-widget";
+import { updateProfile } from "firebase/auth";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useRef, useState } from "react";
+import { CircularProgressbar } from "react-circular-progressbar";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FaUser } from "react-icons/fa";
+import { FiUpload } from "react-icons/fi";
+import { IProfileProps } from "src/models/schema";
+import { UpdateUserModel, UserService } from "src/services";
+import {
+  DisabledInput, PrimaryInput,
+  SubmitButton
+} from "ui";
+import * as yup from "yup";
 
 const schema = yup.object().shape({
   // email: yup.string().email().required(),
@@ -45,7 +38,7 @@ const CustomerProfile = ({ user }: IProfileProps) => {
   });
   const [saveImagePrompt, setSaveImagePrompt] = useState(false);
   const widgetApi = useRef<any>(null);
-  console.log({ imageUrl });
+
   const {
     handleSubmit,
     register,

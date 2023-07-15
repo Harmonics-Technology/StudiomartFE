@@ -6,9 +6,8 @@ import {
     Input,
     InputGroup,
     InputRightElement,
-    Text,
+    Text
 } from "@chakra-ui/react";
-import React from "react";
 import FrequentlyAskedQuestion from "./FrequentlyAskedQuestion";
 
 const data = [

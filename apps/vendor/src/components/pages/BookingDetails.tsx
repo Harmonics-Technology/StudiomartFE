@@ -1,20 +1,10 @@
 import {
-  Box,
-  Flex,
-  HStack,
-  Square,
-  Text,
-  VStack,
-  Image,
-  Grid,
-  Divider,
-  Button,
-  useDisclosure,
+  Box, Button, Divider, Flex, Grid, HStack, Image, Square,
+  Text, useDisclosure, VStack
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
-import { BsExclamationCircleFill } from "react-icons/bs";
 import { BookingService, BookingView, MediaView } from "src/services";
 import BookingText from "src/utils/BookingText";
 import RejectBooking from "src/utils/RejectBooking";

@@ -1,27 +1,18 @@
-import React, { useState } from "react";
 import {
-  Box,
-  Flex,
-  Heading,
-  Text,
-  VStack,
-  Checkbox,
-  Button,
-  Icon,
-  HStack,
-  Link,
-  Image,
-  Circle,
+  Box, Button, Checkbox, Flex,
+  Heading, HStack, Icon, Image, Link, Text,
+  VStack
 } from "@chakra-ui/react";
-import { PrimaryInput, SubmitButton, sliderSets, slickImages } from "ui";
-import { UserService, RegisterModel, VendorUpgradeModel } from "src/services";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { BsCheckCircle } from "react-icons/bs";
 import Slider from "react-slick";
-import { useRouter } from "next/router";
+import { UserService, VendorUpgradeModel } from "src/services";
+import { PrimaryInput, slickImages, sliderSets, SubmitButton } from "ui";
+import * as yup from "yup";
 
 const schema = yup.object().shape({
   studioName: yup.string().required(),
@@ -32,7 +23,7 @@ const schema = yup.object().shape({
 export const BecomeVendorPage = () => {
   const [terms, setTerms] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-  // console.log({ terms });
+  //
 
   const {
     handleSubmit,
@@ -51,7 +42,7 @@ export const BecomeVendorPage = () => {
     }
     try {
       const result = await UserService.becomeVendor({ requestBody: data });
-      console.log({ result });
+
       if (result.status) {
         toast.success(result.message as string);
         setSuccess(true);

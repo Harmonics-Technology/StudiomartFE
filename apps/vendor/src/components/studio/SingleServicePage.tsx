@@ -19,12 +19,12 @@ import {
   Th,
   Thead,
   Tr,
-} from '@chakra-ui/react';
-import { UserContext } from '@components/Context/UserContext';
-import { DeleteStudioModal } from '@components/Modals/DeleteStudioModal';
-import { useRouter } from 'next/router';
-import React, { useContext } from 'react';
-import { IoChevronBackCircle } from 'react-icons/io5';
+} from "@chakra-ui/react";
+import { UserContext } from "@components/Context/UserContext";
+import { DeleteStudioModal } from "@components/Modals/DeleteStudioModal";
+import { useRouter } from "next/router";
+import React, { useContext } from "react";
+import { IoChevronBackCircle } from "react-icons/io5";
 import {
   AdditionalServiceView,
   MediaView,
@@ -32,14 +32,14 @@ import {
   ReviewViewPagedCollection,
   ServiceTypeViewListStandardResponse,
   ServiceView,
-} from 'src/services';
-import { InfoBox, Naira } from 'ui';
-import { Rating, Star } from '@smastrom/react-rating';
-import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
-import moment from 'moment';
-import EditServiceModal from '@components/Modals/EditServiceModal';
-import NoSSR from 'react-no-ssr';
-import { DummyImage } from 'react-simple-placeholder-image';
+} from "src/services";
+import { InfoBox, Naira } from "ui";
+import { Rating, Star } from "@smastrom/react-rating";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import moment from "moment";
+import EditServiceModal from "@components/Modals/EditServiceModal";
+import NoSSR from "react-no-ssr";
+import { DummyImage } from "react-simple-placeholder-image";
 
 interface StudioProps {
   service: ServiceView;
@@ -48,10 +48,10 @@ interface StudioProps {
 }
 const myStyles = {
   itemShapes: Star,
-  activeFillColor: '#ffb700',
-  inactiveStrokeColor: '#ffb700',
+  activeFillColor: "#ffb700",
+  inactiveStrokeColor: "#ffb700",
   itemStrokeWidth: 2,
-  activeStrokeColor: 'transparent',
+  activeStrokeColor: "transparent",
 };
 export const SingleServicePage = ({
   service,
@@ -63,18 +63,18 @@ export const SingleServicePage = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: open, onOpen: opens, onClose: closed } = useDisclosure();
   const router = useRouter();
-  console.log({ reviews });
+
   return (
     <Box>
       <Box bgColor="white">
         <Flex
           justify="space-between"
-          align={{ base: 'start', md: 'space-between' }}
+          align={{ base: "start", md: "space-between" }}
           w="100%"
           mx="auto"
           py="1.5rem"
-          px={{ base: '1rem', md: '2rem' }}
-          flexDir={{ base: 'column', md: 'row' }}
+          px={{ base: "1rem", md: "2rem" }}
+          flexDir={{ base: "column", md: "row" }}
         >
           <Box fontFamily="BR Firma">
             <Text fontSize="1.5rem" fontWeight="600" mb=".2rem">
@@ -107,7 +107,7 @@ export const SingleServicePage = ({
           bgColor="transparent"
           onClick={() => router.back()}
           // m="1rem 3rem"
-          m={{ base: '1rem .4rem', md: '1rem 1.4rem', lg: '1rem 3rem' }}
+          m={{ base: "1rem .4rem", md: "1rem 1.4rem", lg: "1rem 3rem" }}
         >
           <Icon as={IoChevronBackCircle} mr=".3rem" />
           <Text mb="0">Back</Text>
@@ -152,16 +152,16 @@ export const SingleServicePage = ({
 
           <Grid
             gap="3rem"
-            templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}
+            templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
             w="100%"
             m="4rem auto 1rem"
           >
             <Box>
               <VStack gap="1rem" align="flex-start">
                 {/* <InfoBox title={"Service Name"} desc={service?.name} /> */}
-                <InfoBox title={' Description'} desc={service?.description} />
+                <InfoBox title={" Description"} desc={service?.description} />
                 <InfoBox
-                  title={'Service Price'}
+                  title={"Service Price"}
                   desc={Naira(service?.price as number)}
                 />
                 <Box>
@@ -244,7 +244,7 @@ export const SingleServicePage = ({
                     <Text my=".3rem">{review.reviewNote}</Text>
                     <HStack justify="flex-end">
                       <Text mb="0" fontSize="12px">
-                        {moment(review.dateCreated).format('MMM DD, YYYY')}
+                        {moment(review.dateCreated).format("MMM DD, YYYY")}
                       </Text>
                     </HStack>
                   </Box>

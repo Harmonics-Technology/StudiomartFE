@@ -1,38 +1,33 @@
 import {
   Box,
-  Button,
-  Checkbox,
-  Grid,
+  Button, Grid,
   HStack,
   Icon,
-  Image,
-  List,
-  ListItem,
-  SimpleGrid,
+  Image, SimpleGrid,
   Square,
   Text,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
+import PopularStudioCard from "@components/Home/PopularStudioCard";
+import { RatingInfo } from "@components/Home/RatingInfo";
+import { ReviewsBox } from "@components/Home/ReviewsBox";
+import { ServiceInfos } from "@components/Home/ServiceInfos";
+import parse from "html-react-parser";
+import Cookies from "js-cookie";
 import Link from "next/link";
-import React, { useState } from "react";
-import { BsBookmarkHeart, BsCheck2, BsChevronLeft } from "react-icons/bs";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { BsBookmarkHeart } from "react-icons/bs";
 import { useDummyImage } from "react-simple-placeholder-image";
 import Slider from "react-slick";
 import {
   AdditionalServiceView,
   ReviewView,
   ServiceView,
-  StudioService,
+  StudioService
 } from "src/services";
 import { BackToPage, Cur, CustomCheckbox, Rating } from "ui";
-import parse from "html-react-parser";
-import { ServiceInfos } from "@components/Home/ServiceInfos";
-import { RatingInfo } from "@components/Home/RatingInfo";
-import { ReviewsBox } from "@components/Home/ReviewsBox";
-import PopularStudioCard from "@components/Home/PopularStudioCard";
-import toast from "react-hot-toast";
-import { useRouter } from "next/router";
-import Cookies from "js-cookie";
 
 const ServiceDetails = ({
   service,
@@ -43,7 +38,6 @@ const ServiceDetails = ({
   reviews: any;
   studios: any;
 }) => {
-  console.log({ service });
   const settings = {
     dots: true,
     className: "service-slick",

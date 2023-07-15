@@ -1,18 +1,9 @@
 import {
-  Flex,
-  Circle,
-  Grid,
-  VStack,
-  Box,
-  Image,
-  Text,
-  HStack,
+  Box, Flex, Image,
+  Text
 } from "@chakra-ui/react";
-import { InfoBox } from "@components/utils/InfoBox";
-import React from "react";
-import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
+import { useDummyImage } from "react-simple-placeholder-image";
 import { ISingleStudioProps } from "src/models/schema";
-import { Rating } from "ui";
 
 const StudioInfo = ({ singleStudio }: ISingleStudioProps) => {
   const image = useDummyImage({});

@@ -1,13 +1,10 @@
 import {
   Box,
   Flex,
-  HStack,
-  ListIcon,
+  HStack, Link, ListIcon,
   ListItem,
   Square,
-  Text,
-  Link,
-  UnorderedList,
+  Text, UnorderedList
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
@@ -34,7 +31,7 @@ function Menus({
   const router = useRouter();
   const [openMenu, setOpenMenu] = useState(false);
   const url = `/${linkName}`;
-  // console.log({ url });
+  //
 
   return (
     <>

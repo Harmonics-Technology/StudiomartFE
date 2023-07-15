@@ -1,14 +1,9 @@
 import {
-  Heading,
-  SimpleGrid,
   Box,
-  Circle,
-  HStack,
-  Icon,
-  Flex,
+  Circle, Heading, HStack,
+  Icon
 } from "@chakra-ui/react";
-import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import { useState } from "react";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 import Slider from "react-slick";
 import { RecentlyViewedView } from "src/services";

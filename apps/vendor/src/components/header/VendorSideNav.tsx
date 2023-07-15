@@ -1,25 +1,22 @@
+import { CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Flex,
-  Heading,
-  HStack,
+  Flex, HStack,
   Image,
   Square,
   Text,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
-import { CloseIcon } from "@chakra-ui/icons";
-import Link from "next/link";
-import React, { useContext } from "react";
-import { RxDashboard } from "react-icons/rx";
-import { MdMiscellaneousServices } from "react-icons/md";
-import { FiLogOut } from "react-icons/fi";
-import { FaBook, FaHome } from "react-icons/fa";
-import { BiMessageDots } from "react-icons/bi";
-import { BsPersonFill, BsWalletFill } from "react-icons/bs";
-import { AiFillProfile } from "react-icons/ai";
-import { MenuItem, useComponentVisible } from "ui";
 import { UserContext } from "@components/Context/UserContext";
+import Link from "next/link";
+import { useContext } from "react";
+import { AiFillProfile } from "react-icons/ai";
+import { BiMessageDots } from "react-icons/bi";
+import { BsWalletFill } from "react-icons/bs";
+import { FaBook, FaHome } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
+import { RxDashboard } from "react-icons/rx";
+import { MenuItem } from "ui";
 
 type Side = {
   setShowSide: any;

@@ -1,33 +1,21 @@
 import {
   Box,
-  Flex,
-  HStack,
-  Square,
-  Text,
-  VStack,
-  Image,
+  Flex, Grid, HStack, Image,
   List,
   ListIcon,
-  ListItem,
-  useDisclosure,
-  Grid,
+  ListItem, Square,
+  Text, useDisclosure, VStack
 } from "@chakra-ui/react";
-import data from "@components/Dashboard/data";
+import dayjs from "dayjs";
 import { BookingInfo } from "../../utils/BookingInfo";
 import { InfoBox as Infos } from "../../utils/InfoBox";
-import dayjs from "dayjs";
 
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import {
-  AiFillFacebook,
-  AiOutlineTwitter,
-  AiFillInstagram,
-  AiFillYoutube,
-  AiFillHeart,
   AiFillWechat,
-  AiOutlineClose,
+  AiOutlineClose
 } from "react-icons/ai";
 import { ImRadioChecked2 } from "react-icons/im";
 import { MdOutlineDoneAll, MdPayments } from "react-icons/md";
@@ -35,15 +23,8 @@ import { useDummyImage } from "react-simple-placeholder-image";
 import { BookingService, BookingView } from "src/services";
 import RejectBooking from "src/utils/RejectBooking";
 import {
-  getReviewSummary,
-  ResponseBoxLarge,
-  Naira,
-  Rating,
-  InfoBox,
-  BackToPage,
-  HandleSelectChat,
-  ModalWrapper,
-  BookingsBtn,
+  BookingsBtn, getReviewSummary, HandleSelectChat, InfoBox, ModalWrapper, Naira,
+  Rating, ResponseBoxLarge
 } from "ui";
 
 const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
@@ -54,7 +35,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
     id: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  // console.log({ bookings });
+  //
   const router = useRouter();
   const status = bookings.status?.toLowerCase();
 

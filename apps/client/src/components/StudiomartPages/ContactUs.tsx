@@ -1,16 +1,12 @@
 import {
   Box,
-  Button,
-  Circle,
-  HStack,
-  Input,
+  Button, Input,
   Text,
   Textarea,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
-import React from "react";
+import { FaLocationArrow, FaMailBulk, FaPhone } from "react-icons/fa";
 import { IconText } from "./IconText";
-import { FaMailBulk, FaLocationArrow, FaPhone } from "react-icons/fa";
 
 export const ContactUs = () => {
   return (

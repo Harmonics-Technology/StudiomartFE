@@ -4,15 +4,15 @@ import { useEffect, useState } from "react";
 
 export const Footer: React.FC = () => {
   const [isConsented, setIsConsented] = useState<boolean>(false);
-  //   console.log({ isConsented });
+  //
 
   const onAccept = () => {
-    // console.log("User has accepted cookies");
+    //
     Cookies.set("consent", "true");
   };
 
   const onDecline = () => {
-    // console.log("User has declined cookies");
+    //
     Cookies.set("consent", "false");
     // Cookies.remove("vendorStudios");
     // Cookies.remove("currentStudioId");

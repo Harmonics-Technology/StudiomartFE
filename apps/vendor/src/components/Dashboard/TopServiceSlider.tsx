@@ -1,15 +1,9 @@
 import {
-  Box,
-  Image,
-  VStack,
-  Text,
-  HStack,
-  Circle,
-  Icon,
+  Box, Circle, HStack, Icon, Image, Text, VStack
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
-import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
+import { useDummyImage } from "react-simple-placeholder-image";
 import Slider from "react-slick";
 import { TopServiceView } from "src/services";
 import { sliderSettings } from "ui";

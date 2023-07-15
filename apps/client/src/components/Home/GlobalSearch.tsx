@@ -1,13 +1,9 @@
 import {
-  InputGroup,
-  InputLeftElement,
   Icon,
-  Input,
-  Text,
-  InputRightElement,
-  useDisclosure,
+  Input, InputGroup,
+  InputLeftElement, InputRightElement, Text, useDisclosure
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
 import { SearchBox } from "./SearchBox";
 

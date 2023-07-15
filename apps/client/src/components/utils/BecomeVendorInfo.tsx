@@ -1,5 +1,4 @@
-import { HStack, VStack, Box, Text } from "@chakra-ui/react";
-import React from "react";
+import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import { PiDotFill } from "react-icons/pi";
 
 export const BecomeVendorInfo = ({ content, title }: any) => {

@@ -68,7 +68,7 @@ export const Header = () => {
         >
           <NavLink path="/" name="Home" setIsOpened={setIsOpened} />
           <NavLink path="/studio" name="Studios" setIsOpened={setIsOpened} />
-          <NavLink path="/about" name="About" />
+          <NavLink path="/terms" name="Terms" setIsOpened={setIsOpened} />
           <NavLink
             path="/#how-it-works"
             name="How It Works"

@@ -1,14 +1,8 @@
-import React from "react";
 import {
     Box,
-    Button,
-    HStack,
-    Image,
-    Center,
-    Link,
-    Text,
-    VStack,
-    Spacer,
+    Button, Center, HStack,
+    Image, Link, Spacer, Text,
+    VStack
 } from "@chakra-ui/react";
 import { FaStar } from "react-icons/fa";
 

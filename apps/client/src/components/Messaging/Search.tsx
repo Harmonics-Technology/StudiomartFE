@@ -1,14 +1,14 @@
 import {
   Avatar,
-  Box,
-  Button,
-  Flex,
+  Box, Flex,
   Heading,
   HStack,
   Input,
-  Text,
+  Text
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import { AuthContext } from "@components/Context/AuthContext";
+import { ChatContext } from "@components/Context/ChatContext";
+import { db } from "@components/firebase/firebase";
 import {
   collection,
   doc,
@@ -18,11 +18,9 @@ import {
   serverTimestamp,
   setDoc,
   updateDoc,
-  where,
+  where
 } from "firebase/firestore";
-import { db } from "@components/firebase/firebase";
-import { AuthContext } from "@components/Context/AuthContext";
-import { ChatContext } from "@components/Context/ChatContext";
+import { useContext, useState } from "react";
 
 export const Search = ({ chat, setChat }: any) => {
   const [userName, setuserName] = useState<any>("");
@@ -35,19 +33,17 @@ export const Search = ({ chat, setChat }: any) => {
       collection(db, "users"),
       where("displayName" as string, "==", userName)
     );
-    // console.log("triggered");
+    //
     try {
       const querySnapshot = await getDocs(q);
-      console.log({ querySnapshot });
+
       querySnapshot?.forEach((doc) => {
         setuser(doc.data());
         setChat(undefined);
       });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
-  console.log({ chat, userName });
+
   const handleKey = (e: any) => {
     e.code == "Enter" && handleSearch();
   };
@@ -58,7 +54,7 @@ export const Search = ({ chat, setChat }: any) => {
         : user?.uid + currentUser?.uid;
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
-      console.log({ res });
+
       if (!res.exists()) {
         await setDoc(doc(db, "chats", combinedId), { messages: [] });
         await updateDoc(doc(db, "userChats", currentUser?.uid), {
@@ -83,10 +79,8 @@ export const Search = ({ chat, setChat }: any) => {
     } catch (error) {}
     setuser(null);
     setuserName("");
-    console.log({ userName });
   };
 
-  console.log({ user });
   return (
     <Box>
       <Box w="90%" mx="auto">

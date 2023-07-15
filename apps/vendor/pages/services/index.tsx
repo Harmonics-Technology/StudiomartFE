@@ -4,16 +4,19 @@ import { MainStudio } from "@components/studio/MainStudio";
 import { GetServerSideProps } from "next";
 
 import React from "react";
-import { ServiceTypeViewListStandardResponse, StudioService } from "src/services";
+import {
+  ServiceTypeViewListStandardResponse,
+  StudioService,
+} from "src/services";
 import { withPageAuth } from "src/utils/withPageAuth";
 
 interface StudioProps {
   studios: any;
-  serviceTypes: ServiceTypeViewListStandardResponse
+  serviceTypes: ServiceTypeViewListStandardResponse;
 }
 
 function index({ studios, serviceTypes }: StudioProps) {
-  // console.log({ studios });
+  //
   return (
     <Box>
       <MainStudio studios={studios} serviceTypes={serviceTypes} />

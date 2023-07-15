@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
-import NoticePage from "src/utils/NoticePage";
-import { Box, Button, Text, Flex, Image, VStack, Icon } from "@chakra-ui/react";
-import Link from "next/link";
+import { Box, Button, Flex, Icon, Image, Text, VStack } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
-import TopPage from "src/utils/TopPage";
-import { BsExclamationCircleFill } from "react-icons/bs";
 import { useRouter } from "next/router";
+import { useContext } from "react";
+import { BsExclamationCircleFill } from "react-icons/bs";
+import TopPage from "src/utils/TopPage";
 
 const Notice = () => {
   const router = useRouter();

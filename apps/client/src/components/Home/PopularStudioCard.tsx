@@ -1,26 +1,14 @@
 import {
-  Box,
-  Center,
-  HStack,
-  Image,
-  Text,
-  Button,
-  Flex,
-  Icon,
-  Spinner,
-  VStack,
+  Box, HStack, Icon, Image, Spinner, Text, VStack
 } from "@chakra-ui/react";
-import Link from "next/link";
-import { IPopularStudios } from "src/models/schema";
-import { Cur, getReviewSummary, MenuDropdown, Naira, Rating } from "ui";
-import NoSSR from "react-no-ssr";
-import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
 import { useRouter } from "next/router";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { StudioService } from "src/services";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { BsBookmarkHeartFill, BsBookmarkHeart } from "react-icons/bs";
+import { BsBookmarkHeart, BsBookmarkHeartFill } from "react-icons/bs";
+import { useDummyImage } from "react-simple-placeholder-image";
+import { IPopularStudios } from "src/models/schema";
+import { StudioService } from "src/services";
+import { Cur, MenuDropdown, Naira, Rating } from "ui";
 
 const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
   const image = useDummyImage({});

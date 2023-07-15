@@ -48,7 +48,7 @@ const MainDashboard = ({
     setData(value);
     onOpen();
   };
-  // console.log({ user });
+  // 
 
   const thead = [
     "Service Name",
@@ -59,9 +59,9 @@ const MainDashboard = ({
     "Chats",
     "Action",
   ];
-  // console.log({ services });
+  // 
 
-  console.log({ dashboardMetrics });
+  
 
   return (
     <>

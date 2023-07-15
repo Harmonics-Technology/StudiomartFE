@@ -1,7 +1,4 @@
-import { Flex, SimpleGrid, Box, Text, HStack } from "@chakra-ui/react";
-import React from "react";
-import { BiMessageRoundedError } from "react-icons/bi";
-import { FiFilter } from "react-icons/fi";
+import { Box, Flex, HStack, SimpleGrid } from "@chakra-ui/react";
 import { ServiceView } from "src/services";
 import { BackToPage, NotFound, Pagination } from "ui";
 import StudiCard from "./StudioCard";

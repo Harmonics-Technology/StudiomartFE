@@ -1,31 +1,19 @@
 import {
-  Flex,
-  Box,
-  Icon,
-  Circle,
-  HStack,
-  Divider,
-  Select,
-  Text,
-  Button,
-  Menu,
+  Avatar, Box, Button, Circle, Divider, Flex, HStack, Icon, Menu,
   MenuButton,
   MenuItem,
-  MenuList,
-  Heading,
-  Avatar,
+  MenuList, Text
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import { UserContext } from "@components/Context/UserContext";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { useContext } from "react";
+import { BsChevronExpand } from "react-icons/bs";
 import { FaAngleDown } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
-import Link from "next/link";
 import { MdNotifications } from "react-icons/md";
-import { UserContext } from "@components/Context/UserContext";
-import { StudioView } from "src/services";
-import { useRouter } from "next/router";
-import { BsChevronDown, BsChevronExpand } from "react-icons/bs";
 import { PiUserSwitchFill } from "react-icons/pi";
-import Cookies from "js-cookie";
+import { StudioView } from "src/services";
 import { useComponentVisible } from "ui";
 
 type Side = {
@@ -52,8 +40,8 @@ function VendorHeader({ setShowSide, showSide }: Side) {
     setCurrentStudioId(value);
     Cookies.set("currentStudioId", value);
   };
-  // console.log({ notifys });
-  // console.log(userStudios?.filter((x: any) => x.id == currentStudioId)[0].name);
+  //
+  //
 
   return (
     <Box w="full" bgColor="white" pos="sticky" top="0" zIndex={900}>

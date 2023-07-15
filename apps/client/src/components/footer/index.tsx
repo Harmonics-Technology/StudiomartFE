@@ -1,26 +1,17 @@
 import {
-  Link,
-  Box,
-  VStack,
-  Heading,
-  Image,
-  Text,
-  Stack,
-  Divider,
+  Box, Divider,
   Flex,
-  HStack,
+  HStack, Image, Link, Stack, Text, VStack
 } from "@chakra-ui/react";
 
 import NextLink from "next/link";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-} from "react-icons/fa";
-import { getUrlRoute } from "ui";
 import { AiFillMail } from "react-icons/ai";
+import {
+  FaInstagram,
+  FaLinkedinIn, FaTwitter
+} from "react-icons/fa";
 import { ServiceTypeView } from "src/services";
+import { getUrlRoute } from "ui";
 
 type Props = {
   name: string;
@@ -45,7 +36,7 @@ const NavLink = ({ name, path }: Props) => {
 export const Footer = ({
   category,
 }: {
-  category: ServiceTypeView[] | null | undefined;
+  category?: ServiceTypeView[] | null | undefined;
 }) => {
   return (
     <Box bg="black" pt={[10, 16]} pb={["10", "5"]}>
@@ -66,6 +57,7 @@ export const Footer = ({
             </HStack>
             <VStack spacing="4" pt={["8", "3"]} align="flex-start">
               <NavLink path="/all-studios" name="Rent a studio" />
+              {/* path={`${getUrlRoute().vendorUrl}/login`} */}
               <NavLink
                 path={`${getUrlRoute().vendorUrl}/login`}
                 name="Add a studio"

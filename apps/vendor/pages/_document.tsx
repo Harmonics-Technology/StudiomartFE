@@ -6,6 +6,7 @@ import Document, {
   Main,
   NextScript,
 } from "next/document";
+import { Image } from "@chakra-ui/react";
 // import { ServerStyleSheet } from "styled-components";
 
 class CustomDocument extends Document {
@@ -24,7 +25,7 @@ class CustomDocument extends Document {
           <Main />
           <NextScript />
           <div id="globalLoader">
-            <img src="/stdd.gif" alt="" />
+            <Image src="/stdd.gif" alt="" />
           </div>
         </body>
       </Html>

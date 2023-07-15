@@ -1,14 +1,10 @@
 import {
   Box,
   Flex,
-  HStack,
-  Text,
-  Image,
-  Icon,
-  Spinner,
+  HStack, Icon, Image, Spinner, Text
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { AiFillDelete } from "react-icons/ai";
 import { StudioService } from "src/services";

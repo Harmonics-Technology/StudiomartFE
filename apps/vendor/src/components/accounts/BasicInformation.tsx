@@ -1,34 +1,24 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
 import {
-  Box,
-  Flex,
-  Button,
-  Circle,
-  Icon,
-  Text,
-  Stack,
-  Image,
-  VStack,
-  Square,
+  Box, Button,
+  Circle, Flex, Icon, Image, Square, Text, VStack
 } from "@chakra-ui/react";
-import { FaUser } from "react-icons/fa";
-import AccountSideBar from "@components/accounts/AccountSideBar";
-import { UpdateUserModel, UserService, UserView } from "src/services";
-import { DisabledInput, PrimaryInput } from "ui";
+import { AuthContext } from "@components/Context/AuthContext";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import toast from "react-hot-toast";
-import { useRouter } from "next/router";
-import Cookies from "js-cookie";
-import dynamic from "next/dynamic";
-import { FiUpload } from "react-icons/fi";
 import { Widget } from "@uploadcare/react-widget";
+import { updateProfile } from "firebase/auth";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useRef, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { updateProfile } from "firebase/auth";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { FaUser } from "react-icons/fa";
+import { FiUpload } from "react-icons/fi";
 import NoSSR from "react-no-ssr";
-import { AuthContext } from "@components/Context/AuthContext";
+import { UpdateUserModel, UserService, UserView } from "src/services";
+import { DisabledInput, PrimaryInput } from "ui";
+import * as yup from "yup";
 import AccountContainer from "./AccountContainer";
 
 // const Widget = dynamic(
@@ -49,7 +39,7 @@ export default function BasicInformation({ user }: { user: UserView }) {
   const { currentUser } = useContext(AuthContext);
   const [saveImagePrompt, setSaveImagePrompt] = useState(false);
   const widgetApi = useRef<any>(null);
-  // console.log({ widgetApi });
+  //
 
   const {
     handleSubmit,

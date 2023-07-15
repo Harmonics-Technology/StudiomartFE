@@ -1,25 +1,16 @@
 import {
-  Flex,
-  VStack,
-  Heading,
-  Button,
-  Text,
-  Circle,
-  Icon,
-  HStack,
+  Circle, Flex, Heading, HStack, Icon, Text, VStack
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import React from "react";
-import { BsCheckCircle } from "react-icons/bs";
-import { MdDesignServices } from "react-icons/md";
-import { HiOutlineReceiptPercent } from "react-icons/hi2";
 import { BiCartAdd } from "react-icons/bi";
+import { BsCheckCircle } from "react-icons/bs";
+import { HiOutlineReceiptPercent } from "react-icons/hi2";
+import { MdDesignServices } from "react-icons/md";
 import { AdditionalServiceView } from "src/services";
 import { Naira } from "ui";
 
 export const Validate = ({ data }: any) => {
-  console.log({ data });
   const router = useRouter();
   return (
     <Flex

@@ -4,31 +4,27 @@ import {
   Flex,
   HStack,
   Icon,
-  Image,
-  Input,
-  Square,
-  Textarea,
+  Image, Square,
+  Textarea
 } from "@chakra-ui/react";
 import { AuthContext } from "@components/Context/AuthContext";
 import { ChatContext } from "@components/Context/ChatContext";
-import { db, storage } from "@components/firebase/firebase";
-import { async, FirebaseError, uuidv4 } from "@firebase/util";
-import Picker from "@emoji-mart/react";
+import { db } from "@components/firebase/firebase";
 import emojiData from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
+import { uuidv4 } from "@firebase/util";
+import { Widget } from "@uploadcare/react-widget";
 import {
   arrayUnion,
-  doc,
-  serverTimestamp,
-  Timestamp,
-  updateDoc,
+  doc, Timestamp,
+  updateDoc
 } from "firebase/firestore";
-import React, { useContext, useRef, useState } from "react";
-import { MdAttachFile } from "react-icons/md";
-import { Widget } from "@uploadcare/react-widget";
-import NoSSR from "react-no-ssr";
+import { useContext, useRef, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { BsFillEmojiSmileFill } from "react-icons/bs";
+import { MdAttachFile } from "react-icons/md";
+import NoSSR from "react-no-ssr";
 import { useComponentVisible } from "ui";
 
 export const Inputs = () => {

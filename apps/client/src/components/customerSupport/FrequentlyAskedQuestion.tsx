@@ -1,11 +1,7 @@
 import {
-    AccordionItem,
-    AccordionButton,
-    Box,
-    AccordionPanel,
+    AccordionButton, AccordionItem, AccordionPanel, Box
 } from "@chakra-ui/react";
-import React from "react";
-import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const FrequentlyAskedQuestion = ({ item }: any) => {
     return (

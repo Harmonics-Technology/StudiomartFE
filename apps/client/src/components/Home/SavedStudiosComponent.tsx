@@ -1,26 +1,19 @@
 import {
-  Box,
-  VStack,
-  Text,
-  Button,
-  Heading,
-  SimpleGrid,
-  Grid,
-  Flex,
+  Box, Flex, Heading,
+  SimpleGrid
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { BackToPage, getCityAndState, NotFound, Pagination } from "ui";
 import PopularStudioCard from "@components/Home/PopularStudioCard";
-import { IStudios } from "src/models/schema";
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { IStudios } from "src/models/schema";
 import { StudioService } from "src/services";
+import { BackToPage, getCityAndState, NotFound, Pagination } from "ui";
 
 const SavedStudiosComponent = ({ savedStudios, studioForYou }: IStudios) => {
-  // console.log({ savedStudios });
+  //
   const [locas, setLocas] = useState<any>(null);
   const [studiosNearMe, setStudiosstudiosNearMe] = useState<any>(null);
-  // console.log({ locas });
+  //
 
   useEffect(() => {
     if (navigator.geolocation) {

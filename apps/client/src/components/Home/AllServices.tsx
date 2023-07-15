@@ -1,28 +1,18 @@
 import {
-  Flex,
-  SimpleGrid,
-  Box,
-  Text,
-  HStack,
-  Circle,
-  Icon,
-  VStack,
+  Box, Flex, HStack, SimpleGrid
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import { FiFilter } from "react-icons/fi";
 import { ICustomerHome } from "src/models/schema";
 import { ServiceView } from "src/services";
 import {
   BackToPage,
   NotFound,
-  Pagination,
-  Rating,
-  useComponentVisible,
+  Pagination, useComponentVisible
 } from "ui";
 import { FilterBox } from "./FilterBox";
 import { RecentlyViewed } from "./RecentlyViewed";
-import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
 
 const PopularStudioCard = dynamic(() => import("./PopularStudioCard"), {
   ssr: false,

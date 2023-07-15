@@ -20,12 +20,10 @@ const Carousel = ({ media }: { media: MediaView[] }) => {
   const handleNext = () => {
     const result = imgSlide + 1;
     setImgSlide(checkIndex(result));
-    console.log("next", imgSlide);
   };
   const handlePrev = () => {
     const result = imgSlide - 1;
     setImgSlide(checkIndex(result));
-    console.log("prev", imgSlide);
   };
   const handleChange = (index: any) => {
     setImgSlide(index);

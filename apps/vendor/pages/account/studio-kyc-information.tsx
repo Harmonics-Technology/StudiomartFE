@@ -21,7 +21,6 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
       const singleStudio = await StudioService.getStudioById({
         id: currentStudioId,
       });
-        console.log({ singleStudio });
 
       return {
         props: {

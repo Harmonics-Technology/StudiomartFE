@@ -4,9 +4,8 @@ import {
   Heading,
   HStack,
   Text,
-  useDisclosure,
+  useDisclosure
 } from '@chakra-ui/react';
-import React from 'react';
 import { BsInfoCircleFill } from 'react-icons/bs';
 import { BookingView } from 'src/services';
 import { ModalWrapper } from 'ui';

@@ -1,31 +1,21 @@
-import React, { useContext, useRef, useState } from "react";
 import {
   Box,
-  Button,
-  Square,
-  Flex,
-  Text,
-  Stack,
-  HStack,
-  FormLabel,
-  VStack,
+  Button, FormLabel, HStack, Square, Stack, Text, VStack
 } from "@chakra-ui/react";
-import { BiCloudUpload } from "react-icons/bi";
-import Link from "next/link";
-import AccountSideBar from "@components/accounts/AccountSideBar";
-import register from "pages/register";
-import { StudioKYCModel, StudioService, StudioView } from "src/services";
-import { PrimaryInput } from "ui";
+import { UserContext } from "@components/Context/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import { Widget } from "@uploadcare/react-widget";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { useContext, useRef, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useRouter } from "next/router";
-import { UserContext } from "@components/Context/UserContext";
-import Cookies from "js-cookie";
+import { BiCloudUpload } from "react-icons/bi";
+import { StudioKYCModel, StudioService, StudioView } from "src/services";
+import { PrimaryInput } from "ui";
+import * as yup from "yup";
 import AccountContainer from "./AccountContainer";
 
 const schema = yup.object().shape({
@@ -38,7 +28,6 @@ interface StudioProps {
 }
 
 export default function KycInformation({ singleStudio }: StudioProps) {
-  console.log({ singleStudio });
   const {
     handleSubmit,
     register,
@@ -127,8 +116,6 @@ export default function KycInformation({ singleStudio }: StudioProps) {
       });
     }
   };
-
-  console.log({ logoLoading, imageLoading, cacDocument, idUrl });
 
   return (
     <AccountContainer>

@@ -1,4 +1,4 @@
-import { HStack, Box, Text } from "@chakra-ui/react";
+import { Box, HStack, Text } from "@chakra-ui/react";
 import ProgressBar from "@components/details/Progress";
 import { FaStar } from "react-icons/fa";
 import { CalculatePercent } from "ui";

@@ -1,42 +1,24 @@
-import React, { useContext, useState } from "react";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
 import {
-  Box,
-  Flex,
-  Heading,
-  Text,
-  VStack,
-  Checkbox,
-  Button,
-  Icon,
-  Grid,
-  HStack,
-  Link,
-  Image,
-  Circle,
+  Box, Button, Checkbox, Flex, Grid, Heading, HStack, Icon, Image, Link, Text,
+  VStack
 } from "@chakra-ui/react";
-import {
-  PrimaryInput,
-  SubmitButton,
-  CustomStepper,
-  LoginTypeBtn,
-  sliderSets,
-  slickImages,
-} from "ui";
-import { VendorRegisterModel, UserService, RegisterModel } from "src/services";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import YupPassword from "yup-password";
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
+import { RegisterModel, UserService, VendorRegisterModel } from "src/services";
+import {
+  CustomStepper, PrimaryInput, slickImages, sliderSets, SubmitButton
+} from "ui";
+import * as yup from "yup";
+import YupPassword from "yup-password";
 // import Link from "next/link";
-import { BsCheckCircle } from "react-icons/bs";
+import { UserContext } from "@components/Context/UserContext";
 import { auth, db } from "@components/firebase/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { UserContext } from "@components/Context/UserContext";
+import { BsCheckCircle } from "react-icons/bs";
 import Slider from "react-slick";
 YupPassword(yup);
 
@@ -80,7 +62,7 @@ export const SignUpPage = () => {
     };
   }
   const schema = yup.object().shape(validationSchema);
-  // console.log({ terms });
+  //
 
   const {
     handleSubmit,
@@ -113,10 +95,10 @@ export const SignUpPage = () => {
       toast.error("You have not accepted the terms and conditions");
       return;
     }
-    // console.log({ data });
+    //
     try {
       const result = await UserService.create({ requestBody: data });
-      console.log({ result });
+
       if (result.status) {
         toast.success(result.message as string);
         setSuccess(true);
@@ -133,13 +115,13 @@ export const SignUpPage = () => {
       toast.error("You have not accepted the terms and conditions");
       return;
     }
-    // console.log({ data });
+    //
     try {
       const result = await UserService.createVendor({
         requestBody: data,
         device,
       });
-      // console.log({ result });
+      //
       if (result.status) {
         const res = await createUserWithEmailAndPassword(
           auth,

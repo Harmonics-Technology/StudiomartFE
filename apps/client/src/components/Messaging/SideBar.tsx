@@ -1,10 +1,9 @@
 import { Box, Image, Text, VStack } from "@chakra-ui/react";
 import { AuthContext } from "@components/Context/AuthContext";
 import { ChatContext } from "@components/Context/ChatContext";
-import { UserContext } from "@components/Context/UserContext";
 import { db } from "@components/firebase/firebase";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Chats } from "./Chats";
 import { Search } from "./Search";
 
@@ -12,17 +11,16 @@ export const SideBar = ({ showChat, setShowChat }: any) => {
   const [chat, setChat] = useState<any>([]);
   const { currentUser } = useContext(AuthContext);
   // const { user } = useContext(UserContext);
-  // console.log({ currentUser, user });
+  //
 
   const { dispatch } = useContext(ChatContext);
 
   const handleSelect = async (u: any) => {
-    console.log({ u });
     const combinedId =
       currentUser?.uid > u?.userInfo.uid
         ? currentUser?.uid + u?.userInfo?.uid
         : u?.userInfo?.uid + currentUser?.uid;
-    console.log({ combinedId, u });
+
     dispatch({ type: "CHANGE_USER", payload: u?.userInfo });
     if (u.isRead == false) {
       await updateDoc(doc(db, "userChats", u.userInfo.uid), {

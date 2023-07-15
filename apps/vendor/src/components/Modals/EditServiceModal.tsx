@@ -1,39 +1,27 @@
 import {
-  Flex,
-  Box,
-  Text,
-  HStack,
-  Image,
-  Icon,
-  useDisclosure,
-  Button,
-  Grid,
-  FormLabel,
-  Square,
-  Tooltip,
-  Table,
-  TableContainer,
-  Tbody,
-  Thead,
-  Tr,
-  Th,
-  Td,
-  Spinner,
-  IconButton,
-  VStack,
+  Box, Button, Flex, FormLabel, Grid, HStack, Icon, IconButton, Image, Spinner, Square,
+  Tooltip, VStack
 } from "@chakra-ui/react";
-import { ServiceSlider } from "@components/Dashboard/ServicesSlider";
-import React, { useContext, useRef, useState } from "react";
+import { UserContext } from "@components/Context/UserContext";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Widget } from "@uploadcare/react-widget";
+import { useRouter } from "next/router";
+import { useContext, useRef, useState } from "react";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { AiFillDelete, AiOutlinePlus } from "react-icons/ai";
+import { BsCheck2All } from "react-icons/bs";
+import { FaTrash } from "react-icons/fa";
+import { FiUpload } from "react-icons/fi";
+import { HiInformationCircle } from "react-icons/hi";
 import {
-  AdditionalService,
-  UpdateServiceModel,
-  ServiceTypeView,
+  AdditionalService, AdditionalServiceModel,
+  MediaView, ServiceTypeView,
   ServiceTypeViewListStandardResponse,
   ServiceView,
-  StudioService,
-  StudioView,
-  AdditionalServiceModel,
-  MediaView,
+  StudioService, UpdateServiceModel
 } from "src/services";
 import {
   CurrencyField,
@@ -41,23 +29,10 @@ import {
   ModalWrapper,
   PrimaryInput,
   PrimarySelect,
-  PrimaryTextarea,
+  PrimaryTextarea
 } from "ui";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import YupPassword from "yup-password";
-import toast from "react-hot-toast";
-import { useRouter } from "next/router";
-import { FaTrash } from "react-icons/fa";
-import { Widget } from "@uploadcare/react-widget";
-import { AiFillDelete, AiFillEdit, AiOutlinePlus } from "react-icons/ai";
-import { UserContext } from "@components/Context/UserContext";
-import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
-import { FiUpload } from "react-icons/fi";
-import { HiInformationCircle } from "react-icons/hi";
-import { BsCheck2All } from "react-icons/bs";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -150,12 +125,12 @@ const EditServiceModal = ({
 
   const additionServicesFn = async (data: AdditionalServiceModel) => {
     data.serviceId = service.id;
-    console.log({ data });
+
     try {
       const result = await StudioService.createAdditionalService({
         requestBody: data,
       });
-      console.log({ result });
+
       if (result.status) {
         toast.success("Successful!", { className: "loginToast" });
         setNewField([]);
@@ -180,7 +155,7 @@ const EditServiceModal = ({
       const result = await StudioService.updateAAdditionalService({
         requestBody: data,
       });
-      console.log({ result });
+
       if (result.status) {
         toast.success("Successful!", { className: "loginToast" });
         const services = await StudioService.getServiceById({
@@ -206,7 +181,7 @@ const EditServiceModal = ({
       const result = await StudioService.deleteAdditionalService({
         id,
       });
-      console.log({ result });
+
       if (result.status) {
         setLoading({ status: false });
         toast.success("Successful!", { className: "loginToast" });

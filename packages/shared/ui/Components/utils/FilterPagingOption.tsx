@@ -1,6 +1,4 @@
 export const FilterPagingOptions = (ctx: any) => {
-  console.log({ ctx: ctx.query });
-
   const {
     limit,
     offset,
@@ -33,6 +31,6 @@ export const FilterPagingOptions = (ctx: any) => {
     city: city,
     state: state || null,
   };
-  //   console.log({ options });
+  //
   return options;
 };

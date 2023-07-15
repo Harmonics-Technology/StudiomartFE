@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         }, 1000);
     }
   }, []);
-  // console.log(OpenAPI.TOKEN);
+  //
   return (
     <ChakraProvider theme={theme}>
       <Head>

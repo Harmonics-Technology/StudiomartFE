@@ -1,7 +1,5 @@
-import { Circle, HStack, Icon, Text } from "@chakra-ui/react";
+import { Circle, HStack, Icon } from "@chakra-ui/react";
 import Link from "next/link";
-import bookings from "pages/customer/bookings";
-import React from "react";
 
 export const SocialWrapper = ({ icon, iconName, url, color }: any) => {
   return (

@@ -1,6 +1,5 @@
 import { Box, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import React from "react";
 import { BookingView } from "src/services";
 
 export const BookingInfo = ({ bookings }: { bookings: BookingView }) => {

@@ -1,16 +1,14 @@
 import {
   Box,
   Flex,
-  Image,
-  VStack,
-  Text,
-  useDisclosure,
+  Image, Text,
+  useDisclosure, VStack
 } from "@chakra-ui/react";
 import { AuthContext } from "@components/Context/AuthContext";
 import { ChatContext } from "@components/Context/ChatContext";
-import { ImageLightBox } from "ui";
 import moment from "moment";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { ImageLightBox } from "ui";
 
 export const Message = ({ message }: any) => {
   const { currentUser } = useContext(AuthContext);

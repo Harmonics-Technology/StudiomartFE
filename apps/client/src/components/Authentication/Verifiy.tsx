@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
 import {
-  Box,
-  Flex,
-  Heading,
-  Text,
-  VStack,
-  Image,
-  Button,
+  Box, Button, Flex,
+  Heading, Image, Text,
+  VStack
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
-import { slickImages, sliderSets } from "ui";
-import { UserService, UserView } from "src/services";
 import { BeatLoader } from "react-spinners";
+import { UserService } from "src/services";
+import { slickImages, sliderSets } from "ui";
 
 export const Verify = ({ code }: { code: string }) => {
   const router = useRouter();

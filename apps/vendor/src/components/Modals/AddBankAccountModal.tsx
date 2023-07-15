@@ -1,16 +1,15 @@
 import { Box, Button, Flex, Stack, useDisclosure } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { BankAccountModel, Banks, StudioService } from "src/services";
-import { PrimarySelect, PrimaryInput, ModalWrapper, DisabledInput } from "ui";
-import { VerifyPasswordModal } from "./VerifyPasswordModal";
+import { DisabledInput, ModalWrapper, PrimaryInput, PrimarySelect, useNonInitialEffect } from "ui";
 import * as yup from "yup";
-import axios from "axios";
-import { useNonInitialEffect } from "ui";
+import { VerifyPasswordModal } from "./VerifyPasswordModal";
 
 const schema = yup.object().shape({
   accountName: yup.string().required(),
@@ -49,7 +48,7 @@ export default function AddBankAccountModal({
   let bankCode = watch("bankCode");
   let accountNumber = watch("accountNumber");
 
-  // console.log({ bankCode, accountNumber, accountName: watch("accountName") });
+  //
 
   const onSubmit = async (data: BankAccountModel) => {
     data.bankName = banks.filter((x: Banks) => x.code == data.bankCode)[0].name;
@@ -83,7 +82,7 @@ export default function AddBankAccountModal({
           },
         }
       );
-      // console.log(response);
+      //
       if (response.status == 200) {
         setValue("accountName", response.data.account_name);
         return;

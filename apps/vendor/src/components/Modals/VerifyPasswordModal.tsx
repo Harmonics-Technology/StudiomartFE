@@ -6,11 +6,10 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
-import { UserContext } from "@components/Context/UserContext";
 import { useRouter } from "next/router";
-import React, { useContext, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { UserService } from "src/services";
 import { DisabledInput } from "ui";

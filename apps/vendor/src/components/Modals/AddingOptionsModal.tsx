@@ -1,32 +1,25 @@
 import {
-  Flex,
-  Box,
-  Text,
-  HStack,
-  Image,
-  Icon,
-  useDisclosure,
-  Button,
-  Grid,
-  FormLabel,
-  Square,
-  Tooltip,
-  Table,
+  Box, Button, Flex, FormLabel, Grid, HStack, Icon, Image, Square, Table,
   TableContainer,
-  Tbody,
-  Thead,
-  Tr,
-  Th,
-  Td,
+  Tbody, Td, Text, Th, Thead, Tooltip, Tr, useDisclosure
 } from "@chakra-ui/react";
-import { ServiceSlider } from "@components/Dashboard/ServicesSlider";
-import React, { useContext, useRef, useState } from "react";
+import { UserContext } from "@components/Context/UserContext";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Widget } from "@uploadcare/react-widget";
+import { useRouter } from "next/router";
+import { useContext, useRef, useState } from "react";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { AiFillDelete, AiFillEdit, AiOutlinePlus } from "react-icons/ai";
+import { FaTrash } from "react-icons/fa";
+import { FiUpload } from "react-icons/fi";
+import { HiInformationCircle } from "react-icons/hi";
 import {
   ServiceModel,
   ServiceTypeView,
-  ServiceTypeViewListStandardResponse,
-  StudioService,
-  StudioView,
+  ServiceTypeViewListStandardResponse
 } from "src/services";
 import {
   CurrencyField,
@@ -34,22 +27,10 @@ import {
   ModalWrapper,
   PrimaryInput,
   PrimarySelect,
-  PrimaryTextarea,
+  PrimaryTextarea
 } from "ui";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import YupPassword from "yup-password";
-import toast from "react-hot-toast";
-import { useRouter } from "next/router";
-import { FaTrash } from "react-icons/fa";
-import { Widget } from "@uploadcare/react-widget";
-import { AiFillDelete, AiFillEdit, AiOutlinePlus } from "react-icons/ai";
-import { UserContext } from "@components/Context/UserContext";
-import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
-import { FiUpload } from "react-icons/fi";
-import { HiInformationCircle } from "react-icons/hi";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -67,7 +48,7 @@ type Props = {
 
 const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
   const { currentStudioId } = useContext(UserContext);
-  // console.log({ currentStudioId });
+  //
   const router = useRouter();
   const [imageBox, setImageBox] = useState<any[]>([0, 1, 2, 3]);
   const [uploadedMedia, setUploadedMedia] = useState<any[]>([]);
@@ -86,14 +67,13 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
   });
 
   const onChangeImg = (info: any, id: number) => {
-    console.log({ info, id });
     let newMedia = {
       url: info.originalUrl,
       id: id,
     };
 
     setUploadedMedia([...uploadedMedia, newMedia]);
-    // console.log({ uploadedMedia });
+    //
   };
 
   const [addon, setAddon] = useState({ id: "", name: "", price: "" });
@@ -167,10 +147,10 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
         price: x.price,
       };
     });
-    console.log({ data });
+
     // try {
     //   const result = await StudioService.createService({ requestBody: data });
-    //   console.log({ result });
+    //
     //   if (result.status) {
     //     toast.success("Successful!");
     //     router.reload();

@@ -62,7 +62,7 @@ const PrimaryInput = <TFormValues extends Record<string, any>>({
   h = "2.8rem",
   disableLabel,
 }: FormProps<TFormValues>) => {
-  // console.log({ error, name });
+  //
   return (
     <>
       <FormControl

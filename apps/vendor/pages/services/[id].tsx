@@ -20,7 +20,7 @@ interface StudioProps {
 }
 
 function index({ service, reviews, serviceTypes }: StudioProps) {
-  // console.log({ service });
+  //
   return (
     <SingleServicePage
       service={service}
@@ -49,7 +49,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
       });
       const serviceTypes = await StudioService.getServiceTypes({});
 
-      // console.log({ reviews });
+      //
 
       return {
         props: {

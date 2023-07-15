@@ -1,15 +1,10 @@
 import {
-  Box,
-  Button,
-  Checkbox,
-  Grid,
-  Heading,
+  Box, Checkbox, Heading,
   Text,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { DateObject } from "react-multi-date-picker";
@@ -19,7 +14,7 @@ import { BackToPage, Naira, PrimaryDate, SubmitButton } from "ui";
 
 const ScheduleDateTime = ({ singleService, id }: ICustomerHome) => {
   const router = useRouter();
-  // console.log({ id });
+  //
 
   const {
     register,
@@ -42,7 +37,7 @@ const ScheduleDateTime = ({ singleService, id }: ICustomerHome) => {
     } as any;
     try {
       const result = await BookingService.dateTimeLookup({ requestBody: data });
-      console.log({ result });
+
       if (result.status) {
         toast.success(result.message as string);
         router.push(

@@ -5,11 +5,11 @@ import {
   Heading,
   HStack,
   Icon,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { AuthContext } from "@components/Context/AuthContext";
 import { ChatContext } from "@components/Context/ChatContext";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdBlock } from "react-icons/md";
@@ -20,7 +20,7 @@ import { Messages } from "./Messages";
 export const Chat = ({ showChat, setShowChat }: any) => {
   const { data } = useContext(ChatContext);
   const { currentUser } = useContext(AuthContext);
-  console.log({ data, currentUser });
+
   const deleteChat = () => {
     //
   };

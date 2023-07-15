@@ -7,11 +7,11 @@ import {
   HStack,
   Icon,
   Text,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
 import { AuthContext } from "@components/Context/AuthContext";
 import moment from "moment";
-import React, { useContext} from "react";
+import { useContext } from "react";
 import { BsCheckAll } from "react-icons/bs";
 
 export const Chats = ({ chat, handleSelect }: any) => {

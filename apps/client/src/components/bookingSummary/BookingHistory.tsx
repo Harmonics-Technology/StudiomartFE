@@ -1,29 +1,20 @@
 import {
-  Box,
-  Flex,
-  Grid,
+  Box, Button, Grid,
   HStack,
   Image,
-  Text,
-  Button,
-  VStack,
+  Text, VStack
 } from "@chakra-ui/react";
 import { InfoBox } from "@components/utils/InfoBox";
-import React, { useState } from "react";
 import { useDummyImage } from "react-simple-placeholder-image";
 import { IBookingsProps } from "src/models/schema";
 
-import {
-  BookingFilters,
-  getReviewSummary,
-  Naira,
-  NotFound,
-  Pagination,
-  ResponseBox,
-  Rating,
-} from "ui";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
+import {
+  BookingFilters,
+  getReviewSummary, NotFound,
+  Pagination, Rating, ResponseBox
+} from "ui";
 
 export default function BookingHistory({ bookings }: IBookingsProps) {
   const image = useDummyImage({});

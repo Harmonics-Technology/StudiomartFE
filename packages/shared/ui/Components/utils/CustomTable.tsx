@@ -19,7 +19,7 @@ interface TablesProps {
 }
 
 function CustomTable({ tableHead, children }: TablesProps) {
-  // console.log({ tableHead });
+  //
   return (
     <TableContainer h="auto">
       <Table>

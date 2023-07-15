@@ -1,31 +1,17 @@
 import {
-  Drawer,
+  Box, Button, Drawer,
   DrawerBody,
-  DrawerContent,
-  Text,
-  DrawerOverlay,
-  Box,
-  DrawerHeader,
-  HStack,
-  Link,
-  useDisclosure,
-  VStack,
-  Button,
-  Image,
+  DrawerContent, DrawerHeader, DrawerOverlay, HStack, Image, Link, Text, useDisclosure,
+  VStack
 } from "@chakra-ui/react";
-import React from "react";
+import Menus from "@components/utils/Menus";
 import {
-  BsFillChatRightTextFill,
-  BsFillPersonFill,
-  BsFillClockFill,
-  BsBorderWidth,
+  BsBorderWidth, BsFillChatRightTextFill, BsFillClockFill, BsFillPersonFill
 } from "react-icons/bs";
+import { FaHome } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { IoStorefront } from "react-icons/io5";
-import { FaHome } from "react-icons/fa";
-import NextLink from "next/link";
 import { ServiceView, UserView } from "src/services";
-import Menus from "@components/utils/Menus";
 // import category from "../utils/category.json";
 import { GlobalSearch } from "@components/Home/GlobalSearch";
 

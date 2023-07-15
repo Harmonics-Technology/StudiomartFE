@@ -1,21 +1,12 @@
 import {
-  Box,
-  Center,
-  HStack,
+  Box, HStack,
   Image,
-  Text,
-  Button,
-  Flex,
-  Icon,
-  Spinner,
-  VStack,
+  Text, VStack
 } from "@chakra-ui/react";
-import Link from "next/link";
-import { IPopularStudios, IStudios } from "src/models/schema";
-import { getReviewSummary, MenuDropdown, Naira, Rating } from "ui";
-import NoSSR from "react-no-ssr";
-import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
 import { useRouter } from "next/router";
+import { useDummyImage } from "react-simple-placeholder-image";
+import { IStudios } from "src/models/schema";
+import { MenuDropdown } from "ui";
 
 const StudiCard = ({ service }: IStudios) => {
   const image = useDummyImage({});
@@ -41,6 +32,7 @@ const StudiCard = ({ service }: IStudios) => {
           src={(service?.coverPhoto as string) || image}
           alt={`${service?.name}'s image`}
           borderRadius={{ base: "8px", lg: "0" }}
+          onClick={() => router.push(`/all-studios/${service?.id}`)}
         />
       </Box>
 
@@ -53,6 +45,7 @@ const StudiCard = ({ service }: IStudios) => {
         <VStack
           align="flex-start"
           onClick={() => router.push(`/all-studios/${service?.id}`)}
+          cursor="pointer"
         >
           <HStack align="flex-end">
             <Text

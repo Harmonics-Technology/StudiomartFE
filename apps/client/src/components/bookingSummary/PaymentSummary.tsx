@@ -1,15 +1,15 @@
 import {
-  HStack,
-  Flex,
-  Icon,
-  Square,
-  VStack,
-  Grid,
-  Input,
-  Button,
   Box,
-  Text,
+  Button,
+  Flex,
+  Grid,
+  HStack,
+  Icon,
   Image,
+  Input,
+  Square,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import VoucherCoupon from "@components/utils/VoucherCoupon";
@@ -17,12 +17,12 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Slider from "rc-slider";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BsCheck2 } from "react-icons/bs";
 import { FaPersonBooth } from "react-icons/fa";
-import { GiBeastEye, GiEdgedShield } from "react-icons/gi";
+import { GiEdgedShield } from "react-icons/gi";
 import { GrSecure } from "react-icons/gr";
 import { useDummyImage } from "react-simple-placeholder-image";
 import { BeatLoader } from "react-spinners";
@@ -40,7 +40,7 @@ const PaymentSummary = ({ bookings }: { bookings: BookingView }) => {
     id: "",
   });
   const { device } = useContext(UserContext);
-  console.log({ bookings });
+
   const router = useRouter();
   const date = bookings?.date;
   const newTime = `${bookings.date?.split("T")[0]}T${bookings.time}`;
@@ -89,7 +89,7 @@ const PaymentSummary = ({ bookings }: { bookings: BookingView }) => {
       });
     };
     applyVoucher();
-  }, []);
+  }, [couponInput]);
 
   const checkoutBooking = async (id: string) => {
     setLoading({ status: true, id, type: "pay" });

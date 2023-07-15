@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
   async (ctx: any) => {
     const pagingOptions = FilterPagingOptions(ctx);
     const userId = JSON.parse(ctx.req.cookies.customer).id;
-    console.log({ userId });
+
     try {
       const notifications = await NotificationService.getUserNotification({
         userId,

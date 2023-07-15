@@ -1,15 +1,6 @@
-import React from "react";
 import {
-  Box,
-  Input,
-  InputLeftElement,
-  InputGroup,
-  Text,
-  Grid,
-  Button,
-  Image,
-  HStack,
-  SimpleGrid,
+  Box, HStack,
+  SimpleGrid, Text
 } from "@chakra-ui/react";
 import { GlobalSearch } from "@components/Home/GlobalSearch";
 import StudiCard from "@components/Home/StudioCard";

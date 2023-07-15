@@ -1,27 +1,12 @@
 import {
-  Button,
-  Heading,
-  HStack,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Icon,
-  Flex,
-  Box,
-  Image,
-  useDisclosure,
-  InputLeftElement,
-  Text,
-  Circle,
+  Box, Button, Circle, Flex, HStack, Icon, Image
 } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import { GlobalSearch } from "@components/Home/GlobalSearch";
-import { SearchBox } from "@components/Home/SearchBox";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect } from "react";
-import { BsBell, BsBookmarkHeart, BsSearch } from "react-icons/bs";
-import { IoIosNotifications, IoIosBookmark } from "react-icons/io";
+import { useContext } from "react";
+import { BsBell, BsBookmarkHeart } from "react-icons/bs";
 import CustomerSidebar from "./CustomerSidebar";
 
 const CustomerHeader = ({ category }: any) => {

@@ -96,7 +96,7 @@ const BookingFilters = ({ w }: { w?: any }) => {
   function clearfilter() {
     router.push({ query: { ...router.query, from: "", to: "" } });
   }
-  console.log({ date });
+
   return (
     <Box borderBottom="1px solid" borderColor="gray.300">
       <HStack

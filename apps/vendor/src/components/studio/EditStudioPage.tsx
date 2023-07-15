@@ -1,39 +1,28 @@
 import {
-  Box,
-  Flex,
-  Image,
-  Icon,
-  FormLabel,
-  Square,
-  Circle,
-  Heading,
-  VStack,
-  Grid,
-  HStack,
-  Button,
+  Box, Button, Circle, Flex, FormLabel, Grid, Heading, HStack, Icon, Image, Square, VStack
 } from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Widget } from "@uploadcare/react-widget";
-import React, { useRef, useState } from "react";
+import { useRouter } from "next/router";
+import { useRef, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { FiUpload } from "react-icons/fi";
-import TopPage from "src/utils/TopPage";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import toast from "react-hot-toast";
-import { useRouter } from "next/router";
+import { FiUpload } from "react-icons/fi";
 import { StudioModel, StudioService, StudioView } from "src/services";
+import TopPage from "src/utils/TopPage";
 import { PrimaryInput, PrimarySelect, PrimaryTextarea } from "ui";
+import * as yup from "yup";
+import Cookies from "js-cookie";
 //@ts-ignore
 import NaijaStates from "naija-state-local-government";
 import {
   AiFillFacebook,
   AiFillLinkedin,
   AiFillTwitterCircle,
-  AiFillYoutube,
+  AiFillYoutube
 } from "react-icons/ai";
-import Cookies from "js-cookie";
 import NoSSR from "react-no-ssr";
 
 const schema = yup.object().shape({
@@ -85,7 +74,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
   });
   const allStates = NaijaStates.states();
   const selectedLga = NaijaStates.lgas(watch("state") || "lagos");
-  // console.log({ selectedLga });
+  //
   const router = useRouter();
   //Logo upload
   const [logoUrl, setLogoUrl] = useState();

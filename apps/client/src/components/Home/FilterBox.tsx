@@ -1,21 +1,12 @@
 import {
-  VStack,
-  HStack,
-  Icon,
-  RadioGroup,
-  Radio,
-  Box,
-  Text,
-  Flex,
-  Button,
-  FormLabel,
-  Select,
+  Box, Button, Flex, FormLabel, HStack,
+  Icon, Radio, RadioGroup, Select, Text, VStack
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { BiCaretDown } from "react-icons/bi";
-import { GPlacesAutoComplete, Naira, Rating } from "ui";
 import Slider from "rc-slider";
+import { useState } from "react";
+import { BiCaretDown } from "react-icons/bi";
+import { Naira, Rating } from "ui";
 //@ts-ignore
 import NaijaStates from "naija-state-local-government";
 
@@ -49,7 +40,7 @@ export const FilterBox = () => {
 
   // const handleChange = (address: any) => {
   //   setAddress(address);
-  //   console.log({ address });
+  //
   // };
 
   const [states, setStates] = useState<any>();

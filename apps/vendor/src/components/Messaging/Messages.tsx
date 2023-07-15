@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { ChatContext } from "@components/Context/ChatContext";
 import { db } from "@components/firebase/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Message } from "./Message";
 
 export const Messages = () => {
@@ -18,7 +18,7 @@ export const Messages = () => {
     };
   }, [data.chatId]);
 
-  // console.log({ messages });
+  //
   return (
     <Box>
       <Box

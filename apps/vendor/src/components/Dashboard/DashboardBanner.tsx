@@ -1,13 +1,7 @@
-import React from 'react';
 import {
-  Box,
-  Button,
-  Flex,
-  Spacer,
-  Heading,
+  Box, Flex, Heading,
   HStack,
-  Image,
-  Grid,
+  Image
 } from '@chakra-ui/react';
 
 function DashboardBanner() {

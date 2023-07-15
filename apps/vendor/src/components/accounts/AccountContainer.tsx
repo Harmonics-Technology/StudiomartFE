@@ -1,8 +1,8 @@
-import { Box, Stack, Flex, HStack, Text } from "@chakra-ui/react";
-import React, { ReactNode } from "react";
-import AccountSideBar from "./AccountSideBar";
-import TopPage from "../../utils/TopPage";
+import { Box, Flex, HStack, Stack, Text } from "@chakra-ui/react";
+import { ReactNode } from "react";
 import { BankCard } from "src/utils/BankCard";
+import TopPage from "../../utils/TopPage";
+import AccountSideBar from "./AccountSideBar";
 
 const AccountContainer = ({
   children,

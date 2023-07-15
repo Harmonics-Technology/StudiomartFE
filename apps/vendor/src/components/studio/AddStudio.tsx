@@ -1,45 +1,33 @@
 import {
-  Box,
-  Flex,
-  Image,
-  Icon,
-  FormLabel,
-  Square,
-  Circle,
-  Heading,
-  VStack,
-  Grid,
-  HStack,
-  Button,
-  Input,
+  Box, Button, Circle, Flex, FormLabel, Grid, Heading, HStack, Icon, Image, Square, VStack
 } from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Widget } from "@uploadcare/react-widget";
-import React, { useRef, useState } from "react";
+import { useRouter } from "next/router";
+import { useRef, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { FiUpload } from "react-icons/fi";
-import TopPage from "src/utils/TopPage";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import toast from "react-hot-toast";
-import { useRouter } from "next/router";
+import { FiUpload } from "react-icons/fi";
 import { StudioModel, StudioService } from "src/services";
+import TopPage from "src/utils/TopPage";
 import {
   GPlacesAutoComplete,
   PrimaryInput,
   PrimarySelect,
-  PrimaryTextarea,
+  PrimaryTextarea
 } from "ui";
+import * as yup from "yup";
+import Cookies from "js-cookie";
 //@ts-ignore
 import NaijaStates from "naija-state-local-government";
 import {
   AiFillFacebook,
   AiFillLinkedin,
   AiFillTwitterCircle,
-  AiFillYoutube,
+  AiFillYoutube
 } from "react-icons/ai";
-import Cookies from "js-cookie";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -69,7 +57,7 @@ const AddStudio = () => {
   });
   const allStates = NaijaStates.states();
   const selectedLga = NaijaStates.lgas(watch("state") || "lagos");
-  // console.log({ selectedLga });
+  //
   const router = useRouter();
   //Logo upload
   const [logoUrl, setLogoUrl] = useState();
@@ -108,13 +96,12 @@ const AddStudio = () => {
     }
   };
 
-  // console.log(process.env.NEXT_PUBLIC_GOOGLE_API_KEY);
+  //
 
   const [address, setAddress] = useState<string>("");
 
   const handleChange = (address: any) => {
     setAddress(address);
-    console.log({ address });
   };
   const getCityAndState = (value: any) => {
     // value = value.split(",");

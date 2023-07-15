@@ -1,42 +1,40 @@
 import {
   Box,
-  HStack,
-  Grid,
-  VStack,
-  Text,
-  Heading,
-  Checkbox,
-  useDisclosure,
   Button,
-  Image,
+  Checkbox,
   Flex,
-  Icon,
   FormLabel,
+  Grid,
+  Heading,
+  HStack,
+  Icon,
+  Image,
+  Text,
+  useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import NoticePage from "src/utils/NoticePage";
-import * as yup from "yup";
+import { UserContext } from "@components/Context/UserContext";
+import Notice from "@components/Dashboard/Notice";
+import AddBankAccountModal from "@components/Modals/AddBankAccountModal";
+import WithdrawalPin from "@components/Modals/WithdrawalPin";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CurrencyField, Naira, Pagination, PrimaryInput } from "ui";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { TfiAngleDown } from "react-icons/tfi";
 import {
   BankAccount,
   Banks,
   PaymentService,
-  TransactionView,
   TransactionViewPagedCollection,
   WalletView,
   WithdrawalModel,
 } from "src/services";
-import RecentTransaction from "./RecentTransaction";
 import { WalletCard } from "src/utils/WalletCard";
-import { useRouter } from "next/router";
-import AddBankAccountModal from "@components/Modals/AddBankAccountModal";
-import { TfiAngleDown } from "react-icons/tfi";
-import WithdrawalPin from "@components/Modals/WithdrawalPin";
-import { UserContext } from "@components/Context/UserContext";
-import toast from "react-hot-toast";
-import Notice from "@components/Dashboard/Notice";
+import { CurrencyField, Naira, Pagination, PrimaryInput } from "ui";
+import * as yup from "yup";
+import RecentTransaction from "./RecentTransaction";
 
 interface WalletViewProps {
   banks: Banks[];
@@ -81,19 +79,14 @@ const MainWallet = ({
   const [showSelect, setShowSelect] = useState(false);
   const { currentStudioId } = useContext(UserContext);
 
-  console.log({ studioTransactions });
-
   const selectBank = (value: BankAccount) => {
     setShowSelect((prev) => !prev);
     setSelectedBank(value);
-    console.log({ value });
+
     setValue("bankId", value.id);
   };
 
-  // console.log(watch("id"));
-
   const onSubmit = async (data: WithdrawalModel) => {
-    // console.log({ data });
     try {
       const result = await PaymentService.withdrawFromWallet({
         requestBody: data,
@@ -117,7 +110,7 @@ const MainWallet = ({
     reset({
       studioId: currentStudioId,
     });
-  }, []);
+  }, [currentStudioId, reset]);
   return (
     <>
       {!userQuestion?.message ? (
@@ -256,7 +249,6 @@ const MainWallet = ({
                           <Box
                             w="full"
                             bgColor="white"
-                            // borderRadius="8px"
                             boxShadow="md"
                             pos="absolute"
                             zIndex="90"
@@ -326,7 +318,6 @@ const MainWallet = ({
                           width="100%"
                           type="submit"
                           h="3.2rem"
-                          // onClick={onOpen}
                           isLoading={isSubmitting}
                         >
                           Withdraw

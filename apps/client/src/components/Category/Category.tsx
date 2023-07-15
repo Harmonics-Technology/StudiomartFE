@@ -1,12 +1,10 @@
-import { Box, Flex, Text, SimpleGrid, HStack, Heading } from "@chakra-ui/react";
-import React from "react";
-import { BackToPage, NotFound, Pagination, useComponentVisible } from "ui";
-import { FiFilter } from "react-icons/fi";
-import { BiMessageRoundedError } from "react-icons/bi";
-import PopularStudioCard from "@components/Home/PopularStudioCard";
-import { ISingleCategory } from "src/models/schema";
-import { RecentlyViewed } from "@components/Home/RecentlyViewed";
+import { Box, Flex, HStack, SimpleGrid } from "@chakra-ui/react";
 import { FilterBox } from "@components/Home/FilterBox";
+import PopularStudioCard from "@components/Home/PopularStudioCard";
+import { RecentlyViewed } from "@components/Home/RecentlyViewed";
+import { FiFilter } from "react-icons/fi";
+import { ISingleCategory } from "src/models/schema";
+import { BackToPage, NotFound, Pagination, useComponentVisible } from "ui";
 
 const Category = ({
   singlecategory,
@@ -14,7 +12,7 @@ const Category = ({
   recentlyViewed,
   category,
 }: ISingleCategory) => {
-  // console.log(singlecategory);
+  //
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
   return (

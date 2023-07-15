@@ -1,5 +1,4 @@
 import { HStack, Icon, Text } from "@chakra-ui/react";
-import React from "react";
 import { BsCheck2 } from "react-icons/bs";
 
 export const ServiceInfos = ({ value, title }: any) => {

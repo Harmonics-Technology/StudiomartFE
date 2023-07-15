@@ -1,13 +1,13 @@
 import { Button, VStack } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useState } from "react";
+import { Rating, Star } from "@smastrom/react-rating";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { ReviewModel, ReviewService } from "src/services";
-import { ModalWrapper, PrimaryInput, PrimaryTextarea } from "ui";
+import { ModalWrapper, PrimaryTextarea } from "ui";
 import * as yup from "yup";
-import { Star, Rating } from "@smastrom/react-rating";
-import { useRouter } from "next/router";
 
 const schema = yup.object().shape({
   reviewNote: yup.string().required(),

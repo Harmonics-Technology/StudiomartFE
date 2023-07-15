@@ -1,12 +1,5 @@
-import React from "react";
 import {
-  Box,
-  HStack,
-  Flex,
-  Text,
-  SimpleGrid,
-  VStack,
-  Circle,
+  Box, Circle, HStack, Text, VStack
 } from "@chakra-ui/react";
 import moment from "moment";
 import { Naira } from "ui";

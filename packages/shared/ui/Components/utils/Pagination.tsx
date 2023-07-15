@@ -11,7 +11,7 @@ function Pagination({ data }: pageOptions) {
   const totalPages = Math.ceil(
     (data?.size as number) / (data?.limit as unknown as number)
   );
-  // console.log({ data, totalPages });
+  //
   const current = data?.nextOffset / data?.limit;
   const pages = [...Array(totalPages || 0).keys()];
   // const pages =

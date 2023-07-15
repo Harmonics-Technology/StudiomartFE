@@ -1,18 +1,12 @@
 import {
-  Box,
-  Flex,
-  Text,
-  Button,
-  Circle,
-  Icon,
-  useDisclosure,
+  Box, Button, Flex,
+  Text, useDisclosure
 } from "@chakra-ui/react";
-import { AiOutlinePlus } from "react-icons/ai";
-import React, { useContext } from "react";
+import { useContext } from "react";
 // import ModalWrapper from "ui/Components/utils/ModalWrapper";
+import { UserContext } from "@components/Context/UserContext";
 import AddingOptionsModal from "@components/Modals/AddingOptionsModal";
 import { ServiceTypeViewListStandardResponse } from "src/services";
-import { UserContext } from "@components/Context/UserContext";
 
 interface TopPageProps {
   page: string;
@@ -24,7 +18,7 @@ interface TopPageProps {
 function TopPage({ page, details, right, serviceTypes }: TopPageProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { device } = useContext(UserContext);
-  // console.log(device);
+  //
   return (
     <Box bgColor="white">
       <Flex

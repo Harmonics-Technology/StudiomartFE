@@ -1,22 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
 import {
-  Flex,
   Box,
-  Button,
-  Stack,
-  VStack,
-  Spinner,
-  Text,
+  Button, Flex, Spinner,
+  Text, VStack
 } from "@chakra-ui/react";
-import AccountSideBar from "@components/accounts/AccountSideBar";
-import { SecurityQuestionModel, StudioView, UserService } from "src/services";
-import { getDeviceFromUserAgent, PrimaryInput } from "ui";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import toast from "react-hot-toast";
-import { useRouter } from "next/router";
 import { UserContext } from "@components/Context/UserContext";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/router";
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { SecurityQuestionModel, UserService } from "src/services";
+import { PrimaryInput } from "ui";
+import * as yup from "yup";
 import AccountContainer from "./AccountContainer";
 
 const schema = yup.object().shape({
@@ -94,7 +89,7 @@ export default function SecurityQuestion({
   };
 
   const { device } = useContext(UserContext);
-  console.log({ device });
+
   return (
     <AccountContainer>
       {userQuest?.message && (

@@ -1,39 +1,30 @@
-import React, { useState } from "react";
 import {
-  Box,
-  Heading,
-  VStack,
-  Text,
-  HStack,
+  Box, Button, Heading, HStack,
   ListItem,
   OrderedList,
-  SimpleGrid,
-  Button,
+  SimpleGrid, Text, VStack
 } from "@chakra-ui/react";
-import Comments from "./Comments";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { FaStar } from "react-icons/fa";
-import ProgressBar from "./Progress";
-import {
-  BackToPage,
-  CalculatePercent,
-  getReviewSummary,
-  Naira,
-  Rating,
-} from "ui";
-import Carousel from "./Carousel";
-import Link from "next/link";
+import NoSSR from "react-no-ssr";
+import { DummyImage } from "react-simple-placeholder-image";
 import { ICustomerHome } from "src/models/schema";
 import {
   AdditionalServiceView,
   MediaView,
   ReviewView,
-  StudioService,
+  StudioService
 } from "src/services";
-import { DummyImage } from "react-simple-placeholder-image";
-import NoSSR from "react-no-ssr";
-import { useRouter } from "next/router";
-import { toast } from "react-hot-toast";
-import PopularStudioCard from "@components/Home/PopularStudioCard";
+import {
+  BackToPage,
+  CalculatePercent, Naira,
+  Rating
+} from "ui";
+import Carousel from "./Carousel";
+import Comments from "./Comments";
+import ProgressBar from "./Progress";
 
 export const StudioDetails = ({ singleService, ratings }: ICustomerHome) => {
   const router = useRouter();

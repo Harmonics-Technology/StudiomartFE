@@ -1,5 +1,4 @@
-import { Box, Text, VStack, Link } from "@chakra-ui/react";
-import React from "react";
+import { Box, Link, Text, VStack } from "@chakra-ui/react";
 import { SingleText } from "./SingleText";
 
 export const TermsAndConditions = () => {

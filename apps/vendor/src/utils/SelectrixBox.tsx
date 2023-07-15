@@ -1,10 +1,9 @@
-import React from "react";
 import {
-  Box,
   FormControl,
   FormErrorMessage,
-  FormLabel,
+  FormLabel
 } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 import { Control, Controller, FieldError, Path } from "react-hook-form";
 interface select {
   options: [];
@@ -16,7 +15,6 @@ interface select {
   onRenderSelection?: any;
   onRenderOption?: any;
 }
-import dynamic from "next/dynamic";
 //@ts-ignore
 const Selectrix = dynamic<select>(() => import("react-selectrix"), {
   ssr: false,
@@ -56,7 +54,7 @@ export const SelectrixBox = <TFormValues extends Record<string, any>>({
   renderOption,
   withIcon = false,
 }: FormInputProps<TFormValues>) => {
-  // console.log({ customOnchange });
+  //
   return (
     <FormControl isInvalid={error?.type === "required"} minW="0">
       {label && (

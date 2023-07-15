@@ -58,7 +58,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
       },
     };
   } catch (error: any) {
-    console.log({ error });
     // if (error.status == 401) {
     //   toast.error("error?.statusText");
     //   return;

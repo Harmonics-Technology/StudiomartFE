@@ -1,31 +1,23 @@
-import React, { useEffect, useState } from "react";
 import {
-  Box,
-  Flex,
-  Heading,
-  Text,
-  VStack,
-  Checkbox,
-  Image,
-  Link,
+  Box, Checkbox, Flex,
+  Heading, Image,
+  Link, Text,
+  VStack
 } from "@chakra-ui/react";
-import {
-  PrimaryInput,
-  SubmitButton,
-  LoginTypeBtn,
-  sliderSets,
-  slickImages,
-} from "ui";
-import { LoginModel, OpenAPI, UserService } from "src/services";
-import { useForm } from "react-hook-form";
+import { auth, signIn } from "@components/firebase/firebase";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import YupPassword from "yup-password";
-import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { auth, signIn } from "@components/firebase/firebase";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import Slider from "react-slick";
+import { LoginModel, OpenAPI, UserService } from "src/services";
+import {
+  PrimaryInput, slickImages, sliderSets, SubmitButton
+} from "ui";
+import * as yup from "yup";
+import YupPassword from "yup-password";
 
 YupPassword(yup);
 
@@ -43,7 +35,7 @@ export const LoginPage = () => {
   const [terms, setTerms] = useState<boolean>(false);
   const [loginType, setLoginType] = useState("Customer");
   const [step, setStep] = useState(0);
-  // console.log({ terms });
+  //
 
   const {
     handleSubmit,
@@ -58,7 +50,7 @@ export const LoginPage = () => {
   const onSubmitRegister = async (data: LoginModel) => {
     try {
       const result = await UserService.loginUser({ requestBody: data });
-      console.log({ result });
+
       if (result.status) {
         if (terms) {
           Cookies.set(
@@ -103,7 +95,7 @@ export const LoginPage = () => {
         password: userDetails.pass,
       });
     }
-  }, []);
+  }, [reset]);
 
   return (
     <Flex

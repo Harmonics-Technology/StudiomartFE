@@ -1,14 +1,10 @@
-import React, {
-  ReactNode,
-  createContext,
-  useEffect,
-  useState,
-  useContext,
-} from "react";
 import { auth } from "@components/firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { UserContext } from "./UserContext";
 import Cookies from "js-cookie";
+import {
+  createContext, ReactNode, useEffect,
+  useState
+} from "react";
 
 export const AuthContext = createContext<any>(null);
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {

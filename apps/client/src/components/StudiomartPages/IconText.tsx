@@ -1,5 +1,4 @@
-import { HStack, Circle, Icon, Text } from "@chakra-ui/react";
-import React from "react";
+import { Circle, HStack, Icon, Text } from "@chakra-ui/react";
 
 export const IconText = ({ icon, text }: { icon: any; text: string }) => {
   return (

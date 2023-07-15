@@ -1,6 +1,5 @@
-import { Flex, VStack, Text } from "@chakra-ui/react";
+import { Flex, Text, VStack } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import React from "react";
 import { ReviewView } from "src/services";
 import { Rating } from "ui";
 

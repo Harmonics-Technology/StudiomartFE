@@ -30,7 +30,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
       },
     };
   } catch (error: any) {
-    console.log({ error });
     return {
       props: {
         popularStudios: [],

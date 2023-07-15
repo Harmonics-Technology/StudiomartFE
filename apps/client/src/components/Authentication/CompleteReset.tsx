@@ -1,38 +1,29 @@
-import React, { useEffect, useState } from "react";
 import {
   Box,
   Flex,
-  Heading,
-  Text,
-  VStack,
-  Link,
-  Image,
-  Button,
-  Icon,
+  Heading, Image, Text,
+  VStack
 } from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import Slider from "react-slick";
+import {
+  PasswordReset,
+  UserService
+} from "src/services";
 import {
   DisabledInput,
   PrimaryInput,
   slickImages,
   sliderSets,
-  SubmitButton,
+  SubmitButton
 } from "ui";
-import {
-  InitiateResetModel,
-  LoginModel,
-  PasswordReset,
-  UserService,
-} from "src/services";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import YupPassword from "yup-password";
-import toast from "react-hot-toast";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
-import { useRouter } from "next/router";
-import { BsCheckCircle } from "react-icons/bs";
-import Slider from "react-slick";
 YupPassword(yup);
 
 const validation = yup.object().shape({

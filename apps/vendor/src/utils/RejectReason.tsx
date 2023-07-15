@@ -1,12 +1,11 @@
-import { Box, Button, Text } from "@chakra-ui/react";
-import React from "react";
-import { PrimaryTextarea } from "ui";
-import { useForm } from "react-hook-form";
+import { Box, Button } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { BookingService, BookingView } from "src/services";
-import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { BookingService, BookingView } from "src/services";
+import { PrimaryTextarea } from "ui";
+import * as yup from "yup";
 
 interface RejectBookingModel {
   reason: string;

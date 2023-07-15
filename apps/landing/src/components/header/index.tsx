@@ -19,10 +19,9 @@ type NavProps = {
   display?: any;
 };
 
-// console.log(getUrlRoute().clientUrl);
+//
 
 const NavLink = ({ name, path, display }: NavProps) => {
-  console.log({ path });
   const router = useRouter();
   return (
     <NextLink href={path} passHref>

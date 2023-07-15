@@ -1,5 +1,4 @@
-import { Flex, Circle, VStack, Image, Text } from "@chakra-ui/react";
-import React from "react";
+import { Circle, Flex, Image, Text, VStack } from "@chakra-ui/react";
 
 interface WalletProps {
   title: string;

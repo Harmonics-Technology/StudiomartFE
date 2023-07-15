@@ -1,6 +1,6 @@
-import React, { ReactNode, createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { getDeviceFromUserAgent } from "ui";
 
 export const UserContext = createContext<any>(null);

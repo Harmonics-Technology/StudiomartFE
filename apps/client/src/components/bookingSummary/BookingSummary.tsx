@@ -1,26 +1,22 @@
 import {
   Box,
   Button,
-  Checkbox,
-  Flex,
-  Heading,
+  Checkbox, Heading,
   HStack,
   Stack,
   Text,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import Cookies from "js-cookie";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { ICustomerHome } from "src/models/schema";
 import {
   AdditionalServiceView,
   BookingModel,
-  BookingService,
-  TimeOnly,
+  BookingService
 } from "src/services";
 import { BackToPage, Naira, Rating } from "ui";
 
@@ -66,7 +62,7 @@ const BookingSummary = ({
     setLoading(true);
     try {
       const result = await BookingService.createBooking({ requestBody: data });
-      console.log({ result });
+
       if (result.status) {
         setLoading(false);
         toast.success(result.message as string);

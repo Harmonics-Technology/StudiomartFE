@@ -35,7 +35,7 @@ export default function HandleSelectChat({
         : chatUser.uid + currentUser?.uid;
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
-      console.log({ res: res.exists() });
+
       if (!res.exists()) {
         await setDoc(doc(db, "chats", combinedId), {
           messages: [],
@@ -65,7 +65,6 @@ export default function HandleSelectChat({
       }
     } catch (error) {
       setLoading(false);
-      console.log({ error });
     }
   };
   return (

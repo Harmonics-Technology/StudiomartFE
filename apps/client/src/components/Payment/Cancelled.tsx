@@ -1,6 +1,5 @@
-import { VStack, Text, Box, Image, Link, Button } from "@chakra-ui/react";
+import { Box, Button, Image, Link, Text, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React from "react";
 
 export const Cancelled = () => {
   const router = useRouter();

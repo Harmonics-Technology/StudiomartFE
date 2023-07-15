@@ -1,5 +1,4 @@
 import { Button, Flex, HStack, Text, VStack } from "@chakra-ui/react";
-import React, { useState } from "react";
 
 interface CookiesProps {
   message: string;

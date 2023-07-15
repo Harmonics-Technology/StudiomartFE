@@ -1,6 +1,5 @@
 import { Box, VStack } from "@chakra-ui/react";
 
-import React from "react";
 import { SideText } from "ui";
 
 const AccountSideBar = () => {

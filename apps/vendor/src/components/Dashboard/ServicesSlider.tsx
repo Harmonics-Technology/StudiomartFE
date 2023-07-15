@@ -1,19 +1,12 @@
 import {
-  Box,
-  Image,
-  VStack,
-  Text,
-  HStack,
-  Circle,
-  Icon,
-  Button,
+  Box, Button, Circle, HStack, Icon, Image, Text
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
-import { ServiceView } from "src/services";
 import { useDummyImage } from "react-simple-placeholder-image";
 import Slider from "react-slick";
+import { ServiceView } from "src/services";
 import { sliderSettings } from "ui";
 
 interface SliderProps {

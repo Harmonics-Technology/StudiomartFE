@@ -1,35 +1,25 @@
-import React, { useContext, useEffect, useState } from "react";
 import {
-  Box,
-  Flex,
-  Heading,
-  Text,
-  VStack,
-  Checkbox,
-  Link,
-  Image,
+  Box, Checkbox, Flex,
+  Heading, Image, Link, Text,
+  VStack
 } from "@chakra-ui/react";
-import {
-  PrimaryInput,
-  SubmitButton,
-  LoginTypeBtn,
-  sliderSets,
-  slickImages,
-} from "ui";
-import { LoginModel, OpenAPI, StudioService, UserService } from "src/services";
-import { useForm } from "react-hook-form";
+import { UserContext } from "@components/Context/UserContext";
+import { auth } from "@components/firebase/firebase";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import YupPassword from "yup-password";
-import toast from "react-hot-toast";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@components/firebase/firebase";
-import { UserContext } from "@components/Context/UserContext";
+import { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import Slider from "react-slick";
+import { LoginModel, OpenAPI, StudioService, UserService } from "src/services";
+import {
+  PrimaryInput, slickImages, sliderSets, SubmitButton
+} from "ui";
+import * as yup from "yup";
+import YupPassword from "yup-password";
 YupPassword(yup);
 
 const validation = yup.object().shape({
@@ -59,11 +49,11 @@ export const LoginPage = () => {
   });
 
   const onSubmitVendor = async (data: LoginModel) => {
-    // console.log({ data });
+    //
     data.isVendor = true;
     try {
       const result = await UserService.loginUser({ requestBody: data, device });
-      // console.log({ result });
+      //
       if (result.status) {
         if (terms) {
           Cookies.set(
@@ -127,7 +117,7 @@ export const LoginPage = () => {
         password: userDetails.pass,
       });
     }
-  }, []);
+  }, [reset]);
 
   return (
     <Flex

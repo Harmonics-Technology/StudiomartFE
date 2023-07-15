@@ -1,27 +1,21 @@
 import {
-  Box,
-  Flex,
+  Box, Button, Flex,
   Grid,
   HStack,
-  Icon,
-  Square,
-  Text,
-  Image,
-  VStack,
-  Button,
-  Input,
+  Icon, Image, Input, Square,
+  Text, VStack
 } from "@chakra-ui/react";
 import VoucherCoupon from "@components/utils/VoucherCoupon";
 import dayjs from "dayjs";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BsCheck2 } from "react-icons/bs";
 import { FaPersonBooth } from "react-icons/fa";
-import { GiBeastEye, GiEdgedShield, GiEyeShield } from "react-icons/gi";
+import { GiBeastEye, GiEdgedShield } from "react-icons/gi";
 import { useDummyImage } from "react-simple-placeholder-image";
 import Slider from "react-slick";
 import { BeatLoader } from "react-spinners";
@@ -29,9 +23,9 @@ import { ICustomerHome } from "src/models/schema";
 import {
   AdditionalServiceView,
   BookingModel,
-  BookingService,
+  BookingService
 } from "src/services";
-import { CustomCheckbox, Cur, Rating, Naira, CalculatePercent } from "ui";
+import { Cur, CustomCheckbox, Naira, Rating } from "ui";
 
 const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
   const router = useRouter();
@@ -107,7 +101,7 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
     setLoading(true);
     try {
       const result = await BookingService.createBooking({ requestBody: data });
-      console.log({ result });
+
       if (result.status) {
         setLoading(false);
         toast.success(result.message as string);

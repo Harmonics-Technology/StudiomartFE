@@ -1,18 +1,10 @@
 import {
   Box,
-  Button,
-  HStack,
-  VStack,
-  Text,
-  Image,
-  Heading,
-  SimpleGrid,
-  Stack,
-  Flex,
+  Button, Flex, Heading, HStack, Image, SimpleGrid,
+  Stack, Text, VStack
 } from "@chakra-ui/react";
 import { BecomeVendorInfo } from "@components/utils/BecomeVendorInfo";
 import Link from "next/link";
-import React from "react";
 import { getUrlRoute, ProcedureCard } from "ui";
 import Fqa from "./Fqa";
 

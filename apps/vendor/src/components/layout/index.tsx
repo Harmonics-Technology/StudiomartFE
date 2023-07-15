@@ -1,13 +1,13 @@
 import { Box, Flex } from "@chakra-ui/react";
+import { UserContext } from "@components/Context/UserContext";
+import Notice from "@components/Dashboard/Notice";
 import VendorHeader from "@components/header/VendorHeader";
 import VendorSideNav from "@components/header/VendorSideNav";
 import { useRouter } from "next/router";
-import React, { useContext, useState } from "react";
-import { Footer, Header } from "..";
-import Notice from "@components/Dashboard/Notice";
-import { UserContext } from "@components/Context/UserContext";
-import { StudioView, UserView } from "src/services";
+import React, { useContext } from "react";
+import { StudioView } from "src/services";
 import { useComponentVisible } from "ui";
+import { Footer } from "..";
 
 export const Layout: React.FC = ({ children }) => {
   const router = useRouter();
@@ -15,7 +15,7 @@ export const Layout: React.FC = ({ children }) => {
   const notDone: StudioView = userStudios?.find(
     (x: any) => x.id == currentStudioId
   );
-  console.log({ notDone, userStudios, currentStudioId });
+
   const noNav =
     router.asPath.startsWith("/login") || router.asPath.startsWith("/register");
   const { ref, isComponentVisible, setIsComponentVisible } =

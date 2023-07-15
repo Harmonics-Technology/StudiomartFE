@@ -1,23 +1,19 @@
 import {
   Box,
   Button,
-  Flex,
-  HStack,
-  PinInput,
-  PinInputField,
-  Stack,
-  useDisclosure,
+  Flex, Stack,
+  useDisclosure
 } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { WalletPinModel, Banks, StudioService } from "src/services";
-import { PrimaryInput, ModalWrapper } from "ui";
-import { VerifyPasswordModal } from "./VerifyPasswordModal";
+import { StudioService, WalletPinModel } from "src/services";
+import { ModalWrapper, PrimaryInput } from "ui";
 import * as yup from "yup";
+import { VerifyPasswordModal } from "./VerifyPasswordModal";
 
 const schema = yup.object().shape({
   pin: yup

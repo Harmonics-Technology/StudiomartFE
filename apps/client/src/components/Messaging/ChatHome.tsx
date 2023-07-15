@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import NoSSR from "react-no-ssr";
 import { Chat } from "./Chat";
 import { SideBar } from "./SideBar";

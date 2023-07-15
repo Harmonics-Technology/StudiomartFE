@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from "react";
 import {
-  Flex,
-  Box,
-  Button,
-  Text,
-  Stack,
-  HStack,
-  Radio,
-  Checkbox,
-  VStack,
+  Button, Checkbox, Flex, HStack, Stack, Text, VStack
 } from "@chakra-ui/react";
-import AccountSideBar from "@components/accounts/AccountSideBar";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { UpdateUserModel, UserService, UserView } from "src/services";
+import * as yup from "yup";
 import AccountContainer from "./AccountContainer";
 
 const schema = yup.object().shape({
@@ -42,7 +33,6 @@ export default function Notifications() {
   });
   const router = useRouter();
   const onSubmit = async (data: UpdateUserModel) => {
-    console.log({ data });
     try {
       const result = await UserService.updateUser({ requestBody: data });
       if (result.status) {
@@ -76,7 +66,7 @@ export default function Notifications() {
         allowSmsNotification: user.allowSmsNotification,
       });
     }
-  }, []);
+  }, [reset]);
 
   return (
     <AccountContainer>

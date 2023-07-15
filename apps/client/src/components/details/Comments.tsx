@@ -1,8 +1,6 @@
-import { Box, HStack, Text } from "@chakra-ui/react";
-import React from "react";
-import { FaStar } from "react-icons/fa";
-import { ReviewView } from "src/services";
+import { Box, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
+import { ReviewView } from "src/services";
 import { Rating } from "ui";
 
 const Comments = ({ rating }: { rating: ReviewView }) => {

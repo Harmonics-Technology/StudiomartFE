@@ -10,17 +10,17 @@ import {
   Grid,
   VStack,
   HStack,
-} from '@chakra-ui/react';
-import { UserContext } from '@components/Context/UserContext';
-import { DeleteStudioModal } from '@components/Modals/DeleteStudioModal';
-import { useRouter } from 'next/router';
-import React, { useContext, useEffect, useState } from 'react';
-import { IoChevronBackCircle } from 'react-icons/io5';
-import { StudioView } from 'src/services';
-import { InfoBox } from 'ui';
-import NoSSR from 'react-no-ssr';
-import dynamic from 'next/dynamic';
-import { DummyImage, useDummyImage } from 'react-simple-placeholder-image';
+} from "@chakra-ui/react";
+import { UserContext } from "@components/Context/UserContext";
+import { DeleteStudioModal } from "@components/Modals/DeleteStudioModal";
+import { useRouter } from "next/router";
+import React, { useContext, useEffect, useState } from "react";
+import { IoChevronBackCircle } from "react-icons/io5";
+import { StudioView } from "src/services";
+import { InfoBox } from "ui";
+import NoSSR from "react-no-ssr";
+import dynamic from "next/dynamic";
+import { DummyImage, useDummyImage } from "react-simple-placeholder-image";
 
 interface StudioProps {
   singleStudio: StudioView;
@@ -32,7 +32,6 @@ export const SingleStudioPage = ({ singleStudio }: StudioProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: open, onOpen: opens, onClose: closed } = useDisclosure();
   const router = useRouter();
-  console.log({ singleStudio });
 
   return (
     <Box mb="3rem">
@@ -47,7 +46,7 @@ export const SingleStudioPage = ({ singleStudio }: StudioProps) => {
         >
           <Box fontFamily="BR Firma">
             <Text
-              fontSize={{ base: '1rem', md: '1.5rem' }}
+              fontSize={{ base: "1rem", md: "1.5rem" }}
               fontWeight="600"
               mb=".2rem"
             >
@@ -62,7 +61,7 @@ export const SingleStudioPage = ({ singleStudio }: StudioProps) => {
               variant="outline"
               color="red"
               borderColor="red"
-              minW={{ base: '4rem', md: '8rem' }}
+              minW={{ base: "4rem", md: "8rem" }}
               onClick={onOpen}
             >
               Delete
@@ -70,8 +69,8 @@ export const SingleStudioPage = ({ singleStudio }: StudioProps) => {
             <Button
               bgColor="brand.100"
               color="white"
-              minW={{ base: '4rem', md: '8rem' }}
-              onClick={() => router.push('/studio/edit')}
+              minW={{ base: "4rem", md: "8rem" }}
+              onClick={() => router.push("/studio/edit")}
             >
               Edit
             </Button>
@@ -151,60 +150,60 @@ export const SingleStudioPage = ({ singleStudio }: StudioProps) => {
 
           <Grid
             gap="1.5rem"
-            templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
+            templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
             w="full"
             m="4rem 0 1rem"
           >
             <Box>
               <VStack gap="1rem" align="flex-start">
-                <InfoBox title={'Studio Name'} desc={singleStudio?.name} />
+                <InfoBox title={"Studio Name"} desc={singleStudio?.name} />
                 <InfoBox
-                  title={'Studio Description'}
+                  title={"Studio Description"}
                   desc={singleStudio?.description}
                   des
                 />
                 <InfoBox
-                  title={'Studio Address'}
+                  title={"Studio Address"}
                   desc={singleStudio?.address}
                 />
-                <InfoBox title={'Website'} desc={singleStudio?.website} />
+                <InfoBox title={"Website"} desc={singleStudio?.website} />
                 <Grid
                   gap="1.5rem"
-                  templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}
+                  templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
                   w="full"
                 >
-                  <InfoBox title={'LinkedIn'} desc={singleStudio?.linkedIn} />
-                  <InfoBox title={'Youtube'} desc={singleStudio?.youTube} />
+                  <InfoBox title={"LinkedIn"} desc={singleStudio?.linkedIn} />
+                  <InfoBox title={"Youtube"} desc={singleStudio?.youTube} />
                 </Grid>
               </VStack>
             </Box>
             <Box>
               <VStack gap="1rem" align="flex-start">
-                <InfoBox title={'Country'} desc={singleStudio?.country} />
+                <InfoBox title={"Country"} desc={singleStudio?.country} />
                 <Grid
                   gap="1.5rem"
-                  templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}
+                  templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
                   w="full"
                 >
-                  <InfoBox title={'State'} desc={singleStudio?.state} />
-                  <InfoBox title={'City'} desc={singleStudio?.city} />
+                  <InfoBox title={"State"} desc={singleStudio?.state} />
+                  <InfoBox title={"City"} desc={singleStudio?.city} />
                 </Grid>
-                <InfoBox title={'Email Address'} desc={singleStudio?.email} />
+                <InfoBox title={"Email Address"} desc={singleStudio?.email} />
                 <Grid
                   gap="1.5rem"
-                  templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}
+                  templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
                   w="full"
                 >
-                  <InfoBox title={'Phone no'} desc={singleStudio?.phone} />
-                  <InfoBox title={'Postal code'} desc={singleStudio?.zipCode} />
+                  <InfoBox title={"Phone no"} desc={singleStudio?.phone} />
+                  <InfoBox title={"Postal code"} desc={singleStudio?.zipCode} />
                 </Grid>
                 <Grid
                   gap="1.5rem"
-                  templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}
+                  templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
                   w="full"
                 >
-                  <InfoBox title={'Facebook'} desc={singleStudio?.facebook} />
-                  <InfoBox title={'Twitter'} desc={singleStudio?.twitter} />
+                  <InfoBox title={"Facebook"} desc={singleStudio?.facebook} />
+                  <InfoBox title={"Twitter"} desc={singleStudio?.twitter} />
                 </Grid>
               </VStack>
             </Box>

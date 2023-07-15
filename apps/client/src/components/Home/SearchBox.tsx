@@ -1,29 +1,18 @@
 import {
-  Button,
-  Input,
+  Box, Button, Flex, HStack, Icon, Image, Input,
   InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  Modal,
+  InputLeftElement, Modal,
   ModalBody,
   ModalContent,
-  ModalOverlay,
-  VStack,
-  Icon,
-  HStack,
-  Text,
-  Image,
-  Square,
-  Box,
-  Flex,
+  ModalOverlay, Square, Text, VStack
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiOutlineLink } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
+import Skeleton from "react-loading-skeleton";
 import { useDummyImage } from "react-simple-placeholder-image";
 import { GlobalSearchResultView, StudioService } from "src/services";
-import Skeleton from "react-loading-skeleton";
 import { useDebouncedCallback } from "use-debounce";
 
 import { NotFound, useNonInitialEffect } from "ui";

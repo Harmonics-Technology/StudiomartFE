@@ -1,50 +1,29 @@
-import React, { useState } from "react";
 import {
-  Box,
-  Container,
-  Avatar,
-  Grid,
-  Text,
-  Flex,
-  SimpleGrid,
-  Image,
-  HStack,
-  Stack,
-  Button,
-  Circle,
-  VStack,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Icon,
-  Spinner,
-  Heading,
+  Avatar, Box, Circle, Flex, Heading, Image, SimpleGrid, Spinner, Text, VStack
 } from "@chakra-ui/react";
+import { useState } from "react";
 // import { NotificationTop } from "src/utils/NotificationTop";
+import moment from "moment";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
 import {
   BsCheckAll,
-  BsFillTrashFill,
-  BsThreeDotsVertical,
+  BsFillTrashFill
 } from "react-icons/bs";
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import {
   NotificationService,
   NotificationView,
-  NotificationViewPagedCollection,
+  NotificationViewPagedCollection
 } from "src/services";
-import moment from "moment";
-import toast from "react-hot-toast";
-import { useRouter } from "next/router";
 import { MenuDropdown, Pagination } from "ui";
-import Link from "next/link";
 
 interface notificationProps {
   notifications: NotificationViewPagedCollection;
 }
 const Notification = ({ notifications }: notificationProps) => {
   const [loading, setLoading] = useState<any>({ status: false, id: "" });
-  console.log({ notifications });
+
   const router = useRouter();
   const markAsReadFunction = async (data: string) => {
     setLoading({ status: true, id: data });
@@ -84,7 +63,7 @@ const Notification = ({ notifications }: notificationProps) => {
       });
     }
   };
-  // console.log({ notifications });
+  //
   return (
     <Box fontFamily="DM Sans" mb="2.8rem">
       <VStack w="80%" mx="auto" mt="3rem" justify="center">

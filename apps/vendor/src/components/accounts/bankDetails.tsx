@@ -1,26 +1,18 @@
-import React, { useContext } from "react";
-import { DisabledInput, PrimaryInput, PrimarySelect } from "ui";
-import { BankAccountModel, Banks, StudioService } from "src/services";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import AccountSideBar from "@components/accounts/AccountSideBar";
 import {
-  useDisclosure,
-  HStack,
-  Stack,
-  Box,
   Button,
-  Flex,
-  Text,
+  Flex, Stack, useDisclosure
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import toast from "react-hot-toast";
-import { BankCard } from "src/utils/BankCard";
 import { UserContext } from "@components/Context/UserContext";
 import { VerifyPasswordModal } from "@components/Modals/VerifyPasswordModal";
+import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { useNonInitialEffect } from "ui";
+import { useRouter } from "next/router";
+import { useContext } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { BankAccountModel, Banks, StudioService } from "src/services";
+import { DisabledInput, PrimaryInput, PrimarySelect, useNonInitialEffect } from "ui";
+import * as yup from "yup";
 import AccountContainer from "./AccountContainer";
 
 const schema = yup.object().shape({
@@ -57,7 +49,7 @@ export default function BankDetails({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bankCode = watch("bankCode");
   const accountNumber = watch("accountNumber");
-  // console.log({ bankCode, accountNumber, accountName: watch("accountName") });
+  //
 
   const getBankDetails = async () => {
     try {
@@ -70,7 +62,7 @@ export default function BankDetails({
           },
         }
       );
-      // console.log(response);
+      //
       if (response.status == 200) {
         setValue("accountName", response.data.account_name);
         return;

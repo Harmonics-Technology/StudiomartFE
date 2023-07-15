@@ -5,11 +5,11 @@ import {
   Heading,
   HStack,
   Input,
-  Text,
+  Text
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@components/firebase/firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useState } from "react";
 
 export const Search = ({ chat, setChat, handleSelect }: any) => {
   const [userName, setuserName] = useState<any>("");
@@ -20,19 +20,17 @@ export const Search = ({ chat, setChat, handleSelect }: any) => {
       collection(db, "users"),
       where("displayName" as string, "==", userName)
     );
-    // console.log("triggered");
+    //
     try {
       const querySnapshot = await getDocs(q);
-      console.log({ querySnapshot });
+
       querySnapshot?.forEach((doc) => {
         setuser(doc.data());
         setChat(undefined);
       });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
-  console.log({ chat, userName });
+
   const handleKey = (e: any) => {
     e.code == "Enter" && handleSearch();
   };

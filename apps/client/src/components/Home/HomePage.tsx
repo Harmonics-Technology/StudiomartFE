@@ -1,26 +1,18 @@
 import {
-  Box,
-  Heading,
-  Image,
+  Box, Button, Flex, Heading, HStack, Image,
   SimpleGrid,
-  Stack,
-  VStack,
-  Text,
-  Button,
-  HStack,
-  Flex,
+  Stack, Text, VStack
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import ExploreStudioCard from "./ExploreStudioCard";
-import TextTransition, { presets } from "react-text-transition";
-import { getCityAndState, NotFound, ProcedureCard } from "ui";
-import { ICustomerHome } from "src/models/schema";
-import dynamic from "next/dynamic";
 import { StudioCategory } from "@components/utils/StudioCategory";
-import Cookies from "js-cookie";
-import { StudioService } from "src/services";
+import dynamic from "next/dynamic";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import TextTransition, { presets } from "react-text-transition";
+import { ICustomerHome } from "src/models/schema";
+import { StudioService } from "src/services";
+import { getCityAndState, NotFound, ProcedureCard } from "ui";
+import ExploreStudioCard from "./ExploreStudioCard";
 
 const PopularStudioCard = dynamic(
   () => import("@components/Home/PopularStudioCard"),
@@ -40,11 +32,11 @@ const studios = [
 const HomePage = ({ popularStudios, category }: ICustomerHome) => {
   const [index, setIndex] = useState(0);
 
-  // console.log({ popularStudios });
+  //
 
   const [locas, setLocas] = useState<any>(null);
   const [studiosNearMe, setStudiosstudiosNearMe] = useState<any>(null);
-  // console.log({ locas });
+  //
 
   useEffect(() => {
     if (navigator.geolocation) {

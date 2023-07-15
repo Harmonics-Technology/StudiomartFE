@@ -22,7 +22,7 @@ class CustomDocument extends Document {
     return (
       <Html>
         <Head />
-        <link rel="manifest" href="/manifest.json" />
+        {/* <link rel="manifest" href="/manifest.json" /> */}
         <body>
           <Main />
           <NextScript />

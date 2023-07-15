@@ -7,7 +7,7 @@ exports.sendEmailOnChat = functions.firestore
   .document("chat/{chatId}/messages/{messageId}")
   .onCreate(async (snapshot: any, context: any) => {
     const chatMessage = snapshot.data();
-    const {recipientEmail, message} = chatMessage;
+    const { recipientEmail, message } = chatMessage;
 
     const emailContent = {
       to: recipientEmail,
@@ -18,7 +18,6 @@ exports.sendEmailOnChat = functions.firestore
 
     try {
       await sgMail.send(emailContent);
-      console.log("Email sent successfully!");
     } catch (error) {
       console.error("Error sending email:", error);
     }
