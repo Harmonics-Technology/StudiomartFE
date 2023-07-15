@@ -1,8 +1,12 @@
 import {
-  Box, Checkbox, Flex,
-  Heading, Image,
-  Link, Text,
-  VStack
+  Box,
+  Checkbox,
+  Flex,
+  Heading,
+  Image,
+  Link,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import { auth, signIn } from "@components/firebase/firebase";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,9 +17,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Slider from "react-slick";
 import { LoginModel, OpenAPI, UserService } from "src/services";
-import {
-  PrimaryInput, slickImages, sliderSets, SubmitButton
-} from "ui";
+import { PrimaryInput, slickImages, sliderSets, SubmitButton } from "ui";
 import * as yup from "yup";
 import YupPassword from "yup-password";
 
@@ -76,7 +78,7 @@ export const LoginPage = () => {
         toast.success("Login Successful!", { className: "loginToast" });
         return;
       }
-      toast.error(result.message as string, { className: "logonToast" });
+      toast.error(result.message as string, { className: "loginToast" });
       return;
     } catch (error: any) {
       toast.error(error?.body?.message || error?.message, {
