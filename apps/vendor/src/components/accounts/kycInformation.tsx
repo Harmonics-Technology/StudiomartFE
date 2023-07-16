@@ -1,6 +1,12 @@
 import {
   Box,
-  Button, FormLabel, HStack, Square, Stack, Text, VStack
+  Button,
+  FormLabel,
+  HStack,
+  Square,
+  Stack,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -46,7 +52,10 @@ export default function KycInformation({ singleStudio }: StudioProps) {
   const router = useRouter();
   const { currentStudioId } = useContext(UserContext);
   //CAC upload
-  const [cacDocument, setCacDocument] = useState({ url: "", name: "" });
+  const [cacDocument, setCacDocument] = useState({
+    url: singleStudio?.cacDocumentReference,
+    name: singleStudio?.cacDocumentReference,
+  });
   const [logoLoading, setLogoLoading] = useState<any>({
     status: false,
     total: "",
@@ -67,7 +76,10 @@ export default function KycInformation({ singleStudio }: StudioProps) {
     }
   };
   //Id url upload
-  const [idUrl, setIdUrl] = useState({ url: "", name: "" });
+  const [idUrl, setIdUrl] = useState({
+    url: singleStudio?.meansOfIdentification,
+    name: singleStudio?.cacDocumentReference,
+  });
   const [imageLoading, setImageLoading] = useState<any>({
     status: false,
     total: "",
@@ -77,6 +89,7 @@ export default function KycInformation({ singleStudio }: StudioProps) {
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
+        console.log({ info });
         if (info.state == "ready") {
           setImageLoading({ status: false, total: "" }),
             setIdUrl({
@@ -87,6 +100,9 @@ export default function KycInformation({ singleStudio }: StudioProps) {
       });
     }
   };
+
+  // console.log({ idUrl, cacDocument });
+
   const onSubmit = async (data: StudioKYCModel) => {
     data.cacDocumentReference = cacDocument.url;
     data.meansOfIdentification = idUrl.url;
@@ -176,7 +192,7 @@ export default function KycInformation({ singleStudio }: StudioProps) {
                 <Text mb="0">
                   {singleStudio.cacDocumentReference
                     ? "File 001"
-                    : cacDocument.name || "CAC Document"}
+                    : cacDocument.name || "Click here to upload CAC Document"}
                 </Text>
               </>
             )}
@@ -215,7 +231,7 @@ export default function KycInformation({ singleStudio }: StudioProps) {
               </Square>
             ) : (
               <>
-                {singleStudio.cacDocumentReference
+                {singleStudio.meansOfIdentification
                   ? "File 002"
                   : idUrl.name || (
                       <VStack>
