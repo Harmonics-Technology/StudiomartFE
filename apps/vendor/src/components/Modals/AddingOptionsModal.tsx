@@ -276,7 +276,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
               border="1px solid"
               borderColor="gray.400"
             >
-               {bannerUrl ? (
+              {bannerUrl ? (
                 <Box
                   role="group"
                   pos="relative"
@@ -300,7 +300,9 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
                     p=".5rem 1rem"
                     cursor="pointer"
                     transition=".5s all ease"
-                    onClick={() => widgetApi.current.openDialog()}
+                    onClick={() =>
+                      openModal(widgetApi.current, bannerUrl, setBannerUrl)
+                    }
                     _groupHover={{
                       bottom: "0",
                     }}
@@ -310,23 +312,25 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
                 </Box>
               ) : (
                 <>
-              {imageLoading.status && imageLoading.id == "banner" ? (
-                <Square size="4rem">
-                  <CircularProgressbar
-                    value={imageLoading.total}
-                    maxValue={1}
-                    text={`${imageLoading.total * 100}%`}
-                  />
-                </Square>
-              ) : (
-                <Icon
-                  as={FiUpload}
-                  fontSize="2rem"
-                  cursor="pointer"
-                  onClick={() => openModal(widgetApi, bannerUrl, setBannerUrl)}
-                />
-              )}
-              </>
+                  {imageLoading.status && imageLoading.id == "banner" ? (
+                    <Square size="4rem">
+                      <CircularProgressbar
+                        value={imageLoading.total}
+                        maxValue={1}
+                        text={`${imageLoading.total * 100}%`}
+                      />
+                    </Square>
+                  ) : (
+                    <Icon
+                      as={FiUpload}
+                      fontSize="2rem"
+                      cursor="pointer"
+                      onClick={() =>
+                        openModal(widgetApi.current, bannerUrl, setBannerUrl)
+                      }
+                    />
+                  )}
+                </>
               )}
             </Flex>
           </Box>

@@ -1,12 +1,24 @@
 import {
-  Box, Button, Flex, FormLabel, Grid, HStack, Icon, IconButton, Image, Spinner, Square,
-  Tooltip, VStack
+  Box,
+  Button,
+  Flex,
+  FormLabel,
+  Grid,
+  HStack,
+  Icon,
+  IconButton,
+  Image,
+  Spinner,
+  Square,
+  Tooltip,
+  useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Widget } from "@uploadcare/react-widget";
 import { useRouter } from "next/router";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useForm } from "react-hook-form";
@@ -17,11 +29,14 @@ import { FaTrash } from "react-icons/fa";
 import { FiUpload } from "react-icons/fi";
 import { HiInformationCircle } from "react-icons/hi";
 import {
-  AdditionalService, AdditionalServiceModel,
-  MediaView, ServiceTypeView,
+  AdditionalService,
+  AdditionalServiceModel,
+  MediaView,
+  ServiceTypeView,
   ServiceTypeViewListStandardResponse,
   ServiceView,
-  StudioService, UpdateServiceModel
+  StudioService,
+  UpdateServiceModel,
 } from "src/services";
 import {
   CurrencyField,
@@ -29,7 +44,7 @@ import {
   ModalWrapper,
   PrimaryInput,
   PrimarySelect,
-  PrimaryTextarea
+  PrimaryTextarea,
 } from "ui";
 import * as yup from "yup";
 import YupPassword from "yup-password";
@@ -61,6 +76,8 @@ const EditServiceModal = ({
 }: Props) => {
   const { currentStudioId } = useContext(UserContext);
   const router = useRouter();
+  const [mediaUrl, setMediaUrl] = useState<string>("");
+  const widgetImageApi = useRef<any>(null);
 
   const {
     handleSubmit,
@@ -223,6 +240,9 @@ const EditServiceModal = ({
     }
   };
   const AddServiceImage = async (url: string) => {
+    if (url == "") {
+      return;
+    }
     try {
       const result = await StudioService.addMediaUrl({
         requestBody: { url, serviceId: service.id as string },
@@ -255,6 +275,7 @@ const EditServiceModal = ({
   });
   const widgetApi = useRef<any>(null);
   const uploadBannerUrl = (file: any) => {
+    onClose();
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
@@ -264,6 +285,13 @@ const EditServiceModal = ({
         }
       });
     }
+  };
+
+  const { onOpen: opens, isOpen: open, onClose: close } = useDisclosure();
+  const [func, setFunc] = useState<any>();
+  const openModal = (funcs: any, imageState: any, imageSetter: any) => {
+    opens();
+    setFunc({ click: funcs, imageState, imageSetter });
   };
 
   const closeModal = () => {
@@ -288,6 +316,10 @@ const EditServiceModal = ({
       toast.error(error?.body?.message || error?.message);
     }
   };
+
+  useEffect(() => {
+    AddServiceImage(mediaUrl);
+  }, [mediaUrl]);
   return (
     <>
       <ModalWrapper
@@ -386,7 +418,9 @@ const EditServiceModal = ({
                     p=".5rem 1rem"
                     cursor="pointer"
                     transition=".5s all ease"
-                    onClick={() => widgetApi.current.openDialog()}
+                    onClick={() =>
+                      openModal(widgetApi.current, bannerUrl, setBannerUrl)
+                    }
                     _groupHover={{
                       bottom: "0",
                     }}
@@ -409,7 +443,9 @@ const EditServiceModal = ({
                       as={FiUpload}
                       fontSize="2rem"
                       cursor="pointer"
-                      onClick={() => widgetApi.current.openDialog()}
+                      onClick={() =>
+                        openModal(widgetApi.current, bannerUrl, setBannerUrl)
+                      }
                     />
                   )}
                 </>
@@ -507,13 +543,23 @@ const EditServiceModal = ({
                         id="file"
                         systemDialog
                         imagesOnly
+                        ref={widgetImageApi}
                         onFileSelect={(file) => onChangeImg(file)}
                       />
 
                       {loading.status && loading.id == "imageLoad" ? (
                         <Spinner size="sm" />
                       ) : (
-                        <Icon as={AiOutlinePlus} />
+                        <Icon
+                          as={AiOutlinePlus}
+                          onClick={() =>
+                            openModal(
+                              widgetImageApi.current,
+                              mediaUrl,
+                              setMediaUrl
+                            )
+                          }
+                        />
                       )}
                     </Flex>
                   </HStack>
