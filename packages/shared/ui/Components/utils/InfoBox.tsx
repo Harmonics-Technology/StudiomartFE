@@ -10,7 +10,7 @@ interface InfoProps {
 export const InfoBox = ({ title, desc, des }: InfoProps) => {
   return (
     <Box w="full" minW="0">
-      <Text fontWeight="600" mb="0">
+      <Text fontWeight="600" mb="0" noOfLines={1}>
         {title}
       </Text>
       <Text
@@ -20,6 +20,7 @@ export const InfoBox = ({ title, desc, des }: InfoProps) => {
         borderRadius="8px"
         w="full"
         minH={des ? "8rem" : "3.5rem"}
+        noOfLines={des ? 50 : 1}
       >
         {desc}
       </Text>

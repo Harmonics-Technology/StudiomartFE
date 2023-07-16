@@ -1,3 +1,4 @@
+import { SearchInput } from './Components/utils/SearchInput';
 import { BookingsBtn } from "./Components/utils/BookingsBtn";
 import { ResponseBox, ResponseBoxLarge } from "./Components/utils/ResponseBox";
 import { ProcedureCard } from "./Components/utils/ProcedureCard";
@@ -120,4 +121,5 @@ export {
   ResponseBoxLarge,
   BookingsBtn,
   slickImages,
+  SearchInput
 };

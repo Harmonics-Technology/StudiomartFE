@@ -1,5 +1,17 @@
 import {
-  Box, Button, Circle, Flex, FormLabel, Grid, Heading, HStack, Icon, Image, Square, VStack
+  Box,
+  Button,
+  Circle,
+  Flex,
+  FormLabel,
+  Grid,
+  Heading,
+  HStack,
+  Icon,
+  Image,
+  Square,
+  useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Widget } from "@uploadcare/react-widget";
@@ -21,20 +33,21 @@ import {
   AiFillFacebook,
   AiFillLinkedin,
   AiFillTwitterCircle,
-  AiFillYoutube
+  AiFillYoutube,
 } from "react-icons/ai";
 import NoSSR from "react-no-ssr";
+import { OptionsModal } from "src/utils/OptionsModal";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
   address: yup.string().required(),
   email: yup.string().email().required(),
   phone: yup.string().required(),
-  website: yup.string().required(),
+  // website: yup.string().required(),
   country: yup.string().required(),
   state: yup.string().required(),
   city: yup.string().required(),
-  zipCode: yup.string().required(),
+  // zipCode: yup.string().required(),
   description: yup.string().required(),
 });
 
@@ -82,8 +95,10 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
     status: false,
     total: "",
   });
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const widgetLogoApi = useRef<any>(null);
   const onChangeLogoImage = (file: any) => {
+    onClose();
     if (file) {
       file.progress((info: any) => {
         setLogoLoading({ status: true, total: info.progress });
@@ -102,6 +117,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
   });
   const widgetApi = useRef<any>(null);
   const onChangeImg = (file: any) => {
+    onClose();
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
@@ -111,6 +127,12 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
         }
       });
     }
+  };
+
+  const [func, setFunc] = useState<any>();
+  const openModal = (funcs: any, imageState: any, imageSetter: any) => {
+    onOpen();
+    setFunc({ click: funcs, imageState, imageSetter });
   };
 
   //Studio creation function
@@ -201,7 +223,9 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
                     cursor="pointer"
                     transition=".5s all ease"
                     opacity="0"
-                    onClick={() => widgetLogoApi.current.openDialog()}
+                    onClick={() =>
+                      openModal(widgetLogoApi.current, logoUrl, setLogoUrl)
+                    }
                     _groupHover={{
                       opacity: "1",
                     }}
@@ -224,7 +248,9 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
                       as={FiUpload}
                       fontSize="2rem"
                       cursor="pointer"
-                      onClick={() => widgetLogoApi.current.openDialog()}
+                      onClick={() =>
+                        openModal(widgetLogoApi.current, logoUrl, setLogoUrl)
+                      }
                     />
                   )}
                 </>
@@ -405,7 +431,9 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
                     p=".5rem 1rem"
                     cursor="pointer"
                     transition=".5s all ease"
-                    onClick={() => widgetApi.current.openDialog()}
+                    onClick={() =>
+                      openModal(widgetApi.current, bannerUrl, setBannerUrl)
+                    }
                     _groupHover={{
                       bottom: "0",
                     }}
@@ -428,7 +456,9 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
                       as={FiUpload}
                       fontSize="2rem"
                       cursor="pointer"
-                      onClick={() => widgetApi.current.openDialog()}
+                      onClick={() =>
+                        openModal(widgetApi.current, bannerUrl, setBannerUrl)
+                      }
                     />
                   )}
                 </>
@@ -518,6 +548,7 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
           </HStack>
         </form>
       </Box>
+      {isOpen && <OptionsModal isOpen={isOpen} onClose={onClose} fun={func} />}
     </Box>
   );
 };

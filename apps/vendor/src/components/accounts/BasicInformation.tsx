@@ -1,6 +1,13 @@
 import {
-  Box, Button,
-  Circle, Flex, Icon, Image, Square, Text, VStack
+  Box,
+  Button,
+  Circle,
+  Flex,
+  Icon,
+  Image,
+  Square,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import { AuthContext } from "@components/Context/AuthContext";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -167,19 +174,37 @@ export default function BasicInformation({ user }: { user: UserView }) {
               </Box>
             ) : (
               <Box role="group" onClick={() => widgetApi.current.openDialog()}>
-                <Icon
-                  as={FaUser}
-                  fontSize="3rem"
-                  pos="absolute"
-                  left="50%"
-                  top="50%"
-                  transform="translate(-50%,-50%)"
-                  opacity="1"
-                  transition=".3s ease"
-                  _groupHover={{
-                    opacity: 0.5,
-                  }}
-                />
+                {imageUrl ? (
+                  <Image
+                    src={imageUrl !== "" ? imageUrl : user?.profilePicture}
+                    w="full"
+                    h="full"
+                    objectFit="cover"
+                    alt="Profile Picture"
+                    pos="absolute"
+                    top="0"
+                    left="0"
+                    opacity="1"
+                    transition=".3s ease"
+                    _groupHover={{
+                      opacity: 0.2,
+                    }}
+                  />
+                ) : (
+                  <Icon
+                    as={FaUser}
+                    fontSize="3rem"
+                    pos="absolute"
+                    left="50%"
+                    top="50%"
+                    transform="translate(-50%,-50%)"
+                    opacity="1"
+                    transition=".3s ease"
+                    _groupHover={{
+                      opacity: 0.5,
+                    }}
+                  />
+                )}
                 <VStack
                   opacity="0"
                   transition=".3s ease"

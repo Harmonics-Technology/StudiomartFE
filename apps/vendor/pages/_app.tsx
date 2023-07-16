@@ -51,9 +51,10 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <title>Studiomart Vendor</title>
         <link rel="icon" href="/stdd.gif" type="image/x-icon" />
       </Head>
-      <Script
-        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}
-      ></Script>
+      <script
+        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places&callback=Function.prototype`}
+        async
+      ></script>
       <Script
         async
         src="https://analytics.umami.is/script.js"

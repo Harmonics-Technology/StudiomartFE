@@ -1,5 +1,17 @@
 import {
-  Box, Button, Circle, Flex, FormLabel, Grid, Heading, HStack, Icon, Image, Square, VStack
+  Box,
+  Button,
+  Circle,
+  Flex,
+  FormLabel,
+  Grid,
+  Heading,
+  HStack,
+  Icon,
+  Image,
+  Square,
+  useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Widget } from "@uploadcare/react-widget";
@@ -16,7 +28,7 @@ import {
   GPlacesAutoComplete,
   PrimaryInput,
   PrimarySelect,
-  PrimaryTextarea
+  PrimaryTextarea,
 } from "ui";
 import * as yup from "yup";
 import Cookies from "js-cookie";
@@ -26,8 +38,9 @@ import {
   AiFillFacebook,
   AiFillLinkedin,
   AiFillTwitterCircle,
-  AiFillYoutube
+  AiFillYoutube,
 } from "react-icons/ai";
+import { OptionsModal } from "src/utils/OptionsModal";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -67,6 +80,7 @@ const AddStudio = () => {
   });
   const widgetLogoApi = useRef<any>(null);
   const onChangeLogoImage = (file: any) => {
+    onClose();
     if (file) {
       file.progress((info: any) => {
         setLogoLoading({ status: true, total: info.progress });
@@ -85,6 +99,7 @@ const AddStudio = () => {
   });
   const widgetApi = useRef<any>(null);
   const onChangeImg = (file: any) => {
+    onClose();
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
@@ -107,6 +122,13 @@ const AddStudio = () => {
     // value = value.split(",");
     setAddress(value);
     setValue("address", value);
+  };
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [func, setFunc] = useState<any>();
+  const openModal = (funcs: any, imageState: any, imageSetter: any) => {
+    onOpen();
+    setFunc({ click: funcs, imageState, imageSetter });
   };
 
   //Studio creation function
@@ -193,7 +215,9 @@ const AddStudio = () => {
                     cursor="pointer"
                     transition=".5s all ease"
                     opacity="0"
-                    onClick={() => widgetApi.current.openDialog()}
+                    onClick={() =>
+                      openModal(widgetLogoApi.current, logoUrl, setLogoUrl)
+                    }
                     _groupHover={{
                       opacity: "1",
                     }}
@@ -216,7 +240,9 @@ const AddStudio = () => {
                       as={FiUpload}
                       fontSize="2rem"
                       cursor="pointer"
-                      onClick={() => widgetLogoApi.current.openDialog()}
+                      onClick={() =>
+                        openModal(widgetLogoApi.current, logoUrl, setLogoUrl)
+                      }
                     />
                   )}
                 </>
@@ -287,11 +313,9 @@ const AddStudio = () => {
                 name="country"
                 error={errors.country}
                 register={register}
+                placeholder="Where is your studio located?"
                 options={
                   <>
-                    <option selected disabled>
-                      Where is your studio located?
-                    </option>
                     <option value="Nigeria">Nigeria</option>
                   </>
                 }
@@ -390,7 +414,9 @@ const AddStudio = () => {
                     p=".5rem 1rem"
                     cursor="pointer"
                     transition=".5s all ease"
-                    onClick={() => widgetApi.current.openDialog()}
+                    onClick={() =>
+                      openModal(widgetApi.current, bannerUrl, setBannerUrl)
+                    }
                     _groupHover={{
                       bottom: "0",
                     }}
@@ -413,7 +439,9 @@ const AddStudio = () => {
                       as={FiUpload}
                       fontSize="2rem"
                       cursor="pointer"
-                      onClick={() => widgetApi.current.openDialog()}
+                      onClick={() =>
+                        openModal(widgetApi.current, bannerUrl, setBannerUrl)
+                      }
                     />
                   )}
                 </>
@@ -503,6 +531,7 @@ const AddStudio = () => {
           </HStack>
         </form>
       </Box>
+      {isOpen && <OptionsModal isOpen={isOpen} onClose={onClose} fun={func} />}
     </Box>
   );
 };

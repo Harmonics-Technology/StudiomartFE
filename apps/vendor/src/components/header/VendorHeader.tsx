@@ -1,8 +1,17 @@
 import {
-  Avatar, Box, Button, Circle, Divider, Flex, HStack, Icon, Menu,
+  Avatar,
+  Box,
+  Button,
+  Circle,
+  Divider,
+  Flex,
+  HStack,
+  Icon,
+  Menu,
   MenuButton,
   MenuItem,
-  MenuList, Text
+  MenuList,
+  Text,
 } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import Cookies from "js-cookie";
@@ -86,7 +95,7 @@ function VendorHeader({ setShowSide, showSide }: Side) {
                   cursor="pointer"
                 >
                   <Icon as={PiUserSwitchFill} />
-                  <Text mb="0" fontWeight="600" fontSize=".9rem">
+                  <Text mb="0" fontWeight="600" fontSize=".9rem" noOfLines={1}>
                     Switch Studio
                   </Text>
                 </HStack>
@@ -95,6 +104,7 @@ function VendorHeader({ setShowSide, showSide }: Side) {
                   fontSize="1rem"
                   fontWeight="600"
                   pointerEvents="none"
+                  noOfLines={1}
                 >
                   {
                     userStudios?.filter((x: any) => x.id == currentStudioId)[0]
@@ -116,29 +126,39 @@ function VendorHeader({ setShowSide, showSide }: Side) {
                   borderColor="gray.400"
                 >
                   <Box>
-                    {userStudios
-                      .filter((x: StudioView) => x.id !== currentStudioId)
-                      .map((x: StudioView) => (
-                        <Flex
-                          key={x.id}
-                          px="1rem"
-                          cursor="pointer"
-                          h="3rem"
-                          align="center"
-                          w="full"
-                          borderBottom="1px solid"
-                          borderColor="gray.100"
-                          onClick={() => changeStudio(x.id)}
-                          _hover={{
-                            bgColor: "brand.100",
-                            color: "white",
-                          }}
-                        >
-                          <Text mb="0" noOfLines={1}>
-                            {x.name}
-                          </Text>
-                        </Flex>
-                      ))}
+                    {userStudios?.filter(
+                      (x: StudioView) => x.id !== currentStudioId
+                    ).length > 0 ? (
+                      <>
+                        {userStudios
+                          .filter((x: StudioView) => x.id !== currentStudioId)
+                          .map((x: StudioView) => (
+                            <Flex
+                              key={x.id}
+                              px="1rem"
+                              cursor="pointer"
+                              h="3rem"
+                              align="center"
+                              w="full"
+                              borderBottom="1px solid"
+                              borderColor="gray.100"
+                              onClick={() => changeStudio(x.id)}
+                              _hover={{
+                                bgColor: "brand.100",
+                                color: "white",
+                              }}
+                            >
+                              <Text mb="0" noOfLines={1}>
+                                {x.name}
+                              </Text>
+                            </Flex>
+                          ))}
+                      </>
+                    ) : (
+                      <Text mb="0" noOfLines={1} p='1rem' fontSize='.9rem'>
+                        No More Studios to show
+                      </Text>
+                    )}
                   </Box>
                 </Box>
               )}

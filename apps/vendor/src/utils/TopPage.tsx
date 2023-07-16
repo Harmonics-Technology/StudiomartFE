@@ -1,7 +1,4 @@
-import {
-  Box, Button, Flex,
-  Text, useDisclosure
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import { useContext } from "react";
 // import ModalWrapper from "ui/Components/utils/ModalWrapper";
 import { UserContext } from "@components/Context/UserContext";
@@ -50,11 +47,13 @@ function TopPage({ page, details, right, serviceTypes }: TopPageProps) {
             {device == "Mobile device" ? "+" : "Add Services"}
           </Button>
         )}
-        <AddingOptionsModal
-          isOpen={isOpen}
-          onClose={onClose}
-          serviceTypes={serviceTypes}
-        />
+        {isOpen && (
+          <AddingOptionsModal
+            isOpen={isOpen}
+            onClose={onClose}
+            serviceTypes={serviceTypes}
+          />
+        )}
       </Flex>
     </Box>
   );

@@ -1,8 +1,4 @@
 import React, { useState } from "react";
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from "react-places-autocomplete";
 import {
   Box,
   Input,
@@ -15,6 +11,10 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import { MdShareLocation } from "react-icons/md";
+import dynamic from "next/dynamic";
+const PlacesAutocomplete = dynamic(() => import("react-places-autocomplete"), {
+  ssr: false,
+});
 
 interface IProps {
   onChange: (e: any) => void;
@@ -56,10 +56,10 @@ export const GPlacesAutoComplete = ({
       <Box pos="absolute" bgColor="white" zIndex="999" w="full">
         {loading && <Spinner />}
         <List mt="1rem" w="full">
-          {suggestions.map((suggestion: any) => (
+          {suggestions.map((suggestion: any, i: any) => (
             <ListItem
               {...getSuggestionItemProps(suggestion)}
-              key={suggestion.id}
+              key={i}
             >
               <HStack
                 align="center"

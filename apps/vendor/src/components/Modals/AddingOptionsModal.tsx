@@ -1,13 +1,30 @@
 import {
-  Box, Button, Flex, FormLabel, Grid, HStack, Icon, Image, Square, Table,
+  Box,
+  Button,
+  Flex,
+  FormLabel,
+  Grid,
+  HStack,
+  Icon,
+  Image,
+  Square,
+  Table,
   TableContainer,
-  Tbody, Td, Text, Th, Thead, Tooltip, Tr, useDisclosure
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tooltip,
+  Tr,
+  useDisclosure,
+  Spinner,
 } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Widget } from "@uploadcare/react-widget";
 import { useRouter } from "next/router";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useForm } from "react-hook-form";
@@ -19,15 +36,18 @@ import { HiInformationCircle } from "react-icons/hi";
 import {
   ServiceModel,
   ServiceTypeView,
-  ServiceTypeViewListStandardResponse
+  ServiceTypeViewListStandardResponse,
+  StudioService,
 } from "src/services";
+import { OptionsModal } from "src/utils/OptionsModal";
 import {
   CurrencyField,
   DisabledInput,
   ModalWrapper,
   PrimaryInput,
   PrimarySelect,
-  PrimaryTextarea
+  PrimaryTextarea,
+  useNonInitialEffect,
 } from "ui";
 import * as yup from "yup";
 import YupPassword from "yup-password";
@@ -52,28 +72,38 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
   const router = useRouter();
   const [imageBox, setImageBox] = useState<any[]>([0, 1, 2, 3]);
   const [uploadedMedia, setUploadedMedia] = useState<any[]>([]);
+  const [mediaUrl, setMediaUrl] = useState();
   const { isOpen: open, onOpen: opens, onClose: close } = useDisclosure();
   const { isOpen: opened, onOpen: opensed, onClose: closed } = useDisclosure();
+
+  const widgetImageApi = useRef<any>([]);
 
   const {
     handleSubmit,
     register,
     control,
-    watch,
+    reset,
     formState: { errors, isSubmitting, isValid },
   } = useForm<ServiceModel>({
     resolver: yupResolver(validation),
     mode: "all",
   });
 
-  const onChangeImg = (info: any, id: number) => {
-    let newMedia = {
-      url: info.originalUrl,
-      id: id,
-    };
-
-    setUploadedMedia([...uploadedMedia, newMedia]);
-    //
+  const onChangeImg = (file: any, id: number) => {
+    close();
+    if (file) {
+      file.progress((info: any) => {
+        setImageLoading({ status: true, total: info.progress, id });
+        if (info.state == "ready") {
+          let newMedia = {
+            url: info.incompleteFileInfo.originalUrl,
+            id: id,
+          };
+          setImageLoading({ status: false, total: "" }),
+            setUploadedMedia([...uploadedMedia, newMedia]);
+        }
+      });
+    }
   };
 
   const [addon, setAddon] = useState({ id: "", name: "", price: "" });
@@ -121,9 +151,10 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
   });
   const widgetApi = useRef<any>(null);
   const uploadBannerUrl = (file: any) => {
+    close();
     if (file) {
       file.progress((info: any) => {
-        setImageLoading({ status: true, total: info.progress });
+        setImageLoading({ status: true, total: info.progress, id: "banner" });
         if (info.state == "ready") {
           setImageLoading({ status: false, total: "" }),
             setBannerUrl(info.incompleteFileInfo.originalUrl);
@@ -134,8 +165,24 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
 
   const closeModal = () => {
     onClose();
-    router.reload();
+    reset({});
+    // router.reload();
   };
+
+  const [func, setFunc] = useState<any>();
+  const openModal = (
+    funcs: any,
+    imageState: any,
+    imageSetter: any,
+    id?: any
+  ) => {
+    opens();
+    setFunc({ click: funcs, imageState, imageSetter, id });
+  };
+
+  useNonInitialEffect(() => {
+    setUploadedMedia([...uploadedMedia, { url: mediaUrl, id: func?.id }]);
+  }, [mediaUrl]);
 
   const onSubmit = async (data: ServiceModel) => {
     data.mediaUrls = uploadedMedia.map((x: any) => x.url);
@@ -148,19 +195,19 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
       };
     });
 
-    // try {
-    //   const result = await StudioService.createService({ requestBody: data });
-    //
-    //   if (result.status) {
-    //     toast.success("Successful!");
-    //     router.reload();
-    //     return;
-    //   }
-    //   toast.error(result.message as string);
-    //   return;
-    // } catch (error: any) {
-    //   toast.error(error?.body?.message || error?.message);
-    // }
+    try {
+      const result = await StudioService.createService({ requestBody: data });
+
+      if (result.status) {
+        toast.success("Successful!");
+        router.reload();
+        return;
+      }
+      toast.error(result.message as string);
+      return;
+    } catch (error: any) {
+      toast.error(error?.body?.message || error?.message);
+    }
   };
   return (
     <>
@@ -229,7 +276,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
               border="1px solid"
               borderColor="gray.400"
             >
-              {bannerUrl ? (
+               {bannerUrl ? (
                 <Box
                   role="group"
                   pos="relative"
@@ -263,23 +310,23 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
                 </Box>
               ) : (
                 <>
-                  {imageLoading.status ? (
-                    <Square size="4rem">
-                      <CircularProgressbar
-                        value={imageLoading.total}
-                        maxValue={1}
-                        text={`${imageLoading.total * 100}%`}
-                      />
-                    </Square>
-                  ) : (
-                    <Icon
-                      as={FiUpload}
-                      fontSize="2rem"
-                      cursor="pointer"
-                      onClick={() => widgetApi.current.openDialog()}
-                    />
-                  )}
-                </>
+              {imageLoading.status && imageLoading.id == "banner" ? (
+                <Square size="4rem">
+                  <CircularProgressbar
+                    value={imageLoading.total}
+                    maxValue={1}
+                    text={`${imageLoading.total * 100}%`}
+                  />
+                </Square>
+              ) : (
+                <Icon
+                  as={FiUpload}
+                  fontSize="2rem"
+                  cursor="pointer"
+                  onClick={() => openModal(widgetApi, bannerUrl, setBannerUrl)}
+                />
+              )}
+              </>
               )}
             </Flex>
           </Box>
@@ -322,16 +369,17 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
                     pos="relative"
                     // onClick={() => openFileUpload}
                   >
-                    <Widget
-                      publicKey="fda3a71102659f95625f"
-                      //@ts-ignore
-                      id="file"
-                      systemDialog
-                      imagesOnly
-                      onChange={(info) => onChangeImg(info, b)}
-                      //@ts-ignore
-                      // ref={widgetApi.current[i]}
-                    />
+                    <Box display="none">
+                      <Widget
+                        publicKey="fda3a71102659f95625f"
+                        systemDialog
+                        imagesOnly
+                        onFileSelect={(info) => onChangeImg(info, b)}
+                        // ref={widgetImageApi}
+                        ref={(el) => (widgetImageApi.current[i] = el)}
+                        inputAcceptTypes={".jpeg,.jpg, .png"}
+                      />
+                    </Box>
 
                     {uploadedMedia?.find((x) => x.id == b) ? (
                       <>
@@ -372,7 +420,23 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
                         </Box>
                       </>
                     ) : (
-                      <Icon as={AiOutlinePlus} />
+                      <>
+                        {imageLoading.status && imageLoading.id == b ? (
+                          <Spinner size="sm" />
+                        ) : (
+                          <Icon
+                            as={AiOutlinePlus}
+                            onClick={() =>
+                              openModal(
+                                widgetImageApi.current[i],
+                                mediaUrl,
+                                setMediaUrl,
+                                b
+                              )
+                            }
+                          />
+                        )}
+                      </>
                     )}
                   </Flex>
                 ))}
@@ -518,6 +582,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
           </HStack>
         </form>
       </ModalWrapper>
+      {open && <OptionsModal isOpen={open} onClose={close} fun={func} />}
     </>
   );
 };

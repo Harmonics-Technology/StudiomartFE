@@ -1,10 +1,20 @@
 import {
-  Box, Button, Flex, HStack, Icon, Image, Input,
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Icon,
+  Image,
+  Input,
   InputGroup,
-  InputLeftElement, Modal,
+  InputLeftElement,
+  Modal,
   ModalBody,
   ModalContent,
-  ModalOverlay, Square, Text, VStack
+  ModalOverlay,
+  Square,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -15,7 +25,7 @@ import { useDummyImage } from "react-simple-placeholder-image";
 import { GlobalSearchResultView, StudioService } from "src/services";
 import { useDebouncedCallback } from "use-debounce";
 
-import { NotFound, useNonInitialEffect } from "ui";
+import { NotFound, SearchInput, useNonInitialEffect } from "ui";
 
 export const SearchBox = ({ isOpen, onClose }: any) => {
   const router = useRouter();
@@ -94,38 +104,7 @@ export const SearchBox = ({ isOpen, onClose }: any) => {
         p="1rem"
       >
         <ModalBody p="0">
-          <InputGroup
-            // boxShadow="0px 4px 4px rgba(0, 0, 0, 0.2)"
-            borderRadius="4px"
-            h="4rem"
-            alignItems="center"
-          >
-            <InputLeftElement pointerEvents="none" h="full">
-              <Icon as={BsSearch} color="brand.100" />
-            </InputLeftElement>
-            <Input
-              type="text"
-              border="none"
-              _focusVisible={{ outline: "none" }}
-              _placeholder={{ fontSize: "1rem" }}
-              placeholder="Search studio by name, category"
-              overflow="hidden"
-              h="full"
-              onChange={(e: any) => searchFn(e.target.value)}
-            />
-            {/* <InputRightElement h="full" w="8rem">
-              <Button
-                h="full"
-                w="full"
-                bg="brand.100"
-                color="white"
-                size="sm"
-                onClick={doGlobalSearch}
-              >
-                Search
-              </Button>
-            </InputRightElement> */}
-          </InputGroup>
+          <SearchInput searchFn={searchFn} />
           <VStack
             gap="1rem"
             bgColor="white"
