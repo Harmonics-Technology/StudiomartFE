@@ -123,17 +123,23 @@ export const UnsplashModal = ({
               <NotFound />
             ) : searchedData?.results?.length > 0 ? (
               <>
-                <Flex justify="space-between" mb="2rem">
+                <Flex
+                  justify="space-between"
+                  mb="2rem"
+                  flexWrap="wrap"
+                  gap="1rem"
+                >
                   <Button
                     bgColor="brand.100"
                     color="white"
                     minW="unset"
                     borderRadius="3px"
+                    w={["full", "fit-content"]}
                     onClick={() => selectImageAndCloseModals()}
                   >
                     Select image
                   </Button>
-                  <HStack>
+                  <HStack justify={["space-between", "flex-end"]}>
                     <Button
                       bgColor="brand.100"
                       color="white"
@@ -157,7 +163,10 @@ export const UnsplashModal = ({
                     </Button>
                   </HStack>
                 </Flex>
-                <Grid templateColumns={["repeat(5,1fr)"]} gap="1rem">
+                <Grid
+                  templateColumns={["repeat(3,1fr)", "repeat(5,1fr)"]}
+                  gap="1rem"
+                >
                   {searchedData?.results?.map((x: any) => (
                     <Box
                       w="full"
