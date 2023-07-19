@@ -99,6 +99,7 @@ export const UnsplashModal = ({
       onClose={close}
       title="Choose from a wide variety of images"
       w="80%"
+      isCentered={false}
     >
       <Box w="full" p="1rem">
         <VStack mb="2rem">

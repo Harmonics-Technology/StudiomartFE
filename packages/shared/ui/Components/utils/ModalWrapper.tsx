@@ -18,6 +18,7 @@ type Props = {
   children: ReactNode;
   title?: string;
   w?: string;
+  isCentered?: boolean;
 };
 
 const ModalWrapper = ({
@@ -26,13 +27,14 @@ const ModalWrapper = ({
   children,
   title,
   w = "30%",
+  isCentered = true,
 }: Props) => {
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
       motionPreset="slideInBottom"
-      isCentered
+      isCentered={isCentered}
       trapFocus={false}
     >
       <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px) " />
