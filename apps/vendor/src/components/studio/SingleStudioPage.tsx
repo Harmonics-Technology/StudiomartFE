@@ -10,6 +10,7 @@ import {
   Grid,
   VStack,
   HStack,
+  Avatar,
 } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import { DeleteStudioModal } from "@components/Modals/DeleteStudioModal";
@@ -133,17 +134,12 @@ export const SingleStudioPage = ({ singleStudio }: StudioProps) => {
                 bgColor="brand.100"
                 transform="translateX(-50%)"
               >
-                {singleStudio?.logo ? (
-                  <Image
-                    src={singleStudio?.logo as string}
-                    alt="Banner Image"
-                    w="full"
-                    h="full"
-                    objectFit="cover"
-                  />
-                ) : (
-                  <DummyImage />
-                )}
+                <Avatar
+                  src={singleStudio?.logo as string}
+                  name={singleStudio?.name as string}
+                  size='full'
+                  objectFit="cover"
+                />
               </Circle>
             </Flex>
           </Box>

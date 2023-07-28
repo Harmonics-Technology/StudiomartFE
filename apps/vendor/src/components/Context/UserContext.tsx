@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { createContext, ReactNode, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { NotificationService } from "src/services";
+import { NotificationService, OpenAPI } from "src/services";
 import { getDeviceFromUserAgent } from "ui";
 
 export const UserContext = createContext<any>(null);
@@ -10,10 +10,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<any>();
   const [userStudios, setUserStudios] = useState<any>();
   const [currentStudioId, setCurrentStudioId] = useState<any>();
-  const userStudio = Cookies.get("vendorStudios");
+
   const [notifys, setNotifiys] = useState<any>();
   const [device, setDevice] = useState("");
   const router = useRouter();
+  const token = OpenAPI.TOKEN;
   const logout = (tokenValue: any, path?: any) => {
     tokenValue.map((x: any) => Cookies.remove(x));
     router.push(path || "/login");
@@ -26,6 +27,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     const offset = (router.query.offset as unknown as number) || 0;
     const limit = (router.query.limit as unknown as number) || 10;
     const isRead = false;
+    if (!token) {
+      return;
+    }
     try {
       const notifications = await NotificationService.getUserNotification({
         userId,
@@ -49,6 +53,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
   useEffect(() => {
+    const userStudio = localStorage.getItem("vendorStudios");
     if (loggedInUser !== undefined && userStudio) {
       setUser(JSON.parse(loggedInUser));
       setUserStudios(JSON.parse(userStudio as string));

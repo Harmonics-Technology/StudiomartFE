@@ -47,6 +47,7 @@ const CookieConsent = ({
       transition=".5s all cubic-bezier(0,.88,.71,.07)"
       py="1.5rem"
       borderRadius="10px"
+      zIndex={300}
     >
       <VStack w="85%" justify="space-between" gap=".5rem">
         <Text w="full" mb="0" fontWeight="400">

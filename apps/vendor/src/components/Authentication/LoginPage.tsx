@@ -1,7 +1,12 @@
 import {
-  Box, Checkbox, Flex,
-  Heading, Image, Link, Text,
-  VStack
+  Box,
+  Checkbox,
+  Flex,
+  Heading,
+  Image,
+  Link,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import { auth } from "@components/firebase/firebase";
@@ -15,9 +20,7 @@ import toast from "react-hot-toast";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import Slider from "react-slick";
 import { LoginModel, OpenAPI, StudioService, UserService } from "src/services";
-import {
-  PrimaryInput, slickImages, sliderSets, SubmitButton
-} from "ui";
+import { PrimaryInput, slickImages, sliderSets, SubmitButton } from "ui";
 import * as yup from "yup";
 import YupPassword from "yup-password";
 YupPassword(yup);
@@ -83,7 +86,11 @@ export const LoginPage = () => {
           className: "loginToast",
         });
         studios.status &&
-          Cookies.set("vendorStudios", JSON.stringify(studios.data?.value));
+          localStorage.setItem(
+            "vendorStudios",
+            JSON.stringify(studios.data?.value)
+          );
+        Cookies.set("vendorStudios", JSON.stringify(studios.data?.value[0]));
         currentStudioId == undefined &&
           Cookies.set(
             "currentStudioId",

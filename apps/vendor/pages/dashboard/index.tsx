@@ -44,7 +44,8 @@ export default index;
 
 export const getServerSideProps: GetServerSideProps = withPageAuth(
   async (ctx: any) => {
-    const studioId = JSON.parse(ctx.req.cookies.vendorStudios)[0].id;
+    const vendorStudios = ctx.req.cookies.vendorStudios;
+    const studioId = vendorStudios ? JSON.parse(vendorStudios).id : undefined;
     const currentStudioId = ctx.req.cookies.currentStudioId;
     //
     try {
