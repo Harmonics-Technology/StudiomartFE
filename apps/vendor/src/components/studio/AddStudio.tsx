@@ -43,16 +43,16 @@ import {
 import { OptionsModal } from "src/utils/OptionsModal";
 
 const schema = yup.object().shape({
-  name: yup.string().required(),
-  address: yup.string().required(),
-  email: yup.string().email().required(),
-  phone: yup.string().required(),
-  website: yup.string().required(),
-  country: yup.string().required(),
-  state: yup.string().required(),
-  city: yup.string().required(),
-  zipCode: yup.string().required(),
-  description: yup.string().required(),
+  // name: yup.string().required(),
+  // address: yup.string().required(),
+  // email: yup.string().email().required(),
+  // phone: yup.string().required(),
+  // website: yup.string().required(),
+  // country: yup.string().required(),
+  // state: yup.string().required(),
+  // city: yup.string().required(),
+  // zipCode: yup.string().required(),
+  // description: yup.string().required(),
 });
 
 const AddStudio = () => {
@@ -299,15 +299,6 @@ const AddStudio = () => {
               templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
               w="full"
             >
-              {/* <PrimaryInput<StudioModel>
-                label="Studio Address"
-                type="text"
-                placeholder="Full address of your studio?"
-                name="address"
-                error={errors.address}
-                register={register}
-                ref={googleRef}
-              /> */}
               <PrimarySelect<StudioModel>
                 label="Studio Country"
                 name="country"
@@ -320,14 +311,22 @@ const AddStudio = () => {
                   </>
                 }
               />
+              <PrimaryInput<StudioModel>
+                label="Studio Address"
+                type="text"
+                placeholder="Full address of your studio?"
+                name="address"
+                error={errors.address}
+                register={register}
+              />
 
-              <GPlacesAutoComplete
+              {/* <GPlacesAutoComplete
                 onSelect={getCityAndState}
                 onChange={handleChange}
                 address={address}
                 hasLabel="address"
                 className="auto"
-              />
+              /> */}
             </Grid>
             <Grid
               gap="1.5rem"

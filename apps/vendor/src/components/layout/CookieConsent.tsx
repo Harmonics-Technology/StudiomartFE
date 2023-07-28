@@ -40,7 +40,7 @@ const CookieConsent = ({
       w={{ base: "100%", lg: "25%" }}
       // left="50%"
       // transform="translateX(-50%)"
-      right={{
+      left={{
         base: isConsented ? "-100%" : "0%",
         lg: isConsented ? "-40%" : "2%",
       }}
