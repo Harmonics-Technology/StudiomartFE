@@ -137,7 +137,7 @@ export const SingleStudioPage = ({ singleStudio }: StudioProps) => {
                 <Avatar
                   src={singleStudio?.logo as string}
                   name={singleStudio?.name as string}
-                  size='full'
+                  size="2xl"
                   objectFit="cover"
                 />
               </Circle>

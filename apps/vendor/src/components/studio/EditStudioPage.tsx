@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   Circle,
@@ -204,12 +205,10 @@ export const EditStudioPage = ({ singleStudio }: StudioProps) => {
             >
               {logoUrl || singleStudio.logo ? (
                 <>
-                  <Image
+                  <Avatar
                     src={logoUrl || (singleStudio.logo as string)}
-                    alt="Logo image"
-                    w="full"
-                    h="full"
-                    objectFit="cover"
+                    name={singleStudio.name as string}
+                    size="2xl"
                   />
                   <Box
                     pos="absolute"
