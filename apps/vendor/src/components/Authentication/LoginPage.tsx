@@ -90,7 +90,10 @@ export const LoginPage = () => {
             "vendorStudios",
             JSON.stringify(studios.data?.value)
           );
-        Cookies.set("vendorStudios", JSON.stringify(studios.data?.value[0]));
+        Cookies.set(
+          "vendorStudios",
+          JSON.stringify(studios?.data?.value?.at(0))
+        );
         currentStudioId == undefined &&
           Cookies.set(
             "currentStudioId",
