@@ -39,13 +39,13 @@ export const Layout: React.FC = ({ children }) => {
               setShowSide={setIsComponentVisible}
             />
             <Box as="div" w="100%" mb="1rem" minH="80vh">
-              {notDone?.meansOfIdentification ||
+              {/* {notDone?.meansOfIdentification ||
               router.asPath.startsWith("/account") ? (
                 <Box>{children}</Box>
               ) : (
                 <Notice />
-              )}
-              {/* <Box>{children}</Box> */}
+              )} */}
+              <Box>{children}</Box>
             </Box>
           </Box>
           <Footer />
