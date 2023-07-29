@@ -28,7 +28,16 @@ export default index;
 
 export const getServerSideProps: GetServerSideProps = withPageAuth(
   async (ctx: any) => {
-    const studioId = JSON.parse(ctx.req.cookies.vendorStudios)[0].id;
+    var studios = JSON.parse(ctx.req.cookies.vendorStudios);
+    let studioId = '';
+    // check if studios is an array or an object 
+    if(studios == typeof Array)
+    {
+      studioId = studios[0].id;
+    }
+    else{
+      studioId = studios.id
+    }
     const currentStudioId = ctx.req.cookies.currentStudioId;
     try {
       const studioServices = await StudioService.listStudioServices({
