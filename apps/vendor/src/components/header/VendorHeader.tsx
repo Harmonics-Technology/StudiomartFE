@@ -125,40 +125,58 @@ function VendorHeader({ setShowSide, showSide }: Side) {
                   border="1px solid"
                   borderColor="gray.400"
                 >
-                  <Box>
-                    {userStudios?.filter(
-                      (x: StudioView) => x.id !== currentStudioId
-                    ).length > 0 ? (
-                      <>
-                        {userStudios
-                          .filter((x: StudioView) => x.id !== currentStudioId)
-                          .map((x: StudioView) => (
-                            <Flex
-                              key={x.id}
-                              px="1rem"
-                              cursor="pointer"
-                              h="3rem"
-                              align="center"
-                              w="full"
-                              borderBottom="1px solid"
-                              borderColor="gray.100"
-                              onClick={() => changeStudio(x.id)}
-                              _hover={{
-                                bgColor: "brand.100",
-                                color: "white",
-                              }}
-                            >
-                              <Text mb="0" noOfLines={1}>
-                                {x.name}
-                              </Text>
-                            </Flex>
-                          ))}
-                      </>
-                    ) : (
-                      <Text mb="0" noOfLines={1} p='1rem' fontSize='.9rem'>
-                        No More Studios to show
-                      </Text>
-                    )}
+                  <Box pos="relative">
+                    <Box>
+                      {userStudios?.filter(
+                        (x: StudioView) => x.id !== currentStudioId
+                      ).length > 0 ? (
+                        <>
+                          {userStudios
+                            .filter((x: StudioView) => x.id !== currentStudioId)
+                            .slice(0, 8)
+                            .map((x: StudioView) => (
+                              <Flex
+                                key={x.id}
+                                px="1rem"
+                                cursor="pointer"
+                                h="3rem"
+                                align="center"
+                                w="full"
+                                borderBottom="1px solid"
+                                borderColor="gray.100"
+                                onClick={() => changeStudio(x.id)}
+                                _hover={{
+                                  bgColor: "brand.100",
+                                  color: "white",
+                                }}
+                              >
+                                <Text mb="0" noOfLines={1}>
+                                  {x.name}
+                                </Text>
+                              </Flex>
+                            ))}
+                        </>
+                      ) : (
+                        <Text mb="0" noOfLines={1} p="1rem" fontSize=".9rem">
+                          No More Studios to show
+                        </Text>
+                      )}
+                    </Box>
+                    <Button
+                      bgColor="brand.100"
+                      color="white"
+                      h="3rem"
+                      w="90%"
+                      my="1rem"
+                      borderRadius="8px"
+                      left="5%"
+                      onClick={() => {
+                        router.push("/studio/all-studios");
+                        setIsComponentVisible(false);
+                      }}
+                    >
+                      View All
+                    </Button>
                   </Box>
                 </Box>
               )}
@@ -208,6 +226,15 @@ function VendorHeader({ setShowSide, showSide }: Side) {
               </MenuButton>
 
               <MenuList p="1rem">
+                <MenuItem
+                  mb=".5rem"
+                  as="div"
+                  onClick={() => router.push("/studio/all-studios")}
+                  justifyContent="center"
+                  cursor="pointer"
+                >
+                  My Studios
+                </MenuItem>
                 <MenuItem
                   mb=".5rem"
                   as="div"

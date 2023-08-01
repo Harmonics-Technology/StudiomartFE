@@ -1,3 +1,4 @@
+import { Loader } from './Components/utils/Loader';
 import { SearchInput } from './Components/utils/SearchInput';
 import { BookingsBtn } from "./Components/utils/BookingsBtn";
 import { ResponseBox, ResponseBoxLarge } from "./Components/utils/ResponseBox";
@@ -121,5 +122,6 @@ export {
   ResponseBoxLarge,
   BookingsBtn,
   slickImages,
-  SearchInput
+  SearchInput,
+  Loader
 };
