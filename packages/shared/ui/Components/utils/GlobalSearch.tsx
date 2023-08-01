@@ -12,9 +12,11 @@ import { BsSearch } from "react-icons/bs";
 import { SearchBox } from "./SearchBox";
 
 export const GlobalSearch = ({
-  url = "/customer/details/",
+  url = "/all-studios",
+  urlb = "/customer/details/",
 }: {
   url?: string;
+  urlb?: string;
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -70,7 +72,9 @@ export const GlobalSearch = ({
           </Text>
         </InputRightElement>
       </InputGroup>
-      {isOpen && <SearchBox isOpen={isOpen} onClose={onClose} url={url} />}
+      {isOpen && (
+        <SearchBox isOpen={isOpen} onClose={onClose} url={url} urlb={urlb} />
+      )}
     </>
   );
 };

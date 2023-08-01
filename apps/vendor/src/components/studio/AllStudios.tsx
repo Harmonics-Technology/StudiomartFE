@@ -38,7 +38,7 @@ const AllStudios = ({ studios }: { studios: any }) => {
     >
       {loading && <Loader src="/stdd.gif" />}
       <Box w={["80%", "60%"]} mx="auto">
-        <GlobalSearch url="/studio/service" />
+        <GlobalSearch url="/studio/service" urlb="/services" />
       </Box>
       <Box w="95%" mx="auto">
         {allStudio?.value?.length == 0 ? (
