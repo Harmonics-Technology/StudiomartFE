@@ -27,7 +27,7 @@ import { useDebouncedCallback } from "use-debounce";
 
 import { NotFound, SearchInput, useNonInitialEffect } from "ui";
 
-export const SearchBox = ({ isOpen, onClose }: any) => {
+export const SearchBox = ({ isOpen, onClose,url }: any) => {
   const router = useRouter();
   const [limit, setLimt] = useState(7);
   const [search, setSearch] = useState("");
@@ -40,7 +40,7 @@ export const SearchBox = ({ isOpen, onClose }: any) => {
       setSearchedData([]);
       return;
     }
-    router.push(`/customer/details/${x?.id}`);
+    router.push(`${url}/${x?.id}`);
     setSearchedData([]);
     onClose();
   };

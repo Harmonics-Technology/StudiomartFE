@@ -1,13 +1,21 @@
 import {
   Icon,
-  Input, InputGroup,
-  InputLeftElement, InputRightElement, Text, useDisclosure
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
 import { SearchBox } from "./SearchBox";
 
-export const GlobalSearch = () => {
+export const GlobalSearch = ({
+  url = "/customer/details/",
+}: {
+  url?: string;
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -62,7 +70,7 @@ export const GlobalSearch = () => {
           </Text>
         </InputRightElement>
       </InputGroup>
-      {isOpen && <SearchBox isOpen={isOpen} onClose={onClose} />}
+      {isOpen && <SearchBox isOpen={isOpen} onClose={onClose} url={url} />}
     </>
   );
 };
