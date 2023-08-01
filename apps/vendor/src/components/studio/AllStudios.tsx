@@ -1,9 +1,13 @@
 import { SimpleGrid, HStack, Box } from "@chakra-ui/react";
-import StudiCard from "pages/studio/StudioCard";
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { StudioService, StudioView } from "src/services";
-import { Loader, NotFound, Pagination } from "ui";
+import { GlobalSearch, Loader, NotFound, Pagination } from "ui";
+
+const StudioCard = dynamic(() => import("pages/studio/StudioCard"), {
+  ssr: false,
+});
 
 const AllStudios = ({ studios }: { studios: any }) => {
   const [allStudio, setAllStudio] = useState(studios);
@@ -33,13 +37,16 @@ const AllStudios = ({ studios }: { studios: any }) => {
       overflow="hidden"
     >
       {loading && <Loader src="/stdd.gif" />}
+      <Box w={["80%", "60%"]} mx="auto">
+        <GlobalSearch />
+      </Box>
       <Box w="95%" mx="auto">
         {allStudio?.value?.length == 0 ? (
           <NotFound />
         ) : (
           <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["5", "6"]}>
             {allStudio?.value?.map((studio: StudioView) => (
-              <StudiCard
+              <StudioCard
                 key={studio.id}
                 studio={studio}
                 deleteStudio={deleteStudio}

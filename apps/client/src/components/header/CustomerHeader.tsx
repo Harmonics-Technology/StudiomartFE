@@ -2,11 +2,11 @@ import {
   Box, Button, Circle, Flex, HStack, Icon, Image
 } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
-import { GlobalSearch } from "@components/Home/GlobalSearch";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { BsBell, BsBookmarkHeart } from "react-icons/bs";
+import { GlobalSearch } from "ui";
 import CustomerSidebar from "./CustomerSidebar";
 
 const CustomerHeader = ({ category }: any) => {

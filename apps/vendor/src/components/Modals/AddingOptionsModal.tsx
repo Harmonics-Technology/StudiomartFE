@@ -200,7 +200,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
 
       if (result.status) {
         toast.success("Successful!");
-        router.reload();
+        router.push("/services");
         return;
       }
       toast.error(result.message as string);

@@ -13,7 +13,7 @@ import { IoMdClose } from "react-icons/io";
 import { IoStorefront } from "react-icons/io5";
 import { ServiceView, UserView } from "src/services";
 // import category from "../utils/category.json";
-import { GlobalSearch } from "@components/Home/GlobalSearch";
+import { GlobalSearch } from "ui";
 
 const CustomerSidebar = ({
   user,

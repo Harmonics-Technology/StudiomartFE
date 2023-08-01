@@ -40,16 +40,16 @@ import NoSSR from "react-no-ssr";
 import { OptionsModal } from "src/utils/OptionsModal";
 
 const schema = yup.object().shape({
-  name: yup.string().required(),
-  address: yup.string().required(),
-  email: yup.string().email().required(),
-  phone: yup.string().required(),
+  // name: yup.string().required(),
+  // address: yup.string().required(),
+  // email: yup.string().email().required(),
+  // phone: yup.string().required(),
   // website: yup.string().required(),
-  country: yup.string().required(),
-  state: yup.string().required(),
-  city: yup.string().required(),
+  // country: yup.string().required(),
+  // state: yup.string().required(),
+  // city: yup.string().required(),
   // zipCode: yup.string().required(),
-  description: yup.string().required(),
+  // description: yup.string().required(),
 });
 
 interface StudioProps {

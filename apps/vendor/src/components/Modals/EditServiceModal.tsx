@@ -38,6 +38,7 @@ import {
   StudioService,
   UpdateServiceModel,
 } from "src/services";
+import { OptionsModal } from "src/utils/OptionsModal";
 import {
   CurrencyField,
   DisabledInput,
@@ -118,6 +119,7 @@ const EditServiceModal = ({
   });
 
   const onChangeImg = (file: any) => {
+    close();
     if (file) {
       file.progress((info: any) => {
         setLoading({ status: true, id: "imageLoad" });
@@ -525,6 +527,17 @@ const EditServiceModal = ({
                 </HStack>
                 <Box>
                   <HStack w="full" gap=".5rem" overflow="auto" pb=".5rem">
+                    <Box display="none">
+                      <Widget
+                        publicKey="fda3a71102659f95625f"
+                        //@ts-ignore
+                        id="file"
+                        systemDialog
+                        imagesOnly
+                        ref={widgetImageApi}
+                        onFileSelect={onChangeImg}
+                      />
+                    </Box>
                     <Flex
                       w="70px"
                       h="70px"
@@ -537,16 +550,6 @@ const EditServiceModal = ({
                       align="center"
                       pos="relative"
                     >
-                      <Widget
-                        publicKey="fda3a71102659f95625f"
-                        //@ts-ignore
-                        id="file"
-                        systemDialog
-                        imagesOnly
-                        ref={widgetImageApi}
-                        onFileSelect={(file) => onChangeImg(file)}
-                      />
-
                       {loading.status && loading.id == "imageLoad" ? (
                         <Spinner size="sm" />
                       ) : (
@@ -735,6 +738,7 @@ const EditServiceModal = ({
           >
             Update Service
           </Button>
+          {open && <OptionsModal isOpen={open} onClose={close} fun={func} />}
         </HStack>
       </ModalWrapper>
     </>

@@ -2,17 +2,18 @@ import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import { useRouter } from "next/router";
 import { useContext } from "react";
-import { useDummyImage } from "react-simple-placeholder-image";
+// import { useDummyImage } from "react-simple-placeholder-image";
 import { MenuDropdown } from "ui";
 
-const StudiCard = ({
+const StudioCard = ({
   studio,
   deleteStudio,
 }: {
   studio: any;
   deleteStudio: any;
 }) => {
-  const image = useDummyImage({});
+  // const image = useDummyImage({});
+  const image = '/assets/003.jpg'
   const router = useRouter();
   const { setCurrentStudioId } = useContext(UserContext);
 
@@ -109,4 +110,4 @@ const StudiCard = ({
   );
 };
 
-export default StudiCard;
+export default StudioCard;

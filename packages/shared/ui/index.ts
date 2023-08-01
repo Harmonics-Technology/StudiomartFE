@@ -1,3 +1,5 @@
+import { SearchBox } from './Components/utils/SearchBox';
+import { GlobalSearch } from './Components/utils/GlobalSearch';
 import { Loader } from './Components/utils/Loader';
 import { SearchInput } from './Components/utils/SearchInput';
 import { BookingsBtn } from "./Components/utils/BookingsBtn";
@@ -123,5 +125,7 @@ export {
   BookingsBtn,
   slickImages,
   SearchInput,
-  Loader
+  Loader,
+  GlobalSearch,
+  SearchBox
 };

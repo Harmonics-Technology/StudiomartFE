@@ -1,11 +1,7 @@
-import {
-  Box, HStack,
-  SimpleGrid, Text
-} from "@chakra-ui/react";
-import { GlobalSearch } from "@components/Home/GlobalSearch";
+import { Box, HStack, SimpleGrid, Text } from "@chakra-ui/react";
 import StudiCard from "@components/Home/StudioCard";
 import { ServiceView } from "src/services";
-import { NotFound, Pagination } from "ui";
+import { NotFound, Pagination, GlobalSearch } from "ui";
 
 const Studio = ({ allService }: any) => {
   return (

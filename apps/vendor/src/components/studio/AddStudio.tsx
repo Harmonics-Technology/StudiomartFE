@@ -16,7 +16,7 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Widget } from "@uploadcare/react-widget";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useForm } from "react-hook-form";
@@ -41,6 +41,7 @@ import {
   AiFillYoutube,
 } from "react-icons/ai";
 import { OptionsModal } from "src/utils/OptionsModal";
+import { UserContext } from "@components/Context/UserContext";
 
 const schema = yup.object().shape({
   // name: yup.string().required(),
@@ -125,6 +126,7 @@ const AddStudio = () => {
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { setCurrentStudioId } = useContext(UserContext);
   const [func, setFunc] = useState<any>();
   const openModal = (funcs: any, imageState: any, imageSetter: any) => {
     onOpen();
@@ -143,7 +145,11 @@ const AddStudio = () => {
           limit: 10,
         });
         studios.status &&
-          Cookies.set("vendorStudios", JSON.stringify(studios.data?.value));
+          localStorage.setItem(
+            "vendorStudios",
+            JSON.stringify(studios.data?.value?.slice(0, 8))
+          );
+        setCurrentStudioId(studios?.data?.value?.at(0)?.id);
         toast.success("Studio successfully created, will reload shortly");
         window.location.href = `/dashboard?studio=${result.data?.id}`;
         return;
