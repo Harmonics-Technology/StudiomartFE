@@ -185,18 +185,19 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
   }, [mediaUrl]);
 
   const onSubmit = async (data: ServiceModel) => {
-    data.mediaUrls =
-      uploadedMedia.length > 0
-        ? data.mediaUrls = uploadedMedia.map((x: any) => x.url)
-        : data.mediaUrls = undefined;
+    if (uploadedMedia.length > 0) {
+      data.mediaUrls = uploadedMedia.map((x: any) => x.url);
+    }
+    if (populatedItem.length > 0) {
+      data.additionalServices = populatedItem.map((x: any) => {
+        return {
+          name: x.name,
+          price: x.price,
+        };
+      });
+    }
     data.studioId = currentStudioId;
     data.bannerImageURL = bannerUrl;
-    data.additionalServices = populatedItem.map((x: any) => {
-      return {
-        name: x.name,
-        price: x.price,
-      };
-    });
 
     try {
       const result = await StudioService.createService({ requestBody: data });
