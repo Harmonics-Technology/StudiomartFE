@@ -185,7 +185,10 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
   }, [mediaUrl]);
 
   const onSubmit = async (data: ServiceModel) => {
-    data.mediaUrls = uploadedMedia.map((x: any) => x.url);
+    data.mediaUrls =
+      uploadedMedia.length > 0
+        ? data.mediaUrls = uploadedMedia.map((x: any) => x.url)
+        : data.mediaUrls = undefined;
     data.studioId = currentStudioId;
     data.bannerImageURL = bannerUrl;
     data.additionalServices = populatedItem.map((x: any) => {
@@ -200,7 +203,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
 
       if (result.status) {
         toast.success("Successful!");
-        router.push("/services");
+        router.reload();
         return;
       }
       toast.error(result.message as string);
@@ -554,7 +557,7 @@ const AddingOptionsModal = ({ isOpen, onClose, serviceTypes }: Props) => {
             </Button>
           </Box>
           <HStack
-            mt="1.5rem"
+            my="1.5rem"
             gap={{ base: ".5rem", md: "2rem" }}
             display={{ base: "flex", md: "" }}
             flexDir={{ base: "column", md: "row" }}

@@ -641,11 +641,17 @@ const EditServiceModal = ({
           {populatedItem?.length > 0 && (
             <VStack w="full" mt="1rem" gap="1rem" align="flex-start">
               {populatedItem?.map((x: AdditionalService) => (
-                <HStack key={x.id} align="flex-end" w="full" gap="1rem">
+                <HStack
+                  key={x.id}
+                  align="flex-end"
+                  w="full"
+                  gap="1rem"
+                  pb="1.5rem"
+                >
                   <Grid
                     templateColumns={{
                       base: "repeat(1,1fr)",
-                      lg: "repeat(1,1fr)",
+                      lg: "repeat(2,1fr)",
                     }}
                     gap="1.5rem"
                     w="full"
@@ -672,7 +678,7 @@ const EditServiceModal = ({
                       }
                     />
                   </Grid>
-                  <HStack py="3.5rem" gap="1">
+                  <HStack gap="1">
                     <IconButton
                       icon={<BsCheck2All />}
                       aria-label="Edit Addon"
@@ -712,7 +718,7 @@ const EditServiceModal = ({
             </VStack>
           )}
         </Box>
-        <HStack mt="1.5rem" gap="2rem">
+        <HStack my="1.5rem" gap="2rem">
           <Button
             variant="outline"
             borderColor="brand.100"

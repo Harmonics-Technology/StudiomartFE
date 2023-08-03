@@ -1,5 +1,6 @@
 import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 // import { useDummyImage } from "react-simple-placeholder-image";
@@ -13,13 +14,14 @@ const StudioCard = ({
   deleteStudio: any;
 }) => {
   // const image = useDummyImage({});
-  const image = '/assets/003.jpg'
+  const image = "/assets/003.jpg";
   const router = useRouter();
   const { setCurrentStudioId } = useContext(UserContext);
 
   const goToStudio = () => {
-    router.push(`/studio/service/${studio?.id}`);
     setCurrentStudioId(studio?.id);
+    Cookies.set("currentStudioId", studio?.id);
+    router.push(`/studio/service/${studio?.id}`);
   };
 
   return (

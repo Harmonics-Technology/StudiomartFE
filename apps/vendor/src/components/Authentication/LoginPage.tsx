@@ -88,7 +88,7 @@ export const LoginPage = () => {
         studios.status &&
           localStorage.setItem(
             "vendorStudios",
-            JSON.stringify(studios.data?.value?.slice(0, 8))
+            JSON.stringify(studios.data?.value)
           );
         Cookies.set(
           "vendorStudios",

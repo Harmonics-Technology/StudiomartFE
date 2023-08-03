@@ -35,6 +35,7 @@ function VendorHeader({ setShowSide, showSide }: Side) {
     useContext(UserContext);
   const router = useRouter();
   const messageCount = notifys?.size;
+  console.log({ userStudios });
 
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);

@@ -64,6 +64,7 @@ export const SingleServicePage = ({
   const { isOpen: open, onOpen: opens, onClose: closed } = useDisclosure();
   const router = useRouter();
 
+  console.log({service})
   return (
     <Box>
       <Box bgColor="white">
