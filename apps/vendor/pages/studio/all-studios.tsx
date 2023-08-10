@@ -22,6 +22,7 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
       const allStudios = await StudioService.listUserStudios({
         offset: pagingOptions.offset,
         limit: pagingOptions.limit || 9,
+        search: pagingOptions.search,
       });
       return {
         props: {

@@ -625,10 +625,12 @@ device?: any,
     public static listUserStudios({
 offset,
 limit,
+search,
 device,
 }: {
 offset?: number,
 limit?: number,
+search?: string,
 device?: any,
 }): CancelablePromise<StudioViewPagedCollectionStandardResponse> {
         return __request(OpenAPI, {
@@ -640,6 +642,7 @@ device?: any,
             query: {
                 'Offset': offset,
                 'Limit': limit,
+                'search': search,
             },
             errors: {
                 400: `Bad Request`,

@@ -277,7 +277,8 @@ const EditServiceModal = ({
   });
   const widgetApi = useRef<any>(null);
   const uploadBannerUrl = (file: any) => {
-    onClose();
+    // onClose();
+    close();
     if (file) {
       file.progress((info: any) => {
         setImageLoading({ status: true, total: info.progress });
