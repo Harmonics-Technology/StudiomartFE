@@ -7,7 +7,7 @@ import { DummyImage } from "react-simple-placeholder-image";
 import {
   ServiceTypeViewListStandardResponse,
   ServiceView,
-  ServiceViewPagedCollectionStandardResponse
+  ServiceViewPagedCollectionStandardResponse,
 } from "src/services";
 import TopPage from "../../utils/TopPage";
 
