@@ -123,9 +123,10 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
             spacing={{ base: "0", lg: "1" }}
             flexDirection={{ base: "column", lg: "row" }}
           >
+            {/* wrap this text if the name is longer */}
             <Text
               fontSize={["1rem", "20px"]}
-              noOfLines={1}
+              noOfLines={2}
               color="#171717"
               fontWeight="500"
               fontFamily="BR Firma"

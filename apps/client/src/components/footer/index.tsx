@@ -81,35 +81,35 @@ export const Footer = ({
             </Text>
             <VStack spacing="5" align="flex-start">
               <NavLink
-                path={`category/${
+                path={`/category/${
                   category?.find((x: any) => x.name?.toLowerCase() == "music")
                     ?.id
                 }`}
                 name="Music Studio"
               />
               <NavLink
-                path={`category/${
+                path={`/category/${
                   category?.find((x: any) => x.name?.toLowerCase() == "photo")
                     ?.id
                 }`}
                 name="Photo Studio"
               />
               <NavLink
-                path={`category/${
+                path={`/category/${
                   category?.find((x: any) => x.name?.toLowerCase() == "makeup")
                     ?.id
                 }`}
                 name="Make Up Studio"
               />
               <NavLink
-                path={`category/${
+                path={`/category/${
                   category?.find((x: any) => x.name?.toLowerCase() == "hair")
                     ?.id
                 }`}
                 name="Hair Studio"
               />
               <NavLink
-                path={`category/${
+                path={`/category/${
                   category?.find((x: any) => x.name?.toLowerCase() == "video")
                     ?.id
                 }`}

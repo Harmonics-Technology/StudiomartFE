@@ -1,12 +1,14 @@
 import {
   Box,
-  Button, Grid,
+  Button,
+  Grid,
   HStack,
   Icon,
-  Image, SimpleGrid,
+  Image,
+  SimpleGrid,
   Square,
   Text,
-  VStack
+  VStack,
 } from "@chakra-ui/react";
 import PopularStudioCard from "@components/Home/PopularStudioCard";
 import { RatingInfo } from "@components/Home/RatingInfo";
@@ -25,7 +27,7 @@ import {
   AdditionalServiceView,
   ReviewView,
   ServiceView,
-  StudioService
+  StudioService,
 } from "src/services";
 import { BackToPage, Cur, CustomCheckbox, Rating } from "ui";
 
@@ -159,7 +161,19 @@ const ServiceDetails = ({
             ))}
           </Slider>
         ) : (
-          <Image src={image} alt="cover" h="full" w="full" />
+          <Box
+                w="full"
+                h={{ base: "400px", lg: "550px" }}
+                overflow="hidden"
+              >
+                <Image
+                  w="full"
+                  h="full"
+                  objectFit="cover"
+                  alt={service.bannerImageURL as string}
+                  src={service.bannerImageURL as string}
+                />
+              </Box>
         )}
       </Box>
 
@@ -210,50 +224,57 @@ const ServiceDetails = ({
           </HStack>
         </Box>
       </Box>
-      <HStack
-        my={["2rem", "4rem"]}
-        flexDir={{ base: "column", lg: "row" }}
-        align={["flex-start", "center"]}
-      >
-        <Text
-          fontSize={["1rem", "24px"]}
-          noOfLines={1}
-          color="#171717"
-          fontWeight="600"
-          fontFamily="BR Firma"
-          mb="0"
-        >
-          Additional services:
-        </Text>
-        <Text
-          fontSize="16px"
-          lineHeight="27px"
-          color="#3d3d3d"
-          mb="0"
-          fontFamily="BR Firma"
-        >
-          Indicate the additional services you need by clicking the checkbox
-        </Text>
-      </HStack>
-      <Grid
-        templateColumns={{ base: "repeat(1fr)", lg: "repeat(2, 1fr)" }}
-        w={{ base: "full", lg: "60%" }}
-        gap={{ base: "2rem", lg: "3rem" }}
-        mb={{ base: "3rem", lg: "4rem" }}
-      >
-        {service?.additionalServices?.map((x) => (
-          <HStack key={x.id} align="center">
-            <CustomCheckbox onChange={() => addToArray(x)} />
-            <Text fontSize="18px" color="#3d3d3d" mb="0">
-              {x.name}
-              {" - "}
-              <span style={{ fontWeight: "500" }}>
-                {Cur(x.price as number)} NGN
-              </span>
-            </Text>
-          </HStack>
-        ))}
-      </Grid>
+      {/* only diplay this section if the service has an additional service */}
+      {service?.additionalServices &&
+        service?.additionalServices?.length > 0 && (
+          <Box>
+            <HStack
+              my={["2rem", "4rem"]}
+              flexDir={{ base: "column", lg: "row" }}
+              align={["flex-start", "center"]}
+            >
+              <Text
+                fontSize={["1rem", "24px"]}
+                noOfLines={1}
+                color="#171717"
+                fontWeight="600"
+                fontFamily="BR Firma"
+                mb="0"
+              >
+                Additional services:
+              </Text>
+              <Text
+                fontSize="16px"
+                lineHeight="27px"
+                color="#3d3d3d"
+                mb="0"
+                fontFamily="BR Firma"
+              >
+                Indicate the additional services you need by clicking the
+                checkbox
+              </Text>
+            </HStack>
+            <Grid
+              templateColumns={{ base: "repeat(1fr)", lg: "repeat(2, 1fr)" }}
+              w={{ base: "full", lg: "60%" }}
+              gap={{ base: "2rem", lg: "3rem" }}
+              mb={{ base: "3rem", lg: "4rem" }}
+            >
+              {service?.additionalServices?.map((x) => (
+                <HStack key={x.id} align="center">
+                  <CustomCheckbox onChange={() => addToArray(x)} />
+                  <Text fontSize="18px" color="#3d3d3d" mb="0">
+                    {x.name}
+                    {" - "}
+                    <span style={{ fontWeight: "500" }}>
+                      {Cur(x.price as number)} NGN
+                    </span>
+                  </Text>
+                </HStack>
+              ))}
+            </Grid>
+          </Box>
+        )}
       <HStack
         w={{ base: "full", lg: "60%" }}
         spacing={0}

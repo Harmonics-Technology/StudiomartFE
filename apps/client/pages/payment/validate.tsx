@@ -5,36 +5,32 @@ import { GetServerSideProps } from "next";
 import { PaymentService } from "src/services";
 
 function validate({ data }: { data: any }) {
+  console.log({data});
   return <Validate data={data} />;
 }
 
 export default validate;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { tx_ref, transaction_id, status } = ctx.query;
+  const { trxref } = ctx.query;
   //
-
-  if (status == "cancelled") {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/payment/cancelled",
-      },
-    };
-  }
-  if (status == "failed") {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/payment/cancelled",
-      },
-    };
-  }
+  console.log({trxref});
   try {
     const data = await PaymentService.verifyPayment({
-      transactionId: Number(transaction_id),
-      transactionReference: tx_ref as string,
+      transactionReference: trxref as string,
     });
+
+    console.log({data})
+    if(!data.status)
+    {
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/payment/cancelled",
+        },
+      };
+    }
+
 
     return {
       props: {

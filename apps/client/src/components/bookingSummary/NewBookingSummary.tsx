@@ -96,7 +96,7 @@ const NewBookingSummary = ({ singleService, id, addons }: ICustomerHome) => {
       },
       serviceId: id,
       additionalServices: selectedAddon.map((x) => x.id as string),
-      voucherId: couponApplied.id,
+      voucherId: couponApplied?.id,
     };
     setLoading(true);
     try {

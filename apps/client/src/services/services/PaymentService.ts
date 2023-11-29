@@ -18,19 +18,16 @@ export class PaymentService {
      */
     public static verifyPayment({
 transactionReference,
-transactionId,
 device,
 }: {
 transactionReference: string,
-transactionId: number,
 device?: any,
 }): CancelablePromise<ObjectStandardResponse> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/Payment/verify/{transactionReference}/{transactionId}',
+            url: '/api/Payment/verify/{transactionReference}',
             path: {
                 'transactionReference': transactionReference,
-                'transactionId': transactionId,
             },
             headers: {
                 'device': device,

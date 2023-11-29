@@ -8,7 +8,7 @@ import {
 import { AuthContext } from "@components/Context/AuthContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Widget } from "@uploadcare/react-widget";
-import { updateProfile } from "firebase/auth";
+import { updateProfile, getAuth, User } from "firebase/auth";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -76,7 +76,8 @@ const CustomerProfile = ({ user }: IProfileProps) => {
     try {
       const result = await UserService.updateUser({ requestBody: data });
       if (result.status) {
-        await updateProfile(currentUser, {
+        const auth = getAuth();
+        await updateProfile(auth.currentUser as User, {
           displayName: data.firstName,
           photoURL: imageUrl,
         });
@@ -90,6 +91,7 @@ const CustomerProfile = ({ user }: IProfileProps) => {
       toast.error(result.message as string);
       return;
     } catch (error: any) {
+      console.error({error})
       toast.error(error?.body?.message || error?.message, {
         className: "loginToast",
       });
