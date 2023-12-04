@@ -23,8 +23,15 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
       if (result.status) {
         setLoading(false);
         // setSaveStats(true);
+        router.replace(router.asPath)
         toast.success("Added to saved items", { className: "loginToast" });
         return;
+      }
+      if(result.statusCode == 401){
+        setLoading(false);
+        toast.error('Your session expired, Please login again', { className: "loginToast" });
+        router.push('/login')
+        return
       }
       setLoading(false);
       toast.error(result.message as string, { className: "loginToast" });
@@ -88,7 +95,7 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
               {isSaved ? (
                 <Icon
                   as={BsBookmarkHeartFill}
-                  onClick={removeSaved}
+                  onClick={id ? removeSaved : ()=> router.push('/customer/saved-studios')}
                   fontSize="1.3rem"
                   color="red"
                   bgColor="white"

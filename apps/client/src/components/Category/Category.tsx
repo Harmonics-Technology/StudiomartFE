@@ -57,7 +57,7 @@ const Category = ({
         ) : (
           <SimpleGrid mt={["5", "10"]} columns={[2, 3]} spacing={["3", "6"]}>
             {singlecategory?.value?.map((service, index) => (
-              <PopularStudioCard key={index} service={service} />
+              <PopularStudioCard key={index} service={service} isSaved={service?.isSaved} />
             ))}
           </SimpleGrid>
         )}

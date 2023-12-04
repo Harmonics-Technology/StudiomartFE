@@ -14,6 +14,7 @@ export const SideBar = ({ showChat, setShowChat }: any) => {
   const { dispatch } = useContext(ChatContext);
   //
 
+  console.log({currentUser, chat})
   const handleSelect = async (u: any) => {
     const combinedId =
       currentUser?.uid > u?.userInfo.uid

@@ -81,6 +81,8 @@ function BookingsHome({ allBookings }: BookingProps) {
                       <BsFillChatRightTextFill />
                     </Td>
                   ) : (
+                    <Td>
+
                     <HandleSelectChat
                       chatUser={{
                         uid: info.user?.id,
@@ -90,14 +92,15 @@ function BookingsHome({ allBookings }: BookingProps) {
                       url="/message"
                       setLoading={setLoading}
                     >
-                      <Td>
+                      <Box>
                         {loading ? (
                           <BeatLoader size={8} />
                         ) : (
                           <BsFillChatRightTextFill />
                         )}
-                      </Td>
+                      </Box>
                     </HandleSelectChat>
+                    </Td>
                   )}
                   <Td
                     onClick={() => {

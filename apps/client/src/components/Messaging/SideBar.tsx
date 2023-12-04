@@ -15,9 +15,11 @@ export const SideBar = ({ showChat, setShowChat }: any) => {
 
   const { dispatch } = useContext(ChatContext);
 
+  
   const handleSelect = async (u: any) => {
+   
     const combinedId =
-      currentUser?.uid > u?.userInfo.uid
+      currentUser?.uid > u?.userInfo?.uid
         ? currentUser?.uid + u?.userInfo?.uid
         : u?.userInfo?.uid + currentUser?.uid;
 

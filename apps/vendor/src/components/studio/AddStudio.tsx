@@ -44,16 +44,16 @@ import { OptionsModal } from "src/utils/OptionsModal";
 import { UserContext } from "@components/Context/UserContext";
 
 const schema = yup.object().shape({
-  // name: yup.string().required(),
-  // address: yup.string().required(),
-  // email: yup.string().email().required(),
-  // phone: yup.string().required(),
+  name: yup.string().required(),
+  address: yup.string().required(),
+  email: yup.string().email().required(),
+  phone: yup.string().required(),
   // website: yup.string().required(),
-  // country: yup.string().required(),
-  // state: yup.string().required(),
-  // city: yup.string().required(),
-  // zipCode: yup.string().required(),
-  // description: yup.string().required(),
+  country: yup.string().required(),
+  state: yup.string().required(),
+  city: yup.string().required(),
+  zipCode: yup.string().required(),
+  description: yup.string().required(),
 });
 
 const AddStudio = () => {
@@ -153,6 +153,10 @@ const AddStudio = () => {
         toast.success("Studio successfully created, will reload shortly");
         window.location.href = `/dashboard?studio=${result.data?.id}`;
         return;
+      }
+      if(result.statusCode == 401){
+        toast.error('Your session expired, Please login again');
+        router.push('/login')
       }
       toast.error(result.message as string);
       return;
@@ -525,7 +529,7 @@ const AddStudio = () => {
               w="full"
               color="white"
               type="submit"
-              isDisabled={!isValid}
+              // isDisabled={!isValid}
               isLoading={isSubmitting}
               _hover={{
                 bgColor: "gray.600",

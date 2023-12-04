@@ -9,6 +9,7 @@ import {
 import { AuthContext } from "@components/Context/AuthContext";
 import { ChatContext } from "@components/Context/ChatContext";
 import { db } from "@components/firebase/firebase";
+// import { db } from "@components/firebase/firebase";
 import {
   collection,
   doc,
@@ -22,27 +23,56 @@ import {
 } from "firebase/firestore";
 import { useContext, useState } from "react";
 
+
 export const Search = ({ chat, setChat }: any) => {
   const [userName, setuserName] = useState<any>("");
   const [user, setuser] = useState<any>("");
   const { currentUser } = useContext(AuthContext);
   const { dispatch } = useContext(ChatContext);
 
-  const handleSearch = async () => {
-    const q = query(
-      collection(db, "users"),
-      where("displayName" as string, "==", userName)
-    );
-    //
-    try {
-      const querySnapshot = await getDocs(q);
-
-      querySnapshot?.forEach((doc) => {
-        setuser(doc.data());
-        setChat(undefined);
-      });
-    } catch (error) {}
+  const generateUserUid = async(user: string) => {
+    const usersCollection = collection(db, 'users'); // Replace with your actual users collection name
+    const displayNameToSearch = user; // Replace with the displayName you're searching for
+    
+    const userQuery = query(usersCollection, where('displayName', '==', displayNameToSearch));
+    const userSnapshot = await getDocs(userQuery);
+    
+    if (!userSnapshot.empty) {
+      // Assuming there is only one user with the given displayName
+      const users = userSnapshot.docs[0].data();
+      return users
+    } else {
+      console.log('User not found with the given displayName.');
+      return
+      // Handle the case where the user is not found
+    }
   };
+  console.log({chat})
+  const handleSearch = async () => {
+    const chatUser = await generateUserUid(userName)
+    if(chatUser){
+      const combinedUser = currentUser?.uid > chatUser.uid
+      ? currentUser?.uid + chatUser.uid
+      : chatUser.uid + currentUser?.uid;
+    //  const foundUser = chat.find((x)=> x)
+    }
+
+    // const q = query(
+    //   collection(db, "userChats"),
+    //   where("userInfo.displayName" as string, "==", userName)
+    // );
+    // //
+    // try {
+    //   const querySnapshot = await getDocs(q);
+
+    //   querySnapshot?.forEach((doc) => {
+    //     setuser(doc.data());
+    //     setChat(undefined);
+    //   });
+    // } catch (error) {}
+  };
+
+  
 
   const handleKey = (e: any) => {
     e.code == "Enter" && handleSearch();

@@ -33,7 +33,7 @@ export const Layout: React.FC = ({ children }) => {
         <Box>{children}</Box>
       ) : (
         <>
-          {userType == "Customer" ? (
+          {user ? (
             <CustomerHeader category={category} />
           ) : (
             <Header />

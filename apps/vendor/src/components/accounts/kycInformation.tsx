@@ -162,7 +162,6 @@ export default function KycInformation({ singleStudio }: StudioProps) {
             <Widget
               publicKey="fda3a71102659f95625f"
               systemDialog
-              imagesOnly
               onFileSelect={onChangeLogoImage}
               ref={widgetLogoApi}
               // inputAcceptTypes={".jpeg,.jpg, .png"}
@@ -204,7 +203,6 @@ export default function KycInformation({ singleStudio }: StudioProps) {
             <Widget
               publicKey="fda3a71102659f95625f"
               systemDialog
-              imagesOnly
               onFileSelect={onChangeImg}
               ref={widgetApi}
               // inputAcceptTypes={".jpeg,.jpg, .png"}

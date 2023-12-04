@@ -1,5 +1,5 @@
 import {
-  Box, Button, Divider, Flex, Grid, HStack, Image, Square,
+  Box, Button, Divider, Flex, Grid, HStack, Image, ListItem, OrderedList, Square,
   Text, useDisclosure, VStack
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -22,6 +22,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
   const response = data.status?.toLowerCase();
   const id = data.id;
   const router = useRouter();
+  const additionalServiceCost = data?.additionalServices?.reduce((a,b)=> a + (b?.price as number), 0) as number
   async function acceptUserBooking(id: string) {
     setLoading({ status: true, type: "accept" });
     try {
@@ -69,6 +70,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
       });
     }
   };
+
 
   return (
     <Box
@@ -127,30 +129,32 @@ function BookingDetails({ data, closed }: DetailsProps) {
             >
               <VStack gap="1rem" align="left">
                 <BookingText top="Service Name" bottom={data.service?.name} />
-                <Box>
-                  <Text fontWeight="500" mb=".3rem">
-                    Service Image
-                  </Text>
-                  <HStack flexWrap="wrap">
-                    {data?.service?.media?.map((x: MediaView) => (
+                {(data?.service?.media as any)?.length > 0 && (
+                  <Box>
+                    <Text fontWeight="500" mb=".3rem">
+                      Service Image
+                    </Text>
+                    <HStack flexWrap="wrap">
+                      {/* {data?.service?.media?.map((x: MediaView) => ( */}
                       <Square
                         size="4.5rem"
                         borderRadius="8px"
                         bgColor="gray"
                         overflow="hidden"
-                        key={x.id}
+                      // key={x.id}
                       >
                         <Image
-                          src={x.url as string}
+                          src={data?.service?.media?.at(0)?.url as string}
                           width="full"
                           h="full"
                           objectFit="cover"
                           alt=""
                         />
                       </Square>
-                    ))}
-                  </HStack>
-                </Box>
+                      {/* ))} */}
+                    </HStack>
+                  </Box>
+                )}
                 <BookingText
                   top="Service Description"
                   bottom={data?.service?.description}
@@ -160,13 +164,13 @@ function BookingDetails({ data, closed }: DetailsProps) {
                     <Text fontWeight="500" mb="0">
                       Additional Services
                     </Text>
-                    <HStack>
+                    <OrderedList>
                       {data?.additionalServices?.map((b) => (
-                        <Text key={b.id} mb="0" fontSize="1rem" noOfLines={1}>
+                        <ListItem key={b.id} mb="0" fontSize="1rem" noOfLines={1}>
                           {b.name}
-                        </Text>
+                        </ListItem>
                       ))}
-                    </HStack>
+                    </OrderedList>
                   </>
                 )}
               </VStack>
@@ -186,25 +190,25 @@ function BookingDetails({ data, closed }: DetailsProps) {
                 <Grid templateColumns="60% auto">
                   <BookingText
                     top="Service Cost"
-                    bottom={Naira(data?.amount as number)}
-                  />
-                  <BookingText
-                    top="Transaction Fee"
-                    bottom={Naira(data.tax as number)}
+                    bottom={Naira(data?.service?.price as number)}
                   />
                 </Grid>
                 <Divider />
                 <Grid templateColumns="60% auto">
                   <BookingText
+                    top="Additional Service Cost"
+                    bottom={Naira(additionalServiceCost)}
+                  />
+                  {/* <BookingText
                     top="Sub-Total"
                     bottom={`${Naira(data?.amount as number)} + ${Naira(
                       data?.tax as number
                     )} (Transaction Fee)`}
-                  />
+                  /> */}
                   <BookingText
                     top="Total Cost"
                     bottom={Naira(
-                      (data.amount as number) + (data.tax as number)
+                      (data.service?.price as number) + (additionalServiceCost as number)
                     )}
                     color="#1570FA"
                   />

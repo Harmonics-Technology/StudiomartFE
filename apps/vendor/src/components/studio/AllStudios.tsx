@@ -37,6 +37,7 @@ const AllStudios = ({ studios }: { studios: any }) => {
         router.reload();
         toast.success(res.message as string);
         setLoading(false);
+        return
       }
       toast.error(res.message as string);
       setLoading(false);

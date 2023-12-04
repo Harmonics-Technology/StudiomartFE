@@ -37,6 +37,7 @@ export const SearchBox = ({ isOpen, onClose,url,urlb }: any) => {
   const searchAction = (x: GlobalSearchResultView) => {
     if (x.isStudio) {
       router.push(`${url}/${x?.id}`);
+      onClose()
       setSearchedData([]);
       return;
     }

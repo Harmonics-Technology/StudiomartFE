@@ -33,15 +33,17 @@ export default function HandleSelectChat({
       currentUser?.uid > chatUser.uid
         ? currentUser?.uid + chatUser.uid
         : chatUser.uid + currentUser?.uid;
-    try {
-      const res = await getDoc(doc(db, "chats", combinedId));
+
+        try {
+          const res = await getDoc(doc(db, "chats", combinedId));
 
       if (!res.exists()) {
+        console.log('yeah')
         await setDoc(doc(db, "chats", combinedId), {
           messages: [],
         });
         await updateDoc(doc(db, "userChats", currentUser?.uid), {
-          [combinedId + ".userInfo"]: {
+           [combinedId + '.userInfo']: {
             uid: chatUser.uid,
             displayName: chatUser.displayName,
             photoURL: chatUser.photoURL,
@@ -59,12 +61,14 @@ export default function HandleSelectChat({
         setLoading(false);
         router.push(url);
       } else {
+        console.log("nope")
         dispatch({ type: "CHANGE_USER", payload: chatUser });
         setLoading(false);
         router.push(url);
       }
     } catch (error) {
       setLoading(false);
+      console.log({error})
     }
   };
   return (

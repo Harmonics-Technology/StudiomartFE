@@ -15,7 +15,7 @@ export const BookingInfo = ({ bookings }: { bookings: BookingView }) => {
           : response == "rejected"
           ? `Hey there!, The service you requested has been rejected by the studio manager and the reason for rejection is "${bookings?.rejectionReason}"`
           : response == "approved"
-          ? "Hey there!, Studio Details such as Address, email, phone number, social media links e.t.c will only be visble to you when your payment has been made by you and confirmed. Kindly go ahead to Make Payment now"
+          ? "Hey there! Studio Details such as Address, email, phone number, social media links, etc. will only be visible when your payment has been made and confirmed. Please proceed to make your payment now."
           : response == "paid"
           ? "Hey there!, Your payment has been confirmed, kindly sit back and relax while we cook things up to satisfy your creative need. Necessary informations has been sent to your registered email address. Please contact support for futher questions. Thank your for choosing studiomart"
           : response == "completed"

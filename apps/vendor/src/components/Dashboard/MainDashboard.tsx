@@ -152,7 +152,7 @@ const MainDashboard = ({
                           onClick={() => router.push(`/bookings/${info?.id}`)}
                         />
                         <TableWithSub
-                          top={Naira(info?.totalAmount as number)}
+                          top={Naira(info?.amount as number)}
                           sub={""}
                         />
                         <TableWithSub
@@ -168,6 +168,8 @@ const MainDashboard = ({
                             <BsFillChatRightTextFill />
                           </Td>
                         ) : (
+                          <Td>
+
                           <HandleSelectChat
                             chatUser={{
                               uid: info.user?.id,
@@ -177,14 +179,15 @@ const MainDashboard = ({
                             url="/message"
                             setLoading={setLoading}
                           >
-                            <Td>
+                            <Box>
                               {loading ? (
                                 <BeatLoader size={8} />
                               ) : (
                                 <BsFillChatRightTextFill />
                               )}
-                            </Td>
+                            </Box>
                           </HandleSelectChat>
+                          </Td>
                         )}
 
                         <Td

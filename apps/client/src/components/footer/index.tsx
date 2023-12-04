@@ -56,10 +56,10 @@ export const Footer = ({
               </Box>
             </HStack>
             <VStack spacing="4" pt={["8", "3"]} align="flex-start">
-              <NavLink path="/all-studios" name="Rent a studio" />
+              <NavLink path="/all-studios" name="Book a studio" />
               {/* path={`${getUrlRoute().vendorUrl}/login`} */}
               <NavLink
-                path={`${getUrlRoute().vendorUrl}/login`}
+                path={`/become-a-vendor`}
                 name="Add a studio"
               />
               <Box pt="8">
@@ -126,7 +126,7 @@ export const Footer = ({
               Company
             </Text>
             <VStack spacing="5" align="flex-start">
-              <NavLink path="/about" name="About Us" />
+              {/* <NavLink path="/about" name="About Us" /> */}
               <NavLink path="/contact" name="Contact" />
             </VStack>
           </VStack>
