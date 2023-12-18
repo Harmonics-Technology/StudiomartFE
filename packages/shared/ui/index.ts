@@ -64,6 +64,7 @@ import {
 import CustomCheckbox from "./Components/utils/CustomCheckbox";
 import NotFoundPage from "./Components/utils/NotFoundPage";
 import HandleSelectChat from "./Components/utils/HandleSelectChat";
+import handleOtherErrors from './Components/utils/handleOtherErrors';
 
 export {
   ExploreStudioCard,
@@ -127,5 +128,6 @@ export {
   SearchInput,
   Loader,
   GlobalSearch,
-  SearchBox
+  SearchBox,
+  handleOtherErrors,
 };

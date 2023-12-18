@@ -9,26 +9,22 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     tokenValue.map((x: any) => Cookies.remove(x));
     router.push(path || "/login");
   };
-  const [user, setUser] = useState<any>();
+  let user;
   const loggedInUser = Cookies.get("customer");
-  const [userType, setUserType] = useState("");
-  const [device, setDevice] = useState("");
+  let userType;
+  let device;
   const router = useRouter();
   const isCustomer = Cookies.get("user");
 
-  useEffect(() => {
-    if (loggedInUser !== undefined) {
-      setUser(JSON.parse(loggedInUser));
-      isCustomer == "Customer" && setUserType(isCustomer);
-    }
+  if (loggedInUser !== undefined) {
+    user = JSON.parse(loggedInUser);
+    userType = isCustomer;
+    device = getDeviceFromUserAgent(window.navigator.userAgent);
+  }
 
-    setDevice(getDeviceFromUserAgent(window.navigator.userAgent));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const contextValue = {
     user,
-    setUser,
     logout,
     userType,
     device,

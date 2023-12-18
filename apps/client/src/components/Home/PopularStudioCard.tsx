@@ -8,7 +8,7 @@ import { BsBookmarkHeart, BsBookmarkHeartFill } from "react-icons/bs";
 import { useDummyImage } from "react-simple-placeholder-image";
 import { IPopularStudios } from "src/models/schema";
 import { StudioService } from "src/services";
-import { Cur, MenuDropdown, Naira, Rating } from "ui";
+import { Cur, MenuDropdown, Naira, Rating, handleOtherErrors } from "ui";
 
 const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
   const image = useDummyImage({});
@@ -26,20 +26,12 @@ const PopularStudioCard = ({ service, id, isSaved }: IPopularStudios) => {
         router.replace(router.asPath)
         toast.success("Added to saved items", { className: "loginToast" });
         return;
-      }
-      if(result.statusCode == 401){
-        setLoading(false);
-        toast.error('Your session expired, Please login again', { className: "loginToast" });
-        router.push('/login')
-        return
-      }
+      }  
       setLoading(false);
-      toast.error(result.message as string, { className: "loginToast" });
+      handleOtherErrors(result, toast, router)
     } catch (err: any) {
       setLoading(false);
-      toast.error(err?.body?.message || err?.message, {
-        className: "loginToast",
-      });
+     handleOtherErrors(err, toast, router)
     }
   };
   const removeSaved = async () => {

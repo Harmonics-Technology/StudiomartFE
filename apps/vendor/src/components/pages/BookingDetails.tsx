@@ -33,7 +33,7 @@ function BookingDetails({ data, closed }: DetailsProps) {
         setLoading({ status: false });
         closed();
         toast.success(
-          `You have successfully accept booking, ${data.user?.firstName} would be notify to make payment`
+          `You have successfully accept booking, ${data.user?.firstName} would be notified to make payment`
         );
         router.reload();
         return;
@@ -164,10 +164,10 @@ function BookingDetails({ data, closed }: DetailsProps) {
                     <Text fontWeight="500" mb="0">
                       Additional Services
                     </Text>
-                    <OrderedList>
+                    <OrderedList m={0}>
                       {data?.additionalServices?.map((b) => (
-                        <ListItem key={b.id} mb="0" fontSize="1rem" noOfLines={1}>
-                          {b.name}
+                        <ListItem key={b.id} mb="0" fontSize="1rem" display='list-item' listStylePosition='inside'>
+                          {b.name} - {Naira(b.price as number)}
                         </ListItem>
                       ))}
                     </OrderedList>
