@@ -328,7 +328,7 @@ const SingleBookingComponent = ({ bookings }: { bookings: BookingView }) => {
           <HStack
             h="3rem"
             gap="1rem"
-            pointerEvents={status !== "paid" ? "none" : "unset"}
+            pointerEvents={status !== "paid" && status !== 'completed' ? "none" : "unset"}
           >
             <SocialWrapper
               icon={AiFillFacebook}
