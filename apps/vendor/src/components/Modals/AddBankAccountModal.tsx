@@ -3,131 +3,140 @@ import { UserContext } from "@components/Context/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { BankAccountModel, Banks, StudioService } from "src/services";
-import { DisabledInput, ModalWrapper, PrimaryInput, PrimarySelect, useNonInitialEffect } from "ui";
+import {
+	DisabledInput,
+	ModalWrapper,
+	PrimaryInput,
+	PrimarySelect,
+	useNonInitialEffect,
+} from "ui";
 import * as yup from "yup";
 import { VerifyPasswordModal } from "./VerifyPasswordModal";
 
 const schema = yup.object().shape({
-  accountName: yup.string().required(),
-  accountNumber: yup.string().required(),
-  bankCode: yup.string().required(),
+	accountName: yup.string().required(),
+	accountNumber: yup.string().required(),
+	bankCode: yup.string().required(),
 });
 
 interface bankProps {
-  close: any;
-  open: any;
-  banks: Banks[];
-  userId: string;
+	close: any;
+	open: any;
+	banks: Banks[];
+	userId: string;
 }
 
 export default function AddBankAccountModal({
-  banks,
-  close,
-  open,
-  userId,
+	banks,
+	close,
+	open,
+	userId,
 }: bankProps) {
-  const {
-    handleSubmit,
-    register,
-    watch,
-    setValue,
+	const {
+		handleSubmit,
+		register,
+		watch,
+		setValue,
 
-    formState: { errors, isSubmitting, isValid },
-  } = useForm<BankAccountModel>({
-    resolver: yupResolver(schema),
-    mode: "all",
-  });
+		formState: { errors, isSubmitting, isValid },
+	} = useForm<BankAccountModel>({
+		resolver: yupResolver(schema),
+		mode: "all",
+	});
 
-  const router = useRouter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { currentStudioId } = useContext(UserContext);
-  let bankCode = watch("bankCode");
-  let accountNumber = watch("accountNumber");
+	const router = useRouter();
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { currentStudioId } = useContext(UserContext);
+	const [isLoading, setIsLoading] = useState(false);
+	let bankCode = watch("bankCode");
+	let accountNumber = watch("accountNumber");
 
-  //
+	//
 
-  const onSubmit = async (data: BankAccountModel) => {
-    data.bankName = banks.filter((x: Banks) => x.code == data.bankCode)[0].name;
-    data.studioId = currentStudioId;
-    try {
-      const result = await StudioService.addBankAccount({ requestBody: data });
-      if (result.status) {
-        toast.success(
-          "Your information has been saved successfully and will reload shortly"
-        );
-        router.reload();
-        return;
-      }
-      toast.error(result.message as string);
-      return;
-    } catch (error: any) {
-      toast.error(error?.body?.message || error?.message, {
-        className: "loginToast",
-      });
-    }
-  };
+	const onSubmit = async (data: BankAccountModel) => {
+		data.bankName = banks.filter((x: Banks) => x.code == data.bankCode)[0].name;
+		data.studioId = currentStudioId;
+		try {
+			const result = await StudioService.addBankAccount({ requestBody: data });
+			if (result.status) {
+				toast.success(
+					"Your information has been saved successfully and will reload shortly"
+				);
+				router.reload();
+				return;
+			}
+			toast.error(result.message as string);
+			return;
+		} catch (error: any) {
+			toast.error(error?.body?.message || error?.message, {
+				className: "loginToast",
+			});
+		}
+	};
 
-  const getBankDetails = async () => {
-    try {
-      const response = await axios.get(
-        "https://maylancer.org/api/nuban/api.php",
-        {
-          params: {
-            account_number: accountNumber,
-            bank_code: bankCode,
-          },
-        }
-      );
-      //
-      if (response.status == 200) {
-        setValue("accountName", response.data.account_name);
-        return;
-      }
-      toast.error(response.data.message, { className: "loginToast" });
-    } catch (error) {
-      console.error(error);
-      toast.error("An error occured", { className: "loginToast" });
-    }
-  };
-  useNonInitialEffect(() => {
-    getBankDetails();
-  }, [bankCode && accountNumber?.length == 10]);
+	const getBankDetails = async () => {
+		setIsLoading(true);
+		axios
+			.get(
+				`https://nubapi.com/api/verify?account_number=${accountNumber}&bank_code=${bankCode}`,
+				{
+					headers: {
+						Authorization:
+							"Bearer 0NyayB1JYetBjxhDkKHLVzqY5e3XvNAzoaDkGJKZ5560888e",
+						"Content-Type": "application/json",
+					},
+				}
+			)
+			.then((response) => {
+				setIsLoading(false);
+				setValue("accountName", response.data.account_name);
+				return;
+			})
+			.catch((error) => {
+				setIsLoading(false);
+				console.error(error);
+				toast.error("An error occured", { className: "loginToast" });
+			});
+	};
+	useNonInitialEffect(() => {
+		getBankDetails();
+	}, [bankCode && accountNumber?.length == 10]);
 
-  return (
-    <ModalWrapper
-      isOpen={open}
-      onClose={close}
-      title="Add Bank Account"
-      w="30%"
-    >
-      <Box>
-        <form>
-          <Stack gap="1rem">
-            <PrimarySelect<BankAccountModel>
-              label="Bank Name"
-              name="bankCode"
-              error={errors.bankCode}
-              register={register}
-              options={banks.map((bank: Banks) => (
-                <option value={bank.code as string} key={bank.id}>
-                  {bank.name}
-                </option>
-              ))}
-            />
-            <PrimaryInput<BankAccountModel>
-              label="Account Number"
-              type="text"
-              placeholder="Enter your account number"
-              name="accountNumber"
-              error={errors.accountNumber}
-              register={register}
-              defaultValue={""}
-            />
-            {/* <PrimaryInput<BankAccountModel>
+	return (
+		<ModalWrapper
+			isOpen={open}
+			onClose={close}
+			title="Add Bank Account"
+			w="30%"
+		>
+			<Box>
+				<form>
+					<Stack gap="1rem">
+						<PrimarySelect<BankAccountModel>
+							label="Bank Name"
+							name="bankCode"
+							error={errors.bankCode}
+							register={register}
+							options={banks.map((bank: Banks) => (
+								<option value={bank.code as string} key={bank.id}>
+									{bank.name}
+								</option>
+							))}
+						/>
+						<PrimaryInput<BankAccountModel>
+							label="Account Number"
+							type="text"
+							placeholder="Enter your account number"
+							name="accountNumber"
+							error={errors.accountNumber}
+							register={register}
+							defaultValue={""}
+						/>
+						{/* <PrimaryInput<BankAccountModel>
               label="Account Name"
               type="text"
               placeholder="Enter your account name"
@@ -136,37 +145,39 @@ export default function AddBankAccountModal({
               register={register}
               defaultValue={""}
             /> */}
-            <DisabledInput<BankAccountModel>
-              label="Account Name"
-              type="text"
-              placeholder="Enter your account name"
-              value={watch("accountName") || ""}
-              readonly={true}
-            />
-            <Flex justifyContent="flex-end" w="full">
-              <Button
-                isDisabled={!isValid}
-                bgColor="brand.100"
-                color="white"
-                width="100%"
-                type="button"
-                h="3rem"
-                onClick={onOpen}
-                isLoading={isSubmitting}
-              >
-                Add Bank Account
-              </Button>
-            </Flex>
-          </Stack>
-        </form>
-      </Box>
-      <VerifyPasswordModal
-        isOpen={isOpen}
-        onClose={onClose}
-        handleSubmit={handleSubmit(onSubmit)}
-        userId={userId}
-        submit={true}
-      />
-    </ModalWrapper>
-  );
+						<DisabledInput<BankAccountModel>
+							label="Account Name"
+							type="text"
+							placeholder="Enter your account name"
+							value={watch("accountName") || ""}
+							readonly={true}
+							icon={isLoading}
+							isSpin
+						/>
+						<Flex justifyContent="flex-end" w="full">
+							<Button
+								isDisabled={!isValid}
+								bgColor="brand.100"
+								color="white"
+								width="100%"
+								type="button"
+								h="3rem"
+								onClick={onOpen}
+								isLoading={isSubmitting}
+							>
+								Add Bank Account
+							</Button>
+						</Flex>
+					</Stack>
+				</form>
+			</Box>
+			<VerifyPasswordModal
+				isOpen={isOpen}
+				onClose={onClose}
+				handleSubmit={handleSubmit(onSubmit)}
+				userId={userId}
+				submit={true}
+			/>
+		</ModalWrapper>
+	);
 }
