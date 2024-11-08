@@ -1,35 +1,29 @@
 {
-  "$schema": "https://turborepo.org/schema.json",
-  "pipeline": {
-    "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "dist/**",
-        ".next/**"
-      ]
-    },
-    "dev": {
-      "cache": false
-    },
-    "lint": {
-      "outputs": []
-    },
-    "format": {
-      "outputs": []
-    }
-  },
-  "globalEnv": [
-    "NEXT_PUBLIC_CLIENT_URL",
-    "NEXT_PUBLIC_API_BASEURL",
-    "NEXT_PUBLIC_VENDOR_URL",
-    "NEXT_PUBLIC_GOOGLE_API_KEY",
-    "NEXT_PUBLIC_FIREBASE_KEY",
-    "NEXT_PUBLIC_UNSPLASH_KEY",
-    "NODE_ENV"
-  ],
-  "globalDependencies": [
-    ".env"
-  ]
+	"$schema": "https://turborepo.org/schema.json",
+	"pipeline": {
+		"build": {
+			"dependsOn": ["^build"],
+			"outputs": ["dist/**", ".next/**"]
+		},
+		"dev": {
+			"cache": false
+		},
+		"lint": {
+			"outputs": []
+		},
+		"format": {
+			"outputs": []
+		}
+	},
+	"globalEnv": [
+		"NEXT_PUBLIC_CLIENT_URL",
+		"NEXT_PUBLIC_API_BASEURL",
+		"NEXT_PUBLIC_VENDOR_URL",
+		"NEXT_PUBLIC_GOOGLE_API_KEY",
+		"NEXT_PUBLIC_FIREBASE_KEY",
+		"NEXT_PUBLIC_UNSPLASH_KEY",
+		"NEXT_PUBLIC_NUBAN_KEY",
+		"NODE_ENV"
+	],
+	"globalDependencies": [".env"]
 }

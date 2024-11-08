@@ -98,7 +98,7 @@ const DisabledInput = <TFormValues extends Record<string, any>>({
 								h="full"
 							>
 								{isSpin ? (
-									<Spinner />
+									<Spinner size="sm" />
 								) : (
 									<>{passwordVisible ? <FaRegEye /> : <FaRegEyeSlash />}</>
 								)}

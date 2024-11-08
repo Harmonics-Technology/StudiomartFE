@@ -37,7 +37,7 @@ const index = ({
 			bankAccounts={bankAccounts}
 			userId={userId}
 			userQuestion={userQuestion}
-			studioTransactions={studioTransactions}
+    studioTransactions={studioTransactions}
 			studioWallet={studioWallet}
 		/>
 	);

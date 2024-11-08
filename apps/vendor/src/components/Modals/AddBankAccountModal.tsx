@@ -1,4 +1,11 @@
-import { Box, Button, Flex, Stack, useDisclosure } from "@chakra-ui/react";
+import {
+	Box,
+	Button,
+	Flex,
+	Stack,
+	Text,
+	useDisclosure,
+} from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
@@ -16,6 +23,7 @@ import {
 } from "ui";
 import * as yup from "yup";
 import { VerifyPasswordModal } from "./VerifyPasswordModal";
+import { useDebouncedCallback } from "use-debounce";
 
 const schema = yup.object().shape({
 	accountName: yup.string().required(),
@@ -41,7 +49,7 @@ export default function AddBankAccountModal({
 		register,
 		watch,
 		setValue,
-
+		trigger,
 		formState: { errors, isSubmitting, isValid },
 	} = useForm<BankAccountModel>({
 		resolver: yupResolver(schema),
@@ -51,11 +59,51 @@ export default function AddBankAccountModal({
 	const router = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { currentStudioId } = useContext(UserContext);
+	const bankCode = watch("bankCode");
 	const [isLoading, setIsLoading] = useState(false);
-	let bankCode = watch("bankCode");
-	let accountNumber = watch("accountNumber");
-
+	const [error, setError] = useState("");
 	//
+
+	const getBankDetails = async (value: string) => {
+		setIsLoading(true);
+		setError("");
+
+		axios
+			.get(
+				`https://nubapi.com/api/verify?account_number=${value}&bank_code=${bankCode}`,
+				{
+					headers: {
+						Authorization: `Bearer ${process.env.NEXT_PUBLIC_NUBAN_KEY}`,
+						"Content-Type": "application/json",
+					},
+				}
+			)
+			.then((response) => {
+				console.log({ response });
+				if (response?.data?.status) {
+					setValue("accountName", response.data.account_name);
+					setValue("accountNumber", value);
+					trigger();
+					return;
+				}
+				setError(response?.data?.message);
+			})
+			.catch((error) => {
+				console.error(error);
+				toast.error("An error occured", { className: "loginToast" });
+			})
+			.finally(() => {
+				setIsLoading(false);
+			});
+	};
+
+	const getBankInfo = useDebouncedCallback((value) => {
+		setError("");
+		setValue("accountName", "");
+		if (bankCode && value?.length == 10) {
+			getBankDetails(value);
+		}
+	}, 500);
 
 	const onSubmit = async (data: BankAccountModel) => {
 		data.bankName = banks.filter((x: Banks) => x.code == data.bankCode)[0].name;
@@ -78,34 +126,6 @@ export default function AddBankAccountModal({
 		}
 	};
 
-	const getBankDetails = async () => {
-		setIsLoading(true);
-		axios
-			.get(
-				`https://nubapi.com/api/verify?account_number=${accountNumber}&bank_code=${bankCode}`,
-				{
-					headers: {
-						Authorization:
-							"Bearer 0NyayB1JYetBjxhDkKHLVzqY5e3XvNAzoaDkGJKZ5560888e",
-						"Content-Type": "application/json",
-					},
-				}
-			)
-			.then((response) => {
-				setIsLoading(false);
-				setValue("accountName", response.data.account_name);
-				return;
-			})
-			.catch((error) => {
-				setIsLoading(false);
-				console.error(error);
-				toast.error("An error occured", { className: "loginToast" });
-			});
-	};
-	useNonInitialEffect(() => {
-		getBankDetails();
-	}, [bankCode && accountNumber?.length == 10]);
-
 	return (
 		<ModalWrapper
 			isOpen={open}
@@ -127,15 +147,20 @@ export default function AddBankAccountModal({
 								</option>
 							))}
 						/>
-						<PrimaryInput<BankAccountModel>
+						<DisabledInput<BankAccountModel>
 							label="Account Number"
 							type="text"
 							placeholder="Enter your account number"
-							name="accountNumber"
-							error={errors.accountNumber}
-							register={register}
 							defaultValue={""}
+							icon={isLoading}
+							onChange={(e: any) => getBankInfo(e.target.value)}
+							isSpin
 						/>
+						{error && (
+							<Text color="red" fontSize=".8rem">
+								{error}
+							</Text>
+						)}
 						{/* <PrimaryInput<BankAccountModel>
               label="Account Name"
               type="text"

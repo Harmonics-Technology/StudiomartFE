@@ -1,4 +1,11 @@
-import { Button, Flex, Spinner, Stack, useDisclosure } from "@chakra-ui/react";
+import {
+	Button,
+	Flex,
+	Spinner,
+	Stack,
+	Text,
+	useDisclosure,
+} from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import { VerifyPasswordModal } from "@components/Modals/VerifyPasswordModal";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,14 +15,10 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { BankAccountModel, Banks, StudioService } from "src/services";
-import {
-	DisabledInput,
-	PrimaryInput,
-	PrimarySelect,
-	useNonInitialEffect,
-} from "ui";
+import { DisabledInput, PrimaryInput, PrimarySelect } from "ui";
 import * as yup from "yup";
 import AccountContainer from "./AccountContainer";
+import { useDebouncedCallback } from "use-debounce";
 
 const schema = yup.object().shape({
 	accountName: yup.string().required(),
@@ -39,7 +42,7 @@ export default function BankDetails({
 		handleSubmit,
 		register,
 		watch,
-		getValues,
+		trigger,
 		setValue,
 		formState: { errors, isSubmitting, isValid },
 	} = useForm<BankAccountModel>({
@@ -50,37 +53,50 @@ export default function BankDetails({
 	const router = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const bankCode = watch("bankCode");
-	const accountNumber = watch("accountNumber");
 	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState("");
 	//
 
-	const getBankDetails = async () => {
+	const getBankDetails = async (value: string) => {
 		setIsLoading(true);
+		setError("");
+
 		axios
 			.get(
-				`https://nubapi.com/api/verify?account_number=${accountNumber}&bank_code=${bankCode}`,
+				`https://nubapi.com/api/verify?account_number=${value}&bank_code=${bankCode}`,
 				{
 					headers: {
-						Authorization:
-							"Bearer 0NyayB1JYetBjxhDkKHLVzqY5e3XvNAzoaDkGJKZ5560888e",
+						Authorization: `Bearer ${process.env.NEXT_PUBLIC_NUBAN_KEY}`,
 						"Content-Type": "application/json",
 					},
 				}
 			)
 			.then((response) => {
-				setIsLoading(false);
-				setValue("accountName", response.data.account_name);
-				return;
+				console.log({ response });
+				if (response?.data?.status) {
+					setValue("accountName", response.data.account_name);
+					setValue("accountNumber", value);
+					trigger();
+					return;
+				}
+				setError(response?.data?.message);
 			})
 			.catch((error) => {
 				console.error(error);
-				setIsLoading(false);
 				toast.error("An error occured", { className: "loginToast" });
+			})
+			.finally(() => {
+				setIsLoading(false);
 			});
 	};
-	useNonInitialEffect(() => {
-		getBankDetails();
-	}, [bankCode && accountNumber?.length == 10]);
+
+	const getBankInfo = useDebouncedCallback((value) => {
+		setError("");
+		setValue("accountName", "");
+		if (bankCode && value?.length == 10) {
+			getBankDetails(value);
+		}
+	}, 500);
 
 	const onSubmit = async (data: BankAccountModel) => {
 		data.bankName = banks.filter((x: Banks) => x.code == data.bankCode)[0].name;
@@ -134,15 +150,21 @@ export default function BankDetails({
 								</>
 							}
 						/>
-						<PrimaryInput<BankAccountModel>
+
+						<DisabledInput<BankAccountModel>
 							label="Account Number"
 							type="text"
 							placeholder="Enter your account number"
-							name="accountNumber"
-							error={errors.accountNumber}
-							register={register}
 							defaultValue={""}
+							icon={isLoading}
+							onChange={(e: any) => getBankInfo(e.target.value)}
+							isSpin
 						/>
+						{error && (
+							<Text color="red" fontSize=".8rem">
+								{error}
+							</Text>
+						)}
 						<DisabledInput<BankAccountModel>
 							label="Account Name"
 							type="text"
@@ -150,8 +172,8 @@ export default function BankDetails({
 							defaultValue={""}
 							value={watch("accountName") || ""}
 							readonly={true}
-							icon={isLoading}
-							isSpin
+							// icon={isLoading}
+							// isSpin
 						/>
 						<Flex justifyContent="flex-end" w="full">
 							<Button
