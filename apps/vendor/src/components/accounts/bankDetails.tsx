@@ -14,7 +14,12 @@ import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { BankAccountModel, Banks, StudioService } from "src/services";
+import {
+	BankAccountModel,
+	BankResponse,
+	StudioService,
+	UtilityService,
+} from "src/services";
 import { DisabledInput, PrimaryInput, PrimarySelect } from "ui";
 import * as yup from "yup";
 import AccountContainer from "./AccountContainer";
@@ -27,7 +32,7 @@ const schema = yup.object().shape({
 });
 
 interface bankProps {
-	banks: Banks[];
+	banks: BankResponse[];
 	userId: string;
 	bankAccounts: any;
 }
@@ -61,29 +66,27 @@ export default function BankDetails({
 		setIsLoading(true);
 		setError("");
 
-		axios
-			.get(
-				`https://nubapi.com/api/verify?account_number=${value}&bank_code=${bankCode}`,
-				{
-					headers: {
-						Authorization: `Bearer ${process.env.NEXT_PUBLIC_NUBAN_KEY}`,
-						"Content-Type": "application/json",
-					},
-				}
-			)
+		await UtilityService.postApiUtilityValidateAccount({
+			requestBody: {
+				accountNumber: value,
+				bankCode,
+			},
+		})
 			.then((response) => {
 				console.log({ response });
-				if (response?.data?.status) {
-					setValue("accountName", response.data.account_name);
-					setValue("accountNumber", value);
+				if (response?.status) {
+					setValue("accountName", (response.data as any)?.accountName);
+					setValue("accountNumber", (response.data as any)?.accountNumber);
 					trigger();
 					return;
 				}
-				setError(response?.data?.message);
+				setError(response?.message as string);
 			})
 			.catch((error) => {
 				console.error(error);
-				toast.error("An error occured", { className: "loginToast" });
+				toast.error(error?.message || "An error occured", {
+					className: "loginToast",
+				});
 			})
 			.finally(() => {
 				setIsLoading(false);
@@ -99,7 +102,9 @@ export default function BankDetails({
 	}, 500);
 
 	const onSubmit = async (data: BankAccountModel) => {
-		data.bankName = banks.filter((x: Banks) => x.code == data.bankCode)[0].name;
+		data.bankName = banks.filter(
+			(x: BankResponse) => x.code == data.bankCode
+		)[0].name;
 		data.studioId = currentStudioId;
 		try {
 			const result = await StudioService.addBankAccount({ requestBody: data });
@@ -142,7 +147,7 @@ export default function BankDetails({
 									<option hidden selected>
 										Select a bank
 									</option>
-									{banks.map((bank: Banks) => (
+									{banks.map((bank: BankResponse) => (
 										<option value={bank.code as string} key={bank.id}>
 											{bank.name}
 										</option>

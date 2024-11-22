@@ -21,4 +21,6 @@ export type StudioModel = {
     twitter?: string | null;
     linkedIn?: string | null;
     youTube?: string | null;
+    university?: string | null;
+    studioTourVideo?: string | null;
 };

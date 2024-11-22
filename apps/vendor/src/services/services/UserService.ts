@@ -428,4 +428,31 @@ requestBody?: PasswordVerificationModel,
         });
     }
 
+    /**
+     * Resend Verification Email
+     * @returns BooleanStandardResponse Success
+     * @throws ApiError
+     */
+    public static resendEmailVerification({
+email,
+device,
+}: {
+email?: string,
+device?: any,
+}): CancelablePromise<BooleanStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/User/resend-email-verification',
+            headers: {
+                'device': device,
+            },
+            query: {
+                'email': email,
+            },
+            errors: {
+                400: `Bad Request`,
+            },
+        });
+    }
+
 }

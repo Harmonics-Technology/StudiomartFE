@@ -25,4 +25,5 @@ export type StudioView = {
     twitter?: string | null;
     linkedIn?: string | null;
     youTube?: string | null;
+    isSaved?: boolean;
 };

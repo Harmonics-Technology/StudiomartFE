@@ -29,4 +29,7 @@ export type User = {
     allowSmsNotification?: boolean;
     allowEmailNotification?: boolean;
     allowPushNotification?: boolean;
+    isStudent?: boolean;
+    university?: string | null;
+    interests?: string | null;
 };

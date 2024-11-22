@@ -14,4 +14,6 @@ export type UserView = {
     allowSmsNotification?: boolean;
     allowEmailNotification?: boolean;
     allowPushNotification?: boolean;
+    isStudent?: boolean;
+    university?: string | null;
 };

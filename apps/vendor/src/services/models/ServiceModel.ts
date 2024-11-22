@@ -13,4 +13,5 @@ export type ServiceModel = {
     additionalServices?: Array<AdditionalServiceModel> | null;
     studioId?: string;
     serviceTypeId?: string;
+    university?: string | null;
 };

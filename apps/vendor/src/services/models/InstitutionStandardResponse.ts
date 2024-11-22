@@ -2,10 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Banks } from './Banks';
 import type { HttpStatusCode } from './HttpStatusCode';
+import type { Institution } from './Institution';
 
-export type BanksIEnumerableStandardResponse = {
+export type InstitutionStandardResponse = {
     href?: string | null;
     relations?: Array<string> | null;
     method?: string | null;
@@ -13,7 +13,7 @@ export type BanksIEnumerableStandardResponse = {
     routeValues?: any;
     status?: boolean;
     message?: string | null;
-    data?: Array<Banks> | null;
+    data?: Institution;
     statusCode?: HttpStatusCode;
     errors?: any;
 };

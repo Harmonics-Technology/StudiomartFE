@@ -9,4 +9,6 @@ export type RegisterModel = {
     password?: string | null;
     confirmPassword?: string | null;
     phoneNumber?: string | null;
+    isStudent?: boolean;
+    university?: string | null;
 };

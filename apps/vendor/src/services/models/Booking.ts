@@ -3,6 +3,8 @@
 /* eslint-disable */
 
 import type { AdditionalService } from './AdditionalService';
+import type { BookingTransfer } from './BookingTransfer';
+import type { GiftRecipient } from './GiftRecipient';
 import type { Service } from './Service';
 import type { Status } from './Status';
 import type { TimeOnly } from './TimeOnly';
@@ -27,7 +29,12 @@ export type Booking = {
     status?: Status;
     statusId?: number;
     amountBeforeDiscount?: number;
+    isGift?: boolean;
+    giftRecipientId?: string | null;
+    giftRecipient?: GiftRecipient;
     voucherId?: string | null;
     voucher?: Voucher;
     additionalServices?: Array<AdditionalService> | null;
+    bookingTransferId?: string | null;
+    bookingTransfer?: BookingTransfer;
 };

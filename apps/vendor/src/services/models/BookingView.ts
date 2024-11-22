@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import type { AdditionalServiceView } from './AdditionalServiceView';
+import type { GiftRecipientModel } from './GiftRecipientModel';
 import type { ServiceView } from './ServiceView';
 import type { TimeOnly } from './TimeOnly';
 import type { UserView } from './UserView';
@@ -23,5 +24,7 @@ export type BookingView = {
     status?: string | null;
     voucher?: Voucher;
     rejectionReason?: string | null;
+    isGift?: boolean;
+    giftRecipient?: GiftRecipientModel;
     additionalServices?: Array<AdditionalServiceView> | null;
 };

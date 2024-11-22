@@ -3,7 +3,7 @@ import MainWallet from "@components/wallet/MainWallet";
 import { GetServerSideProps } from "next";
 import {
 	BankAccount,
-	Banks,
+	BankResponse,
 	StudioService,
 	TransactionViewPagedCollection,
 	UserService,
@@ -16,7 +16,7 @@ import { FilterPagingOptions } from "ui";
 import axios from "axios";
 
 interface WalletViewProps {
-	banks: Banks[];
+	banks: BankResponse[];
 	bankAccounts: BankAccount[];
 	userId: string;
 	userQuestion: any;
@@ -37,7 +37,7 @@ const index = ({
 			bankAccounts={bankAccounts}
 			userId={userId}
 			userQuestion={userQuestion}
-    studioTransactions={studioTransactions}
+			studioTransactions={studioTransactions}
 			studioWallet={studioWallet}
 		/>
 	);
@@ -52,8 +52,8 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
 		const pagingOption = FilterPagingOptions(ctx);
 
 		try {
-			// const banks = await UtilityService.getApiUtilityBanks({});
-			const banks = await axios.get("https://nubapi.com/bank-json");
+			const banks = await UtilityService.getApiUtilityBanks({});
+			// const banks = await axios.get("https://nubapi.com/bank-json");
 			const bankAccounts = await StudioService.getBankAccounts({
 				id: currentStudioId,
 			});

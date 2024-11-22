@@ -3,6 +3,7 @@
 /* eslint-disable */
 import type { BookingModel } from '../models/BookingModel';
 import type { BookingStatus } from '../models/BookingStatus';
+import type { BookingTransferModel } from '../models/BookingTransferModel';
 import type { BookingViewPagedCollectionStandardResponse } from '../models/BookingViewPagedCollectionStandardResponse';
 import type { BookingViewStandardResponse } from '../models/BookingViewStandardResponse';
 import type { BooleanStandardResponse } from '../models/BooleanStandardResponse';
@@ -337,6 +338,33 @@ device?: any,
             query: {
                 'bookingId': bookingId,
             },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
+            },
+        });
+    }
+
+    /**
+     * Transfer booking to another user
+     * @returns BooleanStandardResponse Success
+     * @throws ApiError
+     */
+    public static transferBooking({
+device,
+requestBody,
+}: {
+device?: any,
+requestBody?: BookingTransferModel,
+}): CancelablePromise<BooleanStandardResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Booking/transfer',
+            headers: {
+                'device': device,
+            },
+            body: requestBody,
+            mediaType: 'application/json-patch+json',
             errors: {
                 400: `Bad Request`,
                 500: `Server Error`,

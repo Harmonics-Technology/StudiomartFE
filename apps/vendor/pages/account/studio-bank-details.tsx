@@ -2,11 +2,11 @@ import BankDetails from "@components/accounts/bankDetails";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import React from "react";
-import { Banks, StudioService, UtilityService } from "src/services";
+import { BankResponse, StudioService, UtilityService } from "src/services";
 import { withPageAuth } from "src/utils/withPageAuth";
 
 interface bankProps {
-	banks: Banks[];
+	banks: BankResponse[];
 	bankAccounts: any;
 	userId: string;
 }
@@ -23,8 +23,8 @@ export const getServerSideProps: GetServerSideProps = withPageAuth(
 		const currentStudioId = ctx.req.cookies.currentStudioId;
 		const userId = JSON.parse(ctx.req.cookies.vendor).id;
 		try {
-			// const banks = await UtilityService.getApiUtilityBanks({});
-			const banks = await axios.get("https://nubapi.com/bank-json");
+			const banks = await UtilityService.getApiUtilityBanks({});
+			// const banks = await axios.get("https://nubapi.com/bank-json");
 			const bankAccounts = await StudioService.getBankAccounts({
 				id: currentStudioId,
 			});
