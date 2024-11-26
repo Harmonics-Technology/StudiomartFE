@@ -3,7 +3,7 @@ import { UserContext } from "@components/Context/UserContext";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import { useDummyImage } from "react-simple-placeholder-image";
+// import { useDummyImage } from "react-simple-placeholder-image";
 
 import { MenuDropdown } from "ui";
 
@@ -14,10 +14,8 @@ const StudioCard = ({
 	studio: any;
 	deleteStudio: any;
 }) => {
-	const [isClient, setClient] = useState(false);
-
-	const image = useDummyImage({});
-	// const image = "/assets/003.jpg";
+	// const image = useDummyImage({});
+	const image = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjI5LCAyMjksIDIyOSk7Ij48dGV4dCBmaWxsPSIjZjlmOWY5IiBmb250LXNpemU9IjE1JSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zMDAgeCAzMDA8L3RleHQ+PC9zdmc+";
 	const router = useRouter();
 	const { setCurrentStudioId } = useContext(UserContext);
 
@@ -27,13 +25,6 @@ const StudioCard = ({
 		router.push(`/studio/service/${studio?.id}`);
 	};
 
-	useEffect(() => {
-		setClient(true);
-	}, []);
-
-	if (!isClient) {
-		return null; // Don't render anything on the server
-	}
 
 	return (
 		<Box
