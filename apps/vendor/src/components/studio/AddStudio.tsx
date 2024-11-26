@@ -47,7 +47,10 @@ const schema = yup.object().shape({
 	name: yup.string().required(),
 	address: yup.string().required(),
 	email: yup.string().email().required(),
-	phone: yup.number().required().min(11).max(11),
+	phone: yup
+		.string()
+		.matches(/^\d{11}$/, "Invalid number! Please enter exactly 11 digits.")
+		.required("Phone number is required."),
 	// website: yup.string().required(),
 	country: yup.string().required(),
 	state: yup.string().required(),
