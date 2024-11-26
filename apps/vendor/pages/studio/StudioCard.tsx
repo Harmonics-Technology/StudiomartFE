@@ -2,8 +2,9 @@ import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { UserContext } from "@components/Context/UserContext";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDummyImage } from "react-simple-placeholder-image";
+
 import { MenuDropdown } from "ui";
 
 const StudioCard = ({
@@ -13,6 +14,8 @@ const StudioCard = ({
 	studio: any;
 	deleteStudio: any;
 }) => {
+	const [isClient, setClient] = useState(false);
+
 	const image = useDummyImage({});
 	// const image = "/assets/003.jpg";
 	const router = useRouter();
@@ -23,6 +26,14 @@ const StudioCard = ({
 		Cookies.set("currentStudioId", studio?.id);
 		router.push(`/studio/service/${studio?.id}`);
 	};
+
+	useEffect(() => {
+		setClient(true);
+	}, []);
+
+	if (!isClient) {
+		return null; // Don't render anything on the server
+	}
 
 	return (
 		<Box
