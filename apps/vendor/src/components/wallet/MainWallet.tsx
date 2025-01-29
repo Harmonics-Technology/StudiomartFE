@@ -302,6 +302,7 @@ const MainWallet = ({
 												name="walletPin"
 												error={errors.walletPin}
 												register={register}
+												type="password"
 											/>
 											<PrimaryInput<WithdrawalModel>
 												label={`${userQuestion?.message}?`}
